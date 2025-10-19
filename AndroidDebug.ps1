@@ -1,3 +1,4 @@
+# Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 # adb.exe 完整路径
 $adb = "D:\AndroidEnv\SDK\platform-tools\adb.exe"
 

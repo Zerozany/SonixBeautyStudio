@@ -19,15 +19,14 @@ set_source_files_properties(${QMLSINGLETONS}
     QT_QML_SINGLETON_TYPE TRUE
 )
 
-set(QT_QML_GENERATE_QMLLS_INI ON)
-set(QT_QML_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/qmlimports")
-
+# set(QT_QML_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/qmlimports")
 qt_add_qml_module(${PROJECT_NAME}
     URI "${PROJECT_NAME}"
     VERSION 1.0
     RESOURCE_PREFIX "/"
     QML_FILES ${QFILES} ${QMLSINGLETONS}
     SOURCES ${SRCLIST}
+    OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/qmlimports/${PROJECT_NAME}"
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC
