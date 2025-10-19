@@ -40,8 +40,8 @@ Item {
             }
 
             Text {
-                color: rectangle.pressedTag ? root.textColorPressed : root.textColor
                 text: root.text
+                color: rectangle.pressedTag ? root.textColorPressed : root.textColor
                 Layout.preferredWidth: Math.min(contentWidth, root.width)
                 Layout.preferredHeight: Math.min(contentHeight, root.height)
                 wrapMode: Text.WordWrap
@@ -66,8 +66,8 @@ Item {
             }
 
             Text {
-                color: rectangle.pressedTag ? root.textColorPressed : root.textColor
                 text: root.text
+                color: rectangle.pressedTag ? root.textColorPressed : root.textColor
                 Layout.preferredWidth: Math.min(contentWidth, root.width)
                 Layout.preferredHeight: Math.min(contentHeight, root.height)
                 wrapMode: Text.WordWrap

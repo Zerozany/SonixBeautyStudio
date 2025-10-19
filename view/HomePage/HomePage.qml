@@ -8,6 +8,9 @@ Item {
     readonly property int spacing: 5
     readonly property int margins: 5
     readonly property int borderWidth: 0
+    readonly property int titleHeight: 40
+    readonly property string titleName: "设备列表"
+    readonly property string titleSource: "qrc:/view/resource/HomePageIcons/DeviceList.png"
     readonly property var elementRadius: ThemeManager.currentTheme["elementRadius"]
     readonly property var elementColor: ThemeManager.currentTheme["elementColor"]
     readonly property var borderColor: ThemeManager.currentTheme["borderColor"]
@@ -25,20 +28,21 @@ Item {
             spacing: root.spacing
 
             Row {
+                id: titleRow
                 width: parent.width
-                height: 40
-                anchors.leftMargin: 5
+                height: root.titleHeight
+                anchors.leftMargin: root.margins
 
                 ImageLabel {
                     height: parent.height
-                    text: qsTr("设备列表")
-                    source: "qrc:/view/resource/HomePageIcons/DeviceList.png"
+                    text: qsTr(root.titleName)
+                    source: root.titleSource
                 }
             }
 
             ScrollView {
                 width: parent.width
-                height: parent.height - 40
+                height: parent.height - titleRow.height - (root.margins * 1)
                 clip: true
                 ScrollBar.vertical.policy: ScrollBar.AlwaysOff
                 ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
