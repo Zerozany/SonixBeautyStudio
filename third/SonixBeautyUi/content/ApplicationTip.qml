@@ -9,29 +9,31 @@ Rectangle {
     y: window.height / 4
     width: window.width / 3
 
-    property var tipText: null
+    property var text: null
     property var interval: 2000
     property var window: null
 
+    readonly property int margins: 5
+    readonly property int pointSize: 14
     readonly property var elementRadius: ThemeManager.currentTheme["elementRadius"]
     readonly property var elementColor: ThemeManager.currentTheme["elementColor"]
     readonly property color textColor: ThemeManager.currentTheme["textColor"]
 
     Text {
-        id: textTiper
+        id: tipText
         width: root.width
-        anchors.margins: 5
+        anchors.margins: root.margins
         color: root.textColor
-        text: root.tipText
+        text: root.text
         wrapMode: Text.WordWrap
-        font.pointSize: 14
+        font.pointSize: root.pointSize
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
     }
 
     Component.onCompleted: {
         if (window) {
-            root.height = textTiper.implicitHeight;
+            root.height = tipText.implicitHeight;
         }
     }
 

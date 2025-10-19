@@ -7,10 +7,10 @@ Item {
     property var text: null
     property var source: null
     property var sourcePressed: null
+    property var fontBold: false
     property var layout: Qt.Horizontal
 
-    readonly property int spacing: 5
-    readonly property int fontSize: 14
+    readonly property int spacing: 2
     readonly property color textColor: ThemeManager.currentTheme["textColor"]
     readonly property color buttonColor: ThemeManager.currentTheme["buttonColor"]
     readonly property var elementRadius: ThemeManager.currentTheme["elementRadius"]
@@ -27,13 +27,13 @@ Item {
         property bool pressedTag: false
 
         ColumnLayout {
-            anchors.centerIn: parent
+            anchors.fill: parent
             spacing: root.spacing
             visible: root.layout == Qt.Horizontal ? true : false
 
             Image {
-                Layout.preferredWidth: root.width / 2
-                Layout.preferredHeight: root.height / 4
+                Layout.preferredWidth: Math.min(implicitWidth, root.width)
+                Layout.preferredHeight: Math.min(implicitHeight, root.height)
                 source: rectangle.pressedTag ? root.sourcePressed : root.source
                 fillMode: Image.PreserveAspectFit
                 Layout.alignment: Qt.AlignHCenter
@@ -42,10 +42,12 @@ Item {
             Text {
                 color: rectangle.pressedTag ? root.textColorPressed : root.textColor
                 text: root.text
-                font.pixelSize: root.fontSize
+                Layout.preferredWidth: Math.min(contentWidth, root.width)
+                Layout.preferredHeight: Math.min(contentHeight, root.height)
                 wrapMode: Text.WordWrap
+                font.pixelSize: Math.floor(root.height * (1 / 2))
+                font.bold: root.fontBold
                 // font.family: root.textFontFamily
-                verticalAlignment: Text.AlignVCenter
                 Layout.alignment: Qt.AlignHCenter
             }
         }
@@ -56,20 +58,22 @@ Item {
             visible: root.layout == Qt.Vertical ? true : false
 
             Image {
-                Layout.preferredWidth: root.width / 4
-                Layout.preferredHeight: root.height / 2
+                Layout.preferredWidth: Math.min(implicitWidth, root.width)
+                Layout.preferredHeight: Math.min(implicitHeight, root.height)
                 source: rectangle.pressedTag ? root.sourcePressed : root.source
                 fillMode: Image.PreserveAspectFit
-                Layout.alignment: Qt.AlignVCenter
+                Layout.alignment: Qt.AlignHCenter
             }
 
             Text {
                 color: rectangle.pressedTag ? root.textColorPressed : root.textColor
                 text: root.text
-                font.pixelSize: root.fontSize
+                Layout.preferredWidth: Math.min(contentWidth, root.width)
+                Layout.preferredHeight: Math.min(contentHeight, root.height)
                 wrapMode: Text.WordWrap
+                font.pixelSize: Math.floor(root.height * (1 / 2))
+                font.bold: root.fontBold
                 // font.family: root.textFontFamily
-                verticalAlignment: Text.AlignVCenter
                 Layout.alignment: Qt.AlignVCenter
             }
         }
@@ -82,6 +86,10 @@ Item {
             }
 
             onReleased: {
+                rectangle.pressedTag = false;
+            }
+
+            onCanceled: {
                 rectangle.pressedTag = false;
             }
 

@@ -4,7 +4,6 @@ import "HomePage"
 
 Rectangle {
     id: root
-
     anchors.fill: parent
 
     color: ThemeManager.currentTheme["backgroundColor"]

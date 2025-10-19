@@ -7,31 +7,33 @@ Item {
     property var deviceName: null
 
     readonly property int spacing: 5
+    readonly property int margins: 10
     readonly property int borderWidth: 1
-    readonly property int fontSize: 14
+    readonly property string buttonText: "连接"
+    readonly property string buttonSource: "qrc:/view/resource/HomePageIcons/connect.png"
+    readonly property string buttonSourcePressed: "qrc:/view/resource/HomePageIcons/connectPressed.png"
     readonly property string deviceImageSource: "qrc:/view/resource/HomePageIcons/ProbeDevice.png"
     readonly property var elementRadius: ThemeManager.currentTheme["elementRadius"]
-    readonly property var elementColor: ThemeManager.currentTheme["backgroundColor"]
+    readonly property var probeDeviceColor: ThemeManager.currentTheme["probeDeviceColor"]
     readonly property var borderColor: ThemeManager.currentTheme["borderColor"]
 
     Rectangle {
         anchors.fill: parent
         radius: root.elementRadius
-        color: root.elementColor
+        color: root.probeDeviceColor
         border.color: root.borderColor
         border.width: root.borderWidth
 
         RowLayout {
             anchors.fill: parent
+            anchors.margins: root.margins
             spacing: root.spacing
 
             ImageLabel {
-                Layout.preferredWidth: 150
-                Layout.preferredHeight: 40
-                Layout.leftMargin: 30
+                Layout.preferredHeight: (root.height - (root.margins * 2)) * 0.65
+                Layout.preferredWidth: implicitWidth
                 text: root.deviceName
                 source: root.deviceImageSource
-                fontSize: root.fontSize
                 fontBold: true
                 Layout.alignment: Qt.AlignVCenter
             }
@@ -41,13 +43,13 @@ Item {
             }
 
             SButton {
-                text: qsTr("连接")
-                Layout.preferredWidth: 80
-                Layout.preferredHeight: 35
-                Layout.rightMargin: 30
+                text: qsTr(root.buttonText)
+                Layout.preferredWidth: root.width * 0.1
+                Layout.preferredHeight: (root.height - (root.margins * 2)) * 0.6
                 layout: Qt.Vertical
-                source: "qrc:/view/resource/HomePageIcons/connect.png"
-                sourcePressed: "qrc:/view/resource/HomePageIcons/connectPressed.png"
+                fontBold: false
+                source: root.buttonSource
+                sourcePressed: root.buttonSourcePressed
                 Layout.alignment: Qt.AlignVCenter
             }
         }

@@ -6,40 +6,46 @@ Item {
     id: root
     property var text: null
     property var source: null
-    property var fontSize: 14
     property var fontBold: false
 
     readonly property int spacing: 0
+    readonly property color labelColor: "transparent"
     readonly property color textColor: ThemeManager.currentTheme["textColor"]
-    readonly property color elementColor: ThemeManager.currentTheme["elementColor"]
     readonly property var elementRadius: ThemeManager.currentTheme["elementRadius"]
     // readonly property var textFontFamily: ThemeManager.fontFamily
 
     Rectangle {
         anchors.fill: parent
         radius: root.elementRadius
-        color: root.elementColor
+        color: root.labelColor
 
         RowLayout {
-            anchors.centerIn: parent
+            anchors.fill: parent
             spacing: root.spacing
 
             Image {
-                Layout.preferredWidth: root.width / 4
-                Layout.preferredHeight: root.height / 2
+                id: labelImage
+                Layout.preferredWidth: Math.min(implicitWidth, root.width)
+                Layout.preferredHeight: Math.min(implicitHeight, root.height)
                 source: root.source
                 fillMode: Image.PreserveAspectFit
                 Layout.alignment: Qt.AlignVCenter
             }
 
             Text {
+                id: labelText
                 text: root.text
+                Layout.preferredWidth: Math.min(contentWidth, root.width)
+                Layout.preferredHeight: Math.min(contentHeight, root.height)
                 color: root.textColor
-                font.pixelSize: root.fontSize
+                font.pixelSize: Math.floor(root.height * (1 / 2))
                 font.bold: root.fontBold
-                verticalAlignment: Text.AlignVCenter
                 Layout.alignment: Qt.AlignVCenter
             }
         }
+    }
+
+    Component.onCompleted: {
+        root.width = labelImage.implicitWidth + labelText.implicitWidth + root.spacing;
     }
 }
