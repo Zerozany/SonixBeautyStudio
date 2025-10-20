@@ -2,18 +2,27 @@ import QtQuick
 import SonixBeautyUi
 import "HomePage"
 
-Rectangle {
+Item {
     id: root
-    anchors.fill: parent
 
-    color: ThemeManager.currentTheme["backgroundColor"]
+    property var backgroundColor: null
 
-    HomePage {
-        id: homePage
-        width: root.width * (2 / 3)
-        height: root.height * (1 / 2)
-        anchors.horizontalCenter: root.horizontalCenter
-        anchors.bottom: root.bottom
-        anchors.bottomMargin: root.height * 0.05
+    readonly property int appTopMargin: 25
+    readonly property int appbottomMargin: 15
+
+    Rectangle {
+        anchors.fill: parent
+        anchors.topMargin: root.appTopMargin
+        anchors.bottomMargin: root.appbottomMargin
+        color: root.backgroundColor
+
+        HomePage {
+            id: homePage
+            width: parent.width * (2 / 3)
+            height: parent.height * 0.5
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: parent.height * 0.04
+        }
     }
 }

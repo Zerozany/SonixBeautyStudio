@@ -53,49 +53,49 @@ Item {
 
                     ProbeDevice {
                         width: parent.width
-                        height: 80
+                        height: 70
                         deviceName: "US06-9C50D101E37E"
                     }
 
                     ProbeDevice {
                         width: parent.width
-                        height: 80
+                        height: 70
                         deviceName: "US07-9C50D101E37E"
                     }
 
                     ProbeDevice {
                         width: parent.width
-                        height: 80
+                        height: 70
                         deviceName: "US08-9C50D101E37E"
                     }
 
                     ProbeDevice {
                         width: parent.width
-                        height: 80
+                        height: 70
                         deviceName: "US09-9C50D101E37E"
                     }
 
                     ProbeDevice {
                         width: parent.width
-                        height: 80
+                        height: 70
                         deviceName: "US10-9C50D101E37E"
                     }
 
                     ProbeDevice {
                         width: parent.width
-                        height: 80
+                        height: 70
                         deviceName: "US10-9C50D101E37E"
                     }
 
                     ProbeDevice {
                         width: parent.width
-                        height: 80
+                        height: 70
                         deviceName: "US10-9C50D101E37E"
                     }
 
                     ProbeDevice {
                         width: parent.width
-                        height: 80
+                        height: 70
                         deviceName: "US10-9C50D101E37E"
                     }
                 }

@@ -1,4 +1,5 @@
 import QtQuick.Window
+import SonixBeautyUi
 
 Window {
     id: appWindow
@@ -7,8 +8,12 @@ Window {
     // 无边框
     flags: Qt.FramelessWindowHint
 
+    color: ThemeManager.currentTheme["backgroundColor"]
+
     App {
         id: qUi
+        anchors.fill: parent
+        backgroundColor: appWindow.color
     }
 
     Component.onCompleted: {}
