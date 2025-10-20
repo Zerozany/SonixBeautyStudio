@@ -40,15 +40,16 @@ Item {
                 }
             }
 
-            ScrollView {
+            Flickable {
                 width: parent.width
-                height: parent.height - titleRow.height - (root.margins * 1)
+                height: parent.height - titleRow.height - root.spacing
+                contentWidth: width
+                contentHeight: column.height
                 clip: true
-                ScrollBar.vertical.policy: ScrollBar.AlwaysOff
-                ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
 
                 Column {
-                    anchors.fill: parent
+                    id: column
+                    width: parent.width
                     spacing: root.spacing
 
                     ProbeDevice {

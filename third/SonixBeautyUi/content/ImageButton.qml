@@ -21,7 +21,7 @@ Item {
         if (pos.x - (imagePupup.width / 2) + (root.width / 2) <= 0) {
             return root.x + root.margins;
         }
-        if (pos.x + (root.width / 2) + (imagePupup.width / 2) >= Screen.width) {
+        if (pos.x + imagePupup.width >= Screen.width) {
             return root.width - imagePupup.width - root.margins;
         }
         return (root.width / 2) - (imagePupup.width / 2);
