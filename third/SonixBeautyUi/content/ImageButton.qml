@@ -5,34 +5,65 @@ import QtQuick.Window
 
 Item {
     id: root
-    property var text: null
-    property var source: null
-    property var sourcePressed: null
-
-    readonly property int margins: 5
-    readonly property string elementColor: "transparent"
-    readonly property var elementRadius: ThemeManager.currentTheme["elementRadius"]
-    readonly property color textColor: ThemeManager.currentTheme["textColor"]
 
     signal clicked
 
+    property var text: null
+    property var source: null
+    property var sourcePressed: null
+    property bool borderTag: false
+
+    readonly property int margins: 5
+    readonly property int borderWidth: 1
+    readonly property string elementColor: "transparent"
+    readonly property var elementRadius: ThemeManager.currentTheme["elementRadius"]
+    readonly property color textColor: ThemeManager.currentTheme["textColor"]
+    readonly property var borderColor: ThemeManager.currentTheme["borderColor"]
+
+    onXChanged: {
+        Qt.callLater(() => {
+            imagePupup.x = root._popupX();
+        });
+    }
+
+    onYChanged: {
+        Qt.callLater(() => {
+            imagePupup.y = root._popupY();
+        });
+    }
+
+    onWidthChanged: {
+        Qt.callLater(() => {
+            imagePupup.x = root._popupX();
+        });
+    }
+
+    onHeightChanged: {
+        Qt.callLater(() => {
+            imagePupup.y = root._popupY();
+        });
+    }
+
     function _popupX() {
         var pos = root.mapToItem(null, 0, 0);
-        if (pos.x - (imagePupup.width / 2) + (root.width / 2) <= 0) {
-            return root.x + root.margins;
+        if (pos.x - Math.abs(imagePupup.width - root.width) / 2 <= 0) {
+            console.log(1);
+            return 0;
         }
-        if (pos.x + imagePupup.width >= Screen.width) {
-            return root.width - imagePupup.width - root.margins;
+        if (pos.x + root.width + Math.abs(imagePupup.width - root.width) / 2 >= Screen.width) {
+            console.log(2);
+            return -(Math.abs(root.width - imagePupup.width));
         }
-        return (root.width / 2) - (imagePupup.width / 2);
+        console.log(3);
+        return (root.width >= imagePupup.width) ? -(root.width - imagePupup.width) / 2 : (root.width - imagePupup.width) / 2;
     }
 
     function _popupY() {
         var pos = root.mapToItem(null, 0, 0);
-        if (pos.y + root.height + imagePupup.height >= Screen.height) {
-            return -imagePupup.height;
+        if (pos.y + root.height + imagePupup.height + root.margins >= Screen.height) {
+            return -(imagePupup.height + root.margins);
         }
-        return root.height;
+        return root.height + root.margins;
     }
 
     Rectangle {
@@ -40,6 +71,8 @@ Item {
         anchors.fill: parent
         radius: root.elementRadius
         color: root.elementColor
+        border.width: root.borderTag ? root.borderWidth : null
+        border.color: root.borderTag ? root.borderColor : null
         property bool pressedTag: false
 
         Image {
@@ -54,8 +87,9 @@ Item {
         id: imagePupup
         modal: false
         focus: false
-        height: rectangle.height / 2
-        visible: rectangle.pressedTag ? true : false
+        height: root.height / 2
+        width: imageText.implicitWidth + (root.margins * 2)
+        visible: rectangle.pressedTag && root.text.length ? true : false
 
         contentItem: Rectangle {
             anchors.fill: parent
@@ -76,17 +110,19 @@ Item {
         }
     }
 
-    Component.onCompleted: {
-        imagePupup.width = imageText.implicitWidth + (root.margins * 2);
-        imagePupup.x = _popupX();
-        imagePupup.y = _popupY();
-    }
-
     MouseArea {
         anchors.fill: parent
+        hoverEnabled: true
 
         onPressed: {
             rectangle.pressedTag = true;
+        }
+
+        onPositionChanged: mouse => {
+            if (!containsMouse && pressed) {
+                rectangle.pressedTag = false;
+                mouse.accepted = false;
+            }
         }
 
         onReleased: {

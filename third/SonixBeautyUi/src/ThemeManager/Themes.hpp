@@ -11,7 +11,7 @@ namespace Themes
         {"buttonColor", QColor{"#FFFFFF"}},
         {"elementRadius", 6},
         {"elementColor", QColor{"#FFFFFF"}},
-        {"borderColor", QColor{"#66e1e1"}},
+        {"borderColor", QColor{"#cdcdcd"}},
         {"probeDeviceColor", QColor{"#66e1e1"}},
     };
 

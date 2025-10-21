@@ -8,21 +8,17 @@ Item {
 
     readonly property int spacing: 5
     readonly property int margins: 10
-    readonly property int borderWidth: 1
     readonly property string buttonText: "连接"
     readonly property string buttonSource: "qrc:/view/resource/HomePageIcons/connect.png"
     readonly property string buttonSourcePressed: "qrc:/view/resource/HomePageIcons/connectPressed.png"
     readonly property string deviceImageSource: "qrc:/view/resource/HomePageIcons/ProbeDevice.png"
     readonly property var elementRadius: ThemeManager.currentTheme["elementRadius"]
     readonly property var probeDeviceColor: ThemeManager.currentTheme["probeDeviceColor"]
-    readonly property var borderColor: ThemeManager.currentTheme["borderColor"]
 
     Rectangle {
         anchors.fill: parent
         radius: root.elementRadius
         color: root.probeDeviceColor
-        border.color: root.borderColor
-        border.width: root.borderWidth
 
         RowLayout {
             anchors.fill: parent

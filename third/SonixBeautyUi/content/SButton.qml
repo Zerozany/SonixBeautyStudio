@@ -80,9 +80,17 @@ Item {
 
         MouseArea {
             anchors.fill: parent
+            hoverEnabled: true
 
             onPressed: {
                 rectangle.pressedTag = true;
+            }
+
+            onPositionChanged: mouse => {
+                if (!containsMouse && pressed) {
+                    rectangle.pressedTag = false;
+                    mouse.accepted = false;
+                }
             }
 
             onReleased: {
