@@ -4,6 +4,9 @@ import QtQuick.Layouts
 
 Item {
     id: root
+
+    signal clicked
+
     property var text: null
     property var source: null
     property var sourcePressed: null
@@ -16,8 +19,6 @@ Item {
     readonly property var elementRadius: ThemeManager.currentTheme["elementRadius"]
     readonly property var textColorPressed: ThemeManager.currentTheme["textColorPressed"]
     // readonly property var textFontFamily: ThemeManager.fontFamily
-
-    signal clicked
 
     Rectangle {
         id: rectangle
