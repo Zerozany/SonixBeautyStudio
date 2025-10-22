@@ -48,24 +48,24 @@ Item {
         }
     }
 
-    // SequentialAnimation {
-    //     running: true
+    SequentialAnimation {
+        running: true
 
-    //     NumberAnimation {
-    //         target: root
-    //         property: "x"
-    //         duration: 150
-    //         from: root.layout === root.sidebarLayout.Left ? -(root.width) : Screen.width
-    //         to: root.layout === root.sidebarLayout.Left ? 20 : Screen.width - root.width - 20
-    //     }
+        NumberAnimation {
+            target: root
+            property: "x"
+            duration: 150
+            from: root.layout === root.sidebarLayout.Left ? -(root.width) : Screen.width
+            to: root.layout === root.sidebarLayout.Left ? 20 : Screen.width - root.width - 20
+        }
 
-    //     NumberAnimation {
-    //         target: root
-    //         property: "x"
-    //         duration: 200
-    //         to: root.layout === root.sidebarLayout.Left ? 10 : Screen.width - root.width - 10
-    //     }
+        NumberAnimation {
+            target: root
+            property: "x"
+            duration: 200
+            to: root.layout === root.sidebarLayout.Left ? 10 : Screen.width - root.width - 10
+        }
 
-    //     onStopped: {}
-    // }
+        onStopped: {}
+    }
 }

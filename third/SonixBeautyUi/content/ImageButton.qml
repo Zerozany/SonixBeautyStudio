@@ -46,23 +46,16 @@ Item {
 
     function _popupX() {
         var pos = root.mapToItem(null, 0, 0);
-        if ((root.width < imagePupup.width) && pos.x - (Math.abs(imagePupup.width - root.width) / 2) < 0) {
-            console.log(1);
-            console.log(pos.x);
-            console.log((Math.abs(imagePupup.width - root.width) / 2));
-            console.log(root.width);
-            console.log(imagePupup.width);
+        if ((root.width < imagePupup.width) && Math.abs(pos.x) - (Math.abs(imagePupup.width - root.width) / 2) < 0) {
             return 0;
         }
-        if (pos.x + root.width + (Math.abs(imagePupup.width - root.width) / 2) > Screen.width) {
-            console.log(2);
-            return -(Math.abs(root.width - imagePupup.width));
+        if ((root.width < imagePupup.width) && (pos.x - root.width + ((imagePupup.width - root.width) / 2)) > Screen.width) {
+            return -(imagePupup.width - root.width);
         }
-        console.log(3);
         if (root.width > imagePupup.width) {
-            return -(imagePupup.width - root.width) / 2;
-        } else if (root.width < imagePupup.width) {
             return (root.width - imagePupup.width) / 2;
+        } else if (root.width < imagePupup.width) {
+            return -((imagePupup.width - root.width) / 2);
         } else {
             return root.x;
         }

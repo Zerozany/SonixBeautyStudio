@@ -28,10 +28,8 @@ Item {
             id: sidebar
             width: 80
             height: parent.height * 0.4
-            layout: sidebarLayout.Left
+            layout: sidebarLayout.Right
             anchors.verticalCenter: parent.verticalCenter
-            // anchors.left: parent.left
-            // anchors.leftMargin: 20
             imageButtonList: [
                 {
                     text: "qrc:/view/resource/HomePageIcons/connect.png",
@@ -46,34 +44,12 @@ Item {
                     borderTag: true
                 },
                 {
-                    text: "qrqrqrqrqrr",
+                    text: "qrqrqrqr2",
                     source: "qrc:/view/resource/HomePageIcons/connect.png",
                     sourcePressed: "qrc:/view/resource/HomePageIcons/connectPressed.png",
                     borderTag: true
                 },
             ]
-        }
-
-        ImageButton {
-            x: 300
-            y: 180
-            width: 50
-            height: 50
-            text: "qr"
-            source: "qrc:/view/resource/HomePageIcons/connect.png"
-            sourcePressed: "qrc:/view/resource/HomePageIcons/connectPressed.png"
-            borderTag: true
-        }
-
-        ImageButton {
-            x: 300
-            y: 80
-            width: 50
-            height: 50
-            text: "qrqrqrqrqrr"
-            source: "qrc:/view/resource/HomePageIcons/connect.png"
-            sourcePressed: "qrc:/view/resource/HomePageIcons/connectPressed.png"
-            borderTag: true
         }
     }
 }
