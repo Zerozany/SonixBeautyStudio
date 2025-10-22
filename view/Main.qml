@@ -16,5 +16,10 @@ Window {
         backgroundColor: appWindow.color
     }
 
+    ApplicationTip {
+        id: applicationTip
+        text: "backgroundColorbackgroundColorbackgroundColorbackgroundColorbackgroundColorbackgroundColorbackgroundColorbackgroundColorbackgroundColor"
+    }
+
     Component.onCompleted: {}
 }

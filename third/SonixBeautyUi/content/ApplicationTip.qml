@@ -1,17 +1,17 @@
 import QtQuick
 import SonixBeautyUi
+import QtQuick.Window
 
 Rectangle {
     id: root
     radius: elementRadius
     color: elementColor
-    x: window.width / 2 - root.width / 2
-    y: window.height / 4
-    width: window.width / 3
+    x: Screen.width / 2 - root.width / 2
+    y: Screen.height / 4
+    width: Screen.width / 3
 
     property var text: null
     property var interval: 2000
-    property var window: null
 
     readonly property int margins: 5
     readonly property int pointSize: 14
@@ -21,18 +21,18 @@ Rectangle {
 
     Text {
         id: tipText
-        width: root.width
+        anchors.fill: parent
         anchors.margins: root.margins
         color: root.textColor
         text: root.text
-        wrapMode: Text.WordWrap
+        wrapMode: Text.WrapAnywhere
         font.pointSize: root.pointSize
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
     }
 
     Component.onCompleted: {
-        if (window) {
+        if (Screen) {
             root.height = tipText.implicitHeight;
         }
     }
