@@ -19,6 +19,7 @@ Window {
     ApplicationTip {
         id: applicationTip
         text: "backgroundColorbackgroundColorbackgroundColorbackgroundColorbackgroundColorbackgroundColorbackgroundColorbackgroundColorbackgroundColor"
+        window: appWindow
     }
 
     Component.onCompleted: {}

@@ -16,7 +16,7 @@ Item {
         color: root.backgroundColor
 
         ProbeDeviceList {
-            id: homePage
+            id: probeDeviceList
             width: parent.width * (2 / 3)
             height: parent.height * 0.5
             anchors.horizontalCenter: parent.horizontalCenter
