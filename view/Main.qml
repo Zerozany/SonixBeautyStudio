@@ -16,11 +16,7 @@ Window {
         backgroundColor: appWindow.color
     }
 
-    ApplicationTip {
-        id: applicationTip
-        text: "backgroundColorbackgroundColorbackgroundColorbackgroundColorbackgroundColorbackgroundColorbackgroundColorbackgroundColorbackgroundColor"
-        window: appWindow
+    Component.onCompleted: {
+        Utile.showApplicationTip(appWindow, "backgroundColorbackgroundColorbackgroundColorbackgroundColor");
     }
-
-    Component.onCompleted: {}
 }
