@@ -1,12 +1,13 @@
 import QtQuick.Window
 import SonixBeautyUi
+import SonixBeautyStudio
 
-Window {
+AndroidWindow {
     id: appWindow
     // 设置全屏
-    visibility: Window.FullScreen
+    visibility: Window.AutomaticVisibility
     // 无边框
-    flags: Qt.FramelessWindowHint
+    // flags: Qt.FramelessWindowHint
 
     color: ThemeManager.currentTheme["backgroundColor"]
 

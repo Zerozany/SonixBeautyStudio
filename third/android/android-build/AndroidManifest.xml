@@ -28,7 +28,7 @@
         <!-- 允许用户备份应用数据 -->
         <!-- 允许增量备份，不仅限于完整备份 -->
         <activity
-            android:name="org.qtproject.qt.android.bindings.QtActivity"
+            android:name="com.sonixbeauty.activity.AppActivity"
             android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|layoutDirection|locale|fontScale|keyboard|keyboardHidden|navigation|mcc|mnc|density"
             android:label="-- %%INSERT_APP_NAME%% --"
             android:launchMode="singleTop"
@@ -36,7 +36,7 @@
             android:exported="true"
             android:enabled="true"
             android:foregroundServiceType="dataSync|location|mediaPlayback">
-            <!-- Activity 节点，定义应用入口 Activity android:name="com.sonixbeauty.activity.AppActivity" -->
+            <!-- Activity 节点，定义应用入口 Activity android:name="com.sonixbeauty.activity.AppActivity" || org.qtproject.qt.android.bindings.QtActivity -->
             <!-- 配置变更时 Activity 不重启，保持状态 -->
             <!-- Activity 名称占位符 -->
             <!-- 单例启动模式，避免重复实例 -->

@@ -2,6 +2,7 @@ _Pragma("once");
 #include <QObject>
 #include <QQmlApplicationEngine>
 #include <QGuiApplication>
+#include "AndroidWindow.h"
 
 class QQuickWindow;
 
@@ -9,18 +10,33 @@ class ViewEngine : public QObject
 {
     Q_OBJECT
 public:
-    explicit(true) ViewEngine(QGuiApplication* _guiApplication, QQmlApplicationEngine* _qmlApplicationEngine, QObject* _parent = nullptr);
     ~ViewEngine() noexcept = default;
 
-private:
-    auto initEngine() noexcept -> void;
+public:
+    static auto instance() noexcept -> ViewEngine*;
 
-    auto initWindow() noexcept -> void;
-
-    auto connectSignal2Slot() noexcept -> void;
+    static auto init(QGuiApplication* _guiApplication, QQmlApplicationEngine* _qmlApplicationEngine) noexcept -> void;
 
 private:
-    QGuiApplication*       m_guiApplication{nullptr};
-    QQmlApplicationEngine* m_qmlApplicationEngine{nullptr};
-    QQuickWindow*          m_quickWindow{nullptr};
+    explicit(true) ViewEngine(QObject* _parent = nullptr);
+
+private:
+    static auto initMember(QGuiApplication* _guiApplication, QQmlApplicationEngine* _qmlApplicationEngine) noexcept -> void;
+
+    static auto initEngine() noexcept -> void;
+
+    static auto initWindow() noexcept -> void;
+
+    static auto connectSignal2Slot() noexcept -> void;
+
+Q_SIGNALS:
+    void onCreate();
+    void onResume();
+    void onPause();
+    void onDestroy();
+
+private:
+    inline static QGuiApplication*       m_guiApplication{nullptr};
+    inline static QQmlApplicationEngine* m_qmlApplicationEngine{nullptr};
+    inline static AndroidWindow*         m_quickWindow{nullptr};
 };
