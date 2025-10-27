@@ -4,7 +4,7 @@ add_subdirectory("${CMAKE_SOURCE_DIR}/third/QSystemModule")
 add_subdirectory("${CMAKE_SOURCE_DIR}/third/SonixLogger")
 
 if(ANDROID)
-    add_subdirectory("${CMAKE_SOURCE_DIR}/third/android")
+    add_subdirectory("${CMAKE_SOURCE_DIR}/third/JNIModule")
 endif()
 
 target_link_libraries(${PROJECT_NAME}
@@ -12,5 +12,5 @@ target_link_libraries(${PROJECT_NAME}
     SonixBeautyUiplugin
     QSystemModule
     SonixLogger
-    $<$<PLATFORM_ID:Android>:JNIModuleplugin>
+    $<$<PLATFORM_ID:Android>:JNIModule>
 )

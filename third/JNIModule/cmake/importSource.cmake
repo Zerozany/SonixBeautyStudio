@@ -17,11 +17,8 @@ if(ANDROID)
         endif()
     endforeach()
 
-    qt_add_qml_module(${PROJECT_NAME}
-        URI "${PROJECT_NAME}"
-        VERSION 1.0
-        RESOURCE_PREFIX "/"
-        SOURCES ${SRCFILES}
-        OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/qmlimports/${PROJECT_NAME}"
+    target_sources(${PROJECT_NAME}
+        PRIVATE
+        ${SRCFILES}
     )
 endif()

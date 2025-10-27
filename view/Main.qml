@@ -1,6 +1,5 @@
 import QtQuick.Window
 import SonixBeautyUi
-import JNIModule
 
 AndroidWindow {
     id: appWindow
