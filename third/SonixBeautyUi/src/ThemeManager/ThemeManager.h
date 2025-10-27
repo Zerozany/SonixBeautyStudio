@@ -1,6 +1,6 @@
 _Pragma("once");
 #include <QObject>
-#include <QtQml/qqmlregistration.h>
+#include <QtQml>
 #include <QVariantMap>
 #include "Themes.hpp"
 
@@ -23,7 +23,7 @@ public:
     Q_INVOKABLE void    setCurrentThemeName(const QString& _currentThemeName);
 
     Q_INVOKABLE QVariantMap currentTheme() const;
-    void                    setCurrentTheme(const QVariantMap& _currentTheme);
+    Q_INVOKABLE void        setCurrentTheme(const QVariantMap& _currentTheme);
 
 public:
     static ThemeManager* create(QQmlEngine*, QJSEngine*);

@@ -7,9 +7,9 @@ public class AppActivity extends org.qtproject.qt.android.bindings.QtActivity {
 
     private static final String TAG = "SonixBeauty";
     public static native void nativeNotifyCreate();
-    public static native void nativeNotifyResume();
-    public static native void nativeNotifyPause();
-    public static native void nativeNotifyDestroy();
+    public static native void nativeNotifyStart();
+    public static native void nativeNotifyStop();
+    public static native void nativeNotifyRestart();
 
     @Override
     public void onCreate(Bundle _savedInstanceState)
@@ -18,10 +18,31 @@ public class AppActivity extends org.qtproject.qt.android.bindings.QtActivity {
     }
 
     @Override
+    public void onStart()
+    {
+        nativeNotifyStart();
+        super.onStart();
+    }
+
+    @Override
+    public void onStop()
+    {
+        nativeNotifyStop();
+        super.onStop();
+    }
+
+    @Override
     public void onResume()
     {
         // nativeNotifyResume();
         super.onResume();
+    }
+
+    @Override
+    public void onRestart()
+    {
+        nativeNotifyRestart();
+        super.onRestart();
     }
 
     @Override

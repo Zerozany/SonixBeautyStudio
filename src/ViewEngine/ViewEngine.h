@@ -2,9 +2,9 @@ _Pragma("once");
 #include <QObject>
 #include <QQmlApplicationEngine>
 #include <QGuiApplication>
-#include "AndroidWindow.h"
 
 class QQuickWindow;
+class AndroidWindow;
 
 class ViewEngine : public QObject
 {
@@ -34,9 +34,16 @@ Q_SIGNALS:
     void onResume();
     void onPause();
     void onDestroy();
+    void onStart();
+    void onRestart();
+    void onStop();
 
 private:
     inline static QGuiApplication*       m_guiApplication{nullptr};
     inline static QQmlApplicationEngine* m_qmlApplicationEngine{nullptr};
-    inline static AndroidWindow*         m_quickWindow{nullptr};
+#if defined(Q_OS_ANDROID)
+    inline static AndroidWindow* m_quickWindow{nullptr};
+#elif defined(Q_OS_WINDOWS)
+    inline static QQuickWindow* m_quickWindow{nullptr};
+#endif
 };

@@ -1,10 +1,11 @@
 #include "ViewEngine.h"
-#include <QQuickWindow>
 #include <QTimer>
+#include <QQuickWindow>
 
 #if defined(Q_OS_ANDROID)
 #include <QJniObject>
 #include <QJniEnvironment>
+#include "AndroidWindow.h"
 
 extern "C" {
 
@@ -16,24 +17,24 @@ extern "C" {
     }
 
     JNIEXPORT void JNICALL
-    Java_com_sonixbeauty_activity_AppActivity_nativeNotifyResume(JNIEnv*, jclass)
+    Java_com_sonixbeauty_activity_AppActivity_nativeNotifyStart(JNIEnv*, jclass)
     {
-        qDebug() << "C++ 收到 onResume通知";
-        Q_EMIT ViewEngine::instance()->onResume();
+        qDebug() << "C++ 收到 Start";
+        Q_EMIT ViewEngine::instance()->onStart();
     }
 
     JNIEXPORT void JNICALL
-    Java_com_sonixbeauty_activity_AppActivity_nativeNotifyPause(JNIEnv*, jclass)
+    Java_com_sonixbeauty_activity_AppActivity_nativeNotifyStop(JNIEnv*, jclass)
     {
-        qDebug() << "C++ 收到 onPause通知";
-        Q_EMIT ViewEngine::instance()->onPause();
+        qDebug() << "C++ 收到 Stop";
+        Q_EMIT ViewEngine::instance()->onStop();
     }
 
     JNIEXPORT void JNICALL
-    Java_com_sonixbeauty_activity_AppActivity_nativeNotifyDestroy(JNIEnv*, jclass)
+    Java_com_sonixbeauty_activity_AppActivity_nativeNotifyRestart(JNIEnv*, jclass)
     {
-        qDebug() << "C++ 收到 onDestroy通知";
-        Q_EMIT ViewEngine::instance()->onDestroy();
+        qDebug() << "C++ 收到 Restart";
+        Q_EMIT ViewEngine::instance()->onRestart();
     }
 }
 
@@ -87,7 +88,11 @@ auto ViewEngine::initWindow() noexcept -> void
     {
         return;
     }
+#if defined(Q_OS_ANDROID)
     m_quickWindow = qobject_cast<AndroidWindow*>(m_qmlApplicationEngine->rootObjects().first());
+#elif defined(Q_OS_WINDOWS)
+    m_quickWindow = qobject_cast<QQuickWindow*>(m_qmlApplicationEngine->rootObjects().first());
+#endif
     if (!m_quickWindow)
     {
         return;
@@ -100,28 +105,36 @@ auto ViewEngine::connectSignal2Slot() noexcept -> void
 {
 #if defined(Q_OS_ANDROID)
 
-    connect(ViewEngine::instance(), &ViewEngine::onResume, ViewEngine::instance(), [] {
-        // if (!m_quickWindow->isExposed())
-        // {
-        //     qDebug() << "DDDDDD";
-        //     Q_EMIT ViewEngine::instance()->onResume();
-        // }
-        // m_quickWindow->show();
+    connect(ViewEngine::instance(), &ViewEngine::onStart, ViewEngine::instance(), [] {
+        QMetaObject::invokeMethod(qApp, [] { QTimer::singleShot(300, [] {
+                                                 if (m_quickWindow && m_quickWindow->isSceneGraphInitialized())
+                                                 {
+                                                     m_quickWindow->show();
+                                                 }
+                                             }); }, Qt::QueuedConnection);
     });
 
-    connect(ViewEngine::instance(), &ViewEngine::onPause, ViewEngine::instance(), [] {
-        // m_quickWindow->hide();
+    connect(ViewEngine::instance(), &ViewEngine::onStop, ViewEngine::instance(), [] {
+        QMetaObject::invokeMethod(qApp, [] {
+        if (m_quickWindow)
+            m_quickWindow->hide(); }, Qt::QueuedConnection);
     });
 
-    connect(ViewEngine::instance(), &ViewEngine::onDestroy, ViewEngine::instance(), [] {
+    connect(ViewEngine::instance(), &ViewEngine::onRestart, ViewEngine::instance(), [] {
+        QMetaObject::invokeMethod(qApp, [] { QTimer::singleShot(300, [] {
+                                                 if (m_quickWindow && m_quickWindow->isSceneGraphInitialized())
+                                                 {
+                                                     m_quickWindow->show();
+                                                 }
+                                             }); }, Qt::QueuedConnection);
     });
 
-    // connect(m_guiApplication, &QGuiApplication::applicationStateChanged, [this](Qt::ApplicationState _state) {
+    // connect(m_guiApplication, &QGuiApplication::applicationStateChanged, [](Qt::ApplicationState _state) {
     //     switch (_state)
     //     {
     //         case Qt::ApplicationActive:
     //         {
-    //             QTimer::singleShot(800, [this]() {
+    //             QTimer::singleShot(800, [] {
     //                 if (m_quickWindow->isSceneGraphInitialized())
     //                 {
     //                     m_quickWindow->show();

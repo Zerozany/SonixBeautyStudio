@@ -1,6 +1,7 @@
 find_package(Qt6 REQUIRED
     COMPONENTS
     Core
+    QuickControls2
 )
 
 qt_policy(SET QTP0002 NEW)
@@ -16,6 +17,7 @@ qt_add_library(${PROJECT_NAME}
 target_link_libraries(${PROJECT_NAME}
     PRIVATE
     Qt6::Core
+    Qt6::QuickControls2
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES

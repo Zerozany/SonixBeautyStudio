@@ -1,17 +1,27 @@
 if(ANDROID)
-    file(GLOB SRCFILES
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/**/*.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/**/*.cpp
+    file(GLOB SRCFILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/**/*.h"
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/**/*.cpp"
     )
 
-    target_include_directories(${PROJECT_NAME}
-        PUBLIC
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/wifi
-        ${CMAKE_CURRENT_SOURCE_DIR}/src/settings
+    file(GLOB INCLUDEDIR RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
+        "${CMAKE_CURRENT_SOURCE_DIR}/src/*"
     )
 
-    target_sources(${PROJECT_NAME}
-        PRIVATE
-        ${SRCFILES}
+    foreach(HEADERDIR ${INCLUDEDIR})
+        if(IS_DIRECTORY ${HEADERDIR})
+            target_include_directories(${PROJECT_NAME}
+                PUBLIC
+                ${HEADERDIR}
+            )
+        endif()
+    endforeach()
+
+    qt_add_qml_module(${PROJECT_NAME}
+        URI "${PROJECT_NAME}"
+        VERSION 1.0
+        RESOURCE_PREFIX "/"
+        SOURCES ${SRCFILES}
+        OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/qmlimports/${PROJECT_NAME}"
     )
 endif()
