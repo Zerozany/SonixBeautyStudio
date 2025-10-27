@@ -1,5 +1,6 @@
 import QtQuick.Window
 import SonixBeautyUi
+import SonixBeautyStudio
 
 AndroidWindow {
     id: appWindow
