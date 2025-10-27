@@ -117,7 +117,9 @@ auto ViewEngine::connectSignal2Slot() noexcept -> void
     connect(ViewEngine::instance(), &ViewEngine::onStop, ViewEngine::instance(), [] {
         QMetaObject::invokeMethod(qApp, [] {
         if (m_quickWindow)
-            m_quickWindow->hide(); }, Qt::QueuedConnection);
+            {
+                m_quickWindow->hide(); 
+            } }, Qt::QueuedConnection);
     });
 
     connect(ViewEngine::instance(), &ViewEngine::onRestart, ViewEngine::instance(), [] {

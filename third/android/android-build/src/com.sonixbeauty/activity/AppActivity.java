@@ -27,8 +27,8 @@ public class AppActivity extends org.qtproject.qt.android.bindings.QtActivity {
     @Override
     public void onStop()
     {
-        nativeNotifyStop();
         super.onStop();
+        nativeNotifyStop();
     }
 
     @Override
