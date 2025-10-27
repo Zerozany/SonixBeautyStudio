@@ -10,7 +10,6 @@
                 "ANDROID_NDK": "D:/AndroidEnv/SDK/ndk/27.2.12479018",
                 "CMAKE_TOOLCHAIN_FILE": "D:/vcpkg/scripts/buildsystems/vcpkg.cmake",
                 "VCPKG_CHAINLOAD_TOOLCHAIN_FILE": "D:/AndroidEnv/SDK/ndk/27.2.12479018/build/cmake/android.toolchain.cmake",
-                "CMAKE_PREFIX_PATH": "D:/Qt/6.9.2/android_arm64_v8a",
                 "ANDROID_ABI": "arm64-v8a",
                 "ANDROID_PLATFORM": "35",
                 "CMAKE_FIND_ROOT_PATH_MODE_PACKAGE": "NEVER",
@@ -39,15 +38,9 @@
             ],
             "binaryDir": "${sourceDir}/build/${presetName}",
             "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Release",
-                "QT_ANDROID_SIGN_APK": "ON"
+                "CMAKE_BUILD_TYPE": "Release"
             },
-            "environment": {
-                "QT_ANDROID_KEYSTORE_PATH": "${sourceDir}/third/JNIModule/android-build/android_release.keystore",
-                "QT_ANDROID_KEYSTORE_ALIAS": "SonixBeauty",
-                "QT_ANDROID_KEYSTORE_STORE_PASS": "12345678",
-                "QT_ANDROID_KEYSTORE_KEY_PASS": "12345678"
-            }
+            "environment": {}
         }
     ],
     "buildPresets": [
