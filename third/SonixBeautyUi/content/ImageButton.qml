@@ -1,7 +1,7 @@
 import QtQuick
-import SonixBeautyUi
 import QtQuick.Controls
 import QtQuick.Window
+import SonixBeautyUi
 
 Item {
     id: root

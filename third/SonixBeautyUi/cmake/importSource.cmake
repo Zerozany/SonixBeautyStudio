@@ -30,6 +30,12 @@ qt_add_qml_module(${PROJECT_NAME}
     OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/qmlimports/${PROJECT_NAME}"
 )
 
-target_include_directories(${PROJECT_NAME} PUBLIC
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/ThemeManager"
-)
+file(GLOB INCLUDEDIR "${CMAKE_CURRENT_SOURCE_DIR}/src/*")
+
+foreach(HEADERDIR ${INCLUDEDIR})
+    if(NOT IS_DIRECTORY ${HEADERDIR})
+        continue()
+    endif()
+
+    target_include_directories(${PROJECT_NAME} PUBLIC ${HEADERDIR})
+endforeach()

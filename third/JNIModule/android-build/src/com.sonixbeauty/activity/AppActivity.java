@@ -34,7 +34,6 @@ public class AppActivity extends org.qtproject.qt.android.bindings.QtActivity {
     @Override
     public void onResume()
     {
-        // nativeNotifyResume();
         super.onResume();
     }
 
@@ -49,13 +48,11 @@ public class AppActivity extends org.qtproject.qt.android.bindings.QtActivity {
     public void onPause()
     {
         super.onPause();
-        // nativeNotifyPause();
     }
 
     @Override
     public void onDestroy()
     {
-        // nativeNotifyDestroy();
         super.onDestroy();
     }
 }

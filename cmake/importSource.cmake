@@ -4,19 +4,6 @@ file(GLOB SOURCEFILES
     "${CMAKE_SOURCE_DIR}/src/**/*.hpp"
 )
 
-file(GLOB INCLUDEDIR
-    "${CMAKE_SOURCE_DIR}/src/*"
-)
-
-foreach(HEADERDIR ${INCLUDEDIR})
-    if(IS_DIRECTORY ${HEADERDIR})
-        target_include_directories(${PROJECT_NAME}
-            PRIVATE
-            ${HEADERDIR}
-        )
-    endif()
-endforeach()
-
 file(GLOB RESOURCES_LIST
     RELATIVE ${CMAKE_SOURCE_DIR}
     "${CMAKE_SOURCE_DIR}/view/resource/*.png"
@@ -45,3 +32,13 @@ qt_add_qml_module(${PROJECT_NAME}
     SOURCES ${SOURCEFILES}
     OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/qmlimports/${PROJECT_NAME}"
 )
+
+file(GLOB INCLUDEDIR "${CMAKE_SOURCE_DIR}/src/*")
+
+foreach(HEADERDIR ${INCLUDEDIR})
+    if(NOT IS_DIRECTORY ${HEADERDIR})
+        continue()
+    endif()
+
+    target_include_directories(${PROJECT_NAME} PRIVATE ${HEADERDIR})
+endforeach()
