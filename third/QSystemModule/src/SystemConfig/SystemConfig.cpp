@@ -5,6 +5,16 @@
 
 SystemConfig::SystemConfig(QObject* _parent) : QObject{_parent}
 {
+}
+
+auto SystemConfig::instance() noexcept -> SystemConfig*
+{
+    static SystemConfig systemConfig{};
+    return &systemConfig;
+}
+
+auto SystemConfig::init() noexcept -> void
+{
     std::invoke(&SystemConfig::setAppEnv, this);
     std::invoke(&SystemConfig::setAppStyle, this);
     std::invoke(&SystemConfig::setAppAttribute, this);

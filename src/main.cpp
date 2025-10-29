@@ -5,7 +5,7 @@
 
 int main(int argc, char* argv[])
 {
-    SystemConfig          systemConfig{};
+    SystemConfig::instance()->init();
     QGuiApplication       app{argc, argv};
     QQmlApplicationEngine engine{};
     ViewEngine::instance()->init(&app, &engine);

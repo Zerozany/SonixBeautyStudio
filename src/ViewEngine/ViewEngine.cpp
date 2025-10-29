@@ -40,6 +40,10 @@ extern "C" {
 
 #endif
 
+ViewEngine::ViewEngine(QObject* _parent) : QObject{_parent}
+{
+}
+
 auto ViewEngine::instance() noexcept -> ViewEngine*
 {
     static ViewEngine viewEngine{};
@@ -52,10 +56,6 @@ auto ViewEngine::init(QGuiApplication* _guiApplication, QQmlApplicationEngine* _
     std::invoke(&ViewEngine::initEngine);
     std::invoke(&ViewEngine::initWindow);
     std::invoke(&ViewEngine::connectSignal2Slot);
-}
-
-ViewEngine::ViewEngine(QObject* _parent) : QObject{_parent}
-{
 }
 
 auto ViewEngine::initMember(QGuiApplication* _guiApplication, QQmlApplicationEngine* _qmlApplicationEngine) noexcept -> void
@@ -103,6 +103,8 @@ auto ViewEngine::initWindow() noexcept -> void
 
 auto ViewEngine::connectSignal2Slot() noexcept -> void
 {
+    connect(m_qmlApplicationEngine, &QQmlApplicationEngine::objectCreationFailed, m_guiApplication, [] { QCoreApplication::exit(-1); }, Qt::QueuedConnection);
+
 #if defined(Q_OS_ANDROID)
 
     connect(ViewEngine::instance(), &ViewEngine::onStart, ViewEngine::instance(), [] {
