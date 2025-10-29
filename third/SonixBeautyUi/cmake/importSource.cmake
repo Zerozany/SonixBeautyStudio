@@ -14,7 +14,8 @@ file(GLOB QMLSINGLETONS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
 # 标记 GlobalVar.qml 为单例
-set_source_files_properties(${QMLSINGLETONS}
+set_source_files_properties(
+    ${QMLSINGLETONS}
     PROPERTIES
     QT_QML_SINGLETON_TYPE TRUE
 )
