@@ -5,15 +5,14 @@ file(GLOB SRCLIST RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
 file(GLOB QFILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
-    "${CMAKE_CURRENT_SOURCE_DIR}/content/*.qml"
-    "${CMAKE_CURRENT_SOURCE_DIR}/content/**/*.qml"
+    "${CMAKE_CURRENT_SOURCE_DIR}/view/content/*.qml"
+    "${CMAKE_CURRENT_SOURCE_DIR}/view/content/**/*.qml"
 )
 
 file(GLOB QMLSINGLETONS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
-    "${CMAKE_CURRENT_SOURCE_DIR}/config/*.qml"
+    "${CMAKE_CURRENT_SOURCE_DIR}/view/global/*.qml"
 )
 
-# 标记 GlobalVar.qml 为单例
 set_source_files_properties(
     ${QMLSINGLETONS}
     PROPERTIES
