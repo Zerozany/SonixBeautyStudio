@@ -1,6 +1,6 @@
 pragma ComponentBehavior: Bound
 import QtQuick
-import SonixBeautyUi
+import SonixBeautyUI
 import QtQuick.Window
 import QtQuick.Layouts
 

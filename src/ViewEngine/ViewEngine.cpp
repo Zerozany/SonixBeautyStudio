@@ -4,7 +4,7 @@
 #include <QGuiApplication>
 
 #if defined(Q_OS_ANDROID)
-#include "AndroidWindow.h"
+#include "SonixBeautyWindow.h"
 #elif defined(Q_OS_WINDOWS)
 #include <QQuickWindow>
 #endif
@@ -58,7 +58,7 @@ auto ViewEngine::initWindow() noexcept -> void
         return;
     }
 #if defined(Q_OS_ANDROID)
-    m_quickWindow = qobject_cast<AndroidWindow*>(m_qmlApplicationEngine->rootObjects().first());
+    m_quickWindow = qobject_cast<SonixBeautyWindow*>(m_qmlApplicationEngine->rootObjects().first());
 #elif defined(Q_OS_WINDOWS)
     m_quickWindow = qobject_cast<QQuickWindow*>(m_qmlApplicationEngine->rootObjects().first());
 #endif

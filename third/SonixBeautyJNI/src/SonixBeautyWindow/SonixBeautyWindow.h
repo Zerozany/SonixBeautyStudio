@@ -4,15 +4,15 @@ _Pragma("once");
 
 class QExposeEvent;
 
-class AndroidWindow : public QQuickWindow
+class SonixBeautyWindow : public QQuickWindow
 {
     Q_OBJECT
     QML_ELEMENT
 public:
-    explicit(true) AndroidWindow(QQuickWindow* _parent = nullptr);
-    ~AndroidWindow() noexcept;
+    explicit(true) SonixBeautyWindow(QQuickWindow* _parent = nullptr);
+    ~SonixBeautyWindow() noexcept;
 
-    static auto instance() noexcept -> AndroidWindow*;
+    static auto instance() noexcept -> SonixBeautyWindow*;
 
 private:
     auto connectSignal2Slot() noexcept -> void;
@@ -43,5 +43,5 @@ private Q_SLOTS:
     void onRestartChanged();
 
 private:
-    inline static AndroidWindow* m_instance{nullptr};
+    inline static SonixBeautyWindow* m_instance{nullptr};
 };

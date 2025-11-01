@@ -1,11 +1,11 @@
-#include "AndroidWindow.h"
+#include "SonixBeautyWindow.h"
 #include <QExposeEvent>
 #include <QTimer>
 
 #if defined(Q_OS_ANDROID)
 #include <QJniObject>
 #include <QJniEnvironment>
-#include "AndroidWindow.h"
+#include "SonixBeautyWindow.h"
 
 extern "C" {
 
@@ -17,7 +17,7 @@ extern "C" {
     JNIEXPORT void JNICALL
     Java_com_sonixbeauty_activity_AppActivity_nativeNotifyStart(JNIEnv*, jclass)
     {
-        if (auto window{AndroidWindow::instance()}; window)
+        if (auto window{SonixBeautyWindow::instance()}; window)
         {
             Q_EMIT window->onStart();
         }
@@ -26,7 +26,7 @@ extern "C" {
     JNIEXPORT void JNICALL
     Java_com_sonixbeauty_activity_AppActivity_nativeNotifyStop(JNIEnv*, jclass)
     {
-        if (auto window{AndroidWindow::instance()}; window)
+        if (auto window{SonixBeautyWindow::instance()}; window)
         {
             Q_EMIT window->onStop();
         }
@@ -35,7 +35,7 @@ extern "C" {
     JNIEXPORT void JNICALL
     Java_com_sonixbeauty_activity_AppActivity_nativeNotifyRestart(JNIEnv*, jclass)
     {
-        if (auto window{AndroidWindow::instance()}; window)
+        if (auto window{SonixBeautyWindow::instance()}; window)
         {
             Q_EMIT window->onRestart();
         }
@@ -45,13 +45,13 @@ extern "C" {
 
 static constexpr uint16_t INTERVAL{300};
 
-AndroidWindow::AndroidWindow(QQuickWindow* _parent) : QQuickWindow{_parent}
+SonixBeautyWindow::SonixBeautyWindow(QQuickWindow* _parent) : QQuickWindow{_parent}
 {
     m_instance = this;
-    std::invoke(&AndroidWindow::connectSignal2Slot, this);
+    std::invoke(&SonixBeautyWindow::connectSignal2Slot, this);
 }
 
-AndroidWindow::~AndroidWindow() noexcept
+SonixBeautyWindow::~SonixBeautyWindow() noexcept
 {
     if (m_instance == this)
     {
@@ -59,26 +59,26 @@ AndroidWindow::~AndroidWindow() noexcept
     }
 }
 
-auto AndroidWindow::instance() noexcept -> AndroidWindow*
+auto SonixBeautyWindow::instance() noexcept -> SonixBeautyWindow*
 {
     return m_instance;
 }
 
-auto AndroidWindow::connectSignal2Slot() noexcept -> void
+auto SonixBeautyWindow::connectSignal2Slot() noexcept -> void
 {
-    connect(this, &AndroidWindow::onStart, this, &AndroidWindow::onStartChanged, Qt::QueuedConnection);
+    connect(this, &SonixBeautyWindow::onStart, this, &SonixBeautyWindow::onStartChanged, Qt::QueuedConnection);
 
-    connect(this, &AndroidWindow::onStop, this, &AndroidWindow::onStopChanged, Qt::QueuedConnection);
+    connect(this, &SonixBeautyWindow::onStop, this, &SonixBeautyWindow::onStopChanged, Qt::QueuedConnection);
 
-    connect(this, &AndroidWindow::onRestart, this, &AndroidWindow::onRestartChanged, Qt::QueuedConnection);
+    connect(this, &SonixBeautyWindow::onRestart, this, &SonixBeautyWindow::onRestartChanged, Qt::QueuedConnection);
 }
 
-void AndroidWindow::exposeEvent(QExposeEvent* _ev)
+void SonixBeautyWindow::exposeEvent(QExposeEvent* _ev)
 {
     QQuickWindow::exposeEvent(_ev);
 }
 
-void AndroidWindow::onStartChanged()
+void SonixBeautyWindow::onStartChanged()
 {
     QTimer::singleShot(INTERVAL, [this] {
         if (this->isSceneGraphInitialized())
@@ -88,12 +88,12 @@ void AndroidWindow::onStartChanged()
     });
 }
 
-void AndroidWindow::onStopChanged()
+void SonixBeautyWindow::onStopChanged()
 {
     this->hide();
 }
 
-void AndroidWindow::onRestartChanged()
+void SonixBeautyWindow::onRestartChanged()
 {
     QTimer::singleShot(INTERVAL, [this] {
         if (this->isSceneGraphInitialized())

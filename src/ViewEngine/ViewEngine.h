@@ -4,7 +4,7 @@ _Pragma("once");
 class QQmlApplicationEngine;
 class QGuiApplication;
 #if defined(Q_OS_ANDROID)
-class AndroidWindow;
+class SonixBeautyWindow;
 #elif defined(Q_OS_WINDOWS)
 class QQuickWindow;
 #endif
@@ -38,7 +38,7 @@ private:
     inline static QGuiApplication*       m_guiApplication{nullptr};
     inline static QQmlApplicationEngine* m_qmlApplicationEngine{nullptr};
 #if defined(Q_OS_ANDROID)
-    inline static AndroidWindow* m_quickWindow{nullptr};
+    inline static SonixBeautyWindow* m_quickWindow{nullptr};
 #elif defined(Q_OS_WINDOWS)
     inline static QQuickWindow* m_quickWindow{nullptr};
 #endif

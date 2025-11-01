@@ -1,5 +1,5 @@
 import QtQuick
-import SonixBeautyUi
+import SonixBeautyUI
 
 Rectangle {
     id: root

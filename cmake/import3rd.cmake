@@ -1,23 +1,23 @@
 
-add_subdirectory("${CMAKE_SOURCE_DIR}/third/SonixBeautyUi")
-add_subdirectory("${CMAKE_SOURCE_DIR}/third/QSystemModule")
-add_subdirectory("${CMAKE_SOURCE_DIR}/third/SonixLogger")
+add_subdirectory("${CMAKE_SOURCE_DIR}/third/SonixBeautyUI")
+add_subdirectory("${CMAKE_SOURCE_DIR}/third/SonixBeautyUtile")
+add_subdirectory("${CMAKE_SOURCE_DIR}/third/SonixBeautyKits")
 
 if(ANDROID)
-    add_subdirectory("${CMAKE_SOURCE_DIR}/third/JNIModule")
+    add_subdirectory("${CMAKE_SOURCE_DIR}/third/SonixBeautyJNI")
 endif()
 
 # cpp Module
 target_link_libraries(${PROJECT_NAME}
     PRIVATE
-    QSystemModule
-    SonixLogger
-    $<$<PLATFORM_ID:Android>:JNIModule>
+    SonixBeautyUtile
+    SonixBeautyKits
+    $<$<PLATFORM_ID:Android>:SonixBeautyJNI>
 )
 
 # QML Module
 target_link_libraries(${PROJECT_NAME}
     PRIVATE
-    SonixBeautyUiplugin
-    $<$<PLATFORM_ID:Android>:JNIModuleplugin>
+    SonixBeautyUIplugin
+    $<$<PLATFORM_ID:Android>:SonixBeautyJNIplugin>
 )
