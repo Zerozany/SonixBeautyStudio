@@ -1,8 +1,9 @@
 import QtQuick
 import SonixBeautyUi
 import SonixBeautyStudio
+import JNIModule
 
-Window {
+AndroidWindow {
     id: appWindow
     // 设置全屏
     visibility: Window.AutomaticVisibility

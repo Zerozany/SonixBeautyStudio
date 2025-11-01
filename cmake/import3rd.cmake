@@ -12,11 +12,12 @@ target_link_libraries(${PROJECT_NAME}
     PRIVATE
     QSystemModule
     SonixLogger
+    $<$<PLATFORM_ID:Android>:JNIModule>
 )
 
 # QML Module
 target_link_libraries(${PROJECT_NAME}
     PRIVATE
     SonixBeautyUiplugin
-    $<$<PLATFORM_ID:Android>:JNIModule>
+    $<$<PLATFORM_ID:Android>:JNIModuleplugin>
 )

@@ -1,43 +1,12 @@
 #include "ViewEngine.h"
 #include <QTimer>
-#include <QQuickWindow>
+#include <QQmlApplicationEngine>
+#include <QGuiApplication>
 
 #if defined(Q_OS_ANDROID)
-#include <QJniObject>
-#include <QJniEnvironment>
 #include "AndroidWindow.h"
-
-extern "C" {
-
-    JNIEXPORT void JNICALL
-    Java_com_sonixbeauty_activity_AppActivity_nativeNotifyCreate(JNIEnv*, jclass)
-    {
-        qDebug() << "C++ 收到 onCreate通知";
-        Q_EMIT ViewEngine::instance()->onCreate();
-    }
-
-    JNIEXPORT void JNICALL
-    Java_com_sonixbeauty_activity_AppActivity_nativeNotifyStart(JNIEnv*, jclass)
-    {
-        qDebug() << "C++ 收到 Start";
-        Q_EMIT ViewEngine::instance()->onStart();
-    }
-
-    JNIEXPORT void JNICALL
-    Java_com_sonixbeauty_activity_AppActivity_nativeNotifyStop(JNIEnv*, jclass)
-    {
-        qDebug() << "C++ 收到 Stop";
-        Q_EMIT ViewEngine::instance()->onStop();
-    }
-
-    JNIEXPORT void JNICALL
-    Java_com_sonixbeauty_activity_AppActivity_nativeNotifyRestart(JNIEnv*, jclass)
-    {
-        qDebug() << "C++ 收到 Restart";
-        Q_EMIT ViewEngine::instance()->onRestart();
-    }
-}
-
+#elif defined(Q_OS_WINDOWS)
+#include <QQuickWindow>
 #endif
 
 ViewEngine::ViewEngine(QObject* _parent) : QObject{_parent}
@@ -104,66 +73,4 @@ auto ViewEngine::initWindow() noexcept -> void
 auto ViewEngine::connectSignal2Slot() noexcept -> void
 {
     connect(m_qmlApplicationEngine, &QQmlApplicationEngine::objectCreationFailed, m_guiApplication, [] { QCoreApplication::exit(-1); }, Qt::QueuedConnection);
-
-#if defined(Q_OS_ANDROID)
-
-    connect(ViewEngine::instance(), &ViewEngine::onStart, ViewEngine::instance(), [] {
-        QMetaObject::invokeMethod(qApp, [] { QTimer::singleShot(300, [] {
-                                                 if (m_quickWindow && m_quickWindow->isSceneGraphInitialized())
-                                                 {
-                                                     m_quickWindow->show();
-                                                 }
-                                             }); }, Qt::QueuedConnection);
-    });
-
-    connect(ViewEngine::instance(), &ViewEngine::onStop, ViewEngine::instance(), [] {
-        QMetaObject::invokeMethod(qApp, [] {
-        if (m_quickWindow)
-            {
-                m_quickWindow->hide(); 
-            } }, Qt::QueuedConnection);
-    });
-
-    connect(ViewEngine::instance(), &ViewEngine::onRestart, ViewEngine::instance(), [] {
-        QMetaObject::invokeMethod(qApp, [] { QTimer::singleShot(300, [] {
-                                                 if (m_quickWindow && m_quickWindow->isSceneGraphInitialized())
-                                                 {
-                                                     m_quickWindow->show();
-                                                 }
-                                             }); }, Qt::QueuedConnection);
-    });
-
-    // connect(m_guiApplication, &QGuiApplication::applicationStateChanged, [](Qt::ApplicationState _state) {
-    //     switch (_state)
-    //     {
-    //         case Qt::ApplicationActive:
-    //         {
-    //             QTimer::singleShot(800, [] {
-    //                 if (m_quickWindow->isSceneGraphInitialized())
-    //                 {
-    //                     m_quickWindow->show();
-    //                 }
-    //             });
-    //             break;
-    //         }
-    //         case Qt::ApplicationHidden:
-    //         {
-    //             [[fallthrough]];
-    //         }
-    //         case Qt::ApplicationInactive:
-    //         {
-    //             [[fallthrough]];
-    //         }
-    //         case Qt::ApplicationSuspended:
-    //         {
-    //             m_quickWindow->hide();
-    //             break;
-    //         }
-    //         default:
-    //         {
-    //             std::unreachable();
-    //         }
-    //     }
-    // });
-#endif
 }

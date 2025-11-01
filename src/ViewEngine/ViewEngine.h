@@ -1,10 +1,13 @@
 _Pragma("once");
 #include <QObject>
-#include <QQmlApplicationEngine>
-#include <QGuiApplication>
 
-class QQuickWindow;
+class QQmlApplicationEngine;
+class QGuiApplication;
+#if defined(Q_OS_ANDROID)
 class AndroidWindow;
+#elif defined(Q_OS_WINDOWS)
+class QQuickWindow;
+#endif
 
 class ViewEngine : public QObject
 {
@@ -30,13 +33,6 @@ private:
     static auto connectSignal2Slot() noexcept -> void;
 
 Q_SIGNALS:
-    void onCreate();
-    void onResume();
-    void onPause();
-    void onDestroy();
-    void onStart();
-    void onRestart();
-    void onStop();
 
 private:
     inline static QGuiApplication*       m_guiApplication{nullptr};

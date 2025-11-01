@@ -1,6 +1,7 @@
 find_package(Qt6 REQUIRED
     COMPONENTS
     Core
+    Quick
 )
 
 qt_policy(SET QTP0004 NEW)
@@ -16,6 +17,7 @@ qt_add_library(${PROJECT_NAME} STATIC)
 target_link_libraries(${PROJECT_NAME}
     PRIVATE
     Qt6::Core
+    Qt6::Quick
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
