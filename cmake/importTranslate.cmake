@@ -4,21 +4,14 @@ qt_standard_project_setup(
 
 qt_add_translations(
     ${PROJECT_NAME}
-    TS_FILE_DIR ${CMAKE_SOURCE_DIR}/translate
-    TS_FILE_BASE ${PROJECT_NAME}
-    RESOURCE_PREFIX /translate
+    TS_FILE_DIR "${CMAKE_SOURCE_DIR}/translate"
     QM_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/translate"
-)
-
-file(GLOB QM_FILES
-    "${CMAKE_BINARY_DIR}/translate/${PROJECT_NAME}_*.qm"
+    QM_FILES_OUTPUT_VARIABLE QM_FILES
+    IMMEDIATE_CALL
 )
 
 qt_add_resources(${PROJECT_NAME} "translations"
     PREFIX "/translate"
-    BASE "${CMAKE_BINARY_DIR}/translate"
     FILES ${QM_FILES}
+    BASE "${CMAKE_BINARY_DIR}/translate"
 )
-
-add_dependencies(${PROJECT_NAME} update_translations)
-add_dependencies(${PROJECT_NAME} release_translations)

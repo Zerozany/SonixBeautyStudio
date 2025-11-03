@@ -5,11 +5,6 @@
     <name>Main</name>
     <message>
         <location filename="../view/Main.qml" line="22"/>
-        <source>Hello World</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../view/Main.qml" line="23"/>
         <source>我们的家</source>
         <translation type="unfinished"></translation>
     </message>
