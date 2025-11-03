@@ -18,5 +18,6 @@ target_link_libraries(${PROJECT_NAME}
 target_link_libraries(${PROJECT_NAME}
     PRIVATE
     SonixBeautyUIplugin
+    SonixBeautyKitsplugin
     $<$<PLATFORM_ID:Android>:SonixBeautyJNIplugin>
 )
