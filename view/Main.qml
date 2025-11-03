@@ -1,6 +1,5 @@
 import QtQuick
 import SonixBeautyUI
-import SonixBeautyStudio
 import SonixBeautyJNI
 
 SonixBeautyWindow {
@@ -20,6 +19,7 @@ SonixBeautyWindow {
     }
 
     Component.onCompleted: {
-        Utile.showApplicationTip(appWindow, "backgroundColorbackgroundColorbackgroundColorbackgroundColor");
+        Utile.showApplicationTip(appWindow, qsTr("Hello World"));
+        Utile.showApplicationTip(appWindow, qsTr("我们的家"));
     }
 }

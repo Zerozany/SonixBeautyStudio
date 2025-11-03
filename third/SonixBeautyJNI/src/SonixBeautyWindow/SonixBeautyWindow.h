@@ -17,6 +17,8 @@ public:
 private:
     auto connectSignal2Slot() noexcept -> void;
 
+    auto setSonixBeautyWindow(SonixBeautyWindow* _sonixBeautyWindow) noexcept -> void;
+
 protected:
     void exposeEvent(QExposeEvent* _ev) override;
 

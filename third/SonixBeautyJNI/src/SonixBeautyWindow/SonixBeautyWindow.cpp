@@ -47,7 +47,7 @@ static constexpr uint16_t INTERVAL{300};
 
 SonixBeautyWindow::SonixBeautyWindow(QQuickWindow* _parent) : QQuickWindow{_parent}
 {
-    m_instance = this;
+    std::invoke(&SonixBeautyWindow::setSonixBeautyWindow, this, this);
     std::invoke(&SonixBeautyWindow::connectSignal2Slot, this);
 }
 
@@ -66,11 +66,23 @@ auto SonixBeautyWindow::instance() noexcept -> SonixBeautyWindow*
 
 auto SonixBeautyWindow::connectSignal2Slot() noexcept -> void
 {
+#if defined(Q_OS_ANDROID)
+
     connect(this, &SonixBeautyWindow::onStart, this, &SonixBeautyWindow::onStartChanged, Qt::QueuedConnection);
 
     connect(this, &SonixBeautyWindow::onStop, this, &SonixBeautyWindow::onStopChanged, Qt::QueuedConnection);
 
     connect(this, &SonixBeautyWindow::onRestart, this, &SonixBeautyWindow::onRestartChanged, Qt::QueuedConnection);
+#endif
+}
+
+auto SonixBeautyWindow::setSonixBeautyWindow(SonixBeautyWindow* _sonixBeautyWindow) noexcept -> void
+{
+    if (m_instance == _sonixBeautyWindow)
+    {
+        return;
+    }
+    m_instance = _sonixBeautyWindow;
 }
 
 void SonixBeautyWindow::exposeEvent(QExposeEvent* _ev)

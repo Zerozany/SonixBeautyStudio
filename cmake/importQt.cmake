@@ -6,6 +6,7 @@ find_package(Qt6 REQUIRED
     Network
     Concurrent
     QuickControls2
+    LinguistTools
 )
 
 qt_policy(SET QTP0004 NEW)
