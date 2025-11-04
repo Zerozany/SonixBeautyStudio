@@ -37,8 +37,8 @@ void ThemeManager::setCurrentTheme(const QVariantMap& _currentTheme)
 
 ThemeManager* ThemeManager::create(QQmlEngine*, QJSEngine*)
 {
-    static ThemeManager* instance{new ThemeManager{}};
-    return instance;
+    static ThemeManager* themeManager{new ThemeManager{}};
+    return themeManager;
 }
 
 ThemeManager::ThemeManager(QObject* _parent) : QObject{_parent}

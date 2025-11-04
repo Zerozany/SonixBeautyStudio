@@ -13,10 +13,7 @@ auto Translator::instance() noexcept -> Translator&
 
 auto Translator::load(const QString& _languageQmPath) noexcept -> void
 {
-    if (!qApp->removeTranslator(&m_translator))
-    {
-        return;
-    }
+    qApp->removeTranslator(&m_translator);
     if (m_translator.load(_languageQmPath))
     {
         qApp->installTranslator(&m_translator);

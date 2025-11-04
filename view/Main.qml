@@ -19,6 +19,6 @@ SonixBeautyWindow {
     }
 
     Component.onCompleted: {
-        Utile.showApplicationTip(appWindow, qsTr("我们的家"));
+        Utile.showApplicationTip(appWindow, qsTr("Hello World"));
     }
 }
