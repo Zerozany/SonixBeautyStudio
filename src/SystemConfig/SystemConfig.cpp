@@ -2,6 +2,9 @@
 #include <QQuickStyle>
 #include <QGuiApplication>
 #include <QDir>
+#include <QApplication>
+
+static constexpr uint16_t DOUBELCLICKEDINTERVAL{250};
 
 SystemConfig::SystemConfig(QObject* _parent) : QObject{_parent}
 {
@@ -38,12 +41,12 @@ auto SystemConfig::setAppStyle() noexcept -> void
 
 auto SystemConfig::setAppAttribute() noexcept -> void
 {
+    QApplication::setDoubleClickInterval(DOUBELCLICKEDINTERVAL);
 #if defined(Q_OS_ANDROID)
     QGuiApplication::setAttribute(Qt::AA_UseOpenGLES);  // 使用 OpenGL ES 渲染
 #elif defined(Q_OS_WINDOWS)
     QGuiApplication::setAttribute(Qt::AA_UseSoftwareOpenGL);  // 强制使用软件 OpenGL 渲染（可能在某些平台上提高兼容性）
     QGuiApplication::setAttribute(Qt::AA_UseDesktopOpenGL);   // 使用桌面 OpenGL
-
 #endif
     QGuiApplication::setAttribute(Qt::AA_CompressHighFrequencyEvents);  // 启用高频事件压缩，减少高频事件的处理，优化性能
     QGuiApplication::setAttribute(Qt::AA_QtQuickUseDefaultSizePolicy);  // 启用 Qt Quick 使用默认的大小策略
