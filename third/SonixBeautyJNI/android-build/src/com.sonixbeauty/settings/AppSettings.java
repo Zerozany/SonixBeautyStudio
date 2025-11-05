@@ -31,20 +31,18 @@ public class AppSettings {
      */
     public void setSystemBrightness(final int brightness)
     {
-        if (m_activity == null)
+        if (m_activity == null) {
             return;
-
+        }
         try {
             // 检查是否有权限修改系统设置
             if (!Settings.System.canWrite(m_activity)) {
                 Log.w(TAG, "No WRITE_SETTINGS permission!");
                 return;
             }
-
             ContentResolver resolver = m_activity.getContentResolver();
             int value = Math.max(0, Math.min(brightness, 255)); // 限制范围
             Settings.System.putInt(resolver, Settings.System.SCREEN_BRIGHTNESS, value);
-            // Log.d(TAG, "System brightness set to " + value);
         } catch (Exception e) {
             Log.e(TAG, "Failed to set system brightness", e);
         }
@@ -55,9 +53,9 @@ public class AppSettings {
      */
     public int getSystemBrightness()
     {
-        if (m_activity == null)
+        if (m_activity == null) {
             return -1;
-
+        }
         try {
             ContentResolver resolver = m_activity.getContentResolver();
             return Settings.System.getInt(resolver, Settings.System.SCREEN_BRIGHTNESS);
