@@ -3,6 +3,7 @@ import QtQuick.Window
 import QtQuick
 
 QtObject {
+    property var mainWindowObject
 
     function showApplicationTip(_window, _text, _interval = 2000) {
         if (!_window) {

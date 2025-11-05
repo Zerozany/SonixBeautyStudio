@@ -1,5 +1,6 @@
 import QtQuick
 import "HomePage"
+import SonixBeautyUI
 
 Item {
     id: root
@@ -19,5 +20,9 @@ Item {
             id: homePage
             anchors.fill: parent
         }
+    }
+
+    Component.onCompleted: {
+        Utile.showApplicationTip(Utile.mainWindowObject, qsTr("你好 世界"));
     }
 }
