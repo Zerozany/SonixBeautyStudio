@@ -4,11 +4,8 @@ import SonixBeautyJNI
 
 SonixBeautyWindow {
     id: appWindow
-    // 设置全屏
-    visibility: Window.AutomaticVisibility
     // 无边框
     // flags: Qt.FramelessWindowHint
-    visible: true
 
     color: ThemeManager.currentTheme["backgroundColor"]
 

@@ -19,6 +19,8 @@ private:
 
     auto setSonixBeautyWindow(SonixBeautyWindow* _sonixBeautyWindow) noexcept -> void;
 
+    auto setWindowPropertys() noexcept -> void;
+
 protected:
     void exposeEvent(QExposeEvent* _ev) override;
 

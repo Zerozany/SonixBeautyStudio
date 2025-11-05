@@ -49,6 +49,7 @@ SonixBeautyWindow::SonixBeautyWindow(QQuickWindow* _parent) : QQuickWindow{_pare
 {
     std::invoke(&SonixBeautyWindow::setSonixBeautyWindow, this, this);
     std::invoke(&SonixBeautyWindow::connectSignal2Slot, this);
+    std::invoke(&SonixBeautyWindow::setWindowPropertys, this);
 }
 
 SonixBeautyWindow::~SonixBeautyWindow() noexcept
@@ -83,6 +84,16 @@ auto SonixBeautyWindow::setSonixBeautyWindow(SonixBeautyWindow* _sonixBeautyWind
         return;
     }
     m_instance = _sonixBeautyWindow;
+}
+
+auto SonixBeautyWindow::setWindowPropertys() noexcept -> void
+{
+    this->setVisible(true);
+#if defined(Q_OS_ANDROID)
+    this->setVisibility(QWindow::AutomaticVisibility);
+#elif defined(Q_OS_WINDOWS)
+    this->setVisibility(QWindow::Windowed);
+#endif
 }
 
 void SonixBeautyWindow::exposeEvent(QExposeEvent* _ev)

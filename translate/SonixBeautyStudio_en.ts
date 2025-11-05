@@ -8,10 +8,5 @@
         <source>你好 世界</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <location filename="../view/App.qml" line="29"/>
-        <source>We are family</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 </TS>
