@@ -2,10 +2,15 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="zh_CN" sourcelanguage="en">
 <context>
-    <name>Main</name>
+    <name>App</name>
     <message>
-        <location filename="../view/Main.qml" line="22"/>
-        <source>我们的家</source>
+        <location filename="../view/App.qml" line="26"/>
+        <source>你好 世界</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../view/App.qml" line="29"/>
+        <source>We are family</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
