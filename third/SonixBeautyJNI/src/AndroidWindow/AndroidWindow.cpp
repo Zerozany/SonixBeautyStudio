@@ -1,11 +1,10 @@
-#include "SonixBeautyWindow.h"
+#include "AndroidWindow.h"
 #include <QExposeEvent>
 #include <QTimer>
 
 #if defined(Q_OS_ANDROID)
 #include <QJniObject>
 #include <QJniEnvironment>
-#include "SonixBeautyWindow.h"
 
 extern "C" {
 

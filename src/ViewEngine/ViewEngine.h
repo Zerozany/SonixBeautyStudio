@@ -6,7 +6,7 @@ class QGuiApplication;
 #if defined(Q_OS_ANDROID)
 class SonixBeautyWindow;
 #elif defined(Q_OS_WINDOWS)
-class QQuickWindow;
+class SonixBeautyWindow;
 #endif
 
 class ViewEngine : public QObject
@@ -40,6 +40,6 @@ private:
 #if defined(Q_OS_ANDROID)
     inline static SonixBeautyWindow* m_quickWindow{nullptr};
 #elif defined(Q_OS_WINDOWS)
-    inline static QQuickWindow* m_quickWindow{nullptr};
+    inline static SonixBeautyWindow* m_quickWindow{nullptr};
 #endif
 };

@@ -1,6 +1,7 @@
 import QtQuick
 import SonixBeautyUI
 import SonixBeautyJNI
+import SonixBeautyWin
 
 SonixBeautyWindow {
     id: appWindow
