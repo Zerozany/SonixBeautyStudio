@@ -19,6 +19,11 @@ set_source_files_properties(
     QT_QML_SINGLETON_TYPE TRUE
 )
 
+target_sources(${PROJECT_NAME}
+    PRIVATE
+    ${SRCLIST}
+)
+
 set(QT_QML_GENERATE_QMLLS_INI ON)
 
 qt_add_qml_module(${PROJECT_NAME}

@@ -4,9 +4,9 @@
 #include <QGuiApplication>
 
 #if defined(Q_OS_ANDROID)
-#include "AndroidWindow.h"
+#include "SonixBeautyWindow.h"
 #elif defined(Q_OS_WINDOWS)
-#include "WinWindow.h"
+#include "SonixBeautyWindow.h"
 #endif
 
 ViewEngine::ViewEngine(QObject* _parent) : QObject{_parent}

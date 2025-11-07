@@ -3,12 +3,13 @@ find_package(Qt6 REQUIRED
     Core
     QuickControls2
     Gui
+    Qml
 )
 
 qt_policy(SET QTP0002 NEW)
 
 qt_standard_project_setup(
-    REQUIRES 6.3
+    REQUIRES 6.8
 )
 
 qt_add_library(${PROJECT_NAME}
@@ -20,6 +21,7 @@ target_link_libraries(${PROJECT_NAME}
     Qt6::Core
     Qt6::QuickControls2
     Qt6::Gui
+    Qt6::Qml
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES

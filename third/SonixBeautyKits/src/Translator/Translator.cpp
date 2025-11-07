@@ -1,13 +1,15 @@
 #include "Translator.h"
 #include <QGuiApplication>
+#include <QJSEngine>
+#include <QQmlEngine>
 
 Translator::Translator(QObject* _parent) : QObject{_parent}
 {
 }
 
-auto Translator::instance() noexcept -> Translator&
+Translator* Translator::create(QQmlEngine*, QJSEngine*)
 {
-    static Translator translator{};
+    static Translator* translator{new Translator{}};
     return translator;
 }
 

@@ -11,9 +11,10 @@ endif()
 # cpp Module
 target_link_libraries(${PROJECT_NAME}
     PRIVATE
+    SonixBeautyUI
     SonixBeautyKits
     SonixBeautyLibs
-    $<$<PLATFORM_ID:WIN32>:SonixBeautyWIN>
+    $<$<PLATFORM_ID:Windows>:SonixBeautyWIN>
     $<$<PLATFORM_ID:Android>:SonixBeautyJNI>
 )
 
@@ -22,6 +23,6 @@ target_link_libraries(${PROJECT_NAME}
     PRIVATE
     SonixBeautyUIplugin
     SonixBeautyKitsplugin
-    $<$<PLATFORM_ID:WIN32>:SonixBeautyWINplugin>
+    $<$<PLATFORM_ID:Windows>:SonixBeautyWINplugin>
     $<$<PLATFORM_ID:Android>:SonixBeautyJNIplugin>
 )

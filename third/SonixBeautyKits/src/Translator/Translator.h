@@ -3,15 +3,19 @@ _Pragma("once");
 #include <QTranslator>
 #include <QtQml/qqmlregistration.h>
 
+class QJSEngine;
+class QQmlEngine;
+
 class Translator : public QObject
 {
     Q_OBJECT
+    QML_SINGLETON
     QML_ELEMENT
 public:
     ~Translator() noexcept = default;
 
 public:
-    static auto instance() noexcept -> Translator&;
+    static Translator* create(QQmlEngine*, QJSEngine*);
 
     auto load(const QString& _languageQmPath) noexcept -> void;
 

@@ -4,7 +4,7 @@ _Pragma("once");
 class WinWifiConfig : public WifiConfigBase
 {
     using HANDLE = void*;
-
+    Q_OBJECT
 public:
     explicit(true) WinWifiConfig(WifiConfigBase* _parent = nullptr);
     ~WinWifiConfig() noexcept = default;

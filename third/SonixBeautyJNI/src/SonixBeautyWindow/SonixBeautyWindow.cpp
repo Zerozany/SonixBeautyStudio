@@ -1,4 +1,4 @@
-#include "AndroidWindow.h"
+#include "SonixBeautyWindow.h"
 #include <QExposeEvent>
 #include <QTimer>
 
