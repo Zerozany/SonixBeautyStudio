@@ -1,24 +1,21 @@
 import QtQuick
-// import SonixBeautyUI
 // import SonixBeautyJNI
 
 import SonixBeautyWIN
+import SonixBeautyUI
 
 SonixBeautyWindow {
     id: appWindow
 
-    // 无边框
-    // flags: Qt.FramelessWindowHint
-    //
-    // color: ThemeManager.currentTheme["backgroundColor"]
+    color: ThemeManager.currentTheme["backgroundColor"]
 
-    // App {
-    //     id: qUi
-    //     anchors.fill: parent
-    //     backgroundColor: appWindow.color
-    // }
+    App {
+        id: qUi
+        anchors.fill: parent
+        backgroundColor: appWindow.color
+    }
 
     Component.onCompleted: {
-        // Utile.mainWindowObject = appWindow;
+        Utile.mainWindowObject = appWindow;
     }
 }

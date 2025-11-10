@@ -40,15 +40,20 @@ auto ViewEngine::initMember(QGuiApplication* _guiApplication, QQmlApplicationEng
     m_guiApplication       = _guiApplication;
     m_qmlApplicationEngine = _qmlApplicationEngine;
 }
-
+#include <QLibrary>
 auto ViewEngine::initEngine() noexcept -> void
 {
     if (!m_qmlApplicationEngine)
     {
         return;
     }
+    QLibrary lib{QCoreApplication::applicationDirPath() +
+                 "/../third/SonixBeautyUI/SonixBeautyUIplugin.dll"};
+    if (!lib.load())
+    {
+        qDebug() << "xxxxxxx";
+    }
     m_qmlApplicationEngine->addImportPath("qrc:/");
-    // m_qmlApplicationEngine->addImportPath(QGuiApplication::applicationDirPath() + "/../qmlimports/");
     m_qmlApplicationEngine->load(QUrl("qrc:/SonixBeautyStudio/view/Main.qml"));
 }
 

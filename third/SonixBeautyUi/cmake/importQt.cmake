@@ -4,6 +4,7 @@ find_package(Qt6 REQUIRED
     Qml
     Core
     QuickControls2
+    Gui
 )
 
 qt_policy(SET QTP0004 NEW)
@@ -22,6 +23,7 @@ target_link_libraries(${PROJECT_NAME}
     Qt6::Qml
     Qt6::Core
     Qt6::QuickControls2
+    Qt6::Gui
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES

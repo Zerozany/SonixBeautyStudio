@@ -12,6 +12,14 @@ target_compile_definitions(${PROJECT_NAME}
 # QT_QMLCACHEGEN_ARGUMENTS "--verbose"
 # )
 if(MSVC)
+    target_compile_options(${PROJECT_NAME}
+        PRIVATE
+        "/utf-8"
+        "/FS"
+    )
+endif()
+
+if(MSVC)
     set_target_properties(${PROJECT_NAME} PROPERTIES
         RUNTIME_OUTPUT_DIRECTORY_DEBUG "${CMAKE_BINARY_DIR}/bin"
         RUNTIME_OUTPUT_DIRECTORY_RELEASE "${CMAKE_BINARY_DIR}/bin"

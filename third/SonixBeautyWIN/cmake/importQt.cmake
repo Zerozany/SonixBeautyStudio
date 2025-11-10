@@ -3,7 +3,6 @@ find_package(Qt6 REQUIRED
     Core
     Quick
     Gui
-    Qml
 )
 
 qt_policy(SET QTP0004 NEW)
@@ -21,7 +20,6 @@ target_link_libraries(${PROJECT_NAME}
     Qt6::Core
     Qt6::Quick
     Qt6::Gui
-    Qt6::Qml
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
