@@ -4,11 +4,21 @@ _Pragma("once");
 #include <QVariantMap>
 #include "Themes.hpp"
 
+#if defined(Q_OS_WINDOWS) && defined(_MSC_VER)
+#ifdef SONIXEXPROTS
+#define SONIXEX_API Q_DECL_EXPORT
+#else
+#define SONIXEX_API Q_DECL_IMPORT
+#endif
+#else
+#define SONIXEX_API
+#endif
+
 class QJSEngine;
 class QQmlEngine;
 class QSettings;
 
-class ThemeManager : public QObject
+class SONIXEX_API ThemeManager : public QObject
 {
     Q_OBJECT
     QML_SINGLETON
