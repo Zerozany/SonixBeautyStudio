@@ -1,7 +1,17 @@
 _Pragma("once");
 #include "WifiConfigBase.h"
 
-class WinWifiConfig : public WifiConfigBase
+#if defined(Q_OS_WINDOWS) && defined(_MSC_VER)
+#ifdef SONIXEXPROTS
+#define SONIXEX_API Q_DECL_EXPORT
+#else
+#define SONIXEX_API Q_DECL_IMPORT
+#endif
+#else
+#define SONIXEX_API
+#endif
+
+class SONIXEX_API WinWifiConfig : public WifiConfigBase
 {
     using HANDLE = void*;
     Q_OBJECT

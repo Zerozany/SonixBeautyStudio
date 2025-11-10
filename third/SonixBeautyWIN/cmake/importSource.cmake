@@ -5,11 +5,6 @@ if(WIN32)
         "${CMAKE_CURRENT_SOURCE_DIR}/include/*.h"
     )
 
-    target_sources(${PROJECT_NAME}
-        PRIVATE
-        ${SRCFILES}
-    )
-
     set(QT_QML_GENERATE_QMLLS_INI ON)
 
     qt_add_qml_module(${PROJECT_NAME}
@@ -31,5 +26,5 @@ if(WIN32)
         target_include_directories(${PROJECT_NAME} PUBLIC ${HEADERDIR})
     endforeach()
 
-    target_include_directories(${PROJECT_NAME} PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include")
+    target_include_directories(${PROJECT_NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
 endif()
