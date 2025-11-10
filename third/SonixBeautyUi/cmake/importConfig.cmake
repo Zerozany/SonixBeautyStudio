@@ -8,9 +8,10 @@ target_compile_definitions(${PROJECT_NAME}
     SONIXEXPROTS
 )
 
-# set_target_properties(${PROJECT_NAME} PROPERTIES
-# QT_QMLCACHEGEN_ARGUMENTS "--verbose"
-# )
+set_target_properties(${PROJECT_NAME} PROPERTIES
+    QT_QMLCACHEGEN_ARGUMENTS "--verbose"
+)
+
 if(MSVC)
     target_compile_options(${PROJECT_NAME}
         PRIVATE

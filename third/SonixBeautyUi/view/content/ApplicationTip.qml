@@ -11,19 +11,19 @@ Rectangle {
 
     property var text: null
     property var interval: 2000
-    property var window: null
+    property Window window: null
 
     readonly property int margins: 5
     readonly property int pointSize: 14
     readonly property var elementRadius: ThemeManager.currentTheme["elementRadius"]
-    readonly property var elementColor: ThemeManager.currentTheme["elementColor"]
+    readonly property color elementColor: ThemeManager.currentTheme["elementColor"]
     readonly property color textColor: ThemeManager.currentTheme["textColor"]
 
     Text {
         id: tipText
         anchors.fill: parent
         anchors.margins: root.margins
-        color: root.textColor
+        color: Qt.color(root.textColor)
         text: root.text
         wrapMode: Text.WrapAnywhere
         font.pointSize: root.pointSize
@@ -63,7 +63,7 @@ Rectangle {
             to: 0
         }
         ScriptAction {
-            script: root.destroy()
+            script: root.destroyLater()
         }
     }
 }
