@@ -4,7 +4,7 @@
 <context>
     <name>App</name>
     <message>
-        <location filename="../view/App.qml" line="26"/>
+        <location filename="../view/App.qml" line="27"/>
         <source>你好 世界</source>
         <translation type="unfinished"></translation>
     </message>

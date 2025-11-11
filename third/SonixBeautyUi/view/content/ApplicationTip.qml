@@ -3,38 +3,32 @@ import SonixBeautyUI
 
 Rectangle {
     id: root
-    radius: elementRadius
-    color: elementColor
-    x: window.x + window.width / 2 - root.width / 2
-    y: window.y + window.height / 4
-    width: window.width / 3
+    radius: UIConstants.elementRadius ? UIConstants.elementRadius : Math.round(5 * Screen.devicePixelRatio)
+    color: UIConstants.elementColor ? UIConstants.elementColor : Qt.rgba(1, 1, 1, 1)
+    x: root.window ? root.window.x + (root.window.width - root.width) / 2 : (Screen.width - root.width) / 2
+    y: root.window ? root.window.y + root.window.height / 4 : Screen.height / 4
+    width: root.window ? root.window.width / 3 : Screen.width / 3
 
-    property var text: null
-    property var interval: 2000
+    property string text: ""
+    property int interval: 2000
     property Window window: null
 
-    readonly property int margins: 5
-    readonly property int pointSize: 14
-    readonly property var elementRadius: ThemeManager.currentTheme["elementRadius"]
-    readonly property color elementColor: ThemeManager.currentTheme["elementColor"]
-    readonly property color textColor: ThemeManager.currentTheme["textColor"]
+    readonly property int pointSize: Math.round(14 * Screen.devicePixelRatio)
 
     Text {
         id: tipText
         anchors.fill: parent
-        anchors.margins: root.margins
-        color: Qt.color(root.textColor)
+        anchors.margins: UIConstants.margins
+        color: UIConstants.textColor
         text: root.text
         wrapMode: Text.WrapAnywhere
         font.pointSize: root.pointSize
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignVCenter
+        horizontalAlignment: Qt.AlignHCenter
+        verticalAlignment: Qt.AlignVCenter
     }
 
     Component.onCompleted: {
-        if (window) {
-            root.height = tipText.implicitHeight;
-        }
+        root.height = tipText.implicitHeight;
     }
 
     SequentialAnimation {
@@ -63,7 +57,9 @@ Rectangle {
             to: 0
         }
         ScriptAction {
-            script: root.destroyLater()
+            script: Qt.callLater(function () {
+                root.destroy();
+            })
         }
     }
 }

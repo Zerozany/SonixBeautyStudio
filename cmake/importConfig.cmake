@@ -3,6 +3,10 @@ target_compile_features(${PROJECT_NAME}
     cxx_std_23
 )
 
+set_target_properties(${PROJECT_NAME} PROPERTIES
+    QT_QMLCACHEGEN_ARGUMENTS "--static"
+)
+
 if(MSVC)
     target_compile_options(${PROJECT_NAME}
         PRIVATE

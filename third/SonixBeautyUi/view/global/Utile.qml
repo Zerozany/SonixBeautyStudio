@@ -3,25 +3,24 @@ import QtQuick.Window
 import QtQuick
 
 QtObject {
-    property var mainWindowObject
 
-    function showApplicationTip(_window, _text, _interval = 2000) {
+    function showApplicationTip(_window: Window, _text: string, _interval: int) {
         if (!_window) {
             console.error("[Utile] showApplicationTip(): window is null");
             return;
         }
-        const component = Qt.createComponent("../content/ApplicationTip.qml");
-        if (component.status === Component.Ready) {
-            const tip = component.createObject(_window, {
+        const tipComp = Qt.createComponent("../content/ApplicationTip.qml");
+        if (tipComp.status === Component.Ready) {
+            const tipObj = tipComp.createObject(_window, {
                 window: _window,
                 text: _text,
                 interval: _interval
             });
-            if (tip === null) {
-                console.error("[Utile] create ApplicationTip failed");
+            if (tipObj === null) {
+                console.error("[Utile] showApplicationTip(): create ApplicationTip failed");
             }
-        } else if (component.status === Component.Error) {
-            console.error("[Utile] Component loading failed:", component.errorString());
+        } else if (tipComp.status === Component.Error) {
+            console.error("[Utile] showApplicationTip(): Component loading failed:", tipComp.errorString());
         }
     }
 }

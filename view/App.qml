@@ -1,6 +1,7 @@
 import QtQuick
 import "HomePage"
 import SonixBeautyUI
+import SonixBeautyStudio
 
 Item {
     id: root
@@ -23,6 +24,6 @@ Item {
     }
 
     Component.onCompleted: {
-        Utile.showApplicationTip(Utile.mainWindowObject, qsTr("你好 世界"));
+        Utile.showApplicationTip(AppConstants.mainWindowObject, qsTr("你好 世界"));
     }
 }

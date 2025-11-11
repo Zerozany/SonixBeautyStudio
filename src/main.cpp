@@ -6,7 +6,7 @@
 // #include "Translator.h"
 // #include "ThemeManager.h"
 // #include <QDebug>
-// #include "WifiConfigBase.h"
+#include "WifiConfigBase.h"
 
 int main(int argc, char* argv[])
 {

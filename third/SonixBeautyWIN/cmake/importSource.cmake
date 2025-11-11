@@ -5,15 +5,17 @@ if(WIN32)
         "${CMAKE_CURRENT_SOURCE_DIR}/include/*.h"
     )
 
-    set(QT_QML_GENERATE_QMLLS_INI ON)
+    file(GLOB QMLFILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
+        "${CMAKE_CURRENT_SOURCE_DIR}/view/*.qml"
+    )
 
     qt_add_qml_module(${PROJECT_NAME}
         URI "${PROJECT_NAME}"
         VERSION 1.0
         RESOURCE_PREFIX "/"
-        QML_FILES
+        QML_FILES ${QMLFILES}
         SOURCES ${SRCFILES}
-        OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/qmlimports/${PROJECT_NAME}"
+        OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${PROJECT_NAME}"
     )
 
     file(GLOB INCLUDEDIR "${CMAKE_CURRENT_SOURCE_DIR}/src/*")

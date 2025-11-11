@@ -9,7 +9,7 @@ target_compile_definitions(${PROJECT_NAME}
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
-    QT_QMLCACHEGEN_ARGUMENTS "--verbose"
+    QT_QMLCACHEGEN_ARGUMENTS "--static"
 )
 
 if(MSVC)

@@ -3,6 +3,7 @@ import QtQuick
 
 import SonixBeautyWIN
 import SonixBeautyUI
+import SonixBeautyStudio
 
 SonixBeautyWindow {
     id: appWindow
@@ -16,6 +17,6 @@ SonixBeautyWindow {
     }
 
     Component.onCompleted: {
-        Utile.mainWindowObject = appWindow;
+        AppConstants.mainWindowObject = appWindow;
     }
 }

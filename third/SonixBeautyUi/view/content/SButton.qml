@@ -11,7 +11,7 @@ Item {
     property var source: null
     property var sourcePressed: null
     property var fontBold: false
-    property var layout: Qt.Horizontal
+    property int layout: Qt.Horizontal
 
     readonly property int spacing: 2
     readonly property color textColor: ThemeManager.currentTheme["textColor"]
