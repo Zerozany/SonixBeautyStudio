@@ -1,4 +1,4 @@
-add_subdirectory("${CMAKE_SOURCE_DIR}/third/SonixBeautyUI")
+# add_subdirectory("${CMAKE_SOURCE_DIR}/third/SonixBeautyUI")
 
 # add_subdirectory("${CMAKE_SOURCE_DIR}/third/SonixBeautyKits")
 # add_subdirectory("${CMAKE_SOURCE_DIR}/third/SonixBeautyLibs")
@@ -12,7 +12,7 @@ endif()
 target_link_libraries(${PROJECT_NAME}
     PRIVATE
 
-    SonixBeautyUI
+    # SonixBeautyUI
 
     # SonixBeautyKits
 

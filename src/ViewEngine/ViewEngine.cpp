@@ -47,9 +47,8 @@ auto ViewEngine::initEngine() noexcept -> void
     {
         return;
     }
-    m_qmlApplicationEngine->addImportPath("qrc:/");
-    m_qmlApplicationEngine->addImportPath(QGuiApplication::applicationDirPath() + "/../");
-    m_qmlApplicationEngine->load(QUrl("qrc:/SonixBeautyStudio/view/Main.qml"));
+    m_qmlApplicationEngine->addImportPath(QGuiApplication::applicationDirPath() + "/../third");
+    m_qmlApplicationEngine->loadFromModule("SonixBeautyStudio", "Main");
 }
 
 auto ViewEngine::initWindow() noexcept -> void
