@@ -4,7 +4,7 @@ import QtQuick
 
 QtObject {
 
-    function showApplicationTip(_window: Window, _text: string, _interval: int) {
+    function showApplicationTip(_window, _text, _interval = 2000) {
         if (!_window) {
             console.error("[Utile] showApplicationTip(): window is null");
             return;

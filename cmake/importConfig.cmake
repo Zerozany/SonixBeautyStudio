@@ -4,7 +4,7 @@ target_compile_features(${PROJECT_NAME}
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
-    QT_QMLCACHEGEN_ARGUMENTS "--static"
+    QT_QMLCACHEGEN_ARGUMENTS "--verbose"
 )
 
 if(MSVC)

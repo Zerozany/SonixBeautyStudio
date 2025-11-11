@@ -1,5 +1,4 @@
 pragma Singleton
-import QtQuick.Window
 import QtQuick
 import SonixBeautyWIN
 

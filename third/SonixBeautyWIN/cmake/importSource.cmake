@@ -5,16 +5,14 @@ if(WIN32)
         "${CMAKE_CURRENT_SOURCE_DIR}/include/*.h"
     )
 
-    file(GLOB QMLFILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
-        "${CMAKE_CURRENT_SOURCE_DIR}/view/*.qml"
-    )
-
     qt_add_qml_module(${PROJECT_NAME}
         URI "${PROJECT_NAME}"
         VERSION 1.0
         RESOURCE_PREFIX "/qt/qml"
-        QML_FILES ${QMLFILES}
+        QML_FILES
         SOURCES ${SRCFILES}
+
+        # NO_CACHEGEN
     )
 
     file(GLOB INCLUDEDIR "${CMAKE_CURRENT_SOURCE_DIR}/src/*")

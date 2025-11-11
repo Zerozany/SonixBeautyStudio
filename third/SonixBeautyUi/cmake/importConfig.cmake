@@ -8,6 +8,8 @@ target_compile_definitions(${PROJECT_NAME}
     SONIXEXPROTS
 )
 
+set(QT_QML_GENERATE_QMLLS_INI ON)
+
 set_target_properties(${PROJECT_NAME} PROPERTIES
     QT_QMLCACHEGEN_ARGUMENTS "--static"
 )

@@ -73,4 +73,7 @@ auto ViewEngine::initWindow() noexcept -> void
 auto ViewEngine::connectSignal2Slot() noexcept -> void
 {
     connect(m_qmlApplicationEngine, &QQmlApplicationEngine::objectCreationFailed, m_guiApplication, [] { QCoreApplication::exit(-1); }, Qt::QueuedConnection);
+    connect(m_qmlApplicationEngine, &QQmlApplicationEngine::warnings, m_guiApplication, [](const QList<QQmlError>& warnings) {   for (const auto &warning : warnings) {
+        qDebug() << warning.toString();
+    } }, Qt::QueuedConnection);
 }
