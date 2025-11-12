@@ -3,10 +3,9 @@
 $adb = "D:\AndroidEnv\SDK\platform-tools\adb.exe"
 
 & $adb devices
-
 # 设备序列号
-$device = "8c1161c0"
-# e2feb7f9 8c1161c0
+$device = "d933be15"
+# e2feb7f9 8c1161c0 d933be15
 
 # APK 路径
 $apkPath = "F:\DevelopFiles\AndroidFrame\build\AndroidDebug\android-build\SonixBeautyStudio.apk"

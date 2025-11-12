@@ -2,9 +2,19 @@ _Pragma("once");
 #include <QQuickWindow>
 #include <QtQml/qqmlregistration.h>
 
+#if defined(Q_OS_WINDOWS) && defined(_MSC_VER)
+#ifdef SONIXEXPROTS
+#define SONIXEX_API Q_DECL_EXPORT
+#else
+#define SONIXEX_API Q_DECL_IMPORT
+#endif
+#else
+#define SONIXEX_API
+#endif
+
 class QExposeEvent;
 
-class SonixBeautyWindow : public QQuickWindow
+class SONIXEX_API SonixBeautyWindow : public QQuickWindow
 {
     Q_OBJECT
     QML_ELEMENT

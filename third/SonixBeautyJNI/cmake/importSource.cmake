@@ -4,20 +4,12 @@ if(ANDROID)
         "${CMAKE_CURRENT_SOURCE_DIR}/src/**/*.cpp"
     )
 
-    target_sources(${PROJECT_NAME}
-        PRIVATE
-        ${SRCFILES}
-    )
-
-    set(QT_QML_GENERATE_QMLLS_INI ON)
-
     qt_add_qml_module(${PROJECT_NAME}
         URI "${PROJECT_NAME}"
         VERSION 1.0
-        RESOURCE_PREFIX "/"
+        RESOURCE_PREFIX "/qt/qml"
         QML_FILES
         SOURCES ${SRCFILES}
-        OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/qmlimports/${PROJECT_NAME}"
     )
 
     file(GLOB INCLUDEDIR "${CMAKE_CURRENT_SOURCE_DIR}/src/*")

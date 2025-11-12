@@ -1,13 +1,14 @@
 import QtQuick
-// import SonixBeautyJNI
+import SonixBeautyJNI
 
-import SonixBeautyWIN
-import SonixBeautyStudio
+// import SonixBeautyUI
+// import SonixBeautyStudio
 
 SonixBeautyWindow {
     id: appWindow
 
     Component.onCompleted: {
-        AppConstants.mainWindowObject = appWindow;
+        // AppConstants.mainWindowObject = appWindow;
+        // Utile.showApplicationTip(AppConstants.mainWindowObject, qsTr("Hello World!!!"));
     }
 }

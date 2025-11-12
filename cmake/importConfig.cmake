@@ -3,8 +3,10 @@ target_compile_features(${PROJECT_NAME}
     cxx_std_23
 )
 
+set(QT_QML_GENERATE_QMLLS_INI ON)
+
 set_target_properties(${PROJECT_NAME} PROPERTIES
-    QT_QMLCACHEGEN_ARGUMENTS "--verbose"
+    QT_QMLCACHEGEN_ARGUMENTS "--direct-calls"
 )
 
 if(MSVC)

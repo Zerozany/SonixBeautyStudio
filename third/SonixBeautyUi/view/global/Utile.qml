@@ -4,10 +4,13 @@ import QtQuick
 
 QtObject {
 
-    function showApplicationTip(_window, _text, _interval = 2000) {
+    function showApplicationTip(_window: var, _text: string, _interval: int) {
         if (!_window) {
             console.error("[Utile] showApplicationTip(): window is null");
             return;
+        }
+        if (!_interval) {
+            _interval = 2000;
         }
         const tipComp = Qt.createComponent("../content/ApplicationTip.qml");
         if (tipComp.status === Component.Ready) {

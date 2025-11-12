@@ -1,12 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
 <TS version="2.1" language="zh_CN" sourcelanguage="en">
-<context>
-    <name>App</name>
-    <message>
-        <location filename="../view/App.qml" line="27"/>
-        <source>你好 世界</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
 </TS>

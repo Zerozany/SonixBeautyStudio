@@ -11,7 +11,7 @@ Rectangle {
 
     property string text: ""
     property int interval: 2000
-    property var window: null
+    property Item window: null
 
     readonly property int pointSize: Math.round(14 * Screen.devicePixelRatio)
 

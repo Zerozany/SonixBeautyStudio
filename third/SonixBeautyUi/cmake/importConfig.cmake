@@ -11,7 +11,7 @@ target_compile_definitions(${PROJECT_NAME}
 set(QT_QML_GENERATE_QMLLS_INI ON)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
-    QT_QMLCACHEGEN_ARGUMENTS "--static"
+    QT_QMLCACHEGEN_ARGUMENTS "--verbose"
 )
 
 if(MSVC)
@@ -34,6 +34,7 @@ if(MSVC)
         ARCHIVE_OUTPUT_DIRECTORY_DEBUG "${CMAKE_BINARY_DIR}/lib"
         ARCHIVE_OUTPUT_DIRECTORY_RELEASE "${CMAKE_BINARY_DIR}/lib"
     )
+
 else()
     set_target_properties(${PROJECT_NAME} PROPERTIES
         RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
