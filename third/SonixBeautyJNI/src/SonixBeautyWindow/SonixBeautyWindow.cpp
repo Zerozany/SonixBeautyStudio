@@ -40,10 +40,19 @@ extern "C" {
             Q_EMIT window->onRestart();
         }
     }
+
+    JNIEXPORT void JNICALL
+    Java_com_sonixbeauty_activity_AppActivity_nativeNotifyDestroy(JNIEnv*, jclass)
+    {
+        if (auto window{SonixBeautyWindow::instance()}; window)
+        {
+            Q_EMIT window->onDestroy();
+        }
+    }
 }
 #endif
 
-static constexpr uint16_t INTERVAL{300};
+static constexpr uint16_t INTERVAL{200};
 
 SonixBeautyWindow::SonixBeautyWindow(QQuickWindow* _parent) : QQuickWindow{_parent}
 {
@@ -69,9 +78,11 @@ auto SonixBeautyWindow::connectSignal2Slot() noexcept -> void
 {
 #if defined(Q_OS_ANDROID)
 
-    connect(this, &SonixBeautyWindow::onRestart, this, &SonixBeautyWindow::onRestartChanged, Qt::QueuedConnection);
+    connect(this, &SonixBeautyWindow::onRestart, this, &SonixBeautyWindow::onRestartChanged, Qt::AutoConnection);
 
-    connect(this, &SonixBeautyWindow::onPause, this, &SonixBeautyWindow::onPauseChanged, Qt::QueuedConnection);
+    connect(this, &SonixBeautyWindow::onPause, this, &SonixBeautyWindow::onPauseChanged, Qt::AutoConnection);
+
+    connect(this, &SonixBeautyWindow::onDestroy, this, &SonixBeautyWindow::onDestroyChanged, Qt::AutoConnection);
 
 #endif
 }
@@ -90,6 +101,7 @@ auto SonixBeautyWindow::setWindowPropertys() noexcept -> void
 #if defined(Q_OS_ANDROID)
     this->setSurfaceType(QWindow::OpenGLSurface);
     this->setVisibility(QWindow::FullScreen);
+    this->setFlags(Qt::Window | Qt::FramelessWindowHint);
 #endif
     this->setVisible(true);
 }
@@ -112,4 +124,8 @@ void SonixBeautyWindow::onRestartChanged()
             this->showFullScreen();
         }
     });
+}
+
+void SonixBeautyWindow::onDestroyChanged()
+{
 }

@@ -11,6 +11,7 @@ public class AppActivity extends org.qtproject.qt.android.bindings.QtActivity {
     private static native void nativeNotifyStop();
     private static native void nativeNotifyRestart();
     private static native void nativeNotifyPause();
+    private static native void nativeNotifyDestroy();
 
     private PrivateConfig m_privateConfig;
 
@@ -57,6 +58,7 @@ public class AppActivity extends org.qtproject.qt.android.bindings.QtActivity {
     @Override
     public void onDestroy()
     {
+        nativeNotifyDestroy();
         super.onDestroy();
     }
 }

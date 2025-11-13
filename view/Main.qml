@@ -14,10 +14,7 @@ SonixBeautyWindow {
         width: 50
         height: 50
         x: 0
-        y: 0
-        Component.onCompleted: {
-            y = appWindow.height - Screen.desktopAvailableHeight;
-        }
+        y: 25
     }
 
     Rectangle {
@@ -27,7 +24,7 @@ SonixBeautyWindow {
         x: 0
         y: 0
         Component.onCompleted: {
-            y = Screen.desktopAvailableHeight - height;
+            y = appWindow.height - height - 20;
         }
     }
 
@@ -44,8 +41,6 @@ SonixBeautyWindow {
     }
 
     Component.onCompleted: {
-        console.log("qml:" + Screen.desktopAvailableHeight);
-        console.log("qml:" + Screen.desktopAvailableWidth);
         AppConstants.mainWindowObject = appWindow;
         Utile.showApplicationTip(AppConstants.mainWindowObject, qsTr("Hello World!!!"));
     }
