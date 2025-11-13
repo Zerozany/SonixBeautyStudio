@@ -35,26 +35,8 @@ protected:
     void exposeEvent(QExposeEvent* _ev) override;
 
 Q_SIGNALS:
-    void onCreate();
-
-    void onStart();
-
-    void onResume();
-
-    void onPause();
-
-    void onStop();
-
-    void onDestroy();
-
-    void onRestart();
 
 private Q_SLOTS:
-    void onStartChanged();
-
-    void onStopChanged();
-
-    void onRestartChanged();
 
 private:
     inline static SonixBeautyWindow* m_instance{nullptr};

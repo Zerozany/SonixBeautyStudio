@@ -10,6 +10,8 @@ public class AppActivity extends org.qtproject.qt.android.bindings.QtActivity {
     private static native void nativeNotifyStart();
     private static native void nativeNotifyStop();
     private static native void nativeNotifyRestart();
+    private static native void nativeNotifyPause();
+
     private PrivateConfig m_privateConfig;
 
     @Override
@@ -23,7 +25,6 @@ public class AppActivity extends org.qtproject.qt.android.bindings.QtActivity {
     @Override
     public void onStart()
     {
-        nativeNotifyStart();
         super.onStart();
     }
 
@@ -31,7 +32,6 @@ public class AppActivity extends org.qtproject.qt.android.bindings.QtActivity {
     public void onStop()
     {
         super.onStop();
-        nativeNotifyStop();
     }
 
     @Override
@@ -50,6 +50,7 @@ public class AppActivity extends org.qtproject.qt.android.bindings.QtActivity {
     @Override
     public void onPause()
     {
+        nativeNotifyPause();
         super.onPause();
     }
 

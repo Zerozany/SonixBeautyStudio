@@ -16,18 +16,19 @@ extern "C" {
     JNIEXPORT void JNICALL
     Java_com_sonixbeauty_activity_AppActivity_nativeNotifyStart(JNIEnv*, jclass)
     {
-        if (auto window{SonixBeautyWindow::instance()}; window)
-        {
-            Q_EMIT window->onStart();
-        }
     }
 
     JNIEXPORT void JNICALL
     Java_com_sonixbeauty_activity_AppActivity_nativeNotifyStop(JNIEnv*, jclass)
     {
+    }
+
+    JNIEXPORT void JNICALL
+    Java_com_sonixbeauty_activity_AppActivity_nativeNotifyPause(JNIEnv*, jclass)
+    {
         if (auto window{SonixBeautyWindow::instance()}; window)
         {
-            Q_EMIT window->onStop();
+            Q_EMIT window->onPause();
         }
     }
 
@@ -68,11 +69,10 @@ auto SonixBeautyWindow::connectSignal2Slot() noexcept -> void
 {
 #if defined(Q_OS_ANDROID)
 
-    connect(this, &SonixBeautyWindow::onStart, this, &SonixBeautyWindow::onStartChanged, Qt::QueuedConnection);
-
-    connect(this, &SonixBeautyWindow::onStop, this, &SonixBeautyWindow::onStopChanged, Qt::QueuedConnection);
-
     connect(this, &SonixBeautyWindow::onRestart, this, &SonixBeautyWindow::onRestartChanged, Qt::QueuedConnection);
+
+    connect(this, &SonixBeautyWindow::onPause, this, &SonixBeautyWindow::onPauseChanged, Qt::QueuedConnection);
+
 #endif
 }
 
@@ -87,12 +87,13 @@ auto SonixBeautyWindow::setSonixBeautyWindow(SonixBeautyWindow* _sonixBeautyWind
 
 auto SonixBeautyWindow::setWindowPropertys() noexcept -> void
 {
-    this->setVisible(true);
+    this->setSurfaceType(QWindow::OpenGLSurface);
 #if defined(Q_OS_ANDROID)
     this->setVisibility(QWindow::AutomaticVisibility);
 #elif defined(Q_OS_WINDOWS)
     this->setVisibility(QWindow::Windowed);
 #endif
+    this->setVisible(true);
 }
 
 void SonixBeautyWindow::exposeEvent(QExposeEvent* _ev)
@@ -100,17 +101,7 @@ void SonixBeautyWindow::exposeEvent(QExposeEvent* _ev)
     QQuickWindow::exposeEvent(_ev);
 }
 
-void SonixBeautyWindow::onStartChanged()
-{
-    QTimer::singleShot(INTERVAL, [this] {
-        if (this->isSceneGraphInitialized())
-        {
-            this->show();
-        }
-    });
-}
-
-void SonixBeautyWindow::onStopChanged()
+void SonixBeautyWindow::onPauseChanged()
 {
     this->hide();
 }

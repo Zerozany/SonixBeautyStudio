@@ -50,11 +50,9 @@ Q_SIGNALS:
     void onRestart();
 
 private Q_SLOTS:
-    void onStartChanged();
-
-    void onStopChanged();
-
     void onRestartChanged();
+
+    void onPauseChanged();
 
 private:
     inline static SonixBeautyWindow* m_instance{nullptr};
