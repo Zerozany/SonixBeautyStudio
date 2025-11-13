@@ -36,10 +36,8 @@ auto SonixBeautyWindow::setSonixBeautyWindow(SonixBeautyWindow* _sonixBeautyWind
 
 auto SonixBeautyWindow::setWindowPropertys() noexcept -> void
 {
+#if defined(Q_OS_WINDOWS)
     this->setSurfaceType(QWindow::Direct3DSurface);
-#if defined(Q_OS_ANDROID)
-    this->setVisibility(QWindow::AutomaticVisibility);
-#elif defined(Q_OS_WINDOWS)
     this->setVisibility(QWindow::Windowed);
 #endif
     this->setVisible(true);

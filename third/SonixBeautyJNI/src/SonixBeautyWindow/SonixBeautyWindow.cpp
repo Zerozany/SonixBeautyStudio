@@ -87,11 +87,9 @@ auto SonixBeautyWindow::setSonixBeautyWindow(SonixBeautyWindow* _sonixBeautyWind
 
 auto SonixBeautyWindow::setWindowPropertys() noexcept -> void
 {
-    this->setSurfaceType(QWindow::OpenGLSurface);
 #if defined(Q_OS_ANDROID)
-    this->setVisibility(QWindow::AutomaticVisibility);
-#elif defined(Q_OS_WINDOWS)
-    this->setVisibility(QWindow::Windowed);
+    this->setSurfaceType(QWindow::OpenGLSurface);
+    this->setVisibility(QWindow::FullScreen);
 #endif
     this->setVisible(true);
 }
@@ -111,7 +109,7 @@ void SonixBeautyWindow::onRestartChanged()
     QTimer::singleShot(INTERVAL, [this] {
         if (this->isSceneGraphInitialized())
         {
-            this->show();
+            this->showFullScreen();
         }
     });
 }
