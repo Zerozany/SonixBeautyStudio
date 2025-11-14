@@ -52,6 +52,10 @@ Q_SIGNALS:
 private Q_SLOTS:
     void onRestartChanged();
 
+    void onStartChanged();
+
+    void onResumeChanged();
+
     void onPauseChanged();
 
     void onDestroyChanged();

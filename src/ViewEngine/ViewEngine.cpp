@@ -66,8 +66,6 @@ auto ViewEngine::initWindow() noexcept -> void
     {
         return;
     }
-    m_quickWindow->setPersistentSceneGraph(true);
-    m_quickWindow->setPersistentGraphics(true);
 }
 
 auto ViewEngine::connectSignal2Slot() noexcept -> void

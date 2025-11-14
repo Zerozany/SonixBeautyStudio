@@ -1,47 +1,33 @@
 import QtQuick
+import QtQuick.Controls
 import SonixBeautyJNI
 
-import SonixBeautyUI
-import SonixBeautyStudio
+// import SonixBeautyUI
+// import SonixBeautyStudio
 
 SonixBeautyWindow {
     id: appWindow
 
-    color: "green"
+    color: "blue"
 
-    Rectangle {
-        color: "blue"
-        width: 50
-        height: 50
-        x: 0
-        y: 25
+    Button {
+        x: 344
+        y: 100
+        text: "World"
+        width: 200
+        height: 100
     }
 
-    Rectangle {
-        color: "blue"
-        width: 50
-        height: 50
-        x: 0
-        y: 0
-        Component.onCompleted: {
-            y = appWindow.height - height - 20;
-        }
-    }
-
-    Rectangle {
-        color: "blue"
-        width: 50
-        height: 50
-        x: 0
-        y: 0
-        Component.onCompleted: {
-            x = Screen.desktopAvailableWidth - width;
-            y = Screen.desktopAvailableHeight - height;
-        }
+    Text {
+        x: 100
+        y: 100
+        text: "World"
+        width: 200
+        height: 100
     }
 
     Component.onCompleted: {
-        AppConstants.mainWindowObject = appWindow;
-        Utile.showApplicationTip(AppConstants.mainWindowObject, qsTr("Hello World!!!"));
+        // AppConstants.mainWindowObject = appWindow;
+        // Utile.showApplicationTip(AppConstants.mainWindowObject, qsTr("Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!"));
     }
 }

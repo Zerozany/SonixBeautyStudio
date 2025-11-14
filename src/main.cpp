@@ -2,10 +2,15 @@
 #include <QQmlApplicationEngine>
 #include "SystemConfig.h"
 #include "ViewEngine.h"
-// #include "AndroidWifiConfig.h"
 // #include "Translator.h"
 // #include "ThemeManager.h"
 // #include <QDebug>
+
+#if defined(Q_OS_ANDROID)
+#include <QJniObject>
+#include <QJniEnvironment>
+// #include "AndroidWifiConfig.h"
+#endif
 
 int main(int argc, char* argv[])
 {
@@ -17,5 +22,9 @@ int main(int argc, char* argv[])
     ViewEngine::instance()->init(&app, &engine);
     // SonixLogger::init(QDir{QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)}.filePath("log/SonixLog_1.txt").toStdString());
     // SonixLogger::setLevel(spdlog::level::warn);
+#if defined(Q_OS_ANDROID)
+    QNativeInterface::QAndroidApplication::hideSplashScreen();
+#endif
+
     return QGuiApplication::exec();
 }

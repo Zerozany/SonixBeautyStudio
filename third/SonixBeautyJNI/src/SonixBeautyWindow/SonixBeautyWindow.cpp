@@ -14,8 +14,12 @@ extern "C" {
     }
 
     JNIEXPORT void JNICALL
-    Java_com_sonixbeauty_activity_AppActivity_nativeNotifyStart(JNIEnv*, jclass)
+    Java_com_sonixbeauty_activity_AppActivity_nativeNotifyResume(JNIEnv*, jclass)
     {
+        if (auto window{SonixBeautyWindow::instance()}; window)
+        {
+            Q_EMIT window->onResume();
+        }
     }
 
     JNIEXPORT void JNICALL
@@ -52,7 +56,7 @@ extern "C" {
 }
 #endif
 
-static constexpr uint16_t INTERVAL{200};
+static constexpr uint16_t INTERVAL{300};
 
 SonixBeautyWindow::SonixBeautyWindow(QQuickWindow* _parent) : QQuickWindow{_parent}
 {
@@ -73,18 +77,27 @@ auto SonixBeautyWindow::instance() noexcept -> SonixBeautyWindow*
 {
     return m_instance;
 }
-
 auto SonixBeautyWindow::connectSignal2Slot() noexcept -> void
 {
 #if defined(Q_OS_ANDROID)
 
-    connect(this, &SonixBeautyWindow::onRestart, this, &SonixBeautyWindow::onRestartChanged, Qt::AutoConnection);
+    connect(this, &SonixBeautyWindow::onRestart, this, &SonixBeautyWindow::onRestartChanged, Qt::DirectConnection);
 
-    connect(this, &SonixBeautyWindow::onPause, this, &SonixBeautyWindow::onPauseChanged, Qt::AutoConnection);
+    connect(this, &SonixBeautyWindow::onResume, this, &SonixBeautyWindow::onResumeChanged, Qt::DirectConnection);
 
-    connect(this, &SonixBeautyWindow::onDestroy, this, &SonixBeautyWindow::onDestroyChanged, Qt::AutoConnection);
+    connect(this, &SonixBeautyWindow::onPause, this, &SonixBeautyWindow::onPauseChanged, Qt::DirectConnection);
+
+    connect(this, &SonixBeautyWindow::onDestroy, this, &SonixBeautyWindow::onDestroyChanged, Qt::DirectConnection);
 
 #endif
+
+    // connect(this, &QQuickWindow::beforeRendering, this, [this] { qDebug() << "beforeRendering"; }, Qt::DirectConnection);
+
+    // connect(this, &QQuickWindow::afterRendering, this, [this] { qDebug() << "afterRendering"; }, Qt::DirectConnection);
+
+    connect(this, &SonixBeautyWindow::sceneGraphInitialized, this, [this] { qDebug() << "sceneGraphInitialized"; }, Qt::DirectConnection);
+
+    connect(this, &SonixBeautyWindow::sceneGraphAboutToStop, this, [this] { qDebug() << "sceneGraphAboutToStop"; }, Qt::DirectConnection);
 }
 
 auto SonixBeautyWindow::setSonixBeautyWindow(SonixBeautyWindow* _sonixBeautyWindow) noexcept -> void
@@ -99,10 +112,9 @@ auto SonixBeautyWindow::setSonixBeautyWindow(SonixBeautyWindow* _sonixBeautyWind
 auto SonixBeautyWindow::setWindowPropertys() noexcept -> void
 {
 #if defined(Q_OS_ANDROID)
-    this->setSurfaceType(QWindow::OpenGLSurface);
-    this->setVisibility(QWindow::FullScreen);
-    this->setFlags(Qt::Window | Qt::FramelessWindowHint);
+
 #endif
+    this->setVisibility(QWindow::FullScreen);
     this->setVisible(true);
 }
 
@@ -116,14 +128,19 @@ void SonixBeautyWindow::onPauseChanged()
     this->hide();
 }
 
+void SonixBeautyWindow::onResumeChanged()
+{
+}
+
 void SonixBeautyWindow::onRestartChanged()
 {
-    QTimer::singleShot(INTERVAL, [this] {
-        if (this->isSceneGraphInitialized())
-        {
-            this->showFullScreen();
-        }
+    QTimer::singleShot(INTERVAL, this, [this]() {
+        this->showFullScreen();
     });
+}
+
+void SonixBeautyWindow::onStartChanged()
+{
 }
 
 void SonixBeautyWindow::onDestroyChanged()
