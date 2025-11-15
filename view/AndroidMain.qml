@@ -15,7 +15,7 @@ SonixBeautyWindow {
         source: "qrc:/view/resource/HomePageIcons/connect.png"
         sourcePressed: "qrc:/view/resource/HomePageIcons/connectPressed.png"
         fontBold: true
-        width: 140
+        width: 100
         height: 45
         x: 50
         y: 50
