@@ -6,7 +6,9 @@ target_compile_features(${PROJECT_NAME}
 set(QT_QML_GENERATE_QMLLS_INI ON)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
-    QT_QMLCACHEGEN_ARGUMENTS "--direct-calls"
+
+    # QT_QMLCACHEGEN_ARGUMENTS "--direct-calls"
+    QT_QMLCACHEGEN_ARGUMENTS "--verbose"
 )
 
 if(MSVC)

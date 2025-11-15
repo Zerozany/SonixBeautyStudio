@@ -48,7 +48,11 @@ auto ViewEngine::initEngine() noexcept -> void
         return;
     }
     m_qmlApplicationEngine->addImportPath(QGuiApplication::applicationDirPath() + "/../third");
-    m_qmlApplicationEngine->loadFromModule("SonixBeautyStudio", "Main");
+#if defined(Q_OS_ANDROID)
+    m_qmlApplicationEngine->loadFromModule("SonixBeautyStudio", "AndroidMain");
+#elif defined(Q_OS_WINDOWS)
+    m_qmlApplicationEngine->loadFromModule("SonixBeautyStudio", "WinMain");
+#endif
 }
 
 auto ViewEngine::initWindow() noexcept -> void

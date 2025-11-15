@@ -1,21 +1,17 @@
 pragma Singleton
-import QtQuick.Window
 import QtQuick
 
 QtObject {
 
-    function showApplicationTip(_window: var, _text: string, _interval: int) {
-        if (!_window) {
+    function showApplicationTip(_parentWindow: var, _text: string, _interval = 2000) {
+        if (!_parentWindow) {
             console.error("[Utile] showApplicationTip(): window is null");
             return;
         }
-        if (!_interval) {
-            _interval = 2000;
-        }
         const tipComp = Qt.createComponent("../content/ApplicationTip.qml");
         if (tipComp.status === Component.Ready) {
-            const tipObj = tipComp.createObject(_window, {
-                window: _window,
+            const tipObj = tipComp.createObject(_parentWindow, {
+                parentWindow: _parentWindow,
                 text: _text,
                 interval: _interval
             });

@@ -23,21 +23,18 @@ public class AppActivity extends org.qtproject.qt.android.bindings.QtActivity {
         // NotifyCreate();
         m_privateConfig = new PrivateConfig();
         m_privateConfig.systemColumnHandle(this);
-        Log.d(TAG, "onCreate");
     }
 
     @Override
     public void onStart()
     {
         super.onStart();
-        Log.d(TAG, "onStart");
     }
 
     @Override
     public void onStop()
     {
         super.onStop();
-        Log.d(TAG, "onStop");
     }
 
     @Override
@@ -45,7 +42,6 @@ public class AppActivity extends org.qtproject.qt.android.bindings.QtActivity {
     {
         NotifyResume();
         super.onResume();
-        Log.d(TAG, "onResume");
     }
 
     @Override
@@ -53,7 +49,6 @@ public class AppActivity extends org.qtproject.qt.android.bindings.QtActivity {
     {
         NotifyRestart();
         super.onRestart();
-        Log.d(TAG, "onRestart");
     }
 
     @Override
@@ -61,13 +56,11 @@ public class AppActivity extends org.qtproject.qt.android.bindings.QtActivity {
     {
         NotifyPause();
         super.onPause();
-        Log.d(TAG, "onPause");
     }
 
     @Override
     public void onDestroy()
     {
         super.onDestroy();
-        Log.d(TAG, "onDestroy");
     }
 }

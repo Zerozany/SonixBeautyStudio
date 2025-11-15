@@ -37,10 +37,8 @@ auto SonixBeautyWindow::setSonixBeautyWindow(SonixBeautyWindow* _sonixBeautyWind
 auto SonixBeautyWindow::setWindowPropertys() noexcept -> void
 {
 #if defined(Q_OS_WINDOWS)
-    this->setSurfaceType(QWindow::Direct3DSurface);
-    this->setVisibility(QWindow::Windowed);
+    this->setVisibility(QWindow::Maximized);
 #endif
-    this->setVisible(true);
 }
 
 void SonixBeautyWindow::exposeEvent(QExposeEvent* _ev)

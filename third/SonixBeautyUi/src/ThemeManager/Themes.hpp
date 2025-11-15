@@ -5,24 +5,13 @@ _Pragma("once");
 namespace Themes
 {
     inline QVariantMap lightTheme{
-        {"backgroundColor", QColor{"#f0efee"}},
-        {"textColor", QColor{"#0e0d0d"}},
-        {"textColorPressed", QColor{"#cdcdcd"}},
-        {"buttonColor", QColor{"#FFFFFF"}},
-        {"elementRadius", 6},
-        {"elementColor", QColor{"#FFFFFF"}},
-        {"borderColor", QColor{"#cdcdcd"}},
-        {"probeDeviceColor", QColor{"#66e1e1"}},
-    };
-
-    inline QVariantMap darkTheme{
-        {"backgroundColor", QColor{"#f23fee"}},
-        {"textColor", QColor{"#0e0d0d"}},
-        {"textColorPressed", QColor{"#2dcdcd"}},
-        {"buttonColor", QColor{"#FF22FF"}},
-        {"elementRadius", 6},
-        {"elementColor", QColor{"#FFFFFF"}},
-
+        {"backgroundColor", {"#f0efee"}},
+        {"textColor", {"#0e0d0d"}},
+        {"textColorPressed", {"#cdcdcd"}},
+        {"buttonColor", {"#FFFFFF"}},
+        {"elementColor", {"#FFFFFF"}},
+        {"borderColor", {"#cdcdcd"}},
+        {"probeDeviceColor", {"#66e1e1"}},
     };
 
     inline QVariantMap fontFamilys{
