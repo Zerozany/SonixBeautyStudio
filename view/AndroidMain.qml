@@ -26,9 +26,9 @@ SonixBeautyWindow {
         layout: Qt.Vertical
         source: "qrc:/view/resource/HomePageIcons/connect.png"
         sourcePressed: "qrc:/view/resource/HomePageIcons/connectPressed.png"
-        fontBold: false
+        fontBold: true
         width: 60
-        height: 120
+        height: 100
         x: 150
         y: 150
     }

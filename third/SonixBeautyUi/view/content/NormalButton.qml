@@ -25,7 +25,7 @@ Rectangle {
     readonly property int pointSize: ComponentConf.pointSizeTable["L"]
 
     Loader {
-        sourceComponent: root.layout === Qt.Horizontal ? horizontalCom : null
+        sourceComponent: root.layout === Qt.Horizontal ? horizontalCom : verticalCom
         anchors.centerIn: parent
     }
 
@@ -48,6 +48,30 @@ Rectangle {
                 font.bold: root.fontBold
                 // font.family: root.textFontFamily
                 Layout.fillWidth: true
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+            }
+        }
+    }
+
+    Component {
+        id: verticalCom
+        ColumnLayout {
+            anchors.centerIn: parent
+            spacing: 0
+            Image {
+                source: root.pressedTag ? root.sourcePressed : root.source
+                fillMode: Image.PreserveAspectFit
+                Layout.preferredHeight: parent.width
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+            }
+            Text {
+                text: root.text
+                color: root.pressedTag ? root.textColorPressed : root.textColor
+                wrapMode: Text.WordWrap
+                font.pixelSize: Math.floor(root.width * 0.2)
+                font.bold: root.fontBold
+                // font.family: root.textFontFamily
+                Layout.fillHeight: true
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             }
         }
