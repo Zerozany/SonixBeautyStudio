@@ -20,6 +20,7 @@ public class AppActivity extends org.qtproject.qt.android.bindings.QtActivity {
     public void onCreate(Bundle _savedInstanceState)
     {
         super.onCreate(_savedInstanceState);
+        // NotifyCreate();
         m_privateConfig = new PrivateConfig();
         m_privateConfig.systemColumnHandle(this);
         Log.d(TAG, "onCreate");

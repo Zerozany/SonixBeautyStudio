@@ -11,6 +11,10 @@ extern "C" {
     JNIEXPORT void JNICALL
     Java_com_sonixbeauty_activity_AppActivity_NotifyCreate(JNIEnv*, jclass)
     {
+        if (auto window{SonixBeautyWindow::instance()}; window)
+        {
+            QMetaObject::invokeMethod(window, "onCreate", Qt::DirectConnection);
+        }
     }
 
     JNIEXPORT void JNICALL
@@ -18,13 +22,17 @@ extern "C" {
     {
         if (auto window{SonixBeautyWindow::instance()}; window)
         {
-            QMetaObject::invokeMethod(window, "onResume", Qt::QueuedConnection);
+            QMetaObject::invokeMethod(window, "onResume", Qt::DirectConnection);
         }
     }
 
     JNIEXPORT void JNICALL
     Java_com_sonixbeauty_activity_AppActivity_NotifyStop(JNIEnv*, jclass)
     {
+        if (auto window{SonixBeautyWindow::instance()}; window)
+        {
+            QMetaObject::invokeMethod(window, "onStop", Qt::DirectConnection);
+        }
     }
 
     JNIEXPORT void JNICALL
@@ -32,7 +40,7 @@ extern "C" {
     {
         if (auto window{SonixBeautyWindow::instance()}; window)
         {
-            QMetaObject::invokeMethod(window, "onPause", Qt::QueuedConnection);
+            QMetaObject::invokeMethod(window, "onPause", Qt::DirectConnection);
         }
     }
 
@@ -41,7 +49,7 @@ extern "C" {
     {
         if (auto window{SonixBeautyWindow::instance()}; window)
         {
-            QMetaObject::invokeMethod(window, "onRestart", Qt::QueuedConnection);
+            QMetaObject::invokeMethod(window, "onRestart", Qt::DirectConnection);
         }
     }
 
@@ -50,7 +58,7 @@ extern "C" {
     {
         if (auto window{SonixBeautyWindow::instance()}; window)
         {
-            Q_EMIT window->onDestroy();
+            QMetaObject::invokeMethod(window, "onDestroy", Qt::DirectConnection);
         }
     }
 }
@@ -81,6 +89,8 @@ auto SonixBeautyWindow::connectSignal2Slot() noexcept -> void
 {
 #if defined(Q_OS_ANDROID)
 
+    connect(this, &SonixBeautyWindow::onCreate, this, &SonixBeautyWindow::onCreateChanged, Qt::QueuedConnection);
+
     connect(this, &SonixBeautyWindow::onRestart, this, &SonixBeautyWindow::onRestartChanged, Qt::QueuedConnection);
 
     connect(this, &SonixBeautyWindow::onResume, this, &SonixBeautyWindow::onResumeChanged, Qt::QueuedConnection);
@@ -90,14 +100,6 @@ auto SonixBeautyWindow::connectSignal2Slot() noexcept -> void
     connect(this, &SonixBeautyWindow::onDestroy, this, &SonixBeautyWindow::onDestroyChanged, Qt::QueuedConnection);
 
 #endif
-
-    // connect(this, &QQuickWindow::beforeRendering, this, [this] { qDebug() << "beforeRendering"; }, Qt::DirectConnection);
-
-    // connect(this, &QQuickWindow::afterRendering, this, [this] { qDebug() << "afterRendering"; }, Qt::DirectConnection);
-
-    connect(this, &SonixBeautyWindow::sceneGraphInitialized, this, [this] { qDebug() << "sceneGraphInitialized"; }, Qt::DirectConnection);
-
-    connect(this, &SonixBeautyWindow::sceneGraphAboutToStop, this, [this] { qDebug() << "sceneGraphAboutToStop"; }, Qt::DirectConnection);
 }
 
 auto SonixBeautyWindow::setSonixBeautyWindow(SonixBeautyWindow* _sonixBeautyWindow) noexcept -> void
@@ -117,10 +119,13 @@ auto SonixBeautyWindow::setWindowPropertys() noexcept -> void
     this->setPersistentSceneGraph(false);
 #endif
 }
-
 void SonixBeautyWindow::exposeEvent(QExposeEvent* _ev)
 {
     QQuickWindow::exposeEvent(_ev);
+}
+
+void SonixBeautyWindow::onCreateChanged()
+{
 }
 
 void SonixBeautyWindow::onPauseChanged()
@@ -134,7 +139,7 @@ void SonixBeautyWindow::onResumeChanged()
 
 void SonixBeautyWindow::onRestartChanged()
 {
-    QTimer::singleShot(INTERVAL, this, [this]() {
+    QTimer::singleShot(INTERVAL, [this]() {
         this->showFullScreen();
     });
 }

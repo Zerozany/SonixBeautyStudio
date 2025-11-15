@@ -50,6 +50,8 @@ Q_SIGNALS:
     void onDestroy();
 
 private Q_SLOTS:
+    void onCreateChanged();
+
     void onRestartChanged();
 
     void onStartChanged();
