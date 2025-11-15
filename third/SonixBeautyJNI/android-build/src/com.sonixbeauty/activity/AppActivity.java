@@ -6,13 +6,13 @@ import android.util.Log;
 public class AppActivity extends org.qtproject.qt.android.bindings.QtActivity {
 
     private static final String TAG = "SonixBeauty";
-    private static native void nativeNotifyCreate();
-    private static native void nativeNotifyStart();
-    private static native void nativeNotifyStop();
-    private static native void nativeNotifyRestart();
-    private static native void nativeNotifyPause();
-    private static native void nativeNotifyResume();
-    private static native void nativeNotifyDestroy();
+    private static native void NotifyCreate();
+    private static native void NotifyStart();
+    private static native void NotifyStop();
+    private static native void NotifyRestart();
+    private static native void NotifyPause();
+    private static native void NotifyResume();
+    private static native void NotifyDestroy();
 
     private PrivateConfig m_privateConfig;
 
@@ -42,7 +42,7 @@ public class AppActivity extends org.qtproject.qt.android.bindings.QtActivity {
     @Override
     public void onResume()
     {
-        nativeNotifyResume();
+        NotifyResume();
         super.onResume();
         Log.d(TAG, "onResume");
     }
@@ -50,7 +50,7 @@ public class AppActivity extends org.qtproject.qt.android.bindings.QtActivity {
     @Override
     public void onRestart()
     {
-        nativeNotifyRestart();
+        NotifyRestart();
         super.onRestart();
         Log.d(TAG, "onRestart");
     }
@@ -58,7 +58,7 @@ public class AppActivity extends org.qtproject.qt.android.bindings.QtActivity {
     @Override
     public void onPause()
     {
-        nativeNotifyPause();
+        NotifyPause();
         super.onPause();
         Log.d(TAG, "onPause");
     }

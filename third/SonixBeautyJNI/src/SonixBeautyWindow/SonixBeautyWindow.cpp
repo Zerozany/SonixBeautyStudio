@@ -9,44 +9,44 @@
 extern "C" {
 
     JNIEXPORT void JNICALL
-    Java_com_sonixbeauty_activity_AppActivity_nativeNotifyCreate(JNIEnv*, jclass)
+    Java_com_sonixbeauty_activity_AppActivity_NotifyCreate(JNIEnv*, jclass)
     {
     }
 
     JNIEXPORT void JNICALL
-    Java_com_sonixbeauty_activity_AppActivity_nativeNotifyResume(JNIEnv*, jclass)
+    Java_com_sonixbeauty_activity_AppActivity_NotifyResume(JNIEnv*, jclass)
     {
         if (auto window{SonixBeautyWindow::instance()}; window)
         {
-            Q_EMIT window->onResume();
+            QMetaObject::invokeMethod(window, "onResume", Qt::QueuedConnection);
         }
     }
 
     JNIEXPORT void JNICALL
-    Java_com_sonixbeauty_activity_AppActivity_nativeNotifyStop(JNIEnv*, jclass)
+    Java_com_sonixbeauty_activity_AppActivity_NotifyStop(JNIEnv*, jclass)
     {
     }
 
     JNIEXPORT void JNICALL
-    Java_com_sonixbeauty_activity_AppActivity_nativeNotifyPause(JNIEnv*, jclass)
+    Java_com_sonixbeauty_activity_AppActivity_NotifyPause(JNIEnv*, jclass)
     {
         if (auto window{SonixBeautyWindow::instance()}; window)
         {
-            Q_EMIT window->onPause();
+            QMetaObject::invokeMethod(window, "onPause", Qt::QueuedConnection);
         }
     }
 
     JNIEXPORT void JNICALL
-    Java_com_sonixbeauty_activity_AppActivity_nativeNotifyRestart(JNIEnv*, jclass)
+    Java_com_sonixbeauty_activity_AppActivity_NotifyRestart(JNIEnv*, jclass)
     {
         if (auto window{SonixBeautyWindow::instance()}; window)
         {
-            Q_EMIT window->onRestart();
+            QMetaObject::invokeMethod(window, "onRestart", Qt::QueuedConnection);
         }
     }
 
     JNIEXPORT void JNICALL
-    Java_com_sonixbeauty_activity_AppActivity_nativeNotifyDestroy(JNIEnv*, jclass)
+    Java_com_sonixbeauty_activity_AppActivity_NotifyDestroy(JNIEnv*, jclass)
     {
         if (auto window{SonixBeautyWindow::instance()}; window)
         {
@@ -81,13 +81,13 @@ auto SonixBeautyWindow::connectSignal2Slot() noexcept -> void
 {
 #if defined(Q_OS_ANDROID)
 
-    connect(this, &SonixBeautyWindow::onRestart, this, &SonixBeautyWindow::onRestartChanged, Qt::DirectConnection);
+    connect(this, &SonixBeautyWindow::onRestart, this, &SonixBeautyWindow::onRestartChanged, Qt::QueuedConnection);
 
-    connect(this, &SonixBeautyWindow::onResume, this, &SonixBeautyWindow::onResumeChanged, Qt::DirectConnection);
+    connect(this, &SonixBeautyWindow::onResume, this, &SonixBeautyWindow::onResumeChanged, Qt::QueuedConnection);
 
-    connect(this, &SonixBeautyWindow::onPause, this, &SonixBeautyWindow::onPauseChanged, Qt::DirectConnection);
+    connect(this, &SonixBeautyWindow::onPause, this, &SonixBeautyWindow::onPauseChanged, Qt::QueuedConnection);
 
-    connect(this, &SonixBeautyWindow::onDestroy, this, &SonixBeautyWindow::onDestroyChanged, Qt::DirectConnection);
+    connect(this, &SonixBeautyWindow::onDestroy, this, &SonixBeautyWindow::onDestroyChanged, Qt::QueuedConnection);
 
 #endif
 
@@ -112,10 +112,10 @@ auto SonixBeautyWindow::setSonixBeautyWindow(SonixBeautyWindow* _sonixBeautyWind
 auto SonixBeautyWindow::setWindowPropertys() noexcept -> void
 {
 #if defined(Q_OS_ANDROID)
-
-#endif
     this->setVisibility(QWindow::FullScreen);
-    this->setVisible(true);
+    this->setPersistentGraphics(false);
+    this->setPersistentSceneGraph(false);
+#endif
 }
 
 void SonixBeautyWindow::exposeEvent(QExposeEvent* _ev)

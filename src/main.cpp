@@ -14,6 +14,8 @@
 
 int main(int argc, char* argv[])
 {
+    qputenv("qt_android_noo_exit_call", "1");
+    qputenv("QT_ANDROID_BACKGROUND_ACTIONS_QUEUE_SIZE", "50");
     SystemConfig::instance()->init();
     QGuiApplication app{argc, argv};
     // qDebug() << ThemeManager::create(nullptr, nullptr)->currentTheme();
