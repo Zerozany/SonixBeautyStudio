@@ -15,8 +15,8 @@ SonixBeautyWindow {
         source: "qrc:/view/resource/HomePageIcons/connect.png"
         sourcePressed: "qrc:/view/resource/HomePageIcons/connectPressed.png"
         fontBold: true
-        width: 100
-        height: 45
+        width: 120
+        height: 60
         x: 50
         y: 50
     }
@@ -27,8 +27,8 @@ SonixBeautyWindow {
         source: "qrc:/view/resource/HomePageIcons/connect.png"
         sourcePressed: "qrc:/view/resource/HomePageIcons/connectPressed.png"
         fontBold: true
-        width: 60
-        height: 100
+        width: 80
+        height: 120
         x: 150
         y: 150
     }

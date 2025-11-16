@@ -3,7 +3,6 @@ import QtQuick
 import SonixBeautyUI
 
 QtObject {
-    readonly property int elementRadius: Math.round(5 * Screen.devicePixelRatio)
 
     readonly property var appSizeTable: {
         "elementMargins": Math.round(5 * Screen.devicePixelRatio),

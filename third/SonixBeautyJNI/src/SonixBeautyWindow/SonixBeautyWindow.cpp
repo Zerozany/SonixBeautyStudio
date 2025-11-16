@@ -114,7 +114,8 @@ auto SonixBeautyWindow::setSonixBeautyWindow(SonixBeautyWindow* _sonixBeautyWind
 auto SonixBeautyWindow::setWindowPropertys() noexcept -> void
 {
 #if defined(Q_OS_ANDROID)
-    this->setVisibility(QWindow::FullScreen);
+    this->setVisibility(QWindow::AutomaticVisibility);
+    this->setFlags(Qt::Window | Qt::MaximizeUsingFullscreenGeometryHint);
     this->setPersistentSceneGraph(true);
 #endif
 }
@@ -141,7 +142,7 @@ void SonixBeautyWindow::onRestartChanged()
 {
     QTimer::singleShot(INTERVAL, [this]() {
         this->setPersistentSceneGraph(true);
-        this->showFullScreen();
+        this->show();
     });
 }
 
