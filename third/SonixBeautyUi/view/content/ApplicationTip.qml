@@ -36,7 +36,7 @@ Rectangle {
     }
 
     SequentialAnimation {
-        running: root.visible && root.parentWindow.active
+        running: true
         ParallelAnimation {
             OpacityAnimator {
                 target: root
