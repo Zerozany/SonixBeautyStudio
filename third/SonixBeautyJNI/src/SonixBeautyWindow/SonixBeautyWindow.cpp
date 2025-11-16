@@ -100,21 +100,6 @@ auto SonixBeautyWindow::connectSignal2Slot() noexcept -> void
     connect(this, &SonixBeautyWindow::onDestroy, this, &SonixBeautyWindow::onDestroyChanged, Qt::QueuedConnection);
 
 #endif
-    connect(this, &SonixBeautyWindow::sceneGraphInitialized,
-            [this] {
-                qDebug() << "sceneGraphInitialized";
-            });
-
-    connect(this, &SonixBeautyWindow::sceneGraphAboutToStop,
-            [this] {
-                this->setPersistentSceneGraph(false);
-                qDebug() << "sceneGraphAboutToStop";
-            });
-
-    connect(this, &SonixBeautyWindow::sceneGraphInvalidated,
-            [this] {
-                qDebug() << "sceneGraphInvalidated";
-            });
 }
 
 auto SonixBeautyWindow::setSonixBeautyWindow(SonixBeautyWindow* _sonixBeautyWindow) noexcept -> void
@@ -130,6 +115,7 @@ auto SonixBeautyWindow::setWindowPropertys() noexcept -> void
 {
 #if defined(Q_OS_ANDROID)
     this->setVisibility(QWindow::FullScreen);
+    this->setPersistentSceneGraph(true);
 #endif
 }
 void SonixBeautyWindow::exposeEvent(QExposeEvent* _ev)
@@ -144,6 +130,7 @@ void SonixBeautyWindow::onCreateChanged()
 void SonixBeautyWindow::onPauseChanged()
 {
     this->hide();
+    this->setPersistentSceneGraph(false);
 }
 
 void SonixBeautyWindow::onResumeChanged()
