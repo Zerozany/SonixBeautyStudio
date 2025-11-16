@@ -61,6 +61,7 @@ public class AppActivity extends org.qtproject.qt.android.bindings.QtActivity {
     @Override
     public void onDestroy()
     {
+        NotifyDestroy();
         super.onDestroy();
     }
 }

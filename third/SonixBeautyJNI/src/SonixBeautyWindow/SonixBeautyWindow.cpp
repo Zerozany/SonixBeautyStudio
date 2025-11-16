@@ -115,7 +115,7 @@ auto SonixBeautyWindow::setWindowPropertys() noexcept -> void
 {
 #if defined(Q_OS_ANDROID)
     this->setVisibility(QWindow::AutomaticVisibility);
-    this->setFlags(Qt::Window | Qt::MaximizeUsingFullscreenGeometryHint);
+    this->setFlags(Qt::Window | Qt::ExpandedClientAreaHint);
     this->setPersistentSceneGraph(true);
 #endif
 }
@@ -152,4 +152,7 @@ void SonixBeautyWindow::onStartChanged()
 
 void SonixBeautyWindow::onDestroyChanged()
 {
+    this->setPersistentSceneGraph(false);
+    this->close();
+    qDebug() << "onDestroyChanged";
 }
