@@ -25,7 +25,7 @@ int main(int argc, char* argv[])
     // SonixLogger::init(QDir{QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)}.filePath("log/SonixLog_1.txt").toStdString());
     // SonixLogger::setLevel(spdlog::level::warn);
 #if defined(Q_OS_ANDROID)
-    QNativeInterface::QAndroidApplication::hideSplashScreen(50);
+    QNativeInterface::QAndroidApplication::hideSplashScreen(3000);
 #endif
 
     return QGuiApplication::exec();

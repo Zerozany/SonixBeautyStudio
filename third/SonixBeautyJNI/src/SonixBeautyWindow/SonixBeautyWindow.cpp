@@ -112,6 +112,7 @@ auto SonixBeautyWindow::setWindowPropertys() noexcept -> void
     this->setFlags(Qt::Window | Qt::ExpandedClientAreaHint);
     this->setSurfaceType(QWindow::OpenGLSurface);
 #endif
+    // this->hide();
 }
 
 auto SonixBeautyWindow::connectSignal2Slot() noexcept -> void
@@ -152,17 +153,22 @@ void SonixBeautyWindow::exposeEvent(QExposeEvent* _ev)
 
 void SonixBeautyWindow::onCreateChanged()
 {
-    qDebug() << "onCreateChanged";
+    // if (rendererInterface()->getResource(this, QSGRendererInterface::OpenGLContextResource))
+    // {
+    //     this->show();
+    //     qDebug() << "onCreateChanged";
+    // }
+    qDebug() << "onCreateChanged failed";
 }
 
 void SonixBeautyWindow::onStartChanged()
 {
-    qDebug() << "onStartChanged";
+    // qDebug() << "onStartChanged";
 }
 
 void SonixBeautyWindow::onStopChanged()
 {
-    qDebug() << "onStopChanged";
+    // qDebug() << "onStopChanged";
 }
 
 void SonixBeautyWindow::onRestartChanged()
@@ -177,14 +183,15 @@ void SonixBeautyWindow::onPauseChanged()
 {
     qDebug() << "onPauseChanged";
     QMetaObject::invokeMethod(this, "hide", Qt::QueuedConnection);
+    // if (rendererInterface()->getResource(this, QSGRendererInterface::OpenGLContextResource))
 }
 
 void SonixBeautyWindow::onResumeChanged()
 {
-    qDebug() << "onResumeChanged";
+    // qDebug() << "onResumeChanged";
 }
 
 void SonixBeautyWindow::onDestroyChanged()
 {
-    qDebug() << "onDestroyChanged";
+    // qDebug() << "onDestroyChanged";
 }
