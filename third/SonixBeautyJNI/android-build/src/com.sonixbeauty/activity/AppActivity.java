@@ -14,13 +14,13 @@ public class AppActivity extends org.qtproject.qt.android.bindings.QtActivity {
     private static native void NotifyResume();
     private static native void NotifyDestroy();
 
-    private PrivateConfig m_privateConfig;
+    private PrivateConfig m_privateConfig = null;
 
     @Override
     public void onCreate(Bundle _savedInstanceState)
     {
         super.onCreate(_savedInstanceState);
-        // NotifyCreate();
+        NotifyCreate();
         m_privateConfig = new PrivateConfig();
         m_privateConfig.systemColumnHandle(this);
     }
@@ -28,20 +28,15 @@ public class AppActivity extends org.qtproject.qt.android.bindings.QtActivity {
     @Override
     public void onStart()
     {
+        NotifyStart();
         super.onStart();
     }
 
     @Override
     public void onStop()
     {
+        NotifyStop();
         super.onStop();
-    }
-
-    @Override
-    public void onResume()
-    {
-        NotifyResume();
-        super.onResume();
     }
 
     @Override
@@ -56,6 +51,13 @@ public class AppActivity extends org.qtproject.qt.android.bindings.QtActivity {
     {
         NotifyPause();
         super.onPause();
+    }
+
+    @Override
+    public void onResume()
+    {
+        NotifyResume();
+        super.onResume();
     }
 
     @Override

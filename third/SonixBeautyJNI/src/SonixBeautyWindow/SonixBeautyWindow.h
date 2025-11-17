@@ -27,7 +27,7 @@ public:
 private:
     auto connectSignal2Slot() noexcept -> void;
 
-    auto setSonixBeautyWindow(SonixBeautyWindow* _sonixBeautyWindow) noexcept -> void;
+    auto setSonixBeautyWindow() noexcept -> void;
 
     auto setWindowPropertys() noexcept -> void;
 
@@ -52,13 +52,15 @@ Q_SIGNALS:
 private Q_SLOTS:
     void onCreateChanged();
 
-    void onRestartChanged();
-
     void onStartChanged();
 
     void onResumeChanged();
 
     void onPauseChanged();
+
+    void onStopChanged();
+
+    void onRestartChanged();
 
     void onDestroyChanged();
 
