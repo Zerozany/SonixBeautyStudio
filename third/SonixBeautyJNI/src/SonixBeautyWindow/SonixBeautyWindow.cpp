@@ -110,9 +110,7 @@ auto SonixBeautyWindow::setWindowPropertys() noexcept -> void
     this->setGraphicsApi(QSGRendererInterface::OpenGL);
     this->setVisibility(QWindow::AutomaticVisibility);
     this->setFlags(Qt::Window | Qt::ExpandedClientAreaHint);
-    this->setSurfaceType(QWindow::OpenGLSurface);
 #endif
-    // this->hide();
 }
 
 auto SonixBeautyWindow::connectSignal2Slot() noexcept -> void
@@ -134,16 +132,11 @@ auto SonixBeautyWindow::connectSignal2Slot() noexcept -> void
     connect(this, &SonixBeautyWindow::onDestroy, this, &SonixBeautyWindow::onDestroyChanged, Qt::QueuedConnection);
 
 #endif
-    connect(this, &SonixBeautyWindow::sceneGraphInitialized, [this] {
-        qDebug() << "sceneGraphInitialized";
-    });
+    connect(this, &SonixBeautyWindow::sceneGraphInitialized, this, [this] { qDebug() << "sceneGraphInitialized"; }, Qt::DirectConnection);
 
-    connect(this, &SonixBeautyWindow::sceneGraphAboutToStop, [this] {
-        qDebug() << "sceneGraphAboutToStop";
-    });
-    connect(this, &SonixBeautyWindow::sceneGraphInvalidated, [this] {
-        qDebug() << "sceneGraphInvalidated";
-    });
+    connect(this, &SonixBeautyWindow::sceneGraphAboutToStop, this, [this] { qDebug() << "sceneGraphAboutToStop"; }, Qt::DirectConnection);
+
+    connect(this, &SonixBeautyWindow::sceneGraphInvalidated, this, [this] { qDebug() << "sceneGraphInvalidated"; }, Qt::DirectConnection);
 }
 
 void SonixBeautyWindow::exposeEvent(QExposeEvent* _ev)
@@ -153,12 +146,7 @@ void SonixBeautyWindow::exposeEvent(QExposeEvent* _ev)
 
 void SonixBeautyWindow::onCreateChanged()
 {
-    // if (rendererInterface()->getResource(this, QSGRendererInterface::OpenGLContextResource))
-    // {
-    //     this->show();
-    //     qDebug() << "onCreateChanged";
-    // }
-    qDebug() << "onCreateChanged failed";
+    qDebug() << "onCreateChanged";
 }
 
 void SonixBeautyWindow::onStartChanged()

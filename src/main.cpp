@@ -16,6 +16,7 @@ int main(int argc, char* argv[])
 {
     qputenv("qt_android_noo_exit_call", "1");
     qputenv("QT_ANDROID_BACKGROUND_ACTIONS_QUEUE_SIZE", "50");
+    // qputenv("QML_IMPORT_PATH", (QGuiApplication::applicationDirPath() + "/../third").toUtf8());
     SystemConfig::instance()->init();
     QGuiApplication app{argc, argv};
     // qDebug() << ThemeManager::create(nullptr, nullptr)->currentTheme();
@@ -27,6 +28,5 @@ int main(int argc, char* argv[])
 #if defined(Q_OS_ANDROID)
     QNativeInterface::QAndroidApplication::hideSplashScreen(3000);
 #endif
-
     return QGuiApplication::exec();
 }

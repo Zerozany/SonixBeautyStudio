@@ -39,12 +39,9 @@ auto SystemConfig::setAppStyle() noexcept -> void
 auto SystemConfig::setAppAttribute() noexcept -> void
 {
 #if defined(Q_OS_ANDROID)
-    // QGuiApplication::setAttribute(Qt::AA_UseOpenGLES);
+    QGuiApplication::setAttribute(Qt::AA_ShareOpenGLContexts);
+    QGuiApplication::setAttribute(Qt::AA_CompressTabletEvents);
 #elif defined(Q_OS_WINDOWS)
-    QGuiApplication::setAttribute(Qt::AA_UseSoftwareOpenGL);  // 强制使用软件 OpenGL 渲染（可能在某些平台上提高兼容性）
-    QGuiApplication::setAttribute(Qt::AA_UseDesktopOpenGL);   // 使用桌面 OpenGL
 
 #endif
-    // QGuiApplication::setAttribute(Qt::AA_CompressHighFrequencyEvents);
-    // QGuiApplication::setAttribute(Qt::AA_QtQuickUseDefaultSizePolicy);
 }
