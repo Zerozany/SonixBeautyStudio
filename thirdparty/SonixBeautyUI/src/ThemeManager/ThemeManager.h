@@ -25,6 +25,8 @@ class SONIXEX_API ThemeManager : public QObject
     QML_ELEMENT
     Q_PROPERTY(QString currentThemeName READ currentThemeName WRITE setCurrentThemeName NOTIFY currentThemeNameChanged);
     Q_PROPERTY(QVariantMap currentTheme READ currentTheme WRITE setCurrentTheme NOTIFY currentThemeChanged);
+    Q_PROPERTY(QVariantMap fontSize READ fontSize WRITE setFontSize NOTIFY fontSizeChanged);
+    Q_PROPERTY(QVariantMap styleSize READ styleSize WRITE setStyleSize NOTIFY styleSizeChanged);
 
 public:
     ~ThemeManager() noexcept = default;
@@ -34,6 +36,12 @@ public:
 
     Q_INVOKABLE QVariantMap currentTheme() const;
     Q_INVOKABLE void        setCurrentTheme(const QVariantMap& _currentTheme);
+
+    Q_INVOKABLE QVariantMap fontSize() const;
+    Q_INVOKABLE void        setFontSize(const QVariantMap& _fontSize);
+
+    Q_INVOKABLE QVariantMap styleSize() const;
+    Q_INVOKABLE void        setStyleSize(const QVariantMap& _styleSize);
 
 public:
     static ThemeManager* create(QQmlEngine*, QJSEngine*);
@@ -46,17 +54,21 @@ private:
     auto connectSignal2Slot() noexcept -> void;
 
 Q_SIGNALS:
+    void currentThemeNameChanged();
+
     void currentThemeChanged();
 
-    void fontFamilyChanged();
+    void fontSizeChanged();
 
-    void currentThemeNameChanged();
+    void styleSizeChanged();
 
 private Q_SLOTS:
     void onCurrentThemeNameChanged();
 
 private:
+    QSettings*  m_settings{nullptr};
     QString     m_currentThemeName{};
     QVariantMap m_currentTheme{};
-    QSettings*  m_settings{nullptr};
+    QVariantMap m_fontSize{};
+    QVariantMap m_styleSize{};
 };

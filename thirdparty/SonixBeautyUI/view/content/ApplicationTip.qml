@@ -15,16 +15,16 @@ Rectangle {
 
     readonly property string elementColor: ThemeManager.currentTheme.elementColor
     readonly property string textColor: ThemeManager.currentTheme.textColor
-    readonly property int elementRadius: ComponentConf.appSizeTable["elementRadius"]
-    readonly property int elementMargins: ComponentConf.appSizeTable["elementMargins"]
-    readonly property int pointSize: ComponentConf.pointSizeTable["L"]
+    readonly property int elementRadius: ThemeManager.fontSize.elementRadius
+    readonly property int elementMargins: ThemeManager.fontSize.elementMargins
+    readonly property int fontSize: ThemeManager.fontSize.L
 
     Text {
         anchors.fill: parent
         anchors.margins: root.elementMargins
         text: root.text
         color: root.textColor
-        font.pointSize: root.pointSize
+        font.pointSize: root.fontSize
         wrapMode: Text.WrapAnywhere
         horizontalAlignment: Qt.AlignHCenter
         verticalAlignment: Qt.AlignVCenter
@@ -60,7 +60,9 @@ Rectangle {
             to: 0
         }
         ScriptAction {
-            script: root.destroy()
+            scriptName: {
+                root.destroy();
+            }
         }
     }
 }

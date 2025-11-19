@@ -35,6 +35,36 @@ void ThemeManager::setCurrentTheme(const QVariantMap& _currentTheme)
     Q_EMIT this->currentThemeChanged();
 }
 
+QVariantMap ThemeManager::fontSize() const
+{
+    return m_fontSize;
+}
+
+void ThemeManager::setFontSize(const QVariantMap& _fontSize)
+{
+    if (m_fontSize == _fontSize)
+    {
+        return;
+    }
+    m_fontSize = _fontSize;
+    Q_EMIT this->fontSizeChanged();
+}
+
+QVariantMap ThemeManager::styleSize() const
+{
+    return m_styleSize;
+}
+
+void ThemeManager::setStyleSize(const QVariantMap& _styleSize)
+{
+    if (m_styleSize == _styleSize)
+    {
+        return;
+    }
+    m_styleSize = _styleSize;
+    Q_EMIT this->styleSizeChanged();
+}
+
 ThemeManager* ThemeManager::create(QQmlEngine*, QJSEngine*)
 {
     static ThemeManager* themeManager{new ThemeManager{}};

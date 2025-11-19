@@ -7,8 +7,9 @@ import SonixBeautyUI
 
 SonixBeautyWindow {
     id: appWindow
+    color: appWindow.backgroundColor
 
-    color: ThemeManager.currentTheme.backgroundColor
+    readonly property string backgroundColor: ThemeManager.currentTheme.backgroundColor
 
     Component.onCompleted: {
         AppConstants.mainWindowObject = appWindow;
