@@ -1,10 +1,11 @@
 import QtQuick
-import SonixBeautyWIN
+
+// import SonixBeautyWIN
 // import SonixBeautyUI
 
 // import SonixBeautyStudio
 
-SonixBeautyWindow {
+Item {
     id: appWindow
 
     // color: ComponentConf.appColorTable["backgroundColor"]

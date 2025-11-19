@@ -15,7 +15,6 @@
 int main(int argc, char* argv[])
 {
     qputenv("QT_ANDROID_BACKGROUND_ACTIONS_QUEUE_SIZE", "50");
-    qputenv("QT_LOGGING_RULES", "qt.qml.debug=true");
     // qputenv("QML_IMPORT_PATH", (QGuiApplication::applicationDirPath() + "/../thirdparty").toUtf8());
     SystemConfig::instance()->init();
     QGuiApplication app{argc, argv};

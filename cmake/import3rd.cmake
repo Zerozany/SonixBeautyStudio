@@ -21,10 +21,19 @@ target_link_libraries(${PROJECT_NAME}
     $<$<PLATFORM_ID:Android>:SonixBeautyJNI>
 )
 
-# QML Module
+# QML Static Module
 target_link_libraries(${PROJECT_NAME}
     PRIVATE
 
     # SonixBeautyKitsplugin
     # $<$<PLATFORM_ID:Android>:SonixBeautyJNIplugin>
 )
+
+# QML Shared Module
+set(THIRDMODULE)
+
+if(ANDROID)
+    list(APPEND THIRDMODULE SonixBeautyJNI)
+elseif(WIN32)
+    list(APPEND THIRDMODULE SonixBeautyWIN)
+endif()

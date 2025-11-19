@@ -7,7 +7,6 @@ if(ANDROID)
     qt_add_qml_module(${PROJECT_NAME}
         URI "${PROJECT_NAME}"
         VERSION 1.0
-        RESOURCE_PREFIX "/qt/qml"
         QML_FILES
         SOURCES ${SRCFILES}
     )
