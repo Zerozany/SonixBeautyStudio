@@ -132,11 +132,11 @@ auto SonixBeautyWindow::connectSignal2Slot() noexcept -> void
     connect(this, &SonixBeautyWindow::onDestroy, this, &SonixBeautyWindow::onDestroyChanged, Qt::QueuedConnection);
 
 #endif
-    connect(this, &SonixBeautyWindow::sceneGraphInitialized, this, [this] { qDebug() << "sceneGraphInitialized"; }, Qt::DirectConnection);
+    connect(this, &QQuickWindow::sceneGraphInitialized, this, [this] { qDebug() << "sceneGraphInitialized"; }, Qt::DirectConnection);
 
-    connect(this, &SonixBeautyWindow::sceneGraphAboutToStop, this, [this] { qDebug() << "sceneGraphAboutToStop"; }, Qt::DirectConnection);
+    connect(this, &QQuickWindow::sceneGraphAboutToStop, this, [this] { qDebug() << "sceneGraphAboutToStop"; }, Qt::DirectConnection);
 
-    connect(this, &SonixBeautyWindow::sceneGraphInvalidated, this, [this] { qDebug() << "sceneGraphInvalidated"; }, Qt::DirectConnection);
+    connect(this, &QQuickWindow::sceneGraphInvalidated, this, [this] { qDebug() << "sceneGraphInvalidated"; }, Qt::DirectConnection);
 }
 
 void SonixBeautyWindow::exposeEvent(QExposeEvent* _ev)

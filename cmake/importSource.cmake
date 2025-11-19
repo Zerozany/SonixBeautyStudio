@@ -10,12 +10,11 @@ file(GLOB RESOURCESLIST RELATIVE ${CMAKE_SOURCE_DIR}
 )
 
 file(GLOB QFILES RELATIVE ${CMAKE_SOURCE_DIR}
-    "${CMAKE_SOURCE_DIR}/view/**/**/*.qml"
-    "${CMAKE_SOURCE_DIR}/view/**/*.qml"
+    "${CMAKE_SOURCE_DIR}/view/core/**/**/*.qml"
+    "${CMAKE_SOURCE_DIR}/view/core/**/*.qml"
+    "${CMAKE_SOURCE_DIR}/view/core/*.qml"
     "${CMAKE_SOURCE_DIR}/view/*.qml"
 )
-
-list(FILTER QFILES EXCLUDE REGEX ".*/global/.*")
 
 file(GLOB QMLSINGLETONS RELATIVE ${CMAKE_SOURCE_DIR}
     "${CMAKE_SOURCE_DIR}/view/global/*.qml"
@@ -39,7 +38,7 @@ qt_add_qml_module(${PROJECT_NAME}
     RESOURCE_PREFIX "/qt/qml"
     QML_FILES ${QFILES} ${QMLSINGLETONS}
     SOURCES ${SOURCEFILES}
-    OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/third/${PROJECT_NAME}"
+    OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/thirdparty/${PROJECT_NAME}"
     NO_CACHEGEN
 )
 

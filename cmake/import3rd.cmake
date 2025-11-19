@@ -1,11 +1,11 @@
-# add_subdirectory("${CMAKE_SOURCE_DIR}/third/SonixBeautyUI")
+# add_subdirectory("${CMAKE_SOURCE_DIR}/thirdparty/SonixBeautyUI")
 
-# add_subdirectory("${CMAKE_SOURCE_DIR}/third/SonixBeautyKits")
-# add_subdirectory("${CMAKE_SOURCE_DIR}/third/SonixBeautyLibs")
+# add_subdirectory("${CMAKE_SOURCE_DIR}/thirdparty/SonixBeautyKits")
+# add_subdirectory("${CMAKE_SOURCE_DIR}/thirdparty/SonixBeautyLibs")
 if(ANDROID)
-    add_subdirectory("${CMAKE_SOURCE_DIR}/third/SonixBeautyJNI")
+    add_subdirectory("${CMAKE_SOURCE_DIR}/thirdparty/SonixBeautyJNI")
 elseif(WIN32)
-    add_subdirectory("${CMAKE_SOURCE_DIR}/third/SonixBeautyWIN")
+    add_subdirectory("${CMAKE_SOURCE_DIR}/thirdparty/SonixBeautyWIN")
 endif()
 
 # cpp Module
