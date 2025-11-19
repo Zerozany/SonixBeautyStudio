@@ -1,6 +1,7 @@
 pragma Singleton
 import QtQuick
-import SonixBeautyUI
+
+// import SonixBeautyUI
 
 QtObject {
 
@@ -8,13 +9,6 @@ QtObject {
         "elementMargins": Math.round(5 * Screen.devicePixelRatio),
         "elementRadius": Math.round(5 * Screen.devicePixelRatio),
         "elementSpacing": Math.round(5 * Screen.devicePixelRatio)
-    }
-
-    readonly property var appColorTable: {
-        "backgroundColor": ThemeManager.currentTheme.backgroundColor,
-        "elementColor": ThemeManager.currentTheme.elementColor,
-        "textColor": ThemeManager.currentTheme.textColor,
-        "textColorPressed": ThemeManager.currentTheme.textColorPressed
     }
 
     readonly property var pointSizeTable: {

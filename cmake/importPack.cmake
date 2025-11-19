@@ -4,14 +4,14 @@ if(WIN32)
     get_target_property(TARGET_TYPE ${PROJECT_NAME} TYPE)
 
     if(TARGET_TYPE STREQUAL "EXECUTABLE")
-        # add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-        #     COMMAND "$ENV{Qt6_BIN_DIR}/windeployqt.exe"
-        #         $<$<CONFIG:Debug>:--debug>
-        #         $<$<CONFIG:Release>:--release>
-        #         --qmldir "${CMAKE_BINARY_DIR}/thirdparty"
-        #         $<TARGET_FILE:${PROJECT_NAME}>
-        #     COMMENT "Deploying Qt dependencies for ${PROJECT_NAME}"
-        # )
+    # add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+    # COMMAND "$ENV{Qt6_BIN_DIR}/windeployqt.exe"
+    # $<$<CONFIG:Debug>:--debug>
+    # $<$<CONFIG:Release>:--release>
+    # --qmldir "${CMAKE_BINARY_DIR}/thirdparty"
+    # $<TARGET_FILE:${PROJECT_NAME}>
+    # COMMENT "Deploying Qt dependencies for ${PROJECT_NAME}"
+    # )
     else()
         message(STATUS "skip windeployqt: ${PROJECT_NAME} It is not an executable file")
     endif()
@@ -32,7 +32,7 @@ elseif(ANDROID)
     set(VERSION_NAME "1.0.0.0")
 
     set_target_properties(${PROJECT_NAME} PROPERTIES
-        QT_ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_SOURCE_DIR}/thirdparty/SonixBeautyJNI/android-build"
+        QT_ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_SOURCE_DIR}/thirdparty/SonixBeautySystem/android-build"
         QT_ANDROID_PACKAGE_NAME "${PACKAGE_NAME}"
         QT_ANDROID_APP_ICON "@drawable/ic_launcher"
         QT_ANDROID_APP_NAME "${APP_NAME}" # 应用名称

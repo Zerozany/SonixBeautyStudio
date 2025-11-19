@@ -24,11 +24,11 @@ private:
     explicit(true) ViewEngine(QObject* _parent = nullptr);
 
 private:
-    static auto initMember(QGuiApplication* _guiApplication, QQmlApplicationEngine* _qmlApplicationEngine) noexcept -> void;
+    static auto initObject(QGuiApplication* _guiApplication, QQmlApplicationEngine* _qmlApplicationEngine) noexcept -> void;
 
-    static auto initEngine() noexcept -> void;
+    static auto engineSetting() noexcept -> void;
 
-    static auto initWindow() noexcept -> void;
+    static auto windowSetting() noexcept -> void;
 
     static auto connectSignal2Slot() noexcept -> void;
 

@@ -11,7 +11,7 @@ target_compile_definitions(${PROJECT_NAME}
 set(QT_QML_GENERATE_QMLLS_INI ON)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
-    QT_QMLCACHEGEN_ARGUMENTS "--static"
+    QT_QMLCACHEGEN_ARGUMENTS "--verbose" # "--direct-calls" "--verbose"
 )
 
 if(MSVC)

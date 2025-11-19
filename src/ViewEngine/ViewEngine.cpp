@@ -1,5 +1,4 @@
 #include "ViewEngine.h"
-#include <QTimer>
 #include <QQmlApplicationEngine>
 #include <QGuiApplication>
 
@@ -21,13 +20,13 @@ auto ViewEngine::instance() noexcept -> ViewEngine*
 
 auto ViewEngine::init(QGuiApplication* _guiApplication, QQmlApplicationEngine* _qmlApplicationEngine) noexcept -> void
 {
-    std::invoke(&ViewEngine::initMember, _guiApplication, _qmlApplicationEngine);
-    std::invoke(&ViewEngine::initEngine);
-    std::invoke(&ViewEngine::initWindow);
+    std::invoke(&ViewEngine::initObject, _guiApplication, _qmlApplicationEngine);
+    std::invoke(&ViewEngine::engineSetting);
+    std::invoke(&ViewEngine::windowSetting);
     std::invoke(&ViewEngine::connectSignal2Slot);
 }
 
-auto ViewEngine::initMember(QGuiApplication* _guiApplication, QQmlApplicationEngine* _qmlApplicationEngine) noexcept -> void
+auto ViewEngine::initObject(QGuiApplication* _guiApplication, QQmlApplicationEngine* _qmlApplicationEngine) noexcept -> void
 {
     if (!_guiApplication)
     {
@@ -41,20 +40,16 @@ auto ViewEngine::initMember(QGuiApplication* _guiApplication, QQmlApplicationEng
     m_qmlApplicationEngine = _qmlApplicationEngine;
 }
 
-auto ViewEngine::initEngine() noexcept -> void
+auto ViewEngine::engineSetting() noexcept -> void
 {
     if (!m_qmlApplicationEngine)
     {
         return;
     }
-#if defined(Q_OS_ANDROID)
-    m_qmlApplicationEngine->loadFromModule("SonixBeautyStudio", "AndroidMain");
-#elif defined(Q_OS_WINDOWS)
-    m_qmlApplicationEngine->loadFromModule("SonixBeautyStudio", "WinMain");
-#endif
+    m_qmlApplicationEngine->loadFromModule("SonixBeautyStudio", "Main");
 }
 
-auto ViewEngine::initWindow() noexcept -> void
+auto ViewEngine::windowSetting() noexcept -> void
 {
     if (m_qmlApplicationEngine->rootObjects().isEmpty())
     {

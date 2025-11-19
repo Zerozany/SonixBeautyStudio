@@ -2,7 +2,7 @@ find_package(Qt6 REQUIRED
     COMPONENTS
     Core
     Quick
-    Gui
+    Core
 )
 
 qt_policy(SET QTP0004 NEW)
@@ -19,7 +19,7 @@ target_link_libraries(${PROJECT_NAME}
     PRIVATE
     Qt6::Core
     Qt6::Quick
-    Qt6::Gui
+    Qt6::Core
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES

@@ -22,6 +22,11 @@ auto SystemConfig::init() noexcept -> void
 
 auto SystemConfig::setAppEnv() noexcept -> void
 {
+#if defined(Q_OS_ANDROID)
+    qputenv("QT_ANDROID_BACKGROUND_ACTIONS_QUEUE_SIZE", "50");
+#elif defined(Q_OS_WINDOWS)
+
+#endif
     qputenv("QT_OPENGL_DEBUG", "1");          // 启用 OpenGL 调试
     qputenv("QSG_RENDER_LOOP", "threaded");   // 使用独立的线程的渲染循环模式
     qputenv("QSG_RENDER_CONTINUOUSLY", "0");  // 禁用连续渲染，优化性能
@@ -31,7 +36,7 @@ auto SystemConfig::setAppStyle() noexcept -> void
 {
 #if defined(Q_OS_ANDROID)
     QQuickStyle::setStyle("Material");
-#else
+#elif defined(Q_OS_WINDOWS)
     QQuickStyle::setStyle("Default");
 #endif
 }

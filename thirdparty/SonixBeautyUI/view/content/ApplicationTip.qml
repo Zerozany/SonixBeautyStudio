@@ -4,18 +4,17 @@ import SonixBeautyUI
 
 Rectangle {
     id: root
-    x: parentWindow ? (parentWindow.width - root.width) / 2 : (Screen.width - root.width) / 2
-    y: parentWindow ? parentWindow.height / 10 : Screen.height / 10
-    width: parentWindow ? parentWindow.width / 3 : Screen.width / 3
+    x: parent ? (parent.width - root.width) / 2 : (Screen.width - root.width) / 2
+    y: parent ? parent.height / 10 : Screen.height / 10
+    width: parent ? parent.width / 3 : Screen.width / 3
     radius: root.elementRadius
     color: root.elementColor
 
     property string text: ""
     property int interval: 2000
-    property var parentWindow: null
 
-    readonly property string elementColor: ComponentConf.appColorTable["elementColor"]
-    readonly property string textColor: ComponentConf.appColorTable["textColor"]
+    readonly property string elementColor: ThemeManager.currentTheme.elementColor
+    readonly property string textColor: ThemeManager.currentTheme.textColor
     readonly property int elementRadius: ComponentConf.appSizeTable["elementRadius"]
     readonly property int elementMargins: ComponentConf.appSizeTable["elementMargins"]
     readonly property int pointSize: ComponentConf.pointSizeTable["L"]
@@ -61,7 +60,7 @@ Rectangle {
             to: 0
         }
         ScriptAction {
-            script: Qt.callLater(() => root.destroy)
+            script: root.destroy()
         }
     }
 }
