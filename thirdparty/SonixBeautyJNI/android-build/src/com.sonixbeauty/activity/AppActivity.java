@@ -1,9 +1,7 @@
 package com.sonixbeauty.activity;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.KeyEvent;
 
 public class AppActivity extends org.qtproject.qt.android.bindings.QtActivity {
 
@@ -28,8 +26,7 @@ public class AppActivity extends org.qtproject.qt.android.bindings.QtActivity {
     }
 
     @Override
-    public void
-    onStart()
+    public void onStart()
     {
         NotifyStart();
         super.onStart();
