@@ -8,7 +8,7 @@ if(WIN32)
             COMMAND "$ENV{Qt6_BIN_DIR}/windeployqt.exe"
                 $<$<CONFIG:Debug>:--debug>
                 $<$<CONFIG:Release>:--release>
-                --qmldir "${CMAKE_BINARY_DIR}/third"
+                --qmldir "${CMAKE_BINARY_DIR}/thirdparty"
                 $<TARGET_FILE:${PROJECT_NAME}>
             COMMENT "Deploying Qt dependencies for ${PROJECT_NAME}"
         )

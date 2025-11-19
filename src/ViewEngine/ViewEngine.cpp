@@ -47,7 +47,7 @@ auto ViewEngine::initEngine() noexcept -> void
     {
         return;
     }
-    m_qmlApplicationEngine->addImportPath(QGuiApplication::applicationDirPath() + "/../third");
+    m_qmlApplicationEngine->addImportPath(QGuiApplication::applicationDirPath() + "/../thirdparty");
 #if defined(Q_OS_ANDROID)
     m_qmlApplicationEngine->loadFromModule("SonixBeautyStudio", "AndroidMain");
 #elif defined(Q_OS_WINDOWS)

@@ -171,7 +171,6 @@ void SonixBeautyWindow::onPauseChanged()
 {
     qDebug() << "onPauseChanged";
     QMetaObject::invokeMethod(this, "hide", Qt::QueuedConnection);
-    // if (rendererInterface()->getResource(this, QSGRendererInterface::OpenGLContextResource))
 }
 
 void SonixBeautyWindow::onResumeChanged()
