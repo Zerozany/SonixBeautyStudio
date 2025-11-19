@@ -1,27 +1,52 @@
 # Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-# adb.exe 完整路径
+
+# adb.exe path
 $adb = "D:\AndroidEnv\SDK\platform-tools\adb.exe"
 
-& $adb devices
-# 设备序列号
-$device = "d933be15"
+# device serial
+$device = "e2feb7f9"
 # e2feb7f9 8c1161c0 d933be15
 
-# APK 路径
+# APK path
 $apkPath = "F:\DevelopFiles\AndroidFrame\build\AndroidDebug\android-build\SonixBeautyStudio.apk"
 
-# 安装 APK
-Write-Host "installing APK..."
+# package name
+$packageName = "org.qtproject.SonixBeauty"
+
+# 1. check devices
+Write-Host "Checking connected devices..."
+& $adb devices
+
+# 2. install APK
+Write-Host "Installing APK..."
 & $adb -s $device install -r $apkPath
 
-# 清屏
+# 3. clear logcat
 Clear-Host
-
-# 清除 logcat 日志
-Write-Host "clear logcat log..."
+Write-Host "Clearing logcat logs..."
 & $adb -s $device logcat -c
 
-# 打印指定日志
-Write-Host "start print log..."
+# 4. get app PID
+Write-Host "Getting app PID..."
+$appPID = (& $adb -s $device shell pidof $packageName) -replace '\r','' -replace '\n',''
+
+if ([string]::IsNullOrWhiteSpace($appPID)) {
+    Write-Host "App not running, launching..."
+    & $adb -s $device shell monkey -p $packageName -c android.intent.category.LAUNCHER 1
+
+    Start-Sleep -Seconds 2
+
+    $appPID = (& $adb -s $device shell pidof $packageName) -replace '\r','' -replace '\n',''
+
+    if ([string]::IsNullOrWhiteSpace($appPID)) {
+        Write-Host "ERROR: Failed to get PID for $packageName"
+        exit
+    }
+}
+
+Write-Host "App PID = $appPID"
+
+# 5. print all logs for this app
+Write-Host "Start printing ALL logs for this app..."
+# & $adb -s $device logcat --pid=$appPID "*:V"
 & $adb -s $device logcat -s "qml:*" "System.out:D" "default:D" "SonixBeauty"
-#& $adb -s $device logcat -s "*:V"

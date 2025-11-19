@@ -26,6 +26,18 @@ public class AppActivity extends org.qtproject.qt.android.bindings.QtActivity {
     }
 
     @Override
+    public void onWindowFocusChanged(boolean hasFocus)
+    {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            NotifyRestart();
+        } else {
+            NotifyPause();
+        }
+        Log.d(TAG, "hasWindowFocus: " + hasFocus);
+    }
+
+    @Override
     public void onStart()
     {
         NotifyStart();
@@ -42,14 +54,14 @@ public class AppActivity extends org.qtproject.qt.android.bindings.QtActivity {
     @Override
     public void onRestart()
     {
-        NotifyRestart();
+        // NotifyRestart();
         super.onRestart();
     }
 
     @Override
     public void onPause()
     {
-        NotifyPause();
+        // NotifyPause();
         super.onPause();
     }
 

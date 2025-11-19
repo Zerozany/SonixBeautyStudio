@@ -111,6 +111,7 @@ auto SonixBeautyWindow::setWindowPropertys() noexcept -> void
     this->setVisibility(QWindow::AutomaticVisibility);
     this->setFlags(Qt::Window | Qt::ExpandedClientAreaHint);
 #endif
+    this->hide();
 }
 
 auto SonixBeautyWindow::connectSignal2Slot() noexcept -> void
@@ -132,11 +133,11 @@ auto SonixBeautyWindow::connectSignal2Slot() noexcept -> void
     connect(this, &SonixBeautyWindow::onDestroy, this, &SonixBeautyWindow::onDestroyChanged, Qt::QueuedConnection);
 
 #endif
-    connect(this, &QQuickWindow::sceneGraphInitialized, this, [this] { qDebug() << "sceneGraphInitialized"; }, Qt::DirectConnection);
+    connect(this, &QQuickWindow::sceneGraphInitialized, this, [this] { qDebug() << "sceneGraphInitialized"; }, Qt::QueuedConnection);
 
-    connect(this, &QQuickWindow::sceneGraphAboutToStop, this, [this] { qDebug() << "sceneGraphAboutToStop"; }, Qt::DirectConnection);
+    connect(this, &QQuickWindow::sceneGraphAboutToStop, this, [this] { qDebug() << "sceneGraphAboutToStop"; }, Qt::QueuedConnection);
 
-    connect(this, &QQuickWindow::sceneGraphInvalidated, this, [this] { qDebug() << "sceneGraphInvalidated"; }, Qt::DirectConnection);
+    connect(this, &QQuickWindow::sceneGraphInvalidated, this, [this] { qDebug() << "sceneGraphInvalidated"; }, Qt::QueuedConnection);
 }
 
 void SonixBeautyWindow::exposeEvent(QExposeEvent* _ev)
@@ -161,7 +162,7 @@ void SonixBeautyWindow::onStopChanged()
 
 void SonixBeautyWindow::onRestartChanged()
 {
-    qDebug() << "onRestartChanged";
+    // qDebug() << "onRestartChanged";
     QTimer::singleShot(INTERVAL, [this] {
         QMetaObject::invokeMethod(this, "show", Qt::QueuedConnection);
     });
@@ -169,7 +170,7 @@ void SonixBeautyWindow::onRestartChanged()
 
 void SonixBeautyWindow::onPauseChanged()
 {
-    qDebug() << "onPauseChanged";
+    // qDebug() << "onPauseChanged";
     QMetaObject::invokeMethod(this, "hide", Qt::QueuedConnection);
 }
 

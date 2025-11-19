@@ -1,17 +1,17 @@
 import QtQuick
 import SonixBeautyWIN
-import SonixBeautyUI
+// import SonixBeautyUI
 
 // import SonixBeautyStudio
 
 SonixBeautyWindow {
     id: appWindow
 
-    color: ComponentConf.appColorTable["backgroundColor"]
+    // color: ComponentConf.appColorTable["backgroundColor"]
 
     Component.onCompleted: {
 
         // AppConstants.mainWindowObject = appWindow;
-        ComponentMethod.showApplicationTip(appWindow, qsTr("Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!"));
+        // ComponentMethod.showApplicationTip(appWindow, qsTr("Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!"));
     }
 }
