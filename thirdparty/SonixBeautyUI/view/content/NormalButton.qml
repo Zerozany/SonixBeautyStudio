@@ -15,6 +15,7 @@ Rectangle {
     property bool fontBold: false
 
     property bool _pressedTag: false
+    readonly property int elementSpacing: 0
     readonly property string textColorPressed: ThemeManager.currentTheme["textColorPressed"]
     readonly property string elementColor: ThemeManager.currentTheme["elementColor"]
     readonly property string textColor: ThemeManager.currentTheme["textColor"]
@@ -29,14 +30,16 @@ Rectangle {
 
     Component {
         id: horizontalCom
+
         RowLayout {
             anchors.centerIn: parent
-            spacing: 0
+            spacing: root.width <= root.height ? root.elementSpacing * 0.2 : root.elementSpacing * 1.0
+
             Image {
                 source: root._pressedTag ? root.sourcePressed : root.source
                 fillMode: Image.PreserveAspectFit
-                Layout.preferredWidth: parent.height
-                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                Layout.preferredWidth: root.width <= root.height ? root.width * 0.2 : root.height * 0.5
+                Layout.alignment: Qt.AlignVCenter
             }
             Text {
                 text: root.text
@@ -45,22 +48,25 @@ Rectangle {
                 font.pixelSize: Math.floor(root.height * 0.33)
                 font.bold: root.fontBold
                 // font.family: root.textFontFamily
+                verticalAlignment: Text.AlignVCenter
                 Layout.fillWidth: true
-                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                Layout.alignment: Qt.AlignVCenter
             }
         }
     }
 
     Component {
         id: verticalCom
+
         ColumnLayout {
             anchors.centerIn: parent
-            spacing: 0
+            spacing: root.width <= root.height ? root.elementSpacing * 0.2 : root.elementSpacing * 1.0
+
             Image {
                 source: root._pressedTag ? root.sourcePressed : root.source
                 fillMode: Image.PreserveAspectFit
-                Layout.preferredHeight: parent.width
-                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                Layout.preferredHeight: root.width <= root.height ? root.width * 0.2 : root.height * 0.5
+                Layout.alignment: Qt.AlignHCenter
             }
             Text {
                 text: root.text
@@ -69,8 +75,9 @@ Rectangle {
                 font.pixelSize: Math.floor(root.width * 0.2)
                 font.bold: root.fontBold
                 // font.family: root.textFontFamily
+                verticalAlignment: Text.AlignVCenter
                 Layout.fillHeight: true
-                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                Layout.alignment: Qt.AlignHCenter
             }
         }
     }

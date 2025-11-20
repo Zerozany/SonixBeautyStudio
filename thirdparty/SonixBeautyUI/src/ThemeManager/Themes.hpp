@@ -12,6 +12,7 @@ namespace Themes
         {"elementColor", {"#FFFFFF"}},
         {"borderColor", {"#cdcdcd"}},
         {"probeDeviceColor", {"#66e1e1"}},
+        {"labelColor", {"transparent"}},
     };
 
     inline QVariantMap fontFamilys{
