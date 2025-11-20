@@ -1,6 +1,6 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#include "SystemConfig.h"
+#include "ApplicationConfig.h"
 #include "ViewEngine.h"
 // #include "Translator.h"
 // #include "ThemeManager.h"
@@ -14,7 +14,7 @@
 
 int main(int argc, char* argv[])
 {
-    SystemConfig::instance()->init();
+    ApplicationConfig::instance()->init();
     QGuiApplication app{argc, argv};
     // qDebug() << ThemeManager::create(nullptr, nullptr)->currentTheme();
     // Translator::create(nullptr, nullptr)->load(":/translate/SonixBeautyStudio_en.qm");
