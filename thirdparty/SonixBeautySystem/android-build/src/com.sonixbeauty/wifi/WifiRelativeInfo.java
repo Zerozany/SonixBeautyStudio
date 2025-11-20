@@ -3,16 +3,18 @@ package com.sonixbeauty.wifi;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkRequest;
 import android.net.wifi.ScanResult;
-import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.net.wifi.WifiNetworkSpecifier;
+import android.os.Build;
+import android.provider.Settings;
 import android.util.Log;
 import androidx.core.app.ActivityCompat;
 import java.util.ArrayList;
@@ -25,10 +27,9 @@ public class WifiRelativeInfo {
 
     private Activity m_activity;
     private WifiManager m_wifiManager;
+    private static final String TAG = "SonixBeauty";
     private final int REQUEST_LOCATION_PERMISSION = 1001;
-    private static final String TAG = "SonixBeauty"; // 全局统一 TAG
 
-    // 声明 native 方法
     private native void connectSuccess(int state);
 
     public WifiRelativeInfo(Activity _activity)
@@ -40,52 +41,61 @@ public class WifiRelativeInfo {
     private void init(Activity _activity)
     {
         this.m_activity = _activity;
-        m_wifiManager = (WifiManager)m_activity.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        m_wifiManager = (WifiManager)m_activity.getApplicationContext()
+                            .getSystemService(Context.WIFI_SERVICE);
         if (m_wifiManager == null) {
             Log.d(TAG, "wifiManager init failed");
-            return;
         }
     }
 
     private void requestPermission()
     {
-        // 要请求的权限数组
         String[] permissions = {
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.CHANGE_WIFI_STATE
         };
-        // 遍历检查是否有未授权的权限
         List<String> permissionNeeded = new ArrayList<>();
         for (String permission : permissions) {
             if (ActivityCompat.checkSelfPermission(m_activity, permission) != PackageManager.PERMISSION_GRANTED) {
                 permissionNeeded.add(permission);
             }
         }
-        // 如果有未授权的权限，统一请求
         if (!permissionNeeded.isEmpty()) {
-            ActivityCompat.requestPermissions(m_activity, permissionNeeded.toArray(new String[0]), REQUEST_LOCATION_PERMISSION);
+            ActivityCompat.requestPermissions(m_activity, permissionNeeded.toArray(new String[0]),
+                REQUEST_LOCATION_PERMISSION);
             Log.d(TAG, "Requesting location and wifi permissions: " + permissionNeeded);
         }
     }
 
+    // 扫描 Wi-Fi 列表
     public String scanWifiList()
     {
         try {
-            if (!m_wifiManager.isWifiEnabled()) {
-                m_wifiManager.setWifiEnabled(true);
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+                @SuppressWarnings("deprecation")
+                boolean result = m_wifiManager.setWifiEnabled(true);
+            } else {
+                // Android 10+ 弹出 Wi-Fi 设置面板
+                Intent panelIntent = new Intent(Settings.Panel.ACTION_WIFI);
+                m_activity.startActivity(panelIntent);
             }
+
             @SuppressWarnings("deprecation")
             boolean success = m_wifiManager.startScan();
-            if (!success) {
+            if (!success)
                 return "NULL";
-            }
+
             List<ScanResult> scanResults = m_wifiManager.getScanResults();
-            if (scanResults == null || scanResults.isEmpty()) {
+            if (scanResults == null || scanResults.isEmpty())
                 return "NULL";
-            }
+
             StringBuilder sb = new StringBuilder();
             for (ScanResult result : scanResults) {
-                sb.append(result.SSID).append(" ").append(result.level).append(",");
+                @SuppressWarnings("deprecation")
+                String ssid = (m_wifiManager.getConnectionInfo() != null)
+                    ? m_wifiManager.getConnectionInfo().getSSID()
+                    : result.SSID;
+                sb.append(ssid).append(" ").append(result.level).append(",");
             }
             return sb.toString();
         } catch (Exception e) {
@@ -100,9 +110,8 @@ public class WifiRelativeInfo {
         try {
             @SuppressWarnings("deprecation")
             WifiInfo wifiInfo = m_wifiManager.getConnectionInfo();
-            if (wifiInfo == null) {
+            if (wifiInfo == null)
                 return "NULL";
-            }
             String ssid = wifiInfo.getSSID();
             if (ssid.startsWith("\"") && ssid.endsWith("\"")) {
                 ssid = ssid.substring(1, ssid.length() - 1);
@@ -113,6 +122,7 @@ public class WifiRelativeInfo {
         }
     }
 
+    // 连接 Wi-Fi
     public void connectWifi(String ssid, String password)
     {
         try {
@@ -126,26 +136,29 @@ public class WifiRelativeInfo {
                                          .setNetworkSpecifier(specifier)
                                          .build();
 
-            ConnectivityManager cm = (ConnectivityManager)m_activity.getSystemService(Context.CONNECTIVITY_SERVICE);
+            ConnectivityManager cm = (ConnectivityManager)m_activity
+                                         .getSystemService(Context.CONNECTIVITY_SERVICE);
             if (cm == null) {
                 Log.e(TAG, "ConnectivityManager is null");
                 return;
             }
+
             cm.requestNetwork(request, new ConnectivityManager.NetworkCallback() {
                 @Override
                 public void onAvailable(Network network)
                 {
-                    // 连接成功
                     Log.d(TAG, "Connected to Wi-Fi: " + ssid);
-                    cm.bindProcessToNetwork(network); // 可选，将 app 网络绑定到指定 Wi-Fi
+                    cm.bindProcessToNetwork(network);
                     connectSuccess(CONNECTSUCCESS);
                 }
+
                 @Override
                 public void onUnavailable()
                 {
                     Log.d(TAG, "Failed to connect to Wi-Fi: " + ssid);
                     connectSuccess(CONNECTERROR);
                 }
+
                 @Override
                 public void onLost(Network network)
                 {

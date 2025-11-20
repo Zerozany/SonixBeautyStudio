@@ -3,23 +3,21 @@ import QtQuick
 
 QtObject {
 
-    // function showApplicationTip(_parentWindow: var, _text: string, _interval = 2000) {
-    //     if (!_parentWindow) {
-    //         console.error("[Utile] showApplicationTip(): window is null");
-    //         return;
-    //     }
-    //     const tipComp = Qt.createComponent("../content/ApplicationTip.qml");
-    //     if (tipComp.status === Component.Ready) {
-    //         const tipObj = tipComp.createObject(_parentWindow, {
-    //             parentWindow: _parentWindow,
-    //             text: _text,
-    //             interval: _interval
-    //         });
-    //         if (tipObj === null) {
-    //             console.error("[Utile] showApplicationTip(): create ApplicationTip failed");
-    //         }
-    //     } else if (tipComp.status === Component.Error) {
-    //         console.error("[Utile] showApplicationTip(): Component loading failed:", tipComp.errorString());
-    //     }
-    // }
+    function showApplicationTip(_parentItem: var, _text: var, _interval: int): var {
+        var component = Qt.createComponent("../content/ApplicationTip.qml");
+        if (component.status === Component.Ready) {
+            var tip = component.createObject(_parentItem, {
+                text: _text || "",
+                interval: _interval || 2000
+            });
+            if (tip === null) {
+                console.error("Failed to create ApplicationTip object");
+                return null;
+            }
+            return tip;
+        } else if (component.status === Component.Error) {
+            console.error("Error loading ApplicationTip.qml");
+            return null;
+        }
+    }
 }

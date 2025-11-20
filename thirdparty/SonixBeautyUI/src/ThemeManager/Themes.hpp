@@ -1,7 +1,6 @@
 _Pragma("once");
 #include <QVariantMap>
 #include <QColor>
-#include <QScreen>
 
 namespace Themes
 {
@@ -29,9 +28,9 @@ namespace Themes
     };
 
     inline QVariantMap styleSize{
-        {"elementMargins", 5 * QGuiApplication::primaryScreen()->devicePixelRatio()},
-        {"elementRadius", 5 * QGuiApplication::primaryScreen()->devicePixelRatio()},
-        {"elementSpacing", 5 * QGuiApplication::primaryScreen()->devicePixelRatio()},
+        {"elementMargins", 5},
+        {"elementRadius", 5},
+        {"elementSpacing", 5},
     };
 
 }  // namespace Themes

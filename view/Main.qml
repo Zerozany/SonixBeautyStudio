@@ -3,8 +3,6 @@ import SonixBeautySystem
 import SonixBeautyStudio
 import SonixBeautyUI
 
-// import SonixBeautyUI
-
 SonixBeautyWindow {
     id: appWindow
     color: appWindow.backgroundColor
@@ -13,6 +11,6 @@ SonixBeautyWindow {
 
     Component.onCompleted: {
         AppConstants.mainWindowObject = appWindow;
-        // ComponentMethod.showApplicationTip(appWindow, qsTr("Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!Hello World!!!"));
+        ComponentMethod.showApplicationTip(AppConstants.mainWindowObject, qsTr("Hello World!"), 2000);
     }
 }

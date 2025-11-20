@@ -56,8 +56,9 @@ android {
        }
     }
 
-    tasks.withType(JavaCompile) {
+    tasks.withType(JavaCompile).configureEach {
         options.incremental = true
+        options.compilerArgs << "-Xlint:deprecation"
     }
 
     compileOptions {

@@ -88,6 +88,8 @@ auto ThemeManager::init() noexcept -> void
         this->setCurrentThemeName("lightTheme");
     }
     m_settings->endGroup();
+    this->setFontSize(Themes::fontSize);
+    this->setStyleSize(Themes::styleSize);
 }
 
 auto ThemeManager::connectSignal2Slot() noexcept -> void

@@ -20,11 +20,10 @@ set_source_files_properties(
 )
 
 qt_add_qml_module(${PROJECT_NAME}
-        URI "${PROJECT_NAME}"
-        VERSION 1.0
-        RESOURCE_PREFIX "/qt/qml"
-        QML_FILES ${QMLFILES} ${QMLSINGLETONS}
-        SOURCES ${SRCFILES}
+    URI "${PROJECT_NAME}"
+    VERSION 1.0
+    QML_FILES ${QMLFILES} ${QMLSINGLETONS}
+    SOURCES ${SRCFILES}
 )
 
 file(GLOB INCLUDEDIR "${CMAKE_CURRENT_SOURCE_DIR}/src/*")

@@ -1,5 +1,4 @@
 import QtQuick
-import QtQuick.Window
 import SonixBeautyUI
 
 Rectangle {
@@ -13,11 +12,11 @@ Rectangle {
     property string text: ""
     property int interval: 2000
 
-    readonly property string elementColor: ThemeManager.currentTheme.elementColor
-    readonly property string textColor: ThemeManager.currentTheme.textColor
-    readonly property int elementRadius: ThemeManager.fontSize.elementRadius
-    readonly property int elementMargins: ThemeManager.fontSize.elementMargins
-    readonly property int fontSize: ThemeManager.fontSize.L
+    readonly property string elementColor: ThemeManager.currentTheme["elementColor"]
+    readonly property string textColor: ThemeManager.currentTheme["textColor"]
+    readonly property int elementRadius: ThemeManager.styleSize["elementRadius"]
+    readonly property int elementMargins: ThemeManager.styleSize["elementMargins"]
+    readonly property int fontSize: ThemeManager.fontSize["L"]
 
     Text {
         anchors.fill: parent
@@ -59,10 +58,8 @@ Rectangle {
             duration: 300
             to: 0
         }
-        ScriptAction {
-            scriptName: {
-                root.destroy();
-            }
+        onStopped: {
+            root.destroy();
         }
     }
 }

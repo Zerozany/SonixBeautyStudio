@@ -5,7 +5,9 @@ find_package(Qt6 REQUIRED
     Core
 )
 
+qt_policy(SET QTP0005 NEW)
 qt_policy(SET QTP0004 NEW)
+qt_policy(SET QTP0003 NEW)
 qt_policy(SET QTP0002 NEW)
 qt_policy(SET QTP0001 NEW)
 
