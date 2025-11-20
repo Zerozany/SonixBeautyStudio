@@ -2,7 +2,21 @@ _Pragma("once");
 #include <memory>
 #include <spdlog/spdlog.h>
 
-class SonixLogger
+#if defined(_WIN32) && defined(_MSC_VER)
+#    ifndef SONIXEX_API
+#        ifdef SONIXEXPROTS
+#            define SONIXEX_API __declspec(dllexport)
+#        else
+#            define SONIXEX_API __declspec(dllimport)
+#        endif
+#    endif
+#else
+#    ifndef SONIXEX_API
+#        define SONIXEX_API
+#    endif
+#endif
+
+class SONIXEX_API SonixLogger
 {
 public:
     explicit(true) SonixLogger();

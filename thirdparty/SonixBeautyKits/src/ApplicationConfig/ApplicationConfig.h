@@ -1,7 +1,21 @@
 _Pragma("once");
 #include <QObject>
 
-class ApplicationConfig : public QObject
+#if defined(Q_OS_WINDOWS) && defined(_MSC_VER)
+#    ifndef SONIXEX_API
+#        ifdef SONIXEXPROTS
+#            define SONIXEX_API Q_DECL_EXPORT
+#        else
+#            define SONIXEX_API Q_DECL_IMPORT
+#        endif
+#    endif
+#else
+#    ifndef SONIXEX_API
+#        define SONIXEX_API
+#    endif
+#endif
+
+class SONIXEX_API ApplicationConfig : public QObject
 {
     Q_OBJECT
 public:

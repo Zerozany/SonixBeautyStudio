@@ -19,7 +19,7 @@ $buildType = if ($t -eq "r") { "Release" } else { "Debug" }
 Clear-Host
 if (Test-Path "build") {
     Write-Host "🗑️ Removing old build folder..."
-    # Remove-Item -Recurse -Force build
+    Remove-Item -Recurse -Force build
 }
 
 # 根据 device 构建

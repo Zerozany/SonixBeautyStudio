@@ -5,13 +5,17 @@ _Pragma("once");
 #include "Themes.hpp"
 
 #if defined(Q_OS_WINDOWS) && defined(_MSC_VER)
-#ifdef SONIXEXPROTS
-#define SONIXEX_API Q_DECL_EXPORT
+#    ifndef SONIXEX_API
+#        ifdef SONIXEXPROTS
+#            define SONIXEX_API Q_DECL_EXPORT
+#        else
+#            define SONIXEX_API Q_DECL_IMPORT
+#        endif
+#    endif
 #else
-#define SONIXEX_API Q_DECL_IMPORT
-#endif
-#else
-#define SONIXEX_API
+#    ifndef SONIXEX_API
+#        define SONIXEX_API
+#    endif
 #endif
 
 class QJSEngine;

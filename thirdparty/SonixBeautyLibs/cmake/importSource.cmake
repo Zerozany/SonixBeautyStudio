@@ -1,6 +1,6 @@
 file(GLOB SOURCEFILES
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/*.h"
-    "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/**/*.h"
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/**/*.cpp"
 )
 
 target_sources(${PROJECT_NAME}
@@ -8,7 +8,12 @@ target_sources(${PROJECT_NAME}
     ${SOURCEFILES}
 )
 
-target_include_directories(${PROJECT_NAME}
-    PUBLIC
-    "${CMAKE_CURRENT_SOURCE_DIR}/src"
-)
+file(GLOB INCLUDEDIR "${CMAKE_CURRENT_SOURCE_DIR}/src/*")
+
+foreach(HEADERDIR ${INCLUDEDIR})
+    if(NOT IS_DIRECTORY ${HEADERDIR})
+        continue()
+    endif()
+
+    target_include_directories(${PROJECT_NAME} PUBLIC ${HEADERDIR})
+endforeach()

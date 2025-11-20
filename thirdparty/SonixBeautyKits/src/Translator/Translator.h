@@ -3,10 +3,24 @@ _Pragma("once");
 #include <QtQml/qqmlregistration.h>
 #include <QTranslator>
 
+#if defined(Q_OS_WINDOWS) && defined(_MSC_VER)
+#    ifndef SONIXEX_API
+#        ifdef SONIXEXPROTS
+#            define SONIXEX_API Q_DECL_EXPORT
+#        else
+#            define SONIXEX_API Q_DECL_IMPORT
+#        endif
+#    endif
+#else
+#    ifndef SONIXEX_API
+#        define SONIXEX_API
+#    endif
+#endif
+
 class QJSEngine;
 class QQmlEngine;
 
-class Translator : public QObject
+class SONIXEX_API Translator : public QObject
 {
     Q_OBJECT
     QML_SINGLETON
