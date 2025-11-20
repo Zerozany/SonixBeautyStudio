@@ -13,20 +13,10 @@ file(GLOB QMLSINGLETONS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
     "${CMAKE_CURRENT_SOURCE_DIR}/view/global/*.qml"
 )
 
-file(GLOB JSFILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
-    "${CMAKE_CURRENT_SOURCE_DIR}/view/*.js"
-)
-
 set_source_files_properties(
     ${QMLSINGLETONS}
     PROPERTIES
     QT_QML_SINGLETON_TYPE TRUE
-)
-
-qt_add_resources(${PROJECT_NAME} "UI"
-    PREFIX "/"
-    FILES
-    ${JSFILES}
 )
 
 qt_add_qml_module(${PROJECT_NAME}
