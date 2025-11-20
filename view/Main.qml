@@ -1,16 +1,15 @@
 import QtQuick
 import SonixBeautySystem
-import SonixBeautyStudio
 import SonixBeautyUI
 
 SonixBeautyWindow {
-    id: appWindow
-    color: appWindow.backgroundColor
+    id: mainWindow
+    color: mainWindow.backgroundColor
 
     readonly property string backgroundColor: ThemeManager.currentTheme.backgroundColor
 
     Component.onCompleted: {
-        AppConstants.mainWindowObject = appWindow;
+        AppConstants.mainWindowObject = mainWindow;
         ComponentMethod.showApplicationTip(AppConstants.mainWindowObject, qsTr("Hello World!"), 2000);
     }
 }
