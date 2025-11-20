@@ -1,7 +1,6 @@
 pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Layouts
-import SonixBeautyUI
 
 Rectangle {
     id: root
@@ -15,7 +14,7 @@ Rectangle {
     property url sourcePressed: ""
     property bool fontBold: false
 
-    property bool pressedTag: false
+    property bool _pressedTag: false
     readonly property string textColorPressed: ThemeManager.currentTheme["textColorPressed"]
     readonly property string elementColor: ThemeManager.currentTheme["elementColor"]
     readonly property string textColor: ThemeManager.currentTheme["textColor"]
@@ -34,14 +33,14 @@ Rectangle {
             anchors.centerIn: parent
             spacing: 0
             Image {
-                source: root.pressedTag ? root.sourcePressed : root.source
+                source: root._pressedTag ? root.sourcePressed : root.source
                 fillMode: Image.PreserveAspectFit
                 Layout.preferredWidth: parent.height
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             }
             Text {
                 text: root.text
-                color: root.pressedTag ? root.textColorPressed : root.textColor
+                color: root._pressedTag ? root.textColorPressed : root.textColor
                 wrapMode: Text.WordWrap
                 font.pixelSize: Math.floor(root.height * 0.33)
                 font.bold: root.fontBold
@@ -58,14 +57,14 @@ Rectangle {
             anchors.centerIn: parent
             spacing: 0
             Image {
-                source: root.pressedTag ? root.sourcePressed : root.source
+                source: root._pressedTag ? root.sourcePressed : root.source
                 fillMode: Image.PreserveAspectFit
                 Layout.preferredHeight: parent.width
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             }
             Text {
                 text: root.text
-                color: root.pressedTag ? root.textColorPressed : root.textColor
+                color: root._pressedTag ? root.textColorPressed : root.textColor
                 wrapMode: Text.WordWrap
                 font.pixelSize: Math.floor(root.width * 0.2)
                 font.bold: root.fontBold
@@ -81,22 +80,22 @@ Rectangle {
         hoverEnabled: true
 
         onPressed: {
-            root.pressedTag = true;
+            root._pressedTag = true;
         }
 
         onPositionChanged: mouse => {
             if (!containsMouse && pressed) {
-                root.pressedTag = false;
+                root._pressedTag = false;
                 mouse.accepted = false;
             }
         }
 
         onReleased: {
-            root.pressedTag = false;
+            root._pressedTag = false;
         }
 
         onCanceled: {
-            root.pressedTag = false;
+            root._pressedTag = false;
         }
 
         onClicked: root.clicked()
