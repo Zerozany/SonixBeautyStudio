@@ -5,6 +5,21 @@
 
 Translator::Translator(QObject* _parent) : QObject{_parent}
 {
+    std::invoke(&Translator::connectSignal2Slot, this);
+}
+
+auto Translator::connectSignal2Slot() noexcept -> void
+{
+    connect(this, &Translator::languageChanged, this, &Translator::onLanguageChanged, Qt::AutoConnection);
+}
+
+void Translator::onLanguageChanged()
+{
+    qApp->removeTranslator(&m_translator);
+    if (m_translator.load(m_language))
+    {
+        qApp->installTranslator(&m_translator);
+    }
 }
 
 Translator* Translator::create(QQmlEngine*, QJSEngine*)
@@ -13,11 +28,17 @@ Translator* Translator::create(QQmlEngine*, QJSEngine*)
     return translator;
 }
 
-auto Translator::load(const QString& _languageQmPath) noexcept -> void
+QString Translator::language() const
 {
-    qApp->removeTranslator(&m_translator);
-    if (m_translator.load(_languageQmPath))
+    return m_language;
+}
+
+void Translator::setLanguage(const QString& _language)
+{
+    if (m_language == _language)
     {
-        qApp->installTranslator(&m_translator);
+        return;
     }
+    m_language = _language;
+    Q_EMIT this->languageChanged();
 }
