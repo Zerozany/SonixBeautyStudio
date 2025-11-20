@@ -2,6 +2,7 @@ import QtQuick
 import SonixBeautySystem
 import SonixBeautyStudio
 import SonixBeautyUI
+import "qrc:/view/ApplicationTipManager.js" as TipManager
 
 SonixBeautyWindow {
     id: appWindow
@@ -11,6 +12,6 @@ SonixBeautyWindow {
 
     Component.onCompleted: {
         AppConstants.mainWindowObject = appWindow;
-        ComponentMethod.showApplicationTip(AppConstants.mainWindowObject, qsTr("Hello World!"), 2000);
+        TipManager.showApplicationTip(AppConstants.mainWindowObject, qsTr("Hello World!"), 2000);
     }
 }
