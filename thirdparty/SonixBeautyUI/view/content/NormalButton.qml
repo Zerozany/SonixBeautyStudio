@@ -21,7 +21,6 @@ Rectangle {
     readonly property string textColor: ThemeManager.currentTheme["textColor"]
     readonly property int elementRadius: ThemeManager.styleSize["elementRadius"]
     readonly property int elementMargins: ThemeManager.styleSize["elementMargins"]
-    readonly property int fontSize: ThemeManager.fontSize["L"]
 
     Loader {
         sourceComponent: root.width <= root.height ? verticalCom : horizontalCom

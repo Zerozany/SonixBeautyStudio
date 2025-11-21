@@ -4,7 +4,7 @@ import QtQuick.Layouts
 Rectangle {
     id: root
     radius: root.elementRadius
-    color: "blue"
+    color: root.labelColor
 
     property string text: ""
     property url source: ""
@@ -15,7 +15,6 @@ Rectangle {
     readonly property int elementRadius: ThemeManager.styleSize["elementRadius"]
     readonly property int elementMargins: ThemeManager.styleSize["elementMargins"]
     readonly property int elementSpacing: ThemeManager.styleSize["elementSpacing"]
-    readonly property int fontSize: ThemeManager.fontSize["L"]
 
     RowLayout {
         anchors.centerIn: parent

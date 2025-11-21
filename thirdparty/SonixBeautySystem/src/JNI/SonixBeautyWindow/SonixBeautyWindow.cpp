@@ -3,8 +3,8 @@
 #include <QTimer>
 
 #if defined(Q_OS_ANDROID)
-#include <QJniObject>
-#include <QJniEnvironment>
+    #include <QJniObject>
+    #include <QJniEnvironment>
 
 extern "C" {
 
@@ -133,11 +133,11 @@ auto SonixBeautyWindow::connectSignal2Slot() noexcept -> void
     connect(this, &SonixBeautyWindow::onDestroy, this, &SonixBeautyWindow::onDestroyChanged, Qt::QueuedConnection);
 
 #endif
-    connect(this, &QQuickWindow::sceneGraphInitialized, this, [this] { qDebug() << "sceneGraphInitialized"; }, Qt::QueuedConnection);
+    connect(this, &QQuickWindow::sceneGraphInitialized, this, [this] {}, Qt::QueuedConnection);
 
-    connect(this, &QQuickWindow::sceneGraphAboutToStop, this, [this] { qDebug() << "sceneGraphAboutToStop"; }, Qt::QueuedConnection);
+    connect(this, &QQuickWindow::sceneGraphAboutToStop, this, [this] {}, Qt::QueuedConnection);
 
-    connect(this, &QQuickWindow::sceneGraphInvalidated, this, [this] { qDebug() << "sceneGraphInvalidated"; }, Qt::QueuedConnection);
+    connect(this, &QQuickWindow::sceneGraphInvalidated, this, [this] {}, Qt::QueuedConnection);
 }
 
 void SonixBeautyWindow::exposeEvent(QExposeEvent* _ev)

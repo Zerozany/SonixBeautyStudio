@@ -9,7 +9,6 @@ SonixBeautyWindow {
     readonly property string backgroundColor: ThemeManager.currentTheme.backgroundColor
 
     Component.onCompleted: {
-        AppConstants.mainWindowObject = mainWindow;
-        ComponentMethod.showApplicationTip(AppConstants.mainWindowObject, qsTr("Hello World!"), 2000);
+        ComponentMethod.showApplicationTip(mainWindow, qsTr("Hello World!"), 2000);
     }
 }

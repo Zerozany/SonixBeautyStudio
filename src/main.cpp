@@ -5,9 +5,9 @@
 // #include "Translator.h"
 // #include "ThemeManager.h"
 // #include <QDebug>
-#include "SonixLogger.h"
-#include <QDir>
-#include <QStandardPaths>
+// #include "SonixLogger.h"
+// #include <QDir>
+// #include <QStandardPaths>
 
 #if defined(Q_OS_ANDROID)
     #include <QJniObject>
