@@ -4,7 +4,7 @@ import QtQuick.Layouts
 Rectangle {
     id: root
     radius: root.elementRadius
-    color: root.probeDeviceColor
+    color: root.elementColor
 
     property int edge: -1
     property var sidebarValueList: null
@@ -13,7 +13,7 @@ Rectangle {
     readonly property int bottomEdge: 1
     readonly property int leftEdge: 2
     readonly property int rightEdge: 3
-    readonly property string probeDeviceColor: ThemeManager.currentTheme["probeDeviceColor"]
+    readonly property string elementColor: ThemeManager.currentTheme["elementColor"]
     readonly property int elementRadius: ThemeManager.styleSize["elementRadius"]
     readonly property int elementMargins: ThemeManager.styleSize["elementMargins"]
     readonly property bool landScape: ComponentMethod.findTopLevelWindow(parent).width > ComponentMethod.findTopLevelWindow(parent).height

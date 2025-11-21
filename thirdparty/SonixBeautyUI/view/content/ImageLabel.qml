@@ -18,12 +18,12 @@ Rectangle {
 
     RowLayout {
         anchors.centerIn: parent
-        spacing: root.width <= root.height ? root.elementSpacing * 0.2 : root.elementSpacing * 1.0
+        spacing: ComponentConf.landScape ? root.elementSpacing * 1.0 : root.elementSpacing * 0.2
 
         Image {
             source: root.source
             fillMode: Image.PreserveAspectFit
-            Layout.preferredWidth: root.width <= root.height ? root.width * 0.2 : root.height * 0.5
+            Layout.preferredWidth: ComponentConf.landScape ? root.width * 0.5 : root.height * 0.2
             Layout.alignment: Qt.AlignVCenter
         }
 
@@ -31,7 +31,7 @@ Rectangle {
             text: root.text
             color: root.textColor
             wrapMode: Text.WordWrap
-            font.pixelSize: root.width <= root.height ? Math.floor(root.width * 0.3) : Math.floor(root.height * 0.45)
+            font.pixelSize: ComponentConf.landScape ? Math.floor(root.width * 0.45) : Math.floor(root.height * 0.3)
             font.bold: root.fontBold
             verticalAlignment: Text.AlignVCenter
             Layout.fillWidth: true

@@ -2,9 +2,9 @@ import QtQuick
 
 Rectangle {
     id: root
-    x: parent ? (parent.width - root.width) / 2 : (Screen.width - root.width) / 2
-    y: parent ? parent.height / 8 : Screen.height / 8
-    width: parent ? parent.width / 2 : Screen.width / 2
+    x: (parent.width - root.width) * 0.5
+    y: ComponentConf.landScape ? parent.height * 0.2 : parent.height * 0.1
+    width: ComponentConf.landScape ? parent.width * 0.5 : parent.width * 0.8
     radius: root.elementRadius
     color: root.elementColor
 

@@ -21,8 +21,8 @@ Rectangle {
         height: contentHeight
         color: root.textColor
         font.pixelSize: root.fontSize
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment: Text.AlignVCenter
+        horizontalAlignment: Qt.AlignHCenter
+        verticalAlignment: Qt.AlignVCenter
 
         Component.onCompleted: {
             root.width = contentWidth + 2 * (root.elementMargins);
