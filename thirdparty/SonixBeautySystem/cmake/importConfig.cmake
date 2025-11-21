@@ -5,7 +5,7 @@ target_compile_features(${PROJECT_NAME}
 
 target_compile_definitions(${PROJECT_NAME}
     PRIVATE
-    SONIXEXPROTS
+    SONIXBEAUTYSYSTEM
 )
 
 set(QT_QML_GENERATE_QMLLS_INI ON)

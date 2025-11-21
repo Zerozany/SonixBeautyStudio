@@ -4,17 +4,13 @@ _Pragma("once");
 #include <QTranslator>
 
 #if defined(Q_OS_WINDOWS) && defined(_MSC_VER)
-#    ifndef SONIXEX_API
-#        ifdef SONIXEXPROTS
-#            define SONIXEX_API Q_DECL_EXPORT
-#        else
-#            define SONIXEX_API Q_DECL_IMPORT
-#        endif
-#    endif
+    #ifdef SONIXBEAUTYKITS
+        #define SONIXEX_API Q_DECL_EXPORT
+    #else
+        #define SONIXEX_API Q_DECL_IMPORT
+    #endif
 #else
-#    ifndef SONIXEX_API
-#        define SONIXEX_API
-#    endif
+    #define SONIXEX_API
 #endif
 
 class QJSEngine;

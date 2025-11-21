@@ -3,7 +3,17 @@ _Pragma("once");
 #include <string>
 #include <map>
 
-class WifiConfigBase : public QObject
+#if defined(Q_OS_WINDOWS) && defined(_MSC_VER)
+    #ifdef SONIXBEAUTYSYSTEM
+        #define SONIXEX_API Q_DECL_EXPORT
+    #else
+        #define SONIXEX_API Q_DECL_IMPORT
+    #endif
+#else
+    #define SONIXEX_API
+#endif
+
+class SONIXEX_API WifiConfigBase : public QObject
 {
     Q_OBJECT
 public:

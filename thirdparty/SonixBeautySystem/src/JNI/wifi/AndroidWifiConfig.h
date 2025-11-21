@@ -1,19 +1,9 @@
 _Pragma("once");
 #include <QObject>
 
-#if defined(Q_OS_WINDOWS) && defined(_MSC_VER)
-#ifdef SONIXEXPROTS
-#define SONIXEX_API Q_DECL_EXPORT
-#else
-#define SONIXEX_API Q_DECL_IMPORT
-#endif
-#else
-#define SONIXEX_API
-#endif
-
 class QJniObject;
 
-class SONIXEX_API AndroidWifiConfig : public QObject
+class AndroidWifiConfig : public QObject
 {
     Q_OBJECT
 public:

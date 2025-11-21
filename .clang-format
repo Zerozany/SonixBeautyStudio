@@ -8,7 +8,7 @@ Language: Cpp  # 该配置适用于 C++ 代码
 SortIncludes: Never
 
 # 预处理指令缩进
-IndentPPDirectives: AfterHash
+IndentPPDirectives: BeforeHash 
 
 # 强制指针符号（*）对齐到类型的左边
 # 不允许 clang-format 自动推导指针对齐方式
