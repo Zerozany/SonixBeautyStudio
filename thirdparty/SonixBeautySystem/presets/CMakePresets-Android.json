@@ -1,0 +1,60 @@
+{
+    "version": 4,
+    "configurePresets": [
+        {
+            "name": "BaseAndroid",
+            "hidden": true,
+            "generator": "Ninja",
+            "cacheVariables": {
+                "ANDROID_SDK_ROOT": "D:/AndroidEnv/SDK",
+                "ANDROID_NDK": "D:/AndroidEnv/SDK/ndk/27.2.12479018",
+                "CMAKE_TOOLCHAIN_FILE": "D:/vcpkg/scripts/buildsystems/vcpkg.cmake",
+                "VCPKG_CHAINLOAD_TOOLCHAIN_FILE": "D:/AndroidEnv/SDK/ndk/27.2.12479018/build/cmake/android.toolchain.cmake",
+                "ANDROID_ABI": "arm64-v8a",
+                "ANDROID_PLATFORM": "35",
+                "CMAKE_FIND_ROOT_PATH_MODE_PACKAGE": "NEVER",
+                "VCPKG_TARGET_TRIPLET": "arm64-android"
+            },
+            "environment": {
+                "JAVA_HOME": "D:/Android Studio/jbr",
+                "GRADLE_USER_HOME": "F:/GradleCache",
+                "ANDROID_NDK_HOME": "D:/AndroidEnv/SDK/ndk/27.2.12479018"
+            }
+        },
+        {
+            "name": "AndroidDebug",
+            "inherits": [
+                "BaseAndroid"
+            ],
+            "binaryDir": "${sourceDir}/build/${presetName}",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "AndroidRelease",
+            "inherits": [
+                "BaseAndroid"
+            ],
+            "binaryDir": "${sourceDir}/build/${presetName}",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            },
+            "environment": {}
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "AndroidDebugBuild",
+            "configurePreset": "AndroidDebug",
+            "jobs": 8,
+            "configuration": "Debug"
+        },
+        {
+            "name": "AndroidReleaseBuild",
+            "configurePreset": "AndroidRelease",
+            "jobs": 8,
+            "configuration": "Release"
+        }
+    ]
+}

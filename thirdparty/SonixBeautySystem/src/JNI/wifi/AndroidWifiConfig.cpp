@@ -4,8 +4,8 @@
 #include <QStringList>
 
 #if defined(ANDROID)
-#include <QJniObject>
-#include <QJniEnvironment>
+    #include <QJniObject>
+    #include <QJniEnvironment>
 
 extern "C" JNIEXPORT void JNICALL
 Java_com_sonixbeauty_wifi_WifiRelativeInfo_connectSuccess(JNIEnv* env, jobject thiz, jint state)

@@ -1,4 +1,4 @@
-package com.sonixbeauty.activity;
+package com.sonixbeauty.core;
 
 import android.app.Activity;
 import android.os.Build;
