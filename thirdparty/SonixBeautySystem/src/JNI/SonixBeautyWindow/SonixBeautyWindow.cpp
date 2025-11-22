@@ -36,7 +36,7 @@ extern "C" {
     }
 
     JNIEXPORT void JNICALL
-    Java_com_sonixbeauty_core_SonixApplication_NotifyRestart(JNIEnv*, jclass)
+    Java_com_sonixbeauty_drive_ActivityControl_NotifyRestart(JNIEnv*, jclass)
     {
         if (auto window{SonixBeautyWindow::instance()}; window)
         {
@@ -45,7 +45,7 @@ extern "C" {
     }
 
     JNIEXPORT void JNICALL
-    Java_com_sonixbeauty_core_SonixApplication_NotifyPause(JNIEnv*, jclass)
+    Java_com_sonixbeauty_drive_ActivityControl_NotifyPause(JNIEnv*, jclass)
     {
         if (auto window{SonixBeautyWindow::instance()}; window)
         {

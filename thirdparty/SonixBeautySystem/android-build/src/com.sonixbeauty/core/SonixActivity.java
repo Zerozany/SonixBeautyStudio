@@ -6,8 +6,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import com.sonixbeauty.drive.SystemControl;
 
 public class SonixActivity extends org.qtproject.qt.android.bindings.QtActivity {
+
+    private SystemControl m_systemControl = null;
 
     private static final String TAG = "SonixBeauty";
     // private static native void NotifyCreate();
@@ -18,15 +21,14 @@ public class SonixActivity extends org.qtproject.qt.android.bindings.QtActivity 
     // private static native void NotifyResume();
     // private static native void NotifyDestroy();
 
-    private PrivateConfig m_privateConfig = null;
-
     @Override
     public void onCreate(Bundle _savedInstanceState)
     {
         super.onCreate(_savedInstanceState);
+        m_systemControl = new SystemControl();
+        m_systemControl.systemColumnHandle(this);
+
         // NotifyCreate();
-        m_privateConfig = new PrivateConfig();
-        m_privateConfig.systemColumnHandle(this);
     }
 
     // @Override

@@ -1,4 +1,4 @@
-package com.sonixbeauty.core;
+package com.sonixbeauty.drive;
 
 import android.app.Activity;
 import android.os.Build;
@@ -7,7 +7,7 @@ import android.view.Window;
 import android.view.WindowInsets;
 import android.view.WindowInsetsController;
 
-public class PrivateConfig {
+public class SystemControl {
 
     @SuppressWarnings("deprecation") // 方法内所有弃用 API 都不报警告
     public void systemColumnHandle(Activity activity)
