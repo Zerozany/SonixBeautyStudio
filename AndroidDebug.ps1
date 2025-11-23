@@ -49,4 +49,4 @@ Write-Host "App PID = $appPID"
 # 5. print all logs for this app
 Write-Host "Start printing ALL logs for this app..."
 # & $adb -s $device logcat --pid=$appPID "*:V"
-& $adb -s $device logcat -s "qml:*" "System.out:D" "default:D" "SonixBeauty"
+& $adb -s $device logcat -s "qml:*" "System.out:D" "default:D" "HandleDebug"

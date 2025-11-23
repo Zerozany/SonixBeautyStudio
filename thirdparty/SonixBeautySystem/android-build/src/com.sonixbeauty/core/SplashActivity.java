@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import com.sonixbeauty.utiles.SonixUtiles;
+import com.sonixbeauty.utiles.JNIUtiles;
 
 public class SplashActivity extends Activity {
 
@@ -15,6 +15,6 @@ public class SplashActivity extends Activity {
         Intent intent = new Intent(this, SonixActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
-        Log.d(SonixUtiles.SonixDebug, "[SplashActivity.java]:The SplashActivity has ended");
+        Log.d(JNIUtiles.HandleDebug, "[SplashActivity.java]:The SplashActivity has ended");
     }
 }

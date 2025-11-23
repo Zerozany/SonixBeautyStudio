@@ -9,7 +9,7 @@ import android.view.WindowInsetsController;
 
 public class SystemControl {
 
-    @SuppressWarnings("deprecation") // 方法内所有弃用 API 都不报警告
+    @SuppressWarnings("deprecation")
     public void systemColumnHandle(Activity activity)
     {
         Window window = activity.getWindow();

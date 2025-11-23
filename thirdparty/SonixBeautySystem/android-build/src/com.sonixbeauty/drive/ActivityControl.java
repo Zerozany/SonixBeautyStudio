@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
 import android.util.Log;
-import com.sonixbeauty.utiles.SonixUtiles;
+import com.sonixbeauty.utiles.JNIUtiles;
 
 public class ActivityControl implements Application.ActivityLifecycleCallbacks {
 
@@ -18,7 +18,7 @@ public class ActivityControl implements Application.ActivityLifecycleCallbacks {
     public void onActivityStarted(Activity activity)
     {
         if (++activityReferences == 1 && !isConfigChanged) {
-            Log.d(SonixUtiles.SonixDebug, "App enters foreground");
+            Log.d(JNIUtiles.HandleDebug, "App enters foreground");
             NotifyRestart(); // 调用 Qt 层
         }
     }
@@ -28,7 +28,7 @@ public class ActivityControl implements Application.ActivityLifecycleCallbacks {
     {
         isConfigChanged = activity.isChangingConfigurations();
         if (--activityReferences == 0 && !isConfigChanged) {
-            Log.d(SonixUtiles.SonixDebug, "App enters background");
+            Log.d(JNIUtiles.HandleDebug, "App enters background");
             NotifyPause(); // 调用 Qt 层
         }
     }
