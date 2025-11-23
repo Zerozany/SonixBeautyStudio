@@ -28,16 +28,18 @@ elseif(ANDROID)
 
     # 统一定义应用名和版本号
     set(PACKAGE_NAME "org.qtproject.SonixBeauty")
-    set(APP_NAME "SonixBeauty Studio")
+    set(VERSION_CODE 1)
     set(VERSION_NAME "1.0.0.0")
+    set(APP_NAME "SonixBeauty Studio")
+    set(APP_ICON "@drawable/ic_launcher")
 
     set_target_properties(${PROJECT_NAME} PROPERTIES
         QT_ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_SOURCE_DIR}/thirdparty/SonixBeautySystem/android-build"
         QT_ANDROID_PACKAGE_NAME "${PACKAGE_NAME}"
-        QT_ANDROID_APP_ICON "@drawable/ic_launcher"
+        QT_ANDROID_APP_ICON "${APP_ICON}" # 应用图标
         QT_ANDROID_APP_NAME "${APP_NAME}" # 应用名称
         QT_ANDROID_APP_DESCRIPTION "A beautiful application created with Qt" # 应用描述
-        QT_ANDROID_VERSION_CODE 1 # 应用版本号
+        QT_ANDROID_VERSION_CODE ${VERSION_CODE} # 应用版本号
         QT_ANDROID_VERSION_NAME "${VERSION_NAME}" # 版本号名称
         QT_ANDROID_APPLICATION_ARGUMENTS "--appname=${APP_NAME} --version=${VERSION_NAME}" # 启动参数
         QT_ANDROID_ENVIRONMENT_VARIABLES "qt_android_no_exit_call=1" # Android 环境变量
