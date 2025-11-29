@@ -4,15 +4,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.view.ViewTreeObserver;
 import com.sonixbeauty.drive.SystemControl;
+import com.sonixbeauty.utiles.JNIUtiles;
 
 public class MainActivity extends org.qtproject.qt.android.bindings.QtActivity {
 
     private SystemControl m_systemControl = null;
 
-    private static final String TAG = "SonixBeauty";
     private static native void NotifyCreate();
     private static native void NotifyStart();
     private static native void NotifyStop();
@@ -27,20 +25,19 @@ public class MainActivity extends org.qtproject.qt.android.bindings.QtActivity {
         super.onCreate(_savedInstanceState);
         m_systemControl = new SystemControl();
         m_systemControl.systemColumnHandle(this);
-
         // NotifyCreate();
     }
 
     @Override
-    public void onWindowFocusChanged(boolean hasFocus)
+    public void onWindowFocusChanged(boolean _hasFocus)
     {
-        super.onWindowFocusChanged(hasFocus);
-        if (hasFocus) {
+        super.onWindowFocusChanged(_hasFocus);
+        if (_hasFocus) {
             NotifyRestart();
         } else {
             NotifyPause();
         }
-        Log.d(TAG, "hasWindowFocus: " + hasFocus);
+        Log.d(JNIUtiles.HandleDebug, "hasWindowFocus: " + _hasFocus);
     }
 
     @Override
