@@ -41,8 +41,7 @@ public class WifiRelativeInfo {
     private void init(Activity _activity)
     {
         this.m_activity = _activity;
-        m_wifiManager = (WifiManager)m_activity.getApplicationContext()
-                            .getSystemService(Context.WIFI_SERVICE);
+        m_wifiManager = (WifiManager)m_activity.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         if (m_wifiManager == null) {
             Log.d(TAG, "wifiManager init failed");
         }
@@ -61,8 +60,7 @@ public class WifiRelativeInfo {
             }
         }
         if (!permissionNeeded.isEmpty()) {
-            ActivityCompat.requestPermissions(m_activity, permissionNeeded.toArray(new String[0]),
-                REQUEST_LOCATION_PERMISSION);
+            ActivityCompat.requestPermissions(m_activity, permissionNeeded.toArray(new String[0]), REQUEST_LOCATION_PERMISSION);
             Log.d(TAG, "Requesting location and wifi permissions: " + permissionNeeded);
         }
     }

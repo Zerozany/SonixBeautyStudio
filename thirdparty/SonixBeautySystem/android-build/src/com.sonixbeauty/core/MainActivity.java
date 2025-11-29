@@ -8,18 +8,18 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import com.sonixbeauty.drive.SystemControl;
 
-public class SonixActivity extends org.qtproject.qt.android.bindings.QtActivity {
+public class MainActivity extends org.qtproject.qt.android.bindings.QtActivity {
 
     private SystemControl m_systemControl = null;
 
     private static final String TAG = "SonixBeauty";
-    // private static native void NotifyCreate();
-    // private static native void NotifyStart();
-    // private static native void NotifyStop();
-    // private static native void NotifyRestart();
-    // private static native void NotifyPause();
-    // private static native void NotifyResume();
-    // private static native void NotifyDestroy();
+    private static native void NotifyCreate();
+    private static native void NotifyStart();
+    private static native void NotifyStop();
+    private static native void NotifyRestart();
+    private static native void NotifyPause();
+    private static native void NotifyResume();
+    private static native void NotifyDestroy();
 
     @Override
     public void onCreate(Bundle _savedInstanceState)
@@ -31,17 +31,17 @@ public class SonixActivity extends org.qtproject.qt.android.bindings.QtActivity 
         // NotifyCreate();
     }
 
-    // @Override
-    // public void onWindowFocusChanged(boolean hasFocus)
-    // {
-    //     super.onWindowFocusChanged(hasFocus);
-    //     if (hasFocus) {
-    //         NotifyRestart();
-    //     } else {
-    //         NotifyPause();
-    //     }
-    //     Log.d(TAG, "hasWindowFocus: " + hasFocus);
-    // }
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus)
+    {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            NotifyRestart();
+        } else {
+            NotifyPause();
+        }
+        Log.d(TAG, "hasWindowFocus: " + hasFocus);
+    }
 
     @Override
     public void onStart()

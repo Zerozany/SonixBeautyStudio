@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-    <style name="splashTheme" parent="android:Theme.Material.Light.NoActionBar">
+    <style name="splash_theme" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowAnimationStyle">@null</item>

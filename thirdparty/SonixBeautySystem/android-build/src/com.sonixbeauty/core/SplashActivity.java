@@ -9,10 +9,10 @@ import com.sonixbeauty.utiles.JNIUtiles;
 public class SplashActivity extends Activity {
 
     @Override
-    public void onCreate(Bundle savedInstanceState)
+    public void onCreate(Bundle _savedInstanceState)
     {
-        super.onCreate(savedInstanceState);
-        Intent intent = new Intent(this, SonixActivity.class);
+        super.onCreate(_savedInstanceState);
+        Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
         Log.d(JNIUtiles.HandleDebug, "[SplashActivity.java]:The SplashActivity has ended");

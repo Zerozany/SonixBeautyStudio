@@ -9,7 +9,7 @@
 extern "C" {
 
     JNIEXPORT void JNICALL
-    Java_com_sonixbeauty_core_SonixApplication_NotifyCreate(JNIEnv*, jclass)
+    Java_com_sonixbeauty_core_MainActivity_NotifyCreate(JNIEnv*, jclass)
     {
         if (auto window{SonixBeautyWindow::instance()}; window)
         {
@@ -18,7 +18,7 @@ extern "C" {
     }
 
     JNIEXPORT void JNICALL
-    Java_com_sonixbeauty_core_SonixApplication_NotifyStart(JNIEnv*, jclass)
+    Java_com_sonixbeauty_core_MainActivity_NotifyStart(JNIEnv*, jclass)
     {
         if (auto window{SonixBeautyWindow::instance()}; window)
         {
@@ -27,7 +27,7 @@ extern "C" {
     }
 
     JNIEXPORT void JNICALL
-    Java_com_sonixbeauty_core_SonixApplication_NotifyStop(JNIEnv*, jclass)
+    Java_com_sonixbeauty_core_MainActivity_NotifyStop(JNIEnv*, jclass)
     {
         if (auto window{SonixBeautyWindow::instance()}; window)
         {
@@ -36,7 +36,7 @@ extern "C" {
     }
 
     JNIEXPORT void JNICALL
-    Java_com_sonixbeauty_drive_ActivityControl_NotifyRestart(JNIEnv*, jclass)
+    Java_com_sonixbeauty_core_MainActivity_NotifyRestart(JNIEnv*, jclass)
     {
         if (auto window{SonixBeautyWindow::instance()}; window)
         {
@@ -45,7 +45,7 @@ extern "C" {
     }
 
     JNIEXPORT void JNICALL
-    Java_com_sonixbeauty_drive_ActivityControl_NotifyPause(JNIEnv*, jclass)
+    Java_com_sonixbeauty_core_MainActivity_NotifyPause(JNIEnv*, jclass)
     {
         if (auto window{SonixBeautyWindow::instance()}; window)
         {
@@ -54,7 +54,7 @@ extern "C" {
     }
 
     JNIEXPORT void JNICALL
-    Java_com_sonixbeauty_core_SonixApplication_NotifyResume(JNIEnv*, jclass)
+    Java_com_sonixbeauty_core_MainActivity_NotifyResume(JNIEnv*, jclass)
     {
         if (auto window{SonixBeautyWindow::instance()}; window)
         {
@@ -63,7 +63,7 @@ extern "C" {
     }
 
     JNIEXPORT void JNICALL
-    Java_com_sonixbeauty_core_SonixApplication_NotifyDestroy(JNIEnv*, jclass)
+    Java_com_sonixbeauty_core_MainActivity_NotifyDestroy(JNIEnv*, jclass)
     {
         if (auto window{SonixBeautyWindow::instance()}; window)
         {

@@ -64,21 +64,18 @@
         <!-- Splash Activity -->
         <activity
             android:name="com.sonixbeauty.core.SplashActivity"
-            android:theme="@style/splashTheme"
+            android:theme="@style/splash_theme"
             android:exported="true"
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-                <!-- 主入口 Action -->
-                <!-- Launcher 分类，显示在应用列表 -->
             </intent-filter>
         </activity>
 
         <activity
-            android:name="com.sonixbeauty.core.SonixActivity"
+            android:name="com.sonixbeauty.core.MainActivity"
             android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|layoutDirection|fontScale|keyboard|keyboardHidden|navigation|mcc|mnc|density"
-            android:label="-- %%INSERT_APP_NAME%% --"
             android:launchMode="singleTop"
             android:screenOrientation="unspecified"
             android:exported="true"
