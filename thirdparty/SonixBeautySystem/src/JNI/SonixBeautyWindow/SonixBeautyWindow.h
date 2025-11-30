@@ -2,8 +2,6 @@ _Pragma("once");
 #include <QQuickWindow>
 #include <QtQml/qqmlregistration.h>
 
-class QExposeEvent;
-
 class SonixBeautyWindow : public QQuickWindow
 {
     Q_OBJECT
@@ -21,19 +19,10 @@ private:
 
     auto setWindowPropertys() noexcept -> void;
 
-protected:
-    void exposeEvent(QExposeEvent* _ev) override;
-
 Q_SIGNALS:
     void onCreate();
 
-    void onStart();
-
-    void onResume();
-
     void onPause();
-
-    void onStop();
 
     void onRestart();
 
@@ -42,13 +31,7 @@ Q_SIGNALS:
 private Q_SLOTS:
     void onCreateChanged();
 
-    void onStartChanged();
-
-    void onResumeChanged();
-
     void onPauseChanged();
-
-    void onStopChanged();
 
     void onRestartChanged();
 

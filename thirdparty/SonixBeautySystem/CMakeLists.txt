@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.25 FATAL_ERROR)
 
-project(SonixBeautySystem
+get_filename_component(PROJECT_NAME ${CMAKE_CURRENT_SOURCE_DIR} NAME)
+
+project(${PROJECT_NAME}
     VERSION 1.0.0
     LANGUAGES CXX
 )
