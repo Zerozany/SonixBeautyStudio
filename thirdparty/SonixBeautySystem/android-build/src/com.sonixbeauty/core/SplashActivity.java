@@ -15,6 +15,5 @@ public class SplashActivity extends Activity {
         Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
-        Log.d(JNIUtiles.HandleDebug, "[SplashActivity.java]:The SplashActivity has ended");
     }
 }

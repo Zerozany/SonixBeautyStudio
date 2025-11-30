@@ -83,7 +83,6 @@ auto SonixBeautyWindow::setWindowPropertys() noexcept -> void
     this->setVisibility(QWindow::AutomaticVisibility);
     this->setFlags(Qt::Window | Qt::ExpandedClientAreaHint);
 #endif
-    this->setVisible(true);
 }
 
 auto SonixBeautyWindow::connectSignal2Slot() noexcept -> void

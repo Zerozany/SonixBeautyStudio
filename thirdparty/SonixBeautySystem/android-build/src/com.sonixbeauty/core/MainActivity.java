@@ -34,7 +34,7 @@ public class MainActivity extends org.qtproject.qt.android.bindings.QtActivity {
         } else {
             NotifyPause();
         }
-        Log.d(JNIUtiles.HandleDebug, "hasWindowFocus: " + _hasFocus);
+        Log.d(JNIUtiles.HandleDebug, "[MainActivity.java] hasWindowFocus: " + _hasFocus);
     }
 
     @Override
