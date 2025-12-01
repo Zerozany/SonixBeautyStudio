@@ -21,7 +21,6 @@ public class MainActivity extends org.qtproject.qt.android.bindings.QtActivity {
     {
         super.onCreate(_savedInstanceState);
         m_systemControl = new SystemControl();
-        // NotifyCreate();
     }
 
     @Override
@@ -40,21 +39,18 @@ public class MainActivity extends org.qtproject.qt.android.bindings.QtActivity {
     @Override
     public void onRestart()
     {
-        // NotifyRestart();
         super.onRestart();
     }
 
     @Override
     public void onPause()
     {
-        // NotifyPause();
         super.onPause();
     }
 
     @Override
     public void onDestroy()
     {
-        // NotifyDestroy();
         super.onDestroy();
     }
 }

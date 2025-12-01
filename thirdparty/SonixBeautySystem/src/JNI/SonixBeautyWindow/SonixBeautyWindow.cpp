@@ -118,5 +118,4 @@ void SonixBeautyWindow::onPauseChanged()
 
 void SonixBeautyWindow::onDestroyChanged()
 {
-    // qDebug() << "onDestroyChanged";
 }

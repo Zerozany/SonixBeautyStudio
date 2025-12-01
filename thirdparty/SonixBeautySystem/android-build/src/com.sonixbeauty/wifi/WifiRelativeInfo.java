@@ -17,6 +17,7 @@ import android.os.Build;
 import android.provider.Settings;
 import android.util.Log;
 import androidx.core.app.ActivityCompat;
+import com.sonixbeauty.utiles.JNIUtiles;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +28,6 @@ public class WifiRelativeInfo {
 
     private Activity m_activity;
     private WifiManager m_wifiManager;
-    private static final String TAG = "SonixBeauty";
     private final int REQUEST_LOCATION_PERMISSION = 1001;
 
     private native void connectSuccess(int state);
@@ -43,7 +43,7 @@ public class WifiRelativeInfo {
         this.m_activity = _activity;
         m_wifiManager = (WifiManager)m_activity.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         if (m_wifiManager == null) {
-            Log.d(TAG, "wifiManager init failed");
+            Log.d(JNIUtiles.HandleDebug, "wifiManager init failed");
         }
     }
 
@@ -61,7 +61,7 @@ public class WifiRelativeInfo {
         }
         if (!permissionNeeded.isEmpty()) {
             ActivityCompat.requestPermissions(m_activity, permissionNeeded.toArray(new String[0]), REQUEST_LOCATION_PERMISSION);
-            Log.d(TAG, "Requesting location and wifi permissions: " + permissionNeeded);
+            Log.d(JNIUtiles.HandleDebug, "Requesting location and wifi permissions: " + permissionNeeded);
         }
     }
 
@@ -80,13 +80,13 @@ public class WifiRelativeInfo {
 
             @SuppressWarnings("deprecation")
             boolean success = m_wifiManager.startScan();
-            if (!success)
+            if (!success) {
                 return "NULL";
-
+            }
             List<ScanResult> scanResults = m_wifiManager.getScanResults();
-            if (scanResults == null || scanResults.isEmpty())
+            if (scanResults == null || scanResults.isEmpty()) {
                 return "NULL";
-
+            }
             StringBuilder sb = new StringBuilder();
             for (ScanResult result : scanResults) {
                 @SuppressWarnings("deprecation")
@@ -97,7 +97,7 @@ public class WifiRelativeInfo {
             }
             return sb.toString();
         } catch (Exception e) {
-            Log.d(TAG, "scanAndGetWifiList error: " + e.getMessage());
+            Log.d(JNIUtiles.HandleDebug, "scanAndGetWifiList error: " + e.getMessage());
             return "NULL";
         }
     }
@@ -108,8 +108,9 @@ public class WifiRelativeInfo {
         try {
             @SuppressWarnings("deprecation")
             WifiInfo wifiInfo = m_wifiManager.getConnectionInfo();
-            if (wifiInfo == null)
+            if (wifiInfo == null) {
                 return "NULL";
+            }
             String ssid = wifiInfo.getSSID();
             if (ssid.startsWith("\"") && ssid.endsWith("\"")) {
                 ssid = ssid.substring(1, ssid.length() - 1);
@@ -137,7 +138,7 @@ public class WifiRelativeInfo {
             ConnectivityManager cm = (ConnectivityManager)m_activity
                                          .getSystemService(Context.CONNECTIVITY_SERVICE);
             if (cm == null) {
-                Log.e(TAG, "ConnectivityManager is null");
+                Log.e(JNIUtiles.HandleDebug, "ConnectivityManager is null");
                 return;
             }
 
@@ -145,7 +146,7 @@ public class WifiRelativeInfo {
                 @Override
                 public void onAvailable(Network network)
                 {
-                    Log.d(TAG, "Connected to Wi-Fi: " + ssid);
+                    Log.d(JNIUtiles.HandleDebug, "Connected to Wi-Fi: " + ssid);
                     cm.bindProcessToNetwork(network);
                     connectSuccess(CONNECTSUCCESS);
                 }
@@ -153,20 +154,20 @@ public class WifiRelativeInfo {
                 @Override
                 public void onUnavailable()
                 {
-                    Log.d(TAG, "Failed to connect to Wi-Fi: " + ssid);
+                    Log.d(JNIUtiles.HandleDebug, "Failed to connect to Wi-Fi: " + ssid);
                     connectSuccess(CONNECTERROR);
                 }
 
                 @Override
                 public void onLost(Network network)
                 {
-                    Log.d(TAG, "Wi-Fi disconnected: " + ssid);
+                    Log.d(JNIUtiles.HandleDebug, "Wi-Fi disconnected: " + ssid);
                     connectSuccess(DISCONNECTED);
                 }
             });
-            Log.d(TAG, "Requesting connection to Wi-Fi: " + ssid);
+            Log.d(JNIUtiles.HandleDebug, "Requesting connection to Wi-Fi: " + ssid);
         } catch (Exception e) {
-            Log.e(TAG, "connectWifi error: " + e.getMessage(), e);
+            Log.e(JNIUtiles.HandleDebug, "connectWifi error: " + e.getMessage(), e);
         }
     }
 }
