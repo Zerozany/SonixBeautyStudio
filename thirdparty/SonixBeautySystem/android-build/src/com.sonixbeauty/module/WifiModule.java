@@ -1,4 +1,4 @@
-package com.sonixbeauty.wifi;
+package com.sonixbeauty.module;
 
 import android.Manifest;
 import android.app.Activity;
@@ -16,13 +16,11 @@ import android.net.wifi.WifiNetworkSpecifier;
 import android.os.Build;
 import android.provider.Settings;
 import android.util.Log;
-import androidx.core.app.ActivityCompat;
-import com.sonixbeauty.utiles.JNIUtiles;
+import com.sonixbeauty.utiles.MessageUtile;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.List;
 
-public class WifiRelativeInfo {
+public class WifiModule {
     public static final int DISCONNECTED = 0;
     public static final int CONNECTSUCCESS = 1;
     public static final int CONNECTERROR = 2;
@@ -32,7 +30,7 @@ public class WifiRelativeInfo {
 
     private native void connectSuccess(int state);
 
-    public WifiRelativeInfo(Activity _activity)
+    public WifiModule(Activity _activity)
     {
         init(_activity);
     }
@@ -42,7 +40,7 @@ public class WifiRelativeInfo {
         this.m_activity = _activity;
         m_wifiManager = (WifiManager)m_activity.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         if (m_wifiManager == null) {
-            Log.d(JNIUtiles.HandleDebug, "wifiManager init failed");
+            Log.d(MessageUtile.HandleDebug, "wifiManager init failed");
         }
     }
 
@@ -70,7 +68,7 @@ public class WifiRelativeInfo {
             }
             return sb.toString();
         } catch (Exception e) {
-            Log.d(JNIUtiles.HandleDebug, "scanAndGetWifiList error: " + e.getMessage());
+            Log.d(MessageUtile.HandleDebug, "scanAndGetWifiList error: " + e.getMessage());
             return "NULL";
         }
     }
@@ -111,7 +109,7 @@ public class WifiRelativeInfo {
             ConnectivityManager cm = (ConnectivityManager)m_activity
                                          .getSystemService(Context.CONNECTIVITY_SERVICE);
             if (cm == null) {
-                Log.e(JNIUtiles.HandleDebug, "ConnectivityManager is null");
+                Log.e(MessageUtile.HandleDebug, "ConnectivityManager is null");
                 return;
             }
 
@@ -119,7 +117,7 @@ public class WifiRelativeInfo {
                 @Override
                 public void onAvailable(Network network)
                 {
-                    Log.d(JNIUtiles.HandleDebug, "Connected to Wi-Fi: " + ssid);
+                    Log.d(MessageUtile.HandleDebug, "Connected to Wi-Fi: " + ssid);
                     cm.bindProcessToNetwork(network);
                     connectSuccess(CONNECTSUCCESS);
                 }
@@ -127,20 +125,20 @@ public class WifiRelativeInfo {
                 @Override
                 public void onUnavailable()
                 {
-                    Log.d(JNIUtiles.HandleDebug, "Failed to connect to Wi-Fi: " + ssid);
+                    Log.d(MessageUtile.HandleDebug, "Failed to connect to Wi-Fi: " + ssid);
                     connectSuccess(CONNECTERROR);
                 }
 
                 @Override
                 public void onLost(Network network)
                 {
-                    Log.d(JNIUtiles.HandleDebug, "Wi-Fi disconnected: " + ssid);
+                    Log.d(MessageUtile.HandleDebug, "Wi-Fi disconnected: " + ssid);
                     connectSuccess(DISCONNECTED);
                 }
             });
-            Log.d(JNIUtiles.HandleDebug, "Requesting connection to Wi-Fi: " + ssid);
+            Log.d(MessageUtile.HandleDebug, "Requesting connection to Wi-Fi: " + ssid);
         } catch (Exception e) {
-            Log.e(JNIUtiles.HandleDebug, "connectWifi error: " + e.getMessage(), e);
+            Log.e(MessageUtile.HandleDebug, "connectWifi error: " + e.getMessage(), e);
         }
     }
 }

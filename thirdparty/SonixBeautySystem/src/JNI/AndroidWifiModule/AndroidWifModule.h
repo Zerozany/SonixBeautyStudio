@@ -3,7 +3,7 @@ _Pragma("once");
 
 class QJniObject;
 
-class AndroidWifiConfig : public QObject
+class AndroidWifModule : public QObject
 {
     Q_OBJECT
 public:
@@ -15,12 +15,12 @@ public:
     };
 
 public:
-    ~AndroidWifiConfig() noexcept = default;
+    ~AndroidWifModule() noexcept = default;
 
-    static auto instance() noexcept -> AndroidWifiConfig*;
+    static auto instance() noexcept -> AndroidWifModule*;
 
 private:
-    explicit(true) AndroidWifiConfig(QObject* _parent = nullptr);
+    explicit(true) AndroidWifModule(QObject* _parent = nullptr);
 
     auto init() noexcept -> void;
 

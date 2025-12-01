@@ -1,8 +1,8 @@
 package com.sonixbeauty.utiles;
 
-public final class JNIUtiles {
+public final class MessageUtile {
 
-    private JNIUtiles() { }
+    private MessageUtile() { }
 
     public static final String HandleDebug = "HandleDebug";
 }

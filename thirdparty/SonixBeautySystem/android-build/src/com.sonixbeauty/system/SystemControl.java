@@ -1,4 +1,4 @@
-package com.sonixbeauty.settings;
+package com.sonixbeauty.system;
 
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -6,12 +6,12 @@ import android.content.Intent;
 import android.net.Uri;
 import android.provider.Settings;
 import android.util.Log;
-import com.sonixbeauty.utiles.JNIUtiles;
+import com.sonixbeauty.utiles.MessageUtile;
 
-public class AppSettings {
+public class SystemControl {
     private Activity m_activity;
 
-    public AppSettings(Activity _activity)
+    public SystemControl(Activity _activity)
     {
         init(_activity);
     }
@@ -37,14 +37,14 @@ public class AppSettings {
         try {
             // 检查是否有权限修改系统设置
             if (!Settings.System.canWrite(m_activity)) {
-                Log.w(JNIUtiles.HandleDebug, "[AppSettings.java] No WRITE_SETTINGS permission!");
+                Log.w(MessageUtile.HandleDebug, "[AppSettings.java] No WRITE_SETTINGS permission!");
                 return;
             }
             ContentResolver resolver = m_activity.getContentResolver();
             int value = Math.max(0, Math.min(brightness, 255));
             Settings.System.putInt(resolver, Settings.System.SCREEN_BRIGHTNESS, value);
         } catch (Exception e) {
-            Log.e(JNIUtiles.HandleDebug, "[AppSettings.java] Failed to set system brightness", e);
+            Log.e(MessageUtile.HandleDebug, "[AppSettings.java] Failed to set system brightness", e);
         }
     }
 
@@ -60,7 +60,7 @@ public class AppSettings {
             ContentResolver resolver = m_activity.getContentResolver();
             return Settings.System.getInt(resolver, Settings.System.SCREEN_BRIGHTNESS);
         } catch (Settings.SettingNotFoundException e) {
-            Log.e(JNIUtiles.HandleDebug, "[AppSettings.java] Failed to get system brightness", e);
+            Log.e(MessageUtile.HandleDebug, "[AppSettings.java] Failed to get system brightness", e);
             return -1;
         }
     }

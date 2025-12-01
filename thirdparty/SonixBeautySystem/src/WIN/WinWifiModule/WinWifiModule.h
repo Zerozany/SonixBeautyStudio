@@ -1,5 +1,5 @@
 _Pragma("once");
-#include "WifiConfigBase.h"
+#include "WifiModuleBase.h"
 
 #if defined(Q_OS_WINDOWS) && defined(_MSC_VER)
     #ifdef SONIXBEAUTYSYSTEM
@@ -11,13 +11,13 @@ _Pragma("once");
     #define SONIXEX_API
 #endif
 
-class SONIXEX_API WinWifiConfig : public WifiConfigBase
+class SONIXEX_API WinWifiModule : public WifiModuleBase
 {
     using HANDLE = void*;
     Q_OBJECT
 public:
-    explicit(true) WinWifiConfig(WifiConfigBase* _parent = nullptr);
-    ~WinWifiConfig() noexcept = default;
+    explicit(true) WinWifiModule(WifiModuleBase* _parent = nullptr);
+    ~WinWifiModule() noexcept = default;
 
 private:
     auto init() noexcept -> void override;

@@ -3,16 +3,16 @@ _Pragma("once");
 
 class QJniObject;
 
-class AndroidSettings : public QObject
+class AndroidSystem : public QObject
 {
     Q_OBJECT
 public:
-    ~AndroidSettings() noexcept = default;
+    ~AndroidSystem() noexcept = default;
 
-    static auto instance() noexcept -> AndroidSettings*;
+    static auto instance() noexcept -> AndroidSystem*;
 
 private:
-    explicit(true) AndroidSettings(QObject* _parent = nullptr);
+    explicit(true) AndroidSystem(QObject* _parent = nullptr);
 
     auto init() noexcept -> void;
 

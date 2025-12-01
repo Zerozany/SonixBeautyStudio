@@ -4,12 +4,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import com.sonixbeauty.drive.SystemControl;
-import com.sonixbeauty.utiles.JNIUtiles;
+import com.sonixbeauty.system.SystemConfig;
+import com.sonixbeauty.utiles.MessageUtile;
 
 public class MainActivity extends org.qtproject.qt.android.bindings.QtActivity {
 
-    private SystemControl m_systemControl = null;
+    private SystemConfig m_systemConfig = null;
 
     private static native void NotifyCreate();
     private static native void NotifyRestart();
@@ -20,7 +20,7 @@ public class MainActivity extends org.qtproject.qt.android.bindings.QtActivity {
     public void onCreate(Bundle _savedInstanceState)
     {
         super.onCreate(_savedInstanceState);
-        m_systemControl = new SystemControl();
+        m_systemConfig = new SystemConfig();
     }
 
     @Override
@@ -28,12 +28,12 @@ public class MainActivity extends org.qtproject.qt.android.bindings.QtActivity {
     {
         super.onWindowFocusChanged(_hasFocus);
         if (_hasFocus) {
-            m_systemControl.systemColumnHandle(this);
+            m_systemConfig.systemColumnHandle(this);
             NotifyRestart();
         } else {
             NotifyPause();
         }
-        Log.d(JNIUtiles.HandleDebug, "[MainActivity.java] hasWindowFocus: " + _hasFocus);
+        Log.d(MessageUtile.HandleDebug, "[MainActivity.java] hasWindowFocus: " + _hasFocus);
     }
 
     @Override

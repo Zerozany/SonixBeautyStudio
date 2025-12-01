@@ -1,21 +1,21 @@
-#include "WinWifiConfig.h"
+#include "WinWifiModule.h"
 #include <print>
 #include <span>
 
 #if defined(_WIN32)
-#include <windows.h>
-#include <wlanapi.h>
-#pragma comment(lib, "wlanapi.lib")
+    #include <windows.h>
+    #include <wlanapi.h>
+    #pragma comment(lib, "wlanapi.lib")
 
-WinWifiConfig::WinWifiConfig(WifiConfigBase* _parent) : WifiConfigBase{_parent}
+WinWifiModule::WinWifiModule(WifiModuleBase* _parent) : WifiModuleBase{_parent}
 {
-    std::invoke(&WinWifiConfig::init, this);
+    std::invoke(&WinWifiModule::init, this);
 }
 
-auto WinWifiConfig::init() noexcept -> void
+auto WinWifiModule::init() noexcept -> void
 {
     auto wlanCallback{[](PWLAN_NOTIFICATION_DATA _data, PVOID _context) -> void {
-        WifiConfigBase* self{reinterpret_cast<WifiConfigBase*>(_context)};
+        WifiModuleBase* self{reinterpret_cast<WifiModuleBase*>(_context)};
         if (!self || _data->NotificationSource != WLAN_NOTIFICATION_SOURCE_ACM)
         {
             return;
@@ -80,7 +80,7 @@ auto WinWifiConfig::init() noexcept -> void
     }
 }
 
-auto WinWifiConfig::searchWifiDevice() noexcept -> std::map<std::string, std::string>
+auto WinWifiModule::searchWifiDevice() noexcept -> std::map<std::string, std::string>
 {
     PWLAN_INTERFACE_INFO_LIST          pIfList{nullptr};
     std::map<std::string, std::string> deviceMap{};
@@ -116,7 +116,7 @@ auto WinWifiConfig::searchWifiDevice() noexcept -> std::map<std::string, std::st
         WlanFreeMemory(pBssList);
     }
     WlanFreeMemory(pIfList);
-#if true
+    #if true
     if (!deviceMap.empty())
     {
         for (const auto& [k, v] : deviceMap)
@@ -124,11 +124,11 @@ auto WinWifiConfig::searchWifiDevice() noexcept -> std::map<std::string, std::st
             std::println("SSID: {}, signalQuality: {}", k, v);
         }
     }
-#endif
+    #endif
     return deviceMap;
 }
 
-auto WinWifiConfig::curConnectedWifi() noexcept -> std::string
+auto WinWifiModule::curConnectedWifi() noexcept -> std::string
 {
     std::string curConnectedStr{};
     do
@@ -172,7 +172,7 @@ auto WinWifiConfig::curConnectedWifi() noexcept -> std::string
     return curConnectedStr;
 }
 
-auto WinWifiConfig::disconnectWifi() noexcept -> bool
+auto WinWifiModule::disconnectWifi() noexcept -> bool
 {
     PWLAN_INTERFACE_INFO_LIST pIfList{nullptr};
     if (DWORD dwResult{WlanEnumInterfaces(m_hClient, nullptr, &pIfList)}; dwResult != ERROR_SUCCESS)
@@ -181,7 +181,7 @@ auto WinWifiConfig::disconnectWifi() noexcept -> bool
         return false;
     }
     PWLAN_INTERFACE_INFO pIfInfo{static_cast<WLAN_INTERFACE_INFO*>(&pIfList->InterfaceInfo[0])};
-#if false
+    #if false
     // 查询当前连接的 Wi-Fi 配置名称
     PWLAN_CONNECTION_ATTRIBUTES pConnectInfo{nullptr};
     DWORD                       connectInfoSize{sizeof(WLAN_CONNECTION_ATTRIBUTES)};
@@ -195,14 +195,14 @@ auto WinWifiConfig::disconnectWifi() noexcept -> bool
         }
         WlanFreeMemory(pConnectInfo);
     }
-#endif
+    #endif
     if (DWORD dwResult{WlanDisconnect(m_hClient, &pIfInfo->InterfaceGuid, nullptr)}; dwResult != ERROR_SUCCESS)
     {
         std::println("WlanDisconnect failed with error: {}", dwResult);
         WlanFreeMemory(pIfList);
         return false;
     }
-#if false
+    #if false
     // 删除 Wi-Fi 配置文件
     if (!profileName.empty())
     {
@@ -215,12 +215,12 @@ auto WinWifiConfig::disconnectWifi() noexcept -> bool
             std::println("Wi-Fi profile {} deleted successfully", std::string(profileName.begin(), profileName.end()));
         }
     }
-#endif
+    #endif
     WlanFreeMemory(pIfList);
     return true;
 }
 
-auto WinWifiConfig::connectWifi2Ssid(const std::string& _ssid, const std::string& _password) noexcept -> bool
+auto WinWifiModule::connectWifi2Ssid(const std::string& _ssid, const std::string& _password) noexcept -> bool
 {
     static auto wifiProfileHead{[](const std::string& _ssid, const std::string& _password) -> std::wstring {
         std::string utf8Xml{std::format(

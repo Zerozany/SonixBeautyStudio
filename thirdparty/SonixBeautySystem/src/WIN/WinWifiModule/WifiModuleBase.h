@@ -13,12 +13,12 @@ _Pragma("once");
     #define SONIXEX_API
 #endif
 
-class SONIXEX_API WifiConfigBase : public QObject
+class SONIXEX_API WifiModuleBase : public QObject
 {
     Q_OBJECT
 public:
-    explicit(true) WifiConfigBase(QObject* _parent = nullptr);
-    ~WifiConfigBase() noexcept = default;
+    explicit(true) WifiModuleBase(QObject* _parent = nullptr);
+    ~WifiModuleBase() noexcept = default;
 
 private:
     virtual auto init() noexcept -> void = 0;
@@ -33,6 +33,6 @@ public:
     virtual auto connectWifi2Ssid(const std::string& _ssid, const std::string& _password) noexcept -> bool = 0;
 };
 
-inline WifiConfigBase::WifiConfigBase(QObject* _parent) : QObject{_parent}
+inline WifiModuleBase::WifiModuleBase(QObject* _parent) : QObject{_parent}
 {
 }

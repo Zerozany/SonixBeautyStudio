@@ -1,4 +1,4 @@
-package com.sonixbeauty.drive;
+package com.sonixbeauty.system;
 
 import android.app.Activity;
 import android.os.Build;
@@ -7,7 +7,7 @@ import android.view.Window;
 import android.view.WindowInsets;
 import android.view.WindowInsetsController;
 
-public class SystemControl {
+public class SystemConfig {
 
     @SuppressWarnings("deprecation")
     public void systemColumnHandle(Activity _activity)

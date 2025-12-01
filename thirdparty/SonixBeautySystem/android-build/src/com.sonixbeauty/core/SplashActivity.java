@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import com.sonixbeauty.utiles.JNIUtiles;
+import com.sonixbeauty.utiles.MessageUtile;
 
 public class SplashActivity extends Activity {
 
