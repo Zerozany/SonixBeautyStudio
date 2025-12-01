@@ -29,7 +29,7 @@ public class WifiRelativeInfo {
 
     private Activity m_activity;
     private WifiManager m_wifiManager;
-    private final int REQUEST_LOCATION_PERMISSION = 1001;
+    // private final int REQUEST_LOCATION_PERMISSION = 1001;
 
     private native void connectSuccess(int state);
 
@@ -44,24 +44,6 @@ public class WifiRelativeInfo {
         m_wifiManager = (WifiManager)m_activity.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         if (m_wifiManager == null) {
             Log.d(JNIUtiles.HandleDebug, "wifiManager init failed");
-        }
-    }
-
-    private void requestPermission()
-    {
-        String[] permissions = {
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.CHANGE_WIFI_STATE
-        };
-        List<String> permissionNeeded = new ArrayList<>();
-        for (String permission : permissions) {
-            if (ActivityCompat.checkSelfPermission(m_activity, permission) != PackageManager.PERMISSION_GRANTED) {
-                permissionNeeded.add(permission);
-            }
-        }
-        if (!permissionNeeded.isEmpty()) {
-            ActivityCompat.requestPermissions(m_activity, permissionNeeded.toArray(new String[0]), REQUEST_LOCATION_PERMISSION);
-            Log.d(JNIUtiles.HandleDebug, "Requesting location and wifi permissions: " + permissionNeeded);
         }
     }
 
