@@ -29,7 +29,6 @@ public class WifiRelativeInfo {
 
     private Activity m_activity;
     private WifiManager m_wifiManager;
-    // private final int REQUEST_LOCATION_PERMISSION = 1001;
 
     private native void connectSuccess(int state);
 
@@ -54,9 +53,6 @@ public class WifiRelativeInfo {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
                 @SuppressWarnings("deprecation")
                 boolean result = m_wifiManager.setWifiEnabled(true);
-            } else {
-                Intent panelIntent = new Intent(Settings.Panel.ACTION_WIFI);
-                m_activity.startActivity(panelIntent);
             }
             @SuppressWarnings("deprecation")
             boolean success = m_wifiManager.startScan();
