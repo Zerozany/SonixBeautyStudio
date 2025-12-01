@@ -12,7 +12,8 @@
 #if defined(Q_OS_ANDROID)
     #include <QJniObject>
     #include <QJniEnvironment>
-// #include "AndroidWifiConfig.h"
+    // #include "AndroidContext.h"
+    #include "AndroidWifiConfig.h"
 #endif
 
 int main(int argc, char* argv[])
@@ -26,6 +27,11 @@ int main(int argc, char* argv[])
     // SonixLogger::init(QDir{QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)}.filePath("log/SonixLog_1.txt").toStdString());
     // SonixLogger::setLevel(spdlog::level::warn);
 #if defined(Q_OS_ANDROID)
+    // qDebug() << "-----: " << AndroidContext::instance()->context();
+    for (const auto& [k, v] : AndroidWifiConfig::instance()->searchWifiDevice().toStdMap())
+    {
+        qDebug() << k << ":" << v;
+    }
     QNativeInterface::QAndroidApplication::hideSplashScreen(0);
 #endif
     return QGuiApplication::exec();

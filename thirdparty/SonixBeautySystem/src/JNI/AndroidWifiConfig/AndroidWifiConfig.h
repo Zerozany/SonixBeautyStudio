@@ -7,7 +7,7 @@ class AndroidWifiConfig : public QObject
 {
     Q_OBJECT
 public:
-    enum class WifiState
+    enum class WifiState : uint8_t
     {
         DISCONNECTED = 0,
         CONNECTSUCCESS,

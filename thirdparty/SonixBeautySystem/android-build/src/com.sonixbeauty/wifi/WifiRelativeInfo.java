@@ -18,6 +18,7 @@ import android.provider.Settings;
 import android.util.Log;
 import androidx.core.app.ActivityCompat;
 import com.sonixbeauty.utiles.JNIUtiles;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +36,6 @@ public class WifiRelativeInfo {
     public WifiRelativeInfo(Activity _activity)
     {
         init(_activity);
-        requestPermission();
     }
 
     private void init(Activity _activity)
@@ -73,11 +73,9 @@ public class WifiRelativeInfo {
                 @SuppressWarnings("deprecation")
                 boolean result = m_wifiManager.setWifiEnabled(true);
             } else {
-                // Android 10+ 弹出 Wi-Fi 设置面板
                 Intent panelIntent = new Intent(Settings.Panel.ACTION_WIFI);
                 m_activity.startActivity(panelIntent);
             }
-
             @SuppressWarnings("deprecation")
             boolean success = m_wifiManager.startScan();
             if (!success) {
@@ -89,11 +87,8 @@ public class WifiRelativeInfo {
             }
             StringBuilder sb = new StringBuilder();
             for (ScanResult result : scanResults) {
-                @SuppressWarnings("deprecation")
-                String ssid = (m_wifiManager.getConnectionInfo() != null)
-                    ? m_wifiManager.getConnectionInfo().getSSID()
-                    : result.SSID;
-                sb.append(ssid).append(" ").append(result.level).append(",");
+                String ssidUtf8 = new String(result.SSID.getBytes("UTF-8"), "UTF-8");
+                sb.append("\"").append(ssidUtf8).append(" ").append(result.level).append("\n");
             }
             return sb.toString();
         } catch (Exception e) {

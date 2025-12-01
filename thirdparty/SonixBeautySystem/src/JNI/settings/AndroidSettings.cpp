@@ -2,9 +2,9 @@
 #include <QDebug>
 #include <QCoreApplication>
 
-#if defined(ANDROID)
-#include <QJniObject>
-#include <QJniEnvironment>
+#if defined(Q_OS_ANDROID)
+    #include <QJniObject>
+    #include <QJniEnvironment>
 
 auto AndroidSettings::instance() noexcept -> AndroidSettings*
 {

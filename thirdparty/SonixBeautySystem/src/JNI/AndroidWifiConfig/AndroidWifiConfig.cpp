@@ -3,58 +3,58 @@
 #include <QCoreApplication>
 #include <QStringList>
 
-#if defined(ANDROID)
+#if defined(Q_OS_ANDROID)
     #include <QJniObject>
     #include <QJniEnvironment>
+    #include "AndroidContext.h"
+#endif
+
+#if defined(Q_OS_ANDROID)
 
 extern "C" JNIEXPORT void JNICALL
 Java_com_sonixbeauty_wifi_WifiRelativeInfo_connectSuccess(JNIEnv* env, jobject thiz, jint state)
 {
-    AndroidWifiConfig* obj{AndroidWifiConfig::instance()};
-    if (obj)
+    AndroidWifiConfig* androidWifiConfig{AndroidWifiConfig::instance()};
+    if (androidWifiConfig)
     {
-        Q_EMIT obj->wifiStateChanged(static_cast<AndroidWifiConfig::WifiState>(state));
+        Q_EMIT androidWifiConfig->wifiStateChanged(static_cast<AndroidWifiConfig::WifiState>(state));
     }
 }
+#endif
 
 auto AndroidWifiConfig::instance() noexcept -> AndroidWifiConfig*
 {
-    static AndroidWifiConfig* androidWifiConfig{new AndroidWifiConfig{}};
-    return androidWifiConfig;
+    static AndroidWifiConfig androidWifiConfig{};
+    return &androidWifiConfig;
 }
 
 AndroidWifiConfig::AndroidWifiConfig(QObject* _parent) : QObject{_parent}
 {
     std::invoke(&AndroidWifiConfig::init, this);
-    // 延迟调用，保证 Activity 已启动
 }
 
 auto AndroidWifiConfig::init() noexcept -> void
 {
-    // 获取 Android Activity
-    auto androidApp{QCoreApplication::instance()->nativeInterface<QNativeInterface::QAndroidApplication>()};
-    if (!androidApp)
+#if defined(Q_OS_ANDROID)
+    QJniObject* context{AndroidContext::instance()->context()};
+    if (!context || !context->isValid())
     {
-        qDebug() << "Failed to get QAndroidApplication";
+        qDebug() << "Failed to get valid context";
         return;
     }
-    QJniObject activity{androidApp->context()};
-    if (!activity.isValid())
-    {
-        qDebug() << "Failed to get Activity context";
-        return;
-    }
-    m_wifiObject = new QJniObject{"com/sonixbeauty/wifi/WifiRelativeInfo", "(Landroid/app/Activity;)V", activity.object<jobject>(), this};
+    m_wifiObject = new QJniObject{"com/sonixbeauty/wifi/WifiRelativeInfo", "(Landroid/app/Activity;)V", context->object<jobject>(), this};
     if (!m_wifiObject->isValid())
     {
         qDebug() << "Cannot create Java helper instance";
         return;
     }
+#endif
 }
 
 auto AndroidWifiConfig::searchWifiDevice() noexcept -> QMap<QString, quint8>
 {
     QMap<QString, quint8> wifiMap{};
+#if defined(Q_OS_ANDROID)
     if (!m_wifiObject || !m_wifiObject->isValid())
     {
         return wifiMap;
@@ -68,39 +68,49 @@ auto AndroidWifiConfig::searchWifiDevice() noexcept -> QMap<QString, quint8>
     {
         return wifiMap;
     }
-    QStringList wifiStrList{result.toString().split(',', Qt::SkipEmptyParts)};
-    for (const QString& entry : wifiStrList)
+    QStringList wifiStrList{result.toString().replace("\"", "").split('\n', Qt::SkipEmptyParts)};
+    if (wifiStrList.isEmpty())
     {
-        QStringList wifiGroup{entry.split(' ', Qt::SkipEmptyParts)};
-        if (wifiGroup.size() == 2)
-        {
-            wifiMap[QString::fromUtf8(wifiGroup[0].toUtf8())] = wifiGroup[1].toInt() + 100;
-        }
+        return wifiMap;
     }
+    for (QString& entry : wifiStrList)
+    {
+        QStringList parts{entry.replace(entry.lastIndexOf(' '), 1, ",").split(',')};
+        wifiMap[parts[0].trimmed()] = parts[1].trimmed().toInt() + 100;
+    }
+#endif
     return wifiMap;
 }
 
 auto AndroidWifiConfig::curConnectedWifi() noexcept -> QString
 {
     QString curConnectedWifiStr{};
-    if (!m_wifiObject || !m_wifiObject->isValid())
+#if defined(Q_OS_ANDROID)
+    do
     {
-        return curConnectedWifiStr;
-    }
-    QJniObject result{m_wifiObject->callObjectMethod("getCurrentWifiSSID", "()Ljava/lang/String;")};
-    if (!result.isValid())
-    {
-        return curConnectedWifiStr;
-    }
-    if (result.toString() == QString{"NULL"})
-    {
-        return curConnectedWifiStr;
-    }
-    return result.toString();
+        if (!m_wifiObject || !m_wifiObject->isValid())
+        {
+            break;
+        }
+        QJniObject result{m_wifiObject->callObjectMethod("getCurrentWifiSSID", "()Ljava/lang/String;")};
+        if (!result.isValid())
+        {
+            curConnectedWifiStr = result.toString();
+            break;
+        }
+        if (result.toString() == QString{"NULL"})
+        {
+            break;
+        }
+    } while (false);
+#endif
+    return curConnectedWifiStr;
 }
 
 auto AndroidWifiConfig::connectWifi2Ssid(const QString& _ssid, const QString& _password) noexcept -> void
 {
+#if defined(Q_OS_ANDROID)
+
     if (!m_wifiObject || !m_wifiObject->isValid())
     {
         return;
@@ -108,6 +118,5 @@ auto AndroidWifiConfig::connectWifi2Ssid(const QString& _ssid, const QString& _p
     m_wifiObject->callMethod<void>("connectWifi", "(Ljava/lang/String;Ljava/lang/String;)V",
                                    QJniObject::fromString(_ssid).object<jstring>(),
                                    QJniObject::fromString(_password).object<jstring>());
-}
-
 #endif
+}
