@@ -18,7 +18,7 @@ class SONIXEX_API WifiModuleBase : public QObject
     Q_OBJECT
 public:
     explicit(true) WifiModuleBase(QObject* _parent = nullptr);
-    ~WifiModuleBase() noexcept = default;
+    virtual ~WifiModuleBase() noexcept = default;
 
 private:
     virtual auto init() noexcept -> void = 0;
