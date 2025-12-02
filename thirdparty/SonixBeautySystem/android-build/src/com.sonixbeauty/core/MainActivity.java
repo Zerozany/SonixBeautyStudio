@@ -11,10 +11,7 @@ public class MainActivity extends org.qtproject.qt.android.bindings.QtActivity {
 
     private SystemConfig m_systemConfig = null;
 
-    private static native void NotifyCreate();
-    private static native void NotifyRestart();
-    private static native void NotifyPause();
-    private static native void NotifyDestroy();
+    private static native void QActivityVisibileChanged(boolean _activitySwitch);
 
     @Override
     public void onCreate(Bundle _savedInstanceState)
@@ -28,29 +25,10 @@ public class MainActivity extends org.qtproject.qt.android.bindings.QtActivity {
     {
         super.onWindowFocusChanged(_hasFocus);
         if (_hasFocus) {
+            QActivityVisibileChanged(true);
             m_systemConfig.systemColumnHandle(this);
         } else {
+            QActivityVisibileChanged(false);
         }
-        Log.d(MessageUtile.HandleDebug, "[MainActivity.java] hasWindowFocus: " + _hasFocus);
-    }
-
-    @Override
-    public void onRestart()
-    {
-        NotifyRestart();
-        super.onRestart();
-    }
-
-    @Override
-    public void onPause()
-    {
-        NotifyPause();
-        super.onPause();
-    }
-
-    @Override
-    public void onDestroy()
-    {
-        super.onDestroy();
     }
 }

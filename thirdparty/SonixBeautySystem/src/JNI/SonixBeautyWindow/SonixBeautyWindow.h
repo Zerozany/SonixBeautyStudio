@@ -20,22 +20,10 @@ private:
     auto setWindowPropertys() noexcept -> void;
 
 Q_SIGNALS:
-    void onCreate();
-
-    void onPause();
-
-    void onRestart();
-
-    void onDestroy();
+    void activityVisibileChanged(bool _activityVisibile);
 
 private Q_SLOTS:
-    void onCreateChanged();
-
-    void onPauseChanged();
-
-    void onRestartChanged();
-
-    void onDestroyChanged();
+    void onActivityVisibileChanged(bool _activityVisibile);
 
 private:
     inline static SonixBeautyWindow* m_instance{nullptr};
