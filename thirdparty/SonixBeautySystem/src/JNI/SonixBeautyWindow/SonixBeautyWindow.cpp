@@ -1,5 +1,4 @@
 #include "SonixBeautyWindow.h"
-#include <QTimer>
 
 #if defined(Q_OS_ANDROID)
     #include <QJniObject>
@@ -51,11 +50,11 @@ void SonixBeautyWindow::onActivityVisibileChanged(bool _activityVisibile)
 {
     if (_activityVisibile)
     {
-        QMetaObject::invokeMethod(this, "show", Qt::QueuedConnection);
+        this->setVisible(true);
     }
     else
     {
-        QMetaObject::invokeMethod(this, "hide", Qt::QueuedConnection);
+        this->setVisible(false);
     }
 }
 

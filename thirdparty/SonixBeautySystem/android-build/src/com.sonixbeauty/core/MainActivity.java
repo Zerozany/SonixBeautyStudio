@@ -30,5 +30,6 @@ public class MainActivity extends org.qtproject.qt.android.bindings.QtActivity {
         } else {
             QActivityVisibileChanged(false);
         }
+        Log.d(MessageUtile.HandleDebug, "QActivityVisibileChanged: " + _hasFocus);
     }
 }
