@@ -50,11 +50,11 @@ void SonixBeautyWindow::onActivityVisibileChanged(bool _activityVisibile)
 {
     if (_activityVisibile)
     {
-        // this->setVisible(true);
+        this->setVisible(true);
     }
     else
     {
-        // this->setVisible(false);
+        this->setVisible(false);
     }
 }
 
@@ -62,9 +62,9 @@ auto SonixBeautyWindow::setWindowPropertys() noexcept -> void
 {
 #if defined(Q_OS_ANDROID)
     this->setGraphicsApi(QSGRendererInterface::OpenGL);
-    this->setVisibility(QWindow::AutomaticVisibility);
     this->setFlags(Qt::Window | Qt::ExpandedClientAreaHint);
 #endif
+    this->setVisibility(QWindow::FullScreen);
 }
 
 auto SonixBeautyWindow::connectSignal2Slot() noexcept -> void
