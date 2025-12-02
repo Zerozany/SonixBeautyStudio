@@ -50,11 +50,11 @@ void SonixBeautyWindow::onActivityVisibileChanged(bool _activityVisibile)
 {
     if (_activityVisibile)
     {
-        this->setVisible(true);
+        // this->setVisible(true);
     }
     else
     {
-        this->setVisible(false);
+        // this->setVisible(false);
     }
 }
 

@@ -5,8 +5,8 @@ import SonixBeautySystem
 
 SonixBeautyWindow {
     id: mainWindow
-    // color: mainWindow.backgroundColor
     color: "blue"
+    // color: mainWindow.backgroundColor
 
     // readonly property string backgroundColor: ThemeManager.currentTheme.backgroundColor
 
