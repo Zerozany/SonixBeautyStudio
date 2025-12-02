@@ -63,8 +63,8 @@ auto SonixBeautyWindow::setWindowPropertys() noexcept -> void
 #if defined(Q_OS_ANDROID)
     this->setGraphicsApi(QSGRendererInterface::OpenGL);
     this->setFlags(Qt::Window | Qt::ExpandedClientAreaHint);
-#endif
     this->setVisibility(QWindow::FullScreen);
+#endif
 }
 
 auto SonixBeautyWindow::connectSignal2Slot() noexcept -> void
