@@ -17,7 +17,6 @@ import android.os.Build;
 import android.provider.Settings;
 import android.util.Log;
 import com.sonixbeauty.utiles.MessageUtile;
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 public class WifiModule {
@@ -63,8 +62,7 @@ public class WifiModule {
             }
             StringBuilder sb = new StringBuilder();
             for (ScanResult result : scanResults) {
-                String ssidUtf8 = new String(result.SSID.getBytes("UTF-8"), "UTF-8");
-                sb.append("\"").append(ssidUtf8).append(" ").append(result.level).append("\n");
+                sb.append("\"").append(result.getWifiSsid().toString()).append(" ").append(result.level).append("\n");
             }
             return sb.toString();
         } catch (Exception e) {

@@ -16,5 +16,4 @@ private:
     explicit(true) AndroidContext(QObject* _parent = nullptr);
 
 private:
-    QJniObject* m_jniContext{nullptr};
 };

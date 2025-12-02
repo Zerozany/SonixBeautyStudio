@@ -21,6 +21,8 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
     //noinspection GradleDependency
     implementation 'androidx.core:core:1.16.0'
+    implementation "androidx.core:core-splashscreen:1.0.0"
+    
 }
 
 android {

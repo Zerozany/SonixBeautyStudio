@@ -10,8 +10,8 @@
 
 auto AndroidSystem::instance() noexcept -> AndroidSystem*
 {
-    static AndroidSystem* androidSettings{new AndroidSystem{}};
-    return androidSettings;
+    static AndroidSystem androidSettings{};
+    return &androidSettings;
 }
 
 AndroidSystem::AndroidSystem(QObject* _parent) : QObject{_parent}
@@ -22,7 +22,6 @@ AndroidSystem::AndroidSystem(QObject* _parent) : QObject{_parent}
 auto AndroidSystem::init() noexcept -> void
 {
 #if defined(Q_OS_ANDROID)
-    // 获取 Android Activity
     QJniObject* context{AndroidContext::instance()->context()};
     if (!context || !context->isValid())
     {

@@ -29,9 +29,7 @@ public class MainActivity extends org.qtproject.qt.android.bindings.QtActivity {
         super.onWindowFocusChanged(_hasFocus);
         if (_hasFocus) {
             m_systemConfig.systemColumnHandle(this);
-            NotifyRestart();
         } else {
-            NotifyPause();
         }
         Log.d(MessageUtile.HandleDebug, "[MainActivity.java] hasWindowFocus: " + _hasFocus);
     }
@@ -39,12 +37,14 @@ public class MainActivity extends org.qtproject.qt.android.bindings.QtActivity {
     @Override
     public void onRestart()
     {
+        NotifyRestart();
         super.onRestart();
     }
 
     @Override
     public void onPause()
     {
+        NotifyPause();
         super.onPause();
     }
 

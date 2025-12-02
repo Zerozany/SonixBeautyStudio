@@ -14,6 +14,7 @@ public class SplashActivity extends Activity {
         super.onCreate(_savedInstanceState);
         Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
     }
 }
