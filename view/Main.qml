@@ -1,7 +1,7 @@
 import QtQuick
 import QZeroSystem
 
-// import SonixBeautyUI
+// import QZeroZanyUI
 
 SonixBeautyWindow {
     id: mainWindow

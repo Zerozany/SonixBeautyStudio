@@ -5,3 +5,11 @@
 [submodule "thirdparty/QZeroSystem"]
     path = thirdparty/QZeroSystem
     url = https://github.com/Zerozany/QZeroSystem.git
+
+[submodule "thirdparty/QZeroAssistKit"]
+    path = thirdparty/QZeroAssistKit
+    url = https://github.com/Zerozany/QZeroAssistKit.git
+
+[submodule "thirdparty/QZeroZanyUI"]
+    path = thirdparty/QZeroZanyUI
+    url = https://github.com/Zerozany/QZeroZanyUI.git
