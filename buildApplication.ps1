@@ -40,11 +40,6 @@ switch ($d) {
     }
 }
 
-Write-Host "📌 Device: $d"
-Write-Host "📌 BuildType: $buildType"
-Write-Host "📌 ConfigurePreset: $configurePreset"
-Write-Host "📌 BuildPreset: $buildPreset"
-
 # 执行 CMake 配置
 Write-Host "=== 🔧 CMake Configure ==="
 $proc = Start-Process cmake -ArgumentList "--preset $configurePreset" -NoNewWindow -Wait -PassThru

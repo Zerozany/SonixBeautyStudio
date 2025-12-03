@@ -3,7 +3,9 @@
 #if defined(Q_OS_ANDROID)
     #include <QJniObject>
     #include <QJniEnvironment>
+#endif
 
+#if defined(Q_OS_ANDROID)
 extern "C" {
 
     JNIEXPORT void JNICALL

@@ -12,32 +12,24 @@ _Pragma("once");
     #define SONIXEX_API
 #endif
 
-class QExposeEvent;
-
 class SONIXEX_API SonixBeautyWindow : public QQuickWindow
 {
     Q_OBJECT
     QML_ELEMENT
 public:
     explicit(true) SonixBeautyWindow(QQuickWindow* _parent = nullptr);
-    ~SonixBeautyWindow() noexcept;
+    ~SonixBeautyWindow() noexcept = default;
 
     static auto instance() noexcept -> SonixBeautyWindow*;
 
 private:
     auto connectSignal2Slot() noexcept -> void;
 
-    auto setSonixBeautyWindow(SonixBeautyWindow* _sonixBeautyWindow) noexcept -> void;
-
     auto setWindowPropertys() noexcept -> void;
-
-protected:
-    void exposeEvent(QExposeEvent* _ev) override;
 
 Q_SIGNALS:
 
 private Q_SLOTS:
 
 private:
-    inline static SonixBeautyWindow* m_instance{nullptr};
 };

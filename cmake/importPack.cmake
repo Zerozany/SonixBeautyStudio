@@ -1,6 +1,4 @@
-
 if(WIN32)
-    # 检查目标类型，只有可执行文件才使用 windeployqt
     get_target_property(TARGET_TYPE ${PROJECT_NAME} TYPE)
 
     if(TARGET_TYPE STREQUAL "EXECUTABLE")
