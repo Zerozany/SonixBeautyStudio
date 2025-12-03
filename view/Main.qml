@@ -1,5 +1,5 @@
 import QtQuick
-import SonixBeautySystem
+import QZeroSystem
 
 // import SonixBeautyUI
 
