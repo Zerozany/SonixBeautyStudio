@@ -1,16 +1,14 @@
 import QtQuick
 import QZeroSystem
-
-// import QZeroZanyUI
+import QZeroZanyUI
 
 ZeroWindow {
     id: mainWindow
-    color: "blue"
-    // color: mainWindow.backgroundColor
+    color: mainWindow.backgroundColor
 
-    // readonly property string backgroundColor: ThemeManager.currentTheme.backgroundColor
+    readonly property string backgroundColor: ThemeManager.currentTheme["backgroundColor"]
 
     Component.onCompleted: {
-        // ComponentMethod.showApplicationTip(mainWindow, qsTr("Hello World!"), 2000);
+        ComponentMethod.showApplicationTip(mainWindow, qsTr("Hello World!"), 2000);
     }
 }
