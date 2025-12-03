@@ -3,7 +3,7 @@ import QZeroSystem
 
 // import QZeroZanyUI
 
-SonixBeautyWindow {
+ZeroWindow {
     id: mainWindow
     color: "blue"
     // color: mainWindow.backgroundColor
