@@ -8,7 +8,7 @@ $device = "e2feb7f9"
 # e2feb7f9 8c1161c0 d933be15
 
 # APK path
-$apkPath = "F:\DevelopFiles\AndroidFrame\build\AndroidDebug\android-build\SonixBeautyStudio.apk"
+$apkPath = "F:\DevelopFiles\Qt2AndroidFrame\build\AndroidDebug\android-build\SonixBeautyStudio.apk"
 
 # package name
 $packageName = "org.qtproject.SonixBeauty"

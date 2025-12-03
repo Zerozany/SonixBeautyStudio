@@ -13,7 +13,6 @@ target_link_libraries(${PROJECT_NAME}
     # QZeroZanyUI
 
     # QZeroAssistKit
-
     # QZeroPackage
 )
 
