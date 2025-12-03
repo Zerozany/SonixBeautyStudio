@@ -15,6 +15,11 @@ if ($h) {
 if (-not $t) { $t = "d" }
 $buildType = if ($t -eq "r") { "Release" } else { "Debug" }
 
+# 获取当前脚本所在的目录
+$scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+# 切换到脚本所在目录的上一级目录
+Set-Location "$scriptDir\.."
+
 # 清理 build 目录
 Clear-Host
 if (Test-Path "build") {

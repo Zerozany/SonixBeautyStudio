@@ -21,6 +21,11 @@ else
     buildType="Debug"
 fi
 
+# 获取当前脚本所在的目录
+scriptDir=$(dirname "$0")
+# 切换到脚本所在目录的上一级目录
+cd "$scriptDir/.."
+
 clear
 rm -rf build
 
@@ -51,7 +56,7 @@ else
 fi
 
 # 构建编译
-cmake --preset $configurePreset
+cmake --preset $configurePreset 
 if [ $? -eq 0 ]; then
     cmake --build --preset $buildPreset 
 else

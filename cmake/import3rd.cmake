@@ -3,8 +3,7 @@ add_subdirectory("${CMAKE_SOURCE_DIR}/thirdparty/SonixBeautySystem")
 # add_subdirectory("${CMAKE_SOURCE_DIR}/thirdparty/SonixBeautyUI")
 
 # add_subdirectory("${CMAKE_SOURCE_DIR}/thirdparty/SonixBeautyKits")
-
-# add_subdirectory("${CMAKE_SOURCE_DIR}/thirdparty/SonixBeautyLibs")
+add_subdirectory("${CMAKE_SOURCE_DIR}/thirdparty/SonixBeautyLibs")
 
 # cpp Module
 target_link_libraries(${PROJECT_NAME}
