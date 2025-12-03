@@ -3,6 +3,7 @@ _Pragma("once");
 
 class QQmlApplicationEngine;
 class QGuiApplication;
+
 #if defined(Q_OS_ANDROID)
 class AndroidWindow;
 #elif defined(Q_OS_WINDOWS)
