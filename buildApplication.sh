@@ -35,15 +35,6 @@ if [ "$device" = "a" ]; then
         buildPreset="AndroidReleaseBuild"
     fi
 
-    # 配置
-    cmake --preset $configurePreset
-    if [ $? -eq 0 ]; then
-        cmake --build --preset $buildPreset 
-    else
-        echo "❌ Android CMake configuration failed!"
-        exit 1
-    fi
-
 elif [ "$device" = "p" ]; then
     # PC 构建
     if [ "$buildType" = "Debug" ]; then
@@ -54,16 +45,16 @@ elif [ "$device" = "p" ]; then
         buildPreset="PcReleaseBuild"
     fi
 
-    # 配置
-    cmake --preset $configurePreset
-    if [ $? -eq 0 ]; then
-        cmake --build --preset $buildPreset 
-    else
-        echo "❌ PC CMake configuration failed!"
-        exit 1
-    fi
-
 else
     echo "❌ Unknown device: $device"
+    exit 1
+fi
+
+# 构建编译
+cmake --preset $configurePreset
+if [ $? -eq 0 ]; then
+    cmake --build --preset $buildPreset 
+else
+    echo "❌ CMake configuration failed!"
     exit 1
 fi
