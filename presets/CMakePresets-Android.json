@@ -14,7 +14,8 @@
                 "ANDROID_ABI": "arm64-v8a",
                 "ANDROID_PLATFORM": "35",
                 "CMAKE_FIND_ROOT_PATH_MODE_PACKAGE": "NEVER",
-                "VCPKG_TARGET_TRIPLET": "arm64-android"
+                "VCPKG_TARGET_TRIPLET": "arm64-android",
+                "VCPKG_MANIFEST_DIR": "${sourceDir}/thirdparty/QZeroPackage"
             },
             "environment": {
                 "JAVA_HOME": "D:/Android Studio/jbr",

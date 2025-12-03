@@ -1,0 +1,7 @@
+[submodule "thirdparty/QZeroPackage"]
+    path = thirdparty/QZeroPackage
+    url = https://github.com/Zerozany/QZeroPackage.git
+
+[submodule "thirdparty/QZeroSystem"]
+    path = thirdparty/QZeroSystem
+    url = https://github.com/Zerozany/QZeroSystem.git
