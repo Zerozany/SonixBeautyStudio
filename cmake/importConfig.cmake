@@ -10,13 +10,19 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 )
 
 if(MSVC)
+    target_link_options(${PROJECT_NAME}
+        PRIVATE
+        "/ignore:4099"
+    )
+
     target_compile_options(${PROJECT_NAME}
         PRIVATE
         "/utf-8"
         "/FS"
     )
 
-    target_compile_options(${PROJECT_NAME} PRIVATE
+    target_compile_options(${PROJECT_NAME}
+        PRIVATE
         "$<$<CONFIG:Debug>:/Od>"
         "$<$<CONFIG:Release>:/Ox>"
     )
