@@ -21,8 +21,8 @@ int main(int argc, char* argv[])
     // ApplicationConfig::instance()->init();
     QGuiApplication app{argc, argv};
     // qDebug() << ThemeManager::create(nullptr, nullptr)->currentTheme();
-    // Translator::create(nullptr, nullptr)->load(":/translate/SonixBeautyStudio_en.qm");
     QQmlApplicationEngine engine{};
+    // Translator::create(&engine, nullptr)->setLanguage(":/translate/SonixBeautyStudio_en.qm");
     ViewEngine::instance()->init(&app, &engine);
     // SonixLogger::init(QDir{QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)}.filePath("log/SonixLog_1.txt").toStdString());
     // SonixLogger::setLevel(spdlog::level::warn);

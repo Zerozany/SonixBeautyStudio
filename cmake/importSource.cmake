@@ -10,9 +10,9 @@ file(GLOB RESOURCESLIST RELATIVE ${CMAKE_SOURCE_DIR}
 )
 
 file(GLOB QFILES RELATIVE ${CMAKE_SOURCE_DIR}
-    "${CMAKE_SOURCE_DIR}/view/core/**/**/*.qml"
-    "${CMAKE_SOURCE_DIR}/view/core/**/*.qml"
-    "${CMAKE_SOURCE_DIR}/view/core/*.qml"
+    "${CMAKE_SOURCE_DIR}/view/**/**/**/*.qml"
+    "${CMAKE_SOURCE_DIR}/view/**/**/*.qml"
+    "${CMAKE_SOURCE_DIR}/view/**/*.qml"
     "${CMAKE_SOURCE_DIR}/view/*.qml"
 )
 
@@ -35,7 +35,7 @@ qt_add_resources(${PROJECT_NAME} "Main"
 qt_add_qml_module(${PROJECT_NAME}
     URI ${PROJECT_NAME}
     VERSION 1.0
-    QML_FILES ${QFILES} ${QMLSINGLETONS}
+    QML_FILES ${QFILES}
     SOURCES ${SOURCEFILES}
     DEPENDENCIES TARGET ${THIRDMODULE}
 )

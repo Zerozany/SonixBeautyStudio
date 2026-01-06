@@ -2,6 +2,7 @@ add_subdirectory("${CMAKE_SOURCE_DIR}/thirdparty/QZeroSystem")
 add_subdirectory("${CMAKE_SOURCE_DIR}/thirdparty/QZeroZanyUI")
 
 # add_subdirectory("${CMAKE_SOURCE_DIR}/thirdparty/QZeroAssistKit")
+
 # add_subdirectory("${CMAKE_SOURCE_DIR}/thirdparty/QZeroPackage")
 
 # cpp Module
@@ -11,6 +12,7 @@ target_link_libraries(${PROJECT_NAME}
     QZeroZanyUI
 
     # QZeroAssistKit
+
     # QZeroPackage
 )
 
