@@ -19,9 +19,10 @@ ZeroWindow {
         visible: !mainStackView.currentItem instanceof LoginPage
     }
 
-    Shortcut {
+    ShortcutControl {
         sequences: [StandardKey.Back]
-        onActivated: {
+
+        onAndroidEvent: {
             if (mainStackView.depth >= 1) {
                 mainStackView.pop();
             } else {
