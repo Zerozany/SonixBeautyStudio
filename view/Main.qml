@@ -1,5 +1,5 @@
 import QtQuick
-// import QtQuick.Controls
+import QtQuick.Controls
 import QZeroSystem
 import QZeroZanyUI
 
@@ -9,32 +9,25 @@ ZeroWindow {
 
     readonly property string backgroundColor: ThemeManager.currentTheme["backgroundColor"]
 
-    // StackView {
-    //     id: mainStackView
-    //     anchors.fill: parent
-    //     initialItem: LoginPage {}
-    // }
-
-    LineTextField {
-        x: 50
-        y: 50
-        width: 300
-        height: 50
-        placeText: "邮箱"
-        source: "qrc:/view/resource/setting.png"
-        passwordSource: "qrc:/view/resource/settingPressed.png"
-        passwordPressedSource: "qrc:/view/resource/setting.png"
-        clearSource: "qrc:/view/resource/clearInput.png"
-        fontBold: true
-        password: true
+    StackView {
+        id: mainStackView
+        anchors.fill: parent
+        initialItem: LoginPage {}
     }
 
-    NormalButton {
-        x: 100
-        y: 300
-        width: 120
-        height: 60
-        text: "CCC"
+    DynamicIsland {
+        visible: !mainStackView.currentItem instanceof LoginPage
+    }
+
+    Shortcut {
+        sequences: [StandardKey.Back]
+        onActivated: {
+            if (mainStackView.depth >= 1) {
+                mainStackView.pop();
+            } else {
+                Qt.quit();
+            }
+        }
     }
 
     Component.onCompleted: {}
