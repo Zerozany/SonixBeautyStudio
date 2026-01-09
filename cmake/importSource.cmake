@@ -26,17 +26,12 @@ set_source_files_properties(
     QT_QML_SINGLETON_TYPE TRUE
 )
 
-qt_add_resources(${PROJECT_NAME} "Main"
-    PREFIX "/"
-    FILES
-    ${RESOURCESLIST}
-)
-
 qt_add_qml_module(${PROJECT_NAME}
     URI ${PROJECT_NAME}
     VERSION 1.0
     QML_FILES ${QFILES}
     SOURCES ${SOURCEFILES}
+    RESOURCES ${RESOURCESLIST}
     DEPENDENCIES TARGET ${THIRDMODULE}
 )
 

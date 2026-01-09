@@ -8,7 +8,7 @@ Rectangle {
 
     readonly property string elementColor: ThemeManager.currentTheme["elementColor"]
     readonly property int elementMargins: ElementStyle.elementMargins * 2
-    readonly property url logoSource: "qrc:/view/resource/SonixBeautyLogo.png"
+    readonly property url logoSource: "qrc:/qt/qml/SonixBeautyStudio/view/resource/SonixBeautyLogo.png"
     readonly property int lineTextWidth: ComponentConf.landScape ? root.width * 0.35 : root.width * 0.5
     readonly property int lineTextHeight: ComponentConf.landScape ? root.height * 0.08 : root.height * 0.05
 
@@ -23,8 +23,8 @@ Rectangle {
     LineTextField {
         id: userAccount
         placeText: "用户账号"
-        source: "qrc:/view/resource/setting.png"
-        clearSource: "qrc:/view/resource/clearInput.png"
+        source: "qrc:/qt/qml/SonixBeautyStudio/view/resource/setting.png"
+        clearSource: "qrc:/qt/qml/SonixBeautyStudio/view/resource/clearInput.png"
         fontBold: true
         width: root.lineTextWidth
         height: root.lineTextHeight
@@ -34,10 +34,10 @@ Rectangle {
     LineTextField {
         id: userPassword
         placeText: "用户密码"
-        source: "qrc:/view/resource/setting.png"
-        passwordSource: "qrc:/view/resource/settingPressed.png"
-        passwordPressedSource: "qrc:/view/resource/setting.png"
-        clearSource: "qrc:/view/resource/clearInput.png"
+        source: "qrc:/qt/qml/SonixBeautyStudio/view/resource/setting.png"
+        passwordSource: "qrc:/qt/qml/SonixBeautyStudio/view/resource/settingPressed.png"
+        passwordPressedSource: "qrc:/qt/qml/SonixBeautyStudio/view/resource/setting.png"
+        clearSource: "qrc:/qt/qml/SonixBeautyStudio/view/resource/clearInput.png"
         fontBold: true
         password: true
         width: root.lineTextWidth
