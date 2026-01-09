@@ -21,13 +21,8 @@ ZeroWindow {
 
     ShortcutControl {
         sequences: [StandardKey.Back]
-
         onAndroidEvent: {
-            if (mainStackView.depth >= 1) {
-                mainStackView.pop();
-            } else {
-                Qt.quit();
-            }
+            StackViewControl.stackPop();
         }
     }
 
