@@ -1,7 +1,7 @@
 import QtQuick
-import QtQuick.Controls
 import QZeroSystem
 import QZeroZanyUI
+import QtQuick.Controls
 
 ZeroWindow {
     id: mainWindow

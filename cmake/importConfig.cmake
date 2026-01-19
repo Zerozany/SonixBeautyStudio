@@ -10,9 +10,9 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 )
 
 if(MSVC)
-    target_link_options(${PROJECT_NAME}
+    target_compile_options(${PROJECT_NAME}
         PRIVATE
-        "/ignore:4099"
+        "$<$<CXX_COMPILER_ID:MSVC>:/Z7>"
     )
 
     target_compile_options(${PROJECT_NAME}

@@ -1,7 +1,6 @@
 add_subdirectory("${CMAKE_SOURCE_DIR}/thirdparty/QZeroSystem")
 add_subdirectory("${CMAKE_SOURCE_DIR}/thirdparty/QZeroZanyUI")
-
-# add_subdirectory("${CMAKE_SOURCE_DIR}/thirdparty/QZeroAssistKit")
+add_subdirectory("${CMAKE_SOURCE_DIR}/thirdparty/QZeroAssistKit")
 
 # add_subdirectory("${CMAKE_SOURCE_DIR}/thirdparty/QZeroPackage")
 
@@ -10,8 +9,7 @@ target_link_libraries(${PROJECT_NAME}
     PRIVATE
     QZeroSystem
     QZeroZanyUI
-
-    # QZeroAssistKit
+    QZeroAssistKit
 
     # QZeroPackage
 )
@@ -22,5 +20,6 @@ target_link_libraries(${PROJECT_NAME}
 )
 
 # QML Shared Module
-# list(APPEND THIRDMODULE QZeroSystem QZeroZanyUI QZeroAssistKit)
-list(APPEND THIRDMODULE QZeroSystem QZeroZanyUI)
+list(APPEND THIRDMODULE QZeroSystem QZeroZanyUI QZeroAssistKit)
+
+# list(APPEND THIRDMODULE QZeroSystem QZeroZanyUI)

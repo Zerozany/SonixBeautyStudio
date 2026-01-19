@@ -2,6 +2,8 @@ import QtQuick
 import QtQuick.Controls
 import QZeroZanyUI
 
+// import QtQuick.Controls.Material
+
 Rectangle {
     id: root
     gradient: LoginGradient {}
@@ -13,6 +15,7 @@ Rectangle {
     readonly property int lineTextHeight: ComponentConf.landScape ? root.height * 0.08 : root.height * 0.05
 
     Image {
+        id: logo
         anchors.top: parent.top
         anchors.topMargin: ComponentConf.landScape ? parent.height * 0.20 : parent.height * 0.30
         anchors.horizontalCenter: parent.horizontalCenter
@@ -20,43 +23,43 @@ Rectangle {
         source: root.logoSource
     }
 
-    LineTextField {
+    NormalTextField {
         id: userAccount
-        placeText: "用户账号"
+        placeholderText: "用户账号"
         source: "qrc:/qt/qml/SonixBeautyStudio/view/resource/setting.png"
         clearSource: "qrc:/qt/qml/SonixBeautyStudio/view/resource/clearInput.png"
-        fontBold: true
         width: root.lineTextWidth
         height: root.lineTextHeight
         anchors.centerIn: parent
     }
 
-    LineTextField {
+    NormalTextField {
         id: userPassword
-        placeText: "用户密码"
+        placeholderText: "用户密码"
         source: "qrc:/qt/qml/SonixBeautyStudio/view/resource/setting.png"
         passwordSource: "qrc:/qt/qml/SonixBeautyStudio/view/resource/settingPressed.png"
-        passwordPressedSource: "qrc:/qt/qml/SonixBeautyStudio/view/resource/setting.png"
+        pressedPasswordSource: "qrc:/qt/qml/SonixBeautyStudio/view/resource/setting.png"
         clearSource: "qrc:/qt/qml/SonixBeautyStudio/view/resource/clearInput.png"
-        fontBold: true
-        password: true
         width: root.lineTextWidth
         height: root.lineTextHeight
         anchors.top: userAccount.bottom
         anchors.topMargin: root.elementMargins * 3
         anchors.horizontalCenter: parent.horizontalCenter
+        echoMode: TextInput.Password
     }
 
     CheckBox {
         text: "记住密码"
         checked: false
+        width: 100
+        height: 50
         anchors.left: userPassword.left
         anchors.top: userPassword.bottom
         anchors.topMargin: root.elementMargins * 1
-        anchors.horizontalCenter: parent.horizontalCenter
+        // Material.accent: "#7FFFD4"
 
         onCheckedChanged: {
-            console.log("是否勾选：", checked);
+            // console.log("是否勾选：", checked);
         }
     }
 
@@ -64,15 +67,14 @@ Rectangle {
         text: "登录"
         color: "#7FFFD4"
         radius: 20
-        fontBold: true
         width: root.lineTextWidth
         height: root.lineTextHeight
-        anchors.top: userPassword.bottom
+        anchors.top: parent.top
         anchors.topMargin: root.elementMargins * 10
         anchors.horizontalCenter: parent.horizontalCenter
 
         onClicked: {
-            StackViewControl.stackPush(root, "qrc:/qt/qml/SonixBeautyStudio/view/mainPage/mainPage.qml");
+            // StackViewControl.stackPush(root, "qrc:/qt/qml/SonixBeautyStudio/view/mainPage/mainPage.qml");
         }
     }
 }
