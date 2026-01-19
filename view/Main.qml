@@ -15,16 +15,18 @@ ZeroWindow {
         initialItem: LoginPage {}
     }
 
-    DynamicIsland {
-        visible: !mainStackView.currentItem instanceof LoginPage
-    }
+    // DynamicIsland {
+    //     visible: !mainStackView.currentItem instanceof LoginPage
+    // }
 
     ShortcutControl {
         sequences: [StandardKey.Back]
         onAndroidEvent: {
-            StackViewControl.stackPop();
+            mainStackView.pop();
         }
     }
 
-    Component.onCompleted: {}
+    Component.onCompleted: {
+        AppConstants.mainStackView = mainStackView;
+    }
 }

@@ -1,4 +1,7 @@
 pragma Singleton
 import QtQuick
+import QtQuick.Controls
 
-QtObject {}
+QtObject {
+    property StackView mainStackView: null
+}
