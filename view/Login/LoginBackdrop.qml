@@ -1,0 +1,19 @@
+import QtQuick
+import QZeroZanyUI
+
+Rectangle {
+    id: root
+    gradient: GradientStyle {}
+
+    readonly property string elementColor: ThemeManager.currentTheme["elementColor"]
+    readonly property int elementMargins: ElementStyle.elementMargins * 2
+    readonly property url logoSource: "qrc:/qt/qml/SonixBeautyStudio/view/resource/SonixBeautyLogo.png"
+
+    Image {
+        anchors.top: parent.top
+        anchors.topMargin: ComponentConf.landScape ? parent.height * 0.20 : parent.height * 0.30
+        anchors.horizontalCenter: parent.horizontalCenter
+        fillMode: Image.Pad
+        source: root.logoSource
+    }
+}
