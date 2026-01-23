@@ -5,21 +5,21 @@ import QZeroZanyUI
 LoginBackdrop {
     id: root
 
-    readonly property size textFieldSize: Qt.size(parent.width * 0.3, parent.height * 0.065)
-    readonly property size loginOptionsSize: Qt.size(parent.width * 0.3, parent.height * 0.06)
     readonly property int elementRadius: ElementStyle.elementRadius
     readonly property int elementMargins: ElementStyle.elementMargins
+    readonly property size textFieldSize: Qt.size(parent.width * 0.3, parent.height * 0.065)
+    readonly property size loginOptionsSize: Qt.size(parent.width * 0.3, parent.height * 0.06)
 
     ColumnLayout {
         width: parent.width * 0.35
-        height: parent.height * 0.4
+        height: parent.height * 0.35
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
         anchors.bottomMargin: parent.height * 0.125
 
         NormalTextField {
             id: userAccount
-            placeholderText: "用户账号"
+            placeholderText: qsTr("用户账号")
             source: "qrc:/qt/qml/SonixBeautyStudio/view/resource/setting.png"
             Layout.preferredWidth: root.textFieldSize.width
             Layout.preferredHeight: root.textFieldSize.height
@@ -28,11 +28,11 @@ LoginBackdrop {
 
         NormalTextField {
             id: userPassword
-            placeholderText: "用户密码"
+            placeholderText: qsTr("用户密码")
             source: "qrc:/qt/qml/SonixBeautyStudio/view/resource/setting.png"
+            echoMode: TextInput.Password
             Layout.preferredWidth: root.textFieldSize.width
             Layout.preferredHeight: root.textFieldSize.height
-            echoMode: TextInput.Password
             Layout.alignment: Qt.AlignHCenter
         }
 
@@ -42,7 +42,7 @@ LoginBackdrop {
             Layout.alignment: Qt.AlignHCenter
 
             NormalCheckBox {
-                text: "记住密码"
+                text: qsTr("记住密码")
                 checked: false
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
                 Layout.leftMargin: root.elementMargins
@@ -53,7 +53,7 @@ LoginBackdrop {
             }
 
             NormalButton {
-                text: "登录遇到问题"
+                text: qsTr("登录遇到问题")
                 textColor: '#48c49a'
                 color: "transparent"
                 flat: true
@@ -76,7 +76,7 @@ LoginBackdrop {
             Layout.alignment: Qt.AlignHCenter
 
             NormalCheckBox {
-                text: "我已阅读并同意"
+                text: qsTr("我已阅读并同意")
                 checked: false
                 radius: 18
                 anchors.verticalCenter: parent.verticalCenter
@@ -87,7 +87,7 @@ LoginBackdrop {
             }
 
             NormalButton {
-                text: "《服务条款》《隐私政策》"
+                text: qsTr("《服务条款》《隐私政策》")
                 textColor: '#48c49a'
                 color: "transparent"
                 flat: true
@@ -104,7 +104,7 @@ LoginBackdrop {
         }
 
         NormalButton {
-            text: "登录"
+            text: qsTr("登 录")
             color: "#7FFFD4"
             radius: root.elementRadius * 3
             Layout.preferredWidth: root.width * 0.27
@@ -112,7 +112,8 @@ LoginBackdrop {
             Layout.alignment: Qt.AlignHCenter
 
             onClicked: {
-                AppConstants.mainStackView.push("qrc:/qt/qml/SonixBeautyStudio/view/mainPage/mainPage.qml");
+                // AppConstants.mainStackView.push("qrc:/qt/qml/SonixBeautyStudio/view/mainPage/mainPage.qml");
+                // ContentMethod.showPromptBanner(parent, "微软雅黑");
             }
         }
     }
