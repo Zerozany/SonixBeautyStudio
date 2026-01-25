@@ -23,3 +23,4 @@ target_link_libraries(${PROJECT_NAME}
 list(APPEND THIRDMODULE QZeroSystem QZeroZanyUI QZeroAssistKit)
 
 # list(APPEND THIRDMODULE QZeroSystem QZeroZanyUI)
+set(QML_IMPORT_PATH "${PROJECT_BINARY_DIR}/thirdparty" "${PROJECT_BINARY_DIR}/${PROJECT_NAME}" CACHE PATH "" FORCE)

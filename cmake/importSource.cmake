@@ -26,8 +26,6 @@ set_source_files_properties(
     QT_QML_SINGLETON_TYPE TRUE
 )
 
-set(QML_IMPORT_PATH "${PROJECT_BINARY_DIR}/thirdparty" "${PROJECT_BINARY_DIR}/${PROJECT_NAME}" CACHE PATH "" FORCE)
-
 qt_add_qml_module(${PROJECT_NAME}
     URI ${PROJECT_NAME}
     VERSION 1.0
