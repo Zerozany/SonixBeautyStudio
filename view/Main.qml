@@ -13,9 +13,9 @@ ZeroWindow {
         initialItem: LoginPage {}
     }
 
-    // DynamicIsland {
-    //     visible: !mainStackView.currentItem instanceof LoginPage
-    // }
+    DynamicIsland {
+        visible: !mainStackView.currentItem instanceof LoginPage
+    }
 
     ShortcutControl {
         sequences: [StandardKey.Back]
