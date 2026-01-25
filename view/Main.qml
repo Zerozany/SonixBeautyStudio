@@ -1,6 +1,7 @@
 import QtQuick
 import QZeroSystem
 import QZeroZanyUI
+import SonixBeautyStudio
 import QtQuick.Controls
 
 ZeroWindow {
