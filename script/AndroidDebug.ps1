@@ -9,8 +9,19 @@ param(
 $adb = "D:\AndroidEnv\SDK\platform-tools\adb.exe"
 
 # device serial
-$device = "e2feb7f9"
-# e2feb7f9 8c1161c0 d933be15
+$device = (& $adb devices |
+    Select-Object -Skip 1 |
+    Where-Object { $_ -match "\sdevice$" } |
+    ForEach-Object { ($_ -split "\s+")[0] }
+)
+
+if (-not $device) {
+    Write-Host "ERROR: No Android device detected."
+    exit 1
+}
+
+Write-Host "Using device: $device"
+
 
 # APK paths
 $apkPathDebug   = "$(Resolve-Path "$PSScriptRoot\..")\build\AndroidDebug\android-build\build\outputs\apk\debug\android-build-debug.apk"
