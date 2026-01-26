@@ -17,6 +17,7 @@ target_link_libraries(${PROJECT_NAME}
 # QML Static Module
 target_link_libraries(${PROJECT_NAME}
     PRIVATE
+    QZeroSystemplugin
     QZeroMaterialUIplugin
 )
 
