@@ -44,7 +44,7 @@
                 "QT_ANDROID_SIGN_APK": "ON"
             },
             "environment": {
-                "QT_ANDROID_KEYSTORE_PATH": "${sourceDir}/thirdparty/QZeroSystem/android-build/android_release.keystore",
+                "QT_ANDROID_KEYSTORE_PATH": "${sourceDir}/config/Android/android_release.keystore",
                 "QT_ANDROID_KEYSTORE_ALIAS": "SonixBeauty",
                 "QT_ANDROID_KEYSTORE_STORE_PASS": "12345678",
                 "QT_ANDROID_KEYSTORE_KEY_PASS": "12345678"
