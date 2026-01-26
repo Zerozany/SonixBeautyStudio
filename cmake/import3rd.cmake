@@ -19,6 +19,7 @@ target_link_libraries(${PROJECT_NAME}
     PRIVATE
     QZeroSystemplugin
     QZeroMaterialUIplugin
+    QZeroAssistKitplugin
 )
 
 # QML Shared Module
