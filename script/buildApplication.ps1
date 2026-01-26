@@ -7,7 +7,7 @@ param(
 )
 
 if ($h) {
-    Write-Host "Usage: .\AndroidDebug.ps1 -d <device: p/a> -t <build type: d/r>"
+    Write-Host "Usage: .\buildApplication.ps1 -d <device: p/a> -t <build type: d/r>"
     exit 0
 }
 

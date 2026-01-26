@@ -1,5 +1,10 @@
 # Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 
+param(
+    [ValidateSet("d", "r")]
+    [string]$t = "d"
+)
+
 # adb.exe path
 $adb = "D:\AndroidEnv\SDK\platform-tools\adb.exe"
 
@@ -7,11 +12,31 @@ $adb = "D:\AndroidEnv\SDK\platform-tools\adb.exe"
 $device = "e2feb7f9"
 # e2feb7f9 8c1161c0 d933be15
 
-# APK path
-$apkPath = "F:\DevelopFiles\Qt2AndroidFrame\build\AndroidDebug\android-build\SonixBeautyStudio.apk"
+# APK paths
+$apkPathDebug   = "$(Resolve-Path "$PSScriptRoot\..")\build\AndroidDebug\android-build\build\outputs\apk\debug\android-build-debug.apk"
+$apkPathRelease = "$(Resolve-Path "$PSScriptRoot\..")\build\AndroidRelease\android-build\build\outputs\apk\release\android-build-release-signed.apk"
+
+# choose APK
+switch ($t) {
+    "d" {
+        $apkPath = $apkPathDebug
+        Write-Host "Mode: DEBUG"
+    }
+    "r" {
+        $apkPath = $apkPathRelease
+        Write-Host "Mode: RELEASE"
+    }
+}
 
 # package name
 $packageName = "org.qtproject.SonixBeauty"
+
+# check apk exists
+if (!(Test-Path $apkPath)) {
+    Write-Host "ERROR: APK not found:"
+    Write-Host $apkPath
+    exit 1
+}
 
 # 1. check devices
 Write-Host "Checking connected devices..."
@@ -40,13 +65,14 @@ if ([string]::IsNullOrWhiteSpace($appPID)) {
 
     if ([string]::IsNullOrWhiteSpace($appPID)) {
         Write-Host "ERROR: Failed to get PID for $packageName"
-        exit
+        exit 1
     }
 }
 
 Write-Host "App PID = $appPID"
 
-# 5. print all logs for this app
-Write-Host "Start printing ALL logs for this app..."
-# & $adb -s $device logcat --pid=$appPID "*:V"
-& $adb -s $device logcat -s "qml:*" "System.out:D" "default:D" "HandleDebug"
+# 5. print logs
+Write-Host "Start printing logs..."
+& $adb -s $device logcat --pid=$appPID "*:V"
+# 或你原来的过滤
+# & $adb -s $device logcat -s "qml:*" "System.out:D" "default:D" "HandleDebug"
