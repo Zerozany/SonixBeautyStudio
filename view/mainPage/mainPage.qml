@@ -1,5 +1,5 @@
 import QtQuick
-import QZeroZanyUI
+import QZeroMaterialUI
 
 Rectangle {
     id: root

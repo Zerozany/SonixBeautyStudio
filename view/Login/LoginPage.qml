@@ -1,6 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
-import QZeroZanyUI
+import QZeroMaterialUI
 
 LoginBackdrop {
     id: root

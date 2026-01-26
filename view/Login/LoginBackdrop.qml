@@ -1,5 +1,6 @@
 import QtQuick
-import QZeroZanyUI
+import QZeroMaterialUI
+import SonixBeautyStudio
 
 Rectangle {
     id: root

@@ -1,6 +1,6 @@
 import QtQuick
 import QZeroSystem
-import QZeroZanyUI
+import QZeroMaterialUI
 import SonixBeautyStudio
 import QtQuick.Controls
 
