@@ -32,7 +32,7 @@ elseif(ANDROID)
     set(APP_ICON "@drawable/ic_launcher")
 
     set_target_properties(${PROJECT_NAME} PROPERTIES
-        QT_ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_SOURCE_DIR}/thirdparty/QZeroSystem/android-build"
+        QT_ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_SOURCE_DIR}/config/Android/android-build"
         QT_ANDROID_PACKAGE_NAME "${PACKAGE_NAME}"
         QT_ANDROID_APP_ICON "${APP_ICON}" # 应用图标
         QT_ANDROID_APP_NAME "${APP_NAME}" # 应用名称

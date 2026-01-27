@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    android:installLocation="auto"
+    android:versionCode="-- %%INSERT_VERSION_CODE%% --"
+    android:versionName="-- %%INSERT_VERSION_NAME%% --">
+    <!-- 应用版本号（整数），用于升级判断，Qt 构建工具会替换占位符 -->
+    <!-- 应用版本名称（字符串），用户可见，Qt 构建工具会替换占位符 -->
+
+    <!-- ✅ 必须的权限 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- 精确位置权限，用于 GPS 或 Wi-Fi 定位 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 获取 Wi-Fi 状态权限 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <!-- 修改 Wi-Fi 状态权限 -->
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <!-- 修改网络状态权限 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 获取网络状态权限 -->
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <!-- 修改系统设置权限 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- 保持屏幕唤醒权限 -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CONNECTED_DEVICE" />
+    <!-- 需要使用 前台服务 (Foreground Service) 的权限 -->
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+    <!-- 电池优化相关的特殊权限 -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <!-- 允许你的应用监听 系统广播 -->
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:smallScreens="true"
+        android:xlargeScreens="true" />
+    <!-- 支持任意屏幕密度 -->
+    <!-- 支持大屏设备 -->
+    <!-- 支持普通屏设备 -->
+    <!-- 支持小屏设备 -->
+    <!-- 支持超大屏设备 -->
+
+    <application
+        android:name="org.qtproject.qt.android.bindings.QtApplication"
+        android:label="-- %%INSERT_APP_NAME%% --"
+        android:icon="-- %%INSERT_APP_ICON%% --"
+        android:hardwareAccelerated="true"
+        android:allowBackup="true"
+        android:fullBackupOnly="false">
+        <!-- 使用 Qt 提供的 Application 类 -->
+        <!-- 应用名称占位符 -->
+        <!-- 应用图标占位符 -->
+        <!-- 启用硬件加速 -->
+        <!-- 允许用户备份应用数据 -->
+        <!-- 允许增量备份，不仅限于完整备份 -->
+
+        <meta-data
+            android:name="android.app.arguments"
+            android:value="-- %%INSERT_APP_ARGUMENTS%% --" />
+        <meta-data
+            android:name="android.app.background_running"
+            android:value="true" />
+
+        <!-- Splash Activity -->
+        <activity
+            android:name="com.zerosystem.core.SplashActivity"
+            android:theme="@style/splash_theme"
+            android:exported="true"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.zerosystem.core.MainActivity"
+            android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|layoutDirection|fontScale|keyboard|keyboardHidden|navigation|mcc|mnc|density"
+            android:launchMode="singleTop"
+            android:screenOrientation="unspecified"
+            android:exported="true"
+            android:enabled="true">
+            <!-- Activity 节点，定义应用入口 Activity android:name="com.zerosystem.activity.AppActivity" ||
+            org.qtproject.qt.android.bindings.QtActivity -->
+            <!-- 配置变更时 Activity 不重启，保持状态 -->
+            <!-- Activity 名称占位符 -->
+            <!-- 单例启动模式，避免重复实例 -->
+            <!-- 屏幕方向未指定，由系统决定 -->
+            <!-- 允许外部应用启动该 Activity -->
+
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="-- %%INSERT_APP_LIB_NAME%% --" />
+
+        </activity>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.qtprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/qtprovider_paths" />
+        </provider>
+    </application>
+</manifest>

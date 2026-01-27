@@ -8,6 +8,20 @@
     #include "WinWindow.h"
 #endif
 
+#if defined(Q_OS_ANDROID)
+extern "C" {
+
+    JNIEXPORT void JNICALL
+    Java_com_zerosystem_core_MainActivity_QActivityVisibileChanged(JNIEnv*, jclass, jboolean _activityVisibile)
+    {
+        if (auto window{AndroidWindow::instance()}; window)
+        {
+            QMetaObject::invokeMethod(window, "activityVisibileChanged", Qt::QueuedConnection, Q_ARG(bool, static_cast<bool>(_activityVisibile)));
+        }
+    }
+}
+#endif
+
 ViewEngine::ViewEngine(QObject* _parent) : QObject{_parent}
 {
 }
