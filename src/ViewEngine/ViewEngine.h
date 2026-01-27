@@ -2,7 +2,6 @@ _Pragma("once");
 #include <QObject>
 
 class QQmlApplicationEngine;
-class QGuiApplication;
 
 #if defined(Q_OS_ANDROID)
 class AndroidWindow;
@@ -19,13 +18,13 @@ public:
 public:
     static auto instance() noexcept -> ViewEngine*;
 
-    static auto init(QGuiApplication* _guiApplication, QQmlApplicationEngine* _qmlApplicationEngine) noexcept -> void;
+    static auto init(QQmlApplicationEngine* _qmlApplicationEngine) noexcept -> void;
 
 private:
     explicit(true) ViewEngine(QObject* _parent = nullptr);
 
 private:
-    static auto initObject(QGuiApplication* _guiApplication, QQmlApplicationEngine* _qmlApplicationEngine) noexcept -> void;
+    static auto initObject(QQmlApplicationEngine* _qmlApplicationEngine) noexcept -> void;
 
     static auto engineSetting() noexcept -> void;
 
@@ -36,7 +35,6 @@ private:
 Q_SIGNALS:
 
 private:
-    inline static QGuiApplication*       m_guiApplication{nullptr};
     inline static QQmlApplicationEngine* m_qmlApplicationEngine{nullptr};
 #if defined(Q_OS_ANDROID)
     inline static AndroidWindow* m_quickWindow{nullptr};

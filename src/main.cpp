@@ -24,8 +24,8 @@ int main(int argc, char* argv[])
     QGuiApplication app{argc, argv};
     // qDebug() << ThemeManager::create(nullptr, nullptr)->currentTheme();
     QQmlApplicationEngine engine{};
-    // Translator::create(&engine, nullptr)->setLanguage(":/translate/SonixBeautyStudio_en.qm");
-    ViewEngine::instance()->init(&app, &engine);
+    // Translator::create(&engine, nullptr)->setLanguage(":/i18n/qml_en.qm");
+    ViewEngine::instance()->init(&engine);
     // SonixLogger::init(QDir{QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)}.filePath("log/SonixLog_1.txt").toStdString());
     // SonixLogger::setLevel(spdlog::level::warn);
 #if defined(Q_OS_ANDROID)

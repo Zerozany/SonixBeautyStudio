@@ -1,6 +1,5 @@
 #include "ViewEngine.h"
 #include <QQmlApplicationEngine>
-#include <QGuiApplication>
 
 #if defined(Q_OS_ANDROID)
     #include "AndroidWindow.h"
@@ -32,25 +31,20 @@ auto ViewEngine::instance() noexcept -> ViewEngine*
     return &viewEngine;
 }
 
-auto ViewEngine::init(QGuiApplication* _guiApplication, QQmlApplicationEngine* _qmlApplicationEngine) noexcept -> void
+auto ViewEngine::init(QQmlApplicationEngine* _qmlApplicationEngine) noexcept -> void
 {
-    std::invoke(&ViewEngine::initObject, _guiApplication, _qmlApplicationEngine);
+    std::invoke(&ViewEngine::initObject, _qmlApplicationEngine);
     std::invoke(&ViewEngine::engineSetting);
     std::invoke(&ViewEngine::windowSetting);
     std::invoke(&ViewEngine::connectSignal2Slot);
 }
 
-auto ViewEngine::initObject(QGuiApplication* _guiApplication, QQmlApplicationEngine* _qmlApplicationEngine) noexcept -> void
+auto ViewEngine::initObject(QQmlApplicationEngine* _qmlApplicationEngine) noexcept -> void
 {
-    if (!_guiApplication)
-    {
-        return;
-    }
     if (!_qmlApplicationEngine)
     {
         return;
     }
-    m_guiApplication       = _guiApplication;
     m_qmlApplicationEngine = _qmlApplicationEngine;
 }
 
@@ -82,8 +76,8 @@ auto ViewEngine::windowSetting() noexcept -> void
 
 auto ViewEngine::connectSignal2Slot() noexcept -> void
 {
-    connect(m_qmlApplicationEngine, &QQmlApplicationEngine::objectCreationFailed, m_guiApplication, [] { QCoreApplication::exit(-1); }, Qt::QueuedConnection);
-    connect(m_qmlApplicationEngine, &QQmlApplicationEngine::warnings, m_guiApplication, [](const QList<QQmlError>& _warnings) {   for (const auto &warning : _warnings) {
+    connect(m_qmlApplicationEngine, &QQmlApplicationEngine::objectCreationFailed, qApp, [] { QCoreApplication::exit(-1); }, Qt::QueuedConnection);
+    connect(m_qmlApplicationEngine, &QQmlApplicationEngine::warnings, qApp, [](const QList<QQmlError>& _warnings) {   for (const auto &warning : _warnings) {
         qDebug() << warning.toString();
     } }, Qt::QueuedConnection);
 }
