@@ -7,7 +7,7 @@
 // #include "SonixLogger.h"
 // #include <QDir>
 // #include <QStandardPaths>
-// #include "ApplicationConfig.h"
+#include "ApplicationConfig.h"
 
 #if defined(Q_OS_ANDROID)
     #include <QJniObject>
@@ -15,12 +15,12 @@
 // #include "AndroidContext.h"
 // #include "AndroidWifModule.h"
 #endif
-#include <QQuickStyle>
+// #include <QQuickStyle>
 
 int main(int argc, char* argv[])
 {
-    QQuickStyle::setStyle("Material");
-    // ApplicationConfig::instance()->init();
+    // QQuickStyle::setStyle("Material");
+    ApplicationConfig::instance()->init("Material");
     QGuiApplication app{argc, argv};
     // qDebug() << ThemeManager::create(nullptr, nullptr)->currentTheme();
     QQmlApplicationEngine engine{};

@@ -1,5 +1,7 @@
 #include "ViewEngine.h"
 #include <QQmlApplicationEngine>
+#include <QQmlContext>
+#include "Translator.h"
 
 #if defined(Q_OS_ANDROID)
     #include "AndroidWindow.h"
@@ -54,6 +56,7 @@ auto ViewEngine::engineSetting() noexcept -> void
     {
         return;
     }
+    m_qmlApplicationEngine->rootContext()->setContextProperty("translator", Translator::instance(m_qmlApplicationEngine));
     m_qmlApplicationEngine->loadFromModule("SonixBeautyStudio", "Main");
 }
 

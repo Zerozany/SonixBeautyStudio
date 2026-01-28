@@ -114,6 +114,7 @@ LoginBackdrop {
             onClicked: {
                 // AppConstants.mainStackView.push("qrc:/qt/qml/SonixBeautyStudio/view/mainPage/mainPage.qml");
                 // ContentMethod.showPromptBanner(parent, "微软雅黑");
+                translator.setLanguage(":/i18n/qml_en.qm");  // qmllint disable unqualified
             }
         }
     }
