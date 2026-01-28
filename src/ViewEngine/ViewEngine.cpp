@@ -56,7 +56,6 @@ auto ViewEngine::engineSetting() noexcept -> void
     {
         return;
     }
-    m_qmlApplicationEngine->rootContext()->setContextProperty("translator", Translator::instance(m_qmlApplicationEngine));
     m_qmlApplicationEngine->loadFromModule("SonixBeautyStudio", "Main");
 }
 

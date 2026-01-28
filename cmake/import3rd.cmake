@@ -22,7 +22,7 @@ target_link_libraries(${PROJECT_NAME}
 )
 
 # QML Shared Module
-list(APPEND THIRDMODULE QZeroSystem QZeroMaterialUI)
+list(APPEND THIRDMODULE QZeroSystem QZeroMaterialUI QZeroAssistKit)
 
 # list(APPEND THIRDMODULE QZeroSystem QZeroMaterialUI)
 set(QML_IMPORT_PATH "${CMAKE_BINARY_DIR}/thirdparty" CACHE PATH "" FORCE)
