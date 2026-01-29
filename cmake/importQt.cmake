@@ -32,8 +32,3 @@ target_link_libraries(${PROJECT_NAME}
     Qt6::Concurrent
     Qt6::QuickControls2
 )
-
-set_target_properties(${PROJECT_NAME} PROPERTIES
-    MACOSX_BUNDLE "$<$<CONFIG:Release>:TRUE>$<$<NOT:$<CONFIG:Release>>:FALSE>"
-    WIN32_EXECUTABLE "$<$<CONFIG:Debug>:FALSE>$<$<NOT:$<CONFIG:Debug>>:TRUE>"
-)

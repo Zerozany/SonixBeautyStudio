@@ -32,15 +32,16 @@ qt_add_qml_module(${PROJECT_NAME}
     QML_FILES ${QFILES}
     SOURCES ${SOURCEFILES}
     RESOURCES ${RESOURCESLIST}
-    DEPENDENCIES ${THIRDMODULE}
+    DEPENDENCIES TARGET ${THIRDMODULE}
 )
 
-file(GLOB INCLUDEDIR "${CMAKE_SOURCE_DIR}/src/*")
+file(GLOB INCLUDEDIR
+    "${CMAKE_SOURCE_DIR}/src"
+    "${CMAKE_SOURCE_DIR}/src/*/"
+    "${CMAKE_SOURCE_DIR}/src/**/*/"
+)
 
-foreach(HEADERDIR ${INCLUDEDIR})
-    if(NOT IS_DIRECTORY ${HEADERDIR})
-        continue()
-    endif()
-
-    target_include_directories(${PROJECT_NAME} PRIVATE ${HEADERDIR})
-endforeach()
+target_include_directories(${PROJECT_NAME}
+    PUBLIC
+    ${INCLUDEDIR}
+)
