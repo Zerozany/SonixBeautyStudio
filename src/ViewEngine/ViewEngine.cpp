@@ -1,7 +1,6 @@
 #include "ViewEngine.h"
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
-#include "Translator.h"
 
 #if defined(Q_OS_ANDROID)
     #include "AndroidWindow.h"

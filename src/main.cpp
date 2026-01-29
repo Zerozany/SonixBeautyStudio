@@ -2,7 +2,6 @@
 #include <QQmlApplicationEngine>
 #include "ViewEngine.h"
 #include "Translator.h"
-// #include "ThemeManager.h"
 // #include <QDebug>
 // #include "SonixLogger.h"
 // #include <QDir>
@@ -16,6 +15,7 @@
 // #include "AndroidWifModule.h"
 #endif
 // #include <QQuickStyle>
+// #include "ThemeManager.h"
 
 int main(int argc, char* argv[])
 {
@@ -24,7 +24,7 @@ int main(int argc, char* argv[])
     QGuiApplication app{argc, argv};
     // qDebug() << ThemeManager::create(nullptr, nullptr)->currentTheme();
     QQmlApplicationEngine engine{};
-    // Translator::create(&engine, nullptr)->setLanguage(":/i18n/qml_zh_CN.qm");
+    Translator::create(&engine, nullptr)->setLanguage(":/i18n/qml_zh_CN.qm");
     ViewEngine::instance()->init(&engine);
     // SonixLogger::init(QDir{QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)}.filePath("log/SonixLog_1.txt").toStdString());
     // SonixLogger::setLevel(spdlog::level::warn);

@@ -17,6 +17,8 @@ target_link_libraries(${PROJECT_NAME}
 # QML Static Module
 target_link_libraries(${PROJECT_NAME}
     PRIVATE
+
+    # QZeroMaterialUIplugin
 )
 
 # QML Shared Module
