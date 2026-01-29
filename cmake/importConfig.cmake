@@ -14,7 +14,7 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 if(MSVC)
     target_compile_options(${PROJECT_NAME}
         PRIVATE
-        "$<$<CXX_COMPILER_ID:MSVC>:/Z7>"
+        "$<$<CONFIG:Debug>:/Z7>"
     )
 
     target_compile_options(${PROJECT_NAME}
