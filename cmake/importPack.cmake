@@ -10,6 +10,15 @@ if(WIN32)
             "$<TARGET_FILE:${PROJECT_NAME}>"
             COMMENT "Deploying Qt dependencies for ${PROJECT_NAME}"
         )
+
+        # 安装步骤
+        foreach(QMLMODULE IN LISTS QMLMODULELIST)
+            install(FILES
+                "${CMAKE_BINARY_DIR}/thirdparty/${QMLMODULE}/${QMLMODULE}plugin.dll"
+                "${CMAKE_BINARY_DIR}/thirdparty/${QMLMODULE}/qmldir"
+                DESTINATION "${CMAKE_BINARY_DIR}/${CMAKE_BUILD_TYPE}/qml/${QMLMODULE}"
+            )
+        endforeach()
     else()
         message(STATUS "skip windeployqt: ${PROJECT_NAME} It is not an executable file")
     endif()

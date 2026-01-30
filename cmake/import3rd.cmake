@@ -17,12 +17,7 @@ target_link_libraries(${PROJECT_NAME}
 # QML Static Module
 target_link_libraries(${PROJECT_NAME}
     PRIVATE
-
-    # QZeroMaterialUIplugin
 )
 
-# QML Shared Module
-list(APPEND THIRDMODULE QZeroSystem QZeroMaterialUI QZeroAssistKit)
-
-# list(APPEND THIRDMODULE QZeroSystem QZeroMaterialUI)
-set(QML_IMPORT_PATH "${CMAKE_BINARY_DIR}/thirdparty" CACHE PATH "" FORCE)
+# QML Shared Module List
+list(APPEND QMLMODULELIST QZeroSystem QZeroMaterialUI QZeroAssistKit)
