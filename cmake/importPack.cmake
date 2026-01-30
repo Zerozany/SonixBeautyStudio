@@ -23,16 +23,6 @@ if(WIN32)
         message(STATUS "skip windeployqt: ${PROJECT_NAME} It is not an executable file")
     endif()
 elseif(ANDROID)
-    # # Android Studio 实时查看Debug、QML打印
-    # 连接模拟器
-    # .\adb.exe logcat -c ; .\adb.exe logcat -s "qml:*" "System.out:I" "default:D"
-    # 连接真机（d933be15 为真实设备序号）
-    # .\adb.exe devices
-    # .\adb.exe -s d933be15 logcat -c;.\adb.exe -s d933be15 logcat -s "qml:*" "System.out:I" "default:D"
-    # 真机自动安装apk（F:\DevelopFiles\AndroidFrame\build\AndroidDebug\android-build\SonixBeautyStudio.apk为apk所在路径）
-    # .\adb.exe -s d933be15 install -r F:\DevelopFiles\AndroidFrame\build\AndroidDebug\android-build\SonixBeautyStudio.apk
-    # powershell获取脚本权限：'Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass'
-
     # 统一定义应用名和版本号
     set(PACKAGE_NAME "org.qtproject.SonixBeauty")
     set(VERSION_CODE 1)
