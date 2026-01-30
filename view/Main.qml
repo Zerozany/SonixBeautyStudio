@@ -8,23 +8,23 @@ ZeroWindow {
     id: mainWindow
 
     StackView {
-        id: mainStackView
+        id: stackView
         anchors.fill: parent
         initialItem: LoginPage {}
     }
 
     DynamicIsland {
-        visible: !mainStackView.currentItem instanceof LoginPage
+        visible: !stackView.currentItem instanceof LoginPage
     }
 
     ShortcutControl {
         sequences: [StandardKey.Back]
         onAndroidEvent: {
-            mainStackView.pop();
+            stackView.pop();
         }
     }
 
     Component.onCompleted: {
-        AppConstants.mainStackView = mainStackView;
+        AppConstants.mainStackView = stackView;
     }
 }
