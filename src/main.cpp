@@ -19,7 +19,9 @@
 
 int main(int argc, char* argv[])
 {
+#if defined(Q_OS_WINDOWS)
     SingletonApplication::instance()->init();
+#endif
     // QQuickStyle::setStyle("Material");
     ApplicationConfig::instance()->init();
     QGuiApplication app{argc, argv};
