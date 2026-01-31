@@ -14,10 +14,4 @@ public:
 
 private:
     explicit(true) ApplicationConfig(ApplicationConfigBase* _parent = nullptr);
-
-    auto initAppStyle() noexcept -> void override;
-
-    auto initAppAttribute() noexcept -> void override;
-
-    auto initAppEnv() noexcept -> void override;
 };
