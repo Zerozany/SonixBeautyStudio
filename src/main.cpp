@@ -20,7 +20,7 @@
 int main(int argc, char* argv[])
 {
     // QQuickStyle::setStyle("Material");
-    ApplicationConfig::instance()->init("Material");
+    ApplicationConfig::instance()->init();
     QGuiApplication app{argc, argv};
     // qDebug() << ThemeManager::create(nullptr, nullptr)->currentTheme();
     QQmlApplicationEngine engine{};
