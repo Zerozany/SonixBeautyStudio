@@ -14,4 +14,10 @@ public:
 
 private:
     explicit(true) ApplicationConfig(ApplicationConfigBase* _parent = nullptr);
+
+private:
+    ApplicationStyle m_applicationStyle{
+        .WindowStyle{"Material"},
+        .AndroidStyle{"Material"},
+    };
 };

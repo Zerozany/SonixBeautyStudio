@@ -13,7 +13,7 @@ auto ApplicationConfig::instance() noexcept -> ApplicationConfig*
 
 auto ApplicationConfig::init() noexcept -> void
 {
-    // std::invoke(&ApplicationConfigBase::initAppStyle, this);
+    std::invoke(&ApplicationConfigBase::initAppStyle, this, m_applicationStyle);
     // std::invoke(&ApplicationConfigBase::initAppAttribute, this);
     // std::invoke(&ApplicationConfigBase::initAppEnv, this);
 }
