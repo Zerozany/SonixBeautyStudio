@@ -32,8 +32,8 @@ auto ViewEngine::instance(QQmlApplicationEngine& _qmlApplicationEngine, ViewEngi
 
 auto ViewEngine::init() noexcept -> void
 {
-    std::invoke(&ViewEngine::engineLaod, this);
     std::invoke(&ViewEngine::connectSignal2Slot, this);
+    std::invoke(&ViewEngine::engineLaod, this);
 }
 
 auto ViewEngine::engineLaod() noexcept -> void

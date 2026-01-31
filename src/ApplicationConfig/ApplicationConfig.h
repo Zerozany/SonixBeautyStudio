@@ -1,8 +1,7 @@
 _Pragma("once");
-#include <QObject>
-#include <QVariantMap>
+#include "ApplicationConfigBase.h"
 
-class ApplicationConfig : public QObject
+class ApplicationConfig : public ApplicationConfigBase
 {
     Q_OBJECT
 public:
@@ -14,11 +13,11 @@ public:
     auto init() noexcept -> void;
 
 private:
-    explicit(true) ApplicationConfig(QObject* _parent = nullptr);
+    explicit(true) ApplicationConfig(ApplicationConfigBase* _parent = nullptr);
 
-    auto initAppStyle() noexcept -> void;
+    auto initAppStyle() noexcept -> void override;
 
-    auto initAppAttribute() noexcept -> void;
+    auto initAppAttribute() noexcept -> void override;
 
-    auto initAppEnv() noexcept -> void;
+    auto initAppEnv() noexcept -> void override;
 };

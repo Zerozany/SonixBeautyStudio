@@ -4,8 +4,8 @@
 
 auto ApplicationConfig::instance() noexcept -> ApplicationConfig*
 {
-    static ApplicationConfig systemConfig{};
-    return &systemConfig;
+    static ApplicationConfig applicationConfig{};
+    return &applicationConfig;
 }
 
 auto ApplicationConfig::init() noexcept -> void
@@ -15,7 +15,7 @@ auto ApplicationConfig::init() noexcept -> void
     std::invoke(&ApplicationConfig::initAppEnv, this);
 }
 
-ApplicationConfig::ApplicationConfig(QObject* _parent) : QObject{_parent}
+ApplicationConfig::ApplicationConfig(ApplicationConfigBase* _parent) : ApplicationConfigBase{_parent}
 {
 }
 
