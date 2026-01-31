@@ -1,44 +1,27 @@
 _Pragma("once");
-#include <QObject>
+#include "ViewEngineBase.h"
+#include <QQmlApplicationEngine>
 
-class QQmlApplicationEngine;
-
-#if defined(Q_OS_ANDROID)
-class AndroidWindow;
-#elif defined(Q_OS_WINDOWS)
-class WinWindow;
-#endif
-
-class ViewEngine : public QObject
+class ViewEngine : public ViewEngineBase
 {
     Q_OBJECT
 public:
     ~ViewEngine() noexcept = default;
 
 public:
-    static auto instance() noexcept -> ViewEngine*;
+    static auto instance(QQmlApplicationEngine& _qmlApplicationEngine, ViewEngineBase* _parent = nullptr) noexcept -> ViewEngine*;
 
-    static auto init(QQmlApplicationEngine* _qmlApplicationEngine) noexcept -> void;
-
-private:
-    explicit(true) ViewEngine(QObject* _parent = nullptr);
+    auto init() noexcept -> void;
 
 private:
-    static auto initObject(QQmlApplicationEngine* _qmlApplicationEngine) noexcept -> void;
+    explicit(true) ViewEngine(QQmlApplicationEngine& _qmlApplicationEngine, ViewEngineBase* _parent = nullptr);
 
-    static auto engineSetting() noexcept -> void;
+private:
+    auto connectSignal2Slot() noexcept -> void override;
 
-    static auto windowSetting() noexcept -> void;
-
-    static auto connectSignal2Slot() noexcept -> void;
+    auto engineLaod() noexcept -> void override;
 
 Q_SIGNALS:
 
 private:
-    inline static QQmlApplicationEngine* m_qmlApplicationEngine{nullptr};
-#if defined(Q_OS_ANDROID)
-    inline static AndroidWindow* m_quickWindow{nullptr};
-#elif defined(Q_OS_WINDOWS)
-    inline static WinWindow* m_quickWindow{nullptr};
-#endif
 };

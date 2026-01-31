@@ -1,6 +1,4 @@
 #include "ViewEngine.h"
-#include <QQmlApplicationEngine>
-#include <QQmlContext>
 
 #if defined(Q_OS_ANDROID)
     #include "AndroidWindow.h"
@@ -22,63 +20,27 @@ extern "C" {
 }
 #endif
 
-ViewEngine::ViewEngine(QObject* _parent) : QObject{_parent}
+ViewEngine::ViewEngine(QQmlApplicationEngine& _qmlApplicationEngine, ViewEngineBase* _parent) : ViewEngineBase{_qmlApplicationEngine, _parent}
 {
 }
 
-auto ViewEngine::instance() noexcept -> ViewEngine*
+auto ViewEngine::instance(QQmlApplicationEngine& _qmlApplicationEngine, ViewEngineBase* _parent) noexcept -> ViewEngine*
 {
-    static ViewEngine viewEngine{};
+    static ViewEngine viewEngine{_qmlApplicationEngine, _parent};
     return &viewEngine;
 }
 
-auto ViewEngine::init(QQmlApplicationEngine* _qmlApplicationEngine) noexcept -> void
+auto ViewEngine::init() noexcept -> void
 {
-    std::invoke(&ViewEngine::initObject, _qmlApplicationEngine);
-    std::invoke(&ViewEngine::engineSetting);
-    std::invoke(&ViewEngine::windowSetting);
-    std::invoke(&ViewEngine::connectSignal2Slot);
+    std::invoke(&ViewEngine::engineLaod, this);
+    std::invoke(&ViewEngine::connectSignal2Slot, this);
 }
 
-auto ViewEngine::initObject(QQmlApplicationEngine* _qmlApplicationEngine) noexcept -> void
+auto ViewEngine::engineLaod() noexcept -> void
 {
-    if (!_qmlApplicationEngine)
-    {
-        return;
-    }
-    m_qmlApplicationEngine = _qmlApplicationEngine;
-}
-
-auto ViewEngine::engineSetting() noexcept -> void
-{
-    if (!m_qmlApplicationEngine)
-    {
-        return;
-    }
-    m_qmlApplicationEngine->loadFromModule("SonixBeautyStudio", "Main");
-}
-
-auto ViewEngine::windowSetting() noexcept -> void
-{
-    if (m_qmlApplicationEngine->rootObjects().isEmpty())
-    {
-        return;
-    }
-#if defined(Q_OS_ANDROID)
-    m_quickWindow = qobject_cast<AndroidWindow*>(m_qmlApplicationEngine->rootObjects().first());
-#elif defined(Q_OS_WINDOWS)
-    m_quickWindow = qobject_cast<WinWindow*>(m_qmlApplicationEngine->rootObjects().first());
-#endif
-    if (!m_quickWindow)
-    {
-        return;
-    }
+    m_qmlApplicationEngine.loadFromModule("SonixBeautyStudio", "Main");
 }
 
 auto ViewEngine::connectSignal2Slot() noexcept -> void
 {
-    connect(m_qmlApplicationEngine, &QQmlApplicationEngine::objectCreationFailed, qApp, [] { QCoreApplication::exit(-1); }, Qt::QueuedConnection);
-    connect(m_qmlApplicationEngine, &QQmlApplicationEngine::warnings, qApp, [](const QList<QQmlError>& _warnings) {   for (const auto &warning : _warnings) {
-        qDebug() << warning.toString();
-    } }, Qt::QueuedConnection);
 }
