@@ -1,7 +1,8 @@
 add_subdirectory("${CMAKE_SOURCE_DIR}/thirdparty/QZeroSystem")
 add_subdirectory("${CMAKE_SOURCE_DIR}/thirdparty/QZeroMaterialUI")
 add_subdirectory("${CMAKE_SOURCE_DIR}/thirdparty/QZeroAssistKit")
-add_subdirectory("${CMAKE_SOURCE_DIR}/thirdparty/QZeroPackage")
+
+# add_subdirectory("${CMAKE_SOURCE_DIR}/thirdparty/QZeroPackage")
 
 # cpp Module
 target_link_libraries(${PROJECT_NAME}
@@ -9,7 +10,8 @@ target_link_libraries(${PROJECT_NAME}
     QZeroSystem
     QZeroMaterialUI
     QZeroAssistKit
-    QZeroPackage
+
+    # QZeroPackage
 )
 
 # QML Static Module
