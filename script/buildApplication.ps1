@@ -63,7 +63,7 @@ if ($proc.ExitCode -ne 0) {
 
 # 执行安装
 Write-Host "=== 📦 CMake Install ==="
-$proc = Start-Process cmake -ArgumentList "--install $scriptDir\..\build\$configurePreset" -NoNewWindow -Wait -PassThru
+$proc = Start-Process cmake -ArgumentList "--install $scriptDir\..\build\$configurePreset --config $buildType" -NoNewWindow -Wait -PassThru
 if ($proc.ExitCode -ne 0) {
     Write-Host "❌ CMake install failed!" -ForegroundColor Red
     exit 1
