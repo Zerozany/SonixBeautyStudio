@@ -1,7 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
 import QZeroMaterialUI
-import QZeroAssistKit
 
 LoginBackdrop {
     id: root
@@ -35,6 +34,7 @@ LoginBackdrop {
             Layout.preferredWidth: root.textFieldSize.width
             Layout.preferredHeight: root.textFieldSize.height
             Layout.alignment: Qt.AlignHCenter
+            Layout.topMargin: root.elementMargins * 2
         }
 
         RowLayout {
@@ -105,17 +105,30 @@ LoginBackdrop {
         }
 
         NormalButton {
-            text: qsTr("登 录")
+            text: qsTr("登录")
             color: "#7FFFD4"
-            radius: root.elementRadius * 3
-            Layout.preferredWidth: root.width * 0.27
+            radius: root.elementRadius * 4
+            Layout.preferredWidth: root.width * 0.2
             Layout.preferredHeight: root.height * 0.06
             Layout.alignment: Qt.AlignHCenter
 
             onClicked: {
                 // AppConstants.mainStackView.push("qrc:/qt/qml/SonixBeautyStudio/view/mainPage/mainPage.qml");
-                // ContentMethod.showPromptBanner(parent, "微软雅黑");
-                Translator.setLanguage(":/i18n/qml_en.qm");
+            }
+        }
+
+        NormalButton {
+            text: qsTr("离线模式")
+            color: "#7FFFD4"
+            textColor: "#A9A9A9"
+            radius: root.elementRadius * 4
+            Layout.preferredWidth: root.width * 0.2
+            Layout.preferredHeight: root.height * 0.06
+            Layout.alignment: Qt.AlignHCenter
+
+            onClicked: {
+                // AppConstants.mainStackView.push("qrc:/qt/qml/SonixBeautyStudio/view/mainPage/mainPage.qml");
+                // Translator.setLanguage(":/i18n/qml_en.qm");
             }
         }
     }

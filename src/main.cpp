@@ -14,7 +14,6 @@
 // #include "AndroidContext.h"
 // #include "AndroidWifModule.h"
 #endif
-// #include <QQuickStyle>
 // #include "ThemeManager.h"
 
 int main(int argc, char* argv[])
@@ -22,7 +21,6 @@ int main(int argc, char* argv[])
 #if defined(Q_OS_WINDOWS)
     SingletonApplication::instance()->init();
 #endif
-    // QQuickStyle::setStyle("Material");
     ApplicationConfig::instance()->init();
     QGuiApplication app{argc, argv};
     // qDebug() << ThemeManager::create(nullptr, nullptr)->currentTheme();

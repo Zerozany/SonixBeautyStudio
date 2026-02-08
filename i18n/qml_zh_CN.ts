@@ -22,12 +22,12 @@
 <context>
     <name>LoginPage</name>
     <message>
-        <location filename="../view/Login/LoginPage.qml" line="23"/>
+        <location filename="../view/Login/LoginPage.qml" line="22"/>
         <source>用户账号</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../view/Login/LoginPage.qml" line="32"/>
+        <location filename="../view/Login/LoginPage.qml" line="31"/>
         <source>用户密码</source>
         <translation type="unfinished"></translation>
     </message>
@@ -53,7 +53,12 @@
     </message>
     <message>
         <location filename="../view/Login/LoginPage.qml" line="108"/>
-        <source>登 录</source>
+        <source>登录</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../view/Login/LoginPage.qml" line="121"/>
+        <source>离线模式</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
