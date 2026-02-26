@@ -85,7 +85,7 @@ public class WifiModule {
         }
     }
 
-    public void connectWifi(String ssid, String password)
+    public void connectToWifi(String ssid, String password)
     {
         WifiNetworkSpecifier specifier = new WifiNetworkSpecifier.Builder().setSsid(ssid).setWpa2Passphrase(password).build();
         NetworkRequest request = new NetworkRequest.Builder().addTransportType(android.net.NetworkCapabilities.TRANSPORT_WIFI).setNetworkSpecifier(specifier).build();
