@@ -4,11 +4,16 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkRequest;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.net.wifi.WifiNetworkSpecifier;
 import android.os.Build;
 import android.util.Log;
+import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import com.zerosystem.utiles.MessageUtile;
@@ -78,5 +83,26 @@ public class WifiModule {
         } catch (Exception e) {
             return "NULL";
         }
+    }
+
+    public void connectWifi(String ssid, String password)
+    {
+        WifiNetworkSpecifier specifier = new WifiNetworkSpecifier.Builder().setSsid(ssid).setWpa2Passphrase(password).build();
+        NetworkRequest request = new NetworkRequest.Builder().addTransportType(android.net.NetworkCapabilities.TRANSPORT_WIFI).setNetworkSpecifier(specifier).build();
+        ConnectivityManager cm = (ConnectivityManager)m_activity.getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager.NetworkCallback networkCallback = new ConnectivityManager.NetworkCallback() {
+            @Override
+            public void onAvailable(Network network)
+            {
+                Log.d(MessageUtile.HandleDebug, "Connected to " + ssid);
+                cm.bindProcessToNetwork(network);
+            }
+            @Override
+            public void onUnavailable()
+            {
+                Log.d(MessageUtile.HandleDebug, "Failed to connect to " + ssid);
+            }
+        };
+        cm.requestNetwork(request, networkCallback);
     }
 }

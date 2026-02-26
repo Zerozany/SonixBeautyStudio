@@ -34,7 +34,7 @@ int main(int argc, char* argv[])
     // ZeroLogger::setLevel(spdlog::level::warn);
 #if defined(Q_OS_ANDROID)
     // qDebug() << "getCurrentWifi:" << AndroidWifManager::instance()->getCurrentWifi();
-    // AndroidWifManager::instance()->connectWifi("ChinaNet-zero821-5G", "18583943303");
+    AndroidWifManager::instance()->connectWifi("ChinaNet-zero821", "18583943303");
     // for (const auto& [k, v] : AndroidWifManager::instance()->getWifiList().toStdMap())
     {
         // qDebug() << k << ":" << v;
