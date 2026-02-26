@@ -17,7 +17,6 @@ import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import com.zerosystem.utiles.MessageUtile;
-import java.util.HashMap;
 import java.util.List;
 
 public class WifiModule {
@@ -44,24 +43,27 @@ public class WifiModule {
     }
 
     // 扫描 Wi-Fi 列表
-    public HashMap<String, Integer> getWifiMap()
+    public String getWifiList()
     {
-        HashMap<String, Integer> wifiMap = new HashMap<>();
         try {
             boolean success = m_wifiManager.startScan();
             if (!success) {
-                return wifiMap;
+                Log.d(MessageUtile.HandleDebug, "startScan failed");
+                return "NULL";
             }
             List<ScanResult> scanResults = m_wifiManager.getScanResults();
             if (scanResults == null || scanResults.isEmpty()) {
-                return wifiMap;
+                Log.d(MessageUtile.HandleDebug, "No scan results");
+                return "NULL";
             }
+            StringBuilder wifiList = new StringBuilder();
             for (ScanResult result : scanResults) {
-                wifiMap.put(result.SSID, WifiManager.calculateSignalLevel(result.level, 101));
+                wifiList.append(result.SSID).append("  ").append(WifiManager.calculateSignalLevel(result.level, 101)).append("\n");
             }
-            return wifiMap;
+            return wifiList.toString();
         } catch (Exception e) {
-            return wifiMap;
+            Log.e(MessageUtile.HandleDebug, "getWifiList error: " + e.getMessage());
+            return "NULL";
         }
     }
 
