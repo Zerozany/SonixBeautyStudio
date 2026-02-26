@@ -3,31 +3,22 @@ package com.zerosystem.module;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.ConnectivityManager;
-import android.net.Network;
-import android.net.NetworkCapabilities;
-import android.net.NetworkRequest;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
-import android.net.wifi.WifiNetworkSpecifier;
 import android.os.Build;
-import android.provider.Settings;
 import android.util.Log;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import com.zerosystem.utiles.MessageUtile;
 import java.util.List;
 
 public class WifiModule {
-    public static final int DISCONNECTED = 0;
-    public static final int CONNECTSUCCESS = 1;
-    public static final int CONNECTERROR = 2;
 
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1001;
     private Activity m_activity;
     private WifiManager m_wifiManager;
-
-    private native void connectSuccess(int state);
 
     public WifiModule(Activity _activity)
     {
@@ -39,104 +30,53 @@ public class WifiModule {
         this.m_activity = _activity;
         m_wifiManager = (WifiManager)m_activity.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         if (m_wifiManager == null) {
-            Log.d(MessageUtile.HandleDebug, "wifiManager init failed");
+            return;
+        }
+        if (ContextCompat.checkSelfPermission(m_activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(m_activity, new String[] { Manifest.permission.ACCESS_FINE_LOCATION }, LOCATION_PERMISSION_REQUEST_CODE);
         }
     }
 
     // 扫描 Wi-Fi 列表
-    public String scanWifiList()
+    public String getWifiList()
     {
         try {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-                @SuppressWarnings("deprecation")
-                boolean result = m_wifiManager.setWifiEnabled(true);
-            }
-            @SuppressWarnings("deprecation")
             boolean success = m_wifiManager.startScan();
             if (!success) {
+                Log.d(MessageUtile.HandleDebug, "startScan failed");
                 return "NULL";
             }
             List<ScanResult> scanResults = m_wifiManager.getScanResults();
             if (scanResults == null || scanResults.isEmpty()) {
+                Log.d(MessageUtile.HandleDebug, "No scan results");
                 return "NULL";
             }
-            StringBuilder sb = new StringBuilder();
+            StringBuilder wifiList = new StringBuilder();
             for (ScanResult result : scanResults) {
-                sb.append("\"").append(result.getWifiSsid().toString()).append(" ").append(result.level).append("\n");
+                wifiList.append(result.SSID).append("  ").append(result.level).append("\n");
             }
-            return sb.toString();
+            return wifiList.toString();
         } catch (Exception e) {
-            Log.d(MessageUtile.HandleDebug, "scanAndGetWifiList error: " + e.getMessage());
+            Log.e(MessageUtile.HandleDebug, "getWifiList error: " + e.getMessage());
             return "NULL";
         }
     }
 
     // 获取当前 Wi-Fi SSID
-    public String getCurrentWifiSSID()
+    public String getCurrentWifi()
     {
         try {
-            @SuppressWarnings("deprecation")
             WifiInfo wifiInfo = m_wifiManager.getConnectionInfo();
             if (wifiInfo == null) {
                 return "NULL";
             }
             String ssid = wifiInfo.getSSID();
-            if (ssid.startsWith("\"") && ssid.endsWith("\"")) {
+            if (ssid != null && ssid.startsWith("\"") && ssid.endsWith("\"")) {
                 ssid = ssid.substring(1, ssid.length() - 1);
             }
             return ssid;
         } catch (Exception e) {
             return "NULL";
-        }
-    }
-
-    // 连接 Wi-Fi
-    public void connectWifi(String ssid, String password)
-    {
-        try {
-            WifiNetworkSpecifier specifier = new WifiNetworkSpecifier.Builder()
-                                                 .setSsid(ssid)
-                                                 .setWpa2Passphrase(password)
-                                                 .build();
-
-            NetworkRequest request = new NetworkRequest.Builder()
-                                         .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
-                                         .setNetworkSpecifier(specifier)
-                                         .build();
-
-            ConnectivityManager cm = (ConnectivityManager)m_activity
-                                         .getSystemService(Context.CONNECTIVITY_SERVICE);
-            if (cm == null) {
-                Log.e(MessageUtile.HandleDebug, "ConnectivityManager is null");
-                return;
-            }
-
-            cm.requestNetwork(request, new ConnectivityManager.NetworkCallback() {
-                @Override
-                public void onAvailable(Network network)
-                {
-                    Log.d(MessageUtile.HandleDebug, "Connected to Wi-Fi: " + ssid);
-                    cm.bindProcessToNetwork(network);
-                    connectSuccess(CONNECTSUCCESS);
-                }
-
-                @Override
-                public void onUnavailable()
-                {
-                    Log.d(MessageUtile.HandleDebug, "Failed to connect to Wi-Fi: " + ssid);
-                    connectSuccess(CONNECTERROR);
-                }
-
-                @Override
-                public void onLost(Network network)
-                {
-                    Log.d(MessageUtile.HandleDebug, "Wi-Fi disconnected: " + ssid);
-                    connectSuccess(DISCONNECTED);
-                }
-            });
-            Log.d(MessageUtile.HandleDebug, "Requesting connection to Wi-Fi: " + ssid);
-        } catch (Exception e) {
-            Log.e(MessageUtile.HandleDebug, "connectWifi error: " + e.getMessage(), e);
         }
     }
 }

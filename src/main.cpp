@@ -11,8 +11,9 @@
 #if defined(Q_OS_ANDROID)
     #include <QJniObject>
     #include <QJniEnvironment>
-// #include "AndroidContext.h"
-// #include "AndroidWifModule.h"
+    #include "AndroidWifiManager.h"
+#elif defined(Q_OS_WINDOWS)
+    #include "WinWifiManager.h"
 #endif
 // #include "ThemeManager.h"
 
@@ -20,6 +21,8 @@ int main(int argc, char* argv[])
 {
 #if defined(Q_OS_WINDOWS)
     SingletonApplication::instance()->init();
+    WinWifiManager::instance()->getWifiList();
+
 #endif
     ApplicationConfig::instance()->init();
     QGuiApplication app{argc, argv};
@@ -30,11 +33,12 @@ int main(int argc, char* argv[])
     // ZeroLogger::init(QDir{QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)}.filePath("log/SonixLog_1.txt").toStdString());
     // ZeroLogger::setLevel(spdlog::level::warn);
 #if defined(Q_OS_ANDROID)
-    // qDebug() << "-----: " << AndroidContext::instance()->context();
-    // for (const auto& [k, v] : AndroidWifModule::instance()->searchWifiDevice().toStdMap())
-    // {
-    //     qDebug() << k << ":" << v;
-    // }
+    // qDebug() << "getCurrentWifi:" << AndroidWifManager::instance()->getCurrentWifi();
+    // AndroidWifManager::instance()->connectWifi("ChinaNet-zero821-5G", "18583943303");
+    // for (const auto& [k, v] : AndroidWifManager::instance()->getWifiList().toStdMap())
+    {
+        // qDebug() << k << ":" << v;
+    }
     QNativeInterface::QAndroidApplication::hideSplashScreen(0);
 #endif
     return QGuiApplication::exec();

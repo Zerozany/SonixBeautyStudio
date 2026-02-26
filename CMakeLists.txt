@@ -7,5 +7,6 @@ include("${CMAKE_SOURCE_DIR}/cmake/importQConf.cmake")
 include("${CMAKE_SOURCE_DIR}/cmake/import3rd.cmake")
 include("${CMAKE_SOURCE_DIR}/cmake/importSource.cmake")
 include("${CMAKE_SOURCE_DIR}/cmake/importBuild.cmake")
-include("${CMAKE_SOURCE_DIR}/cmake/importTranslate.cmake")
+
+# include("${CMAKE_SOURCE_DIR}/cmake/importTranslate.cmake")
 include("${CMAKE_SOURCE_DIR}/cmake/importPack.cmake")
