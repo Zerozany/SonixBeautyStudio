@@ -1,4 +1,4 @@
-package com.zerosystem.system;
+package com.sonixbeauty.system;
 
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.provider.Settings;
 import android.util.Log;
-import com.zerosystem.utiles.MessageUtile;
+import com.sonixbeauty.utiles.MessageUtile;
 
 public class SystemControl {
     private Activity m_activity;

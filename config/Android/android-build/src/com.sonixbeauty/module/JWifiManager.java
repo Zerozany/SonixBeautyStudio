@@ -1,4 +1,4 @@
-package com.zerosystem.module;
+package com.sonixbeauty.module;
 
 import android.Manifest;
 import android.app.Activity;
@@ -11,21 +11,21 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.net.wifi.WifiNetworkSpecifier;
-import android.os.Build;
 import android.util.Log;
-import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import com.zerosystem.utiles.MessageUtile;
+import com.sonixbeauty.utiles.MessageUtile;
 import java.util.List;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
-public class WifiModule {
+public final class JWifiManager {
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1001;
     private Activity m_activity;
     private WifiManager m_wifiManager;
 
-    public WifiModule(Activity _activity)
+    public JWifiManager(Activity _activity)
     {
         init(_activity);
     }
@@ -43,32 +43,37 @@ public class WifiModule {
     }
 
     // 扫描 Wi-Fi 列表
+    @SuppressWarnings({ "deprecation" })
     public String getWifiList()
     {
         try {
             boolean success = m_wifiManager.startScan();
             if (!success) {
                 Log.d(MessageUtile.HandleDebug, "startScan failed");
-                return "NULL";
+                return "[]";
             }
             List<ScanResult> scanResults = m_wifiManager.getScanResults();
             if (scanResults == null || scanResults.isEmpty()) {
                 Log.d(MessageUtile.HandleDebug, "No scan results");
-                return "NULL";
+                return "[]";
             }
-            StringBuilder wifiList = new StringBuilder();
+            JSONArray array = new JSONArray();
             for (ScanResult result : scanResults) {
-                wifiList.append(result.SSID).append("  ").append(WifiManager.calculateSignalLevel(result.level, 101)).append("\n");
+                JSONObject obj = new JSONObject();
+                obj.put("ssid", result.SSID);
+                obj.put("level", WifiManager.calculateSignalLevel(result.level, 101));
+                array.put(obj);
             }
-            return wifiList.toString();
+            return array.toString();
         } catch (Exception e) {
             Log.e(MessageUtile.HandleDebug, "getWifiList error: " + e.getMessage());
-            return "NULL";
+            return "[]";
         }
     }
 
     // 获取当前 Wi-Fi SSID
-    public String getCurrentWifi()
+    @SuppressWarnings({ "deprecation" })
+    public String currentWifiName()
     {
         try {
             WifiInfo wifiInfo = m_wifiManager.getConnectionInfo();

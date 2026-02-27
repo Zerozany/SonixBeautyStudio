@@ -68,7 +68,7 @@
 
         <!-- Splash Activity -->
         <activity
-            android:name="com.zerosystem.core.SplashActivity"
+            android:name="com.sonixbeauty.core.SplashActivity"
             android:theme="@style/splash_theme"
             android:exported="true"
             android:noHistory="true">
@@ -79,13 +79,13 @@
         </activity>
 
         <activity
-            android:name="com.zerosystem.core.MainActivity"
+            android:name="com.sonixbeauty.core.MainActivity"
             android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize|layoutDirection|fontScale|keyboard|keyboardHidden|navigation|mcc|mnc|density"
             android:launchMode="singleTop"
             android:screenOrientation="unspecified"
             android:exported="true"
             android:enabled="true">
-            <!-- Activity 节点，定义应用入口 Activity android:name="com.zerosystem.activity.AppActivity" ||
+            <!-- Activity 节点，定义应用入口 Activity android:name="com.sonixbeauty.activity.AppActivity" ||
             org.qtproject.qt.android.bindings.QtActivity -->
             <!-- 配置变更时 Activity 不重启，保持状态 -->
             <!-- Activity 名称占位符 -->

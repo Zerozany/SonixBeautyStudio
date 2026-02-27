@@ -1,10 +1,10 @@
-package com.zerosystem.core;
+package com.sonixbeauty.core;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import com.zerosystem.utiles.MessageUtile;
+import com.sonixbeauty.utiles.MessageUtile;
 
 public class SplashActivity extends Activity {
 

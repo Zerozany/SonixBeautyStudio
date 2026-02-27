@@ -33,9 +33,10 @@ int main(int argc, char* argv[])
     // ZeroLogger::init(QDir{QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)}.filePath("log/SonixLog_1.txt").toStdString());
     // ZeroLogger::setLevel(spdlog::level::warn);
 #if defined(Q_OS_ANDROID)
-    // qDebug() << "getCurrentWifi:" << AndroidWifManager::instance()->getCurrentWifi();
-    // AndroidWifManager::instance()->connectToWifi("ChinaNet-zero821", "18583943303");
-    for (const auto& [k, v] : AndroidWifManager::instance()->getWifiList().toStdMap())
+    AndroidWifiManager androidWifiManager{"com/sonixbeauty/module/JWifiManager"};
+    // qDebug() << "currentWifiName:" << androidWifiManager.currentWifiName("currentWifiName");
+    // androidWifiManager.connectToWifi("connectToWifi", "ChinaNet-zero821", "18583943303");
+    for (const auto& [k, v] : androidWifiManager.getWifiList("getWifiList").toStdMap())
     {
         qDebug() << k << ":" << v;
     }

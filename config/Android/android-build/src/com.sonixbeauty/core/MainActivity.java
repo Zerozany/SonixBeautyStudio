@@ -1,11 +1,11 @@
-package com.zerosystem.core;
+package com.sonixbeauty.core;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import com.zerosystem.system.SystemConfig;
-import com.zerosystem.utiles.MessageUtile;
+import com.sonixbeauty.system.SystemConfig;
+import com.sonixbeauty.utiles.MessageUtile;
 
 public class MainActivity extends org.qtproject.qt.android.bindings.QtActivity {
 
