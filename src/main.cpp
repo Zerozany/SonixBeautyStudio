@@ -11,18 +11,24 @@
 #if defined(Q_OS_ANDROID)
     #include <QJniObject>
     #include <QJniEnvironment>
-    #include "AndroidWifiManager.h"
+// #include "AndroidWifiManager.h"
 #elif defined(Q_OS_WINDOWS)
-    #include "WinWifiManager.h"
+// #include "WinWifiManager.h"
 #endif
 // #include "ThemeManager.h"
-// #include <libusb-1.0/libusb.h>
+#include "UsbManager.h"
 
 int main(int argc, char* argv[])
 {
+    UsbManager usbManager{};
+    for (const auto& [_k, _v] : usbManager.devicesList())
+    {
+        qDebug() << _k << ":" << _v;
+    }
+
 #if defined(Q_OS_WINDOWS)
     SingletonApplication::instance()->init();
-    WinWifiManager::instance()->getWifiList();
+    // WinWifiManager::instance()->getWifiList();
 
 #endif
     ApplicationConfig::instance()->init();
