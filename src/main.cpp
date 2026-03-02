@@ -16,19 +16,25 @@
 // #include "WinWifiManager.h"
 #endif
 // #include "ThemeManager.h"
-#include "UsbManager.h"
+// #include "UsbManager.h"
 
 int main(int argc, char* argv[])
 {
-    UsbManager usbManager{};
-    for (const auto& [_k, _v] : usbManager.devicesList())
-    {
-        qDebug() << _k << ":" << _v;
-    }
+    // UsbManager usbManager{};
+    // for (const auto& [_k, _v] : usbManager.devicesList())
+    // {
+    //     qDebug() << _k << ":" << _v;
+    // }
 
 #if defined(Q_OS_WINDOWS)
     SingletonApplication::instance()->init();
-    // WinWifiManager::instance()->getWifiList();
+    // WinWifiManager winWifiManager{};
+    // qDebug() << winWifiManager.currentWifiName();
+
+    // for (const auto& [k, v] : winWifiManager.getWifiList())
+    // {
+    // qDebug() << k << " : " << v;
+    // }
 
 #endif
     ApplicationConfig::instance()->init();

@@ -107,9 +107,9 @@ LoginBackdrop {
         NormalButton {
             text: qsTr("登录")
             color: "#7FFFD4"
-            radius: root.elementRadius * 4
-            Layout.preferredWidth: root.width * 0.2
-            Layout.preferredHeight: root.height * 0.06
+            radius: root.elementRadius * 2
+            Layout.preferredWidth: root.textFieldSize.width
+            Layout.preferredHeight: root.height * 0.055
             Layout.alignment: Qt.AlignHCenter
 
             onClicked: {
@@ -120,16 +120,31 @@ LoginBackdrop {
         NormalButton {
             text: qsTr("离线模式")
             color: "#7FFFD4"
-            textColor: "#A9A9A9"
-            radius: root.elementRadius * 4
-            Layout.preferredWidth: root.width * 0.2
-            Layout.preferredHeight: root.height * 0.06
+            textColor: "#CFCFCF"
+            radius: root.elementRadius * 2
+            Layout.preferredWidth: root.textFieldSize.width
+            Layout.preferredHeight: root.height * 0.055
             Layout.alignment: Qt.AlignHCenter
 
             onClicked: {
                 // AppConstants.mainStackView.push("qrc:/qt/qml/SonixBeautyStudio/view/mainPage/mainPage.qml");
                 // Translator.setLanguage(":/i18n/qml_en.qm");
+                debugPopup.message = Qt.formatDateTime(new Date(), "yyyy-MM-dd hh:mm:ss") + (" : SonixBeautyStudioqng.pngqrc:/qt/qml/SonixBeew/resource/setting.png");
             }
         }
+
+        NormalSwitch {
+            text: "启用功能"
+            checked: true
+            // enabled: false
+
+            onToggled: {
+                // console.log("当前状态:", checked);
+            }
+        }
+    }
+
+    DebugPopup {
+        id: debugPopup
     }
 }
