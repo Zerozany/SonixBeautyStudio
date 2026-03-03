@@ -24,6 +24,32 @@ ZeroWindow {
         }
     }
 
+    // Drawer {
+    //     id: drawer
+    //     width: 0.66 * mainWindow.width
+    //     height: mainWindow.height
+    //     opacity: 0.5
+
+    //     Label {
+    //         text: "Content goes here!"
+    //         anchors.centerIn: parent
+    //     }
+    // }
+
+    // NormalSwitch {
+    //     anchors.centerIn: parent
+
+    //     onToggled: {
+    //         if (checked) {
+    //             drawer.open();
+    //             console.log(checked);
+    //         } else {
+    //             console.log(checked);
+    //             drawer.close();
+    //         }
+    //     }
+    // }
+
     Component.onCompleted: {
         AppConstants.mainStackView = stackView;
     }

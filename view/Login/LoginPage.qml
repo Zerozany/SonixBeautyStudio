@@ -132,16 +132,6 @@ LoginBackdrop {
                 debugPopup.message = Qt.formatDateTime(new Date(), "yyyy-MM-dd hh:mm:ss") + (" : SonixBeautyStudioqng.pngqrc:/qt/qml/SonixBeew/resource/setting.png");
             }
         }
-
-        NormalSwitch {
-            text: "启用功能"
-            checked: true
-            // enabled: false
-
-            onToggled: {
-                // console.log("当前状态:", checked);
-            }
-        }
     }
 
     DebugPopup {
