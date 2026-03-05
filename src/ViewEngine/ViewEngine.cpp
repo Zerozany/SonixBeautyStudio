@@ -33,10 +33,10 @@ auto ViewEngine::instance(QQmlApplicationEngine& _qmlApplicationEngine, ViewEngi
 auto ViewEngine::init() noexcept -> void
 {
     std::invoke(&ViewEngine::connectSignal2Slot, this);
-    std::invoke(&ViewEngine::engineLaod, this);
+    std::invoke(&ViewEngine::engineLoad, this);
 }
 
-auto ViewEngine::engineLaod() noexcept -> void
+auto ViewEngine::engineLoad() noexcept -> void
 {
     m_qmlApplicationEngine.loadFromModule("SonixBeautyStudio", "Main");
 }

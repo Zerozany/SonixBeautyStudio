@@ -19,7 +19,7 @@ LoginBackdrop {
 
         NormalTextField {
             id: userAccount
-            placeholderText: qsTr("用户账号")
+            placeholderText: qsTr("用户账号/手机号")
             source: "qrc:/qt/qml/SonixBeautyStudio/view/resource/setting.png"
             Layout.preferredWidth: root.textFieldSize.width
             Layout.preferredHeight: root.textFieldSize.height
@@ -107,13 +107,13 @@ LoginBackdrop {
         NormalButton {
             text: qsTr("登录")
             color: "#7FFFD4"
-            radius: root.elementRadius * 2
+            radius: root.elementRadius * 3
             Layout.preferredWidth: root.textFieldSize.width
             Layout.preferredHeight: root.height * 0.055
             Layout.alignment: Qt.AlignHCenter
 
             onClicked: {
-                // AppConstants.mainStackView.push("qrc:/qt/qml/SonixBeautyStudio/view/mainPage/mainPage.qml");
+                // AppConstants.mainStackView.push("qrc:/qt/qml/SonixBeautyStudio/view/display/mainPage.qml");
             }
         }
 
@@ -121,14 +121,13 @@ LoginBackdrop {
             text: qsTr("离线模式")
             color: "#7FFFD4"
             textColor: "#CFCFCF"
-            radius: root.elementRadius * 2
+            radius: root.elementRadius * 3
             Layout.preferredWidth: root.textFieldSize.width
             Layout.preferredHeight: root.height * 0.055
             Layout.alignment: Qt.AlignHCenter
 
             onClicked: {
-                // AppConstants.mainStackView.push("qrc:/qt/qml/SonixBeautyStudio/view/mainPage/mainPage.qml");
-                // Translator.setLanguage(":/i18n/qml_en.qm");
+                // Translator.setLanguage(":/i18n/qml_qen.qm");
                 debugPopup.message = Qt.formatDateTime(new Date(), "yyyy-MM-dd hh:mm:ss") + (" : SonixBeautyStudioqng.pngqrc:/qt/qml/SonixBeew/resource/setting.png");
             }
         }

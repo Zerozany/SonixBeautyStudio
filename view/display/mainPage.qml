@@ -2,5 +2,5 @@ import QtQuick
 
 Rectangle {
     id: root
-    color: "red"
+    color: "black"
 }
