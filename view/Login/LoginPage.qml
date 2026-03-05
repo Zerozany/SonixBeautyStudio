@@ -1,7 +1,8 @@
 import QtQuick
 import QtQuick.Layouts
 import QZeroMaterialUI
-import QtQuick.Controls
+
+// import QtQuick.Controls
 
 LoginBackdrop {
     id: root
@@ -136,21 +137,5 @@ LoginBackdrop {
 
     DebugPopup {
         id: debugPopup
-    }
-
-    TabBar {
-        width: parent.width
-        anchors.top: parent.top
-        anchors.horizontalCenter: parent.horizontalCenter
-
-        TabButton {
-            text: qsTr("Home")
-        }
-        TabButton {
-            text: qsTr("Discover")
-        }
-        TabButton {
-            text: qsTr("Activity")
-        }
     }
 }
