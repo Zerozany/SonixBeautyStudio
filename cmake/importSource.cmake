@@ -20,6 +20,10 @@ file(GLOB QMLSINGLETONS RELATIVE ${CMAKE_SOURCE_DIR}
     "${CMAKE_SOURCE_DIR}/view/global/*.qml"
 )
 
+file(GLOB CONFIGFILES RELATIVE ${CMAKE_SOURCE_DIR}
+    "${CMAKE_SOURCE_DIR}/qtquickcontrols2.conf"
+)
+
 set_source_files_properties(
     ${QMLSINGLETONS}
     PROPERTIES
@@ -33,6 +37,12 @@ qt_add_qml_module(${PROJECT_NAME}
     SOURCES ${SOURCEFILES}
     RESOURCES ${RESOURCESLIST}
     DEPENDENCIES TARGET ${QMLMODULELIST}
+)
+
+qt_add_resources(${PROJECT_NAME} "configuration"
+    PREFIX "/"
+    FILES
+    ${CONFIGFILES}
 )
 
 file(GLOB INCLUDEDIR

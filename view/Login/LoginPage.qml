@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Layouts
 import QZeroMaterialUI
+import QtQuick.Controls
 
 LoginBackdrop {
     id: root
@@ -89,7 +90,7 @@ LoginBackdrop {
 
             NormalButton {
                 text: qsTr("《服务条款》《隐私政策》")
-                textColor: '#48c49a'
+                textColor: "#48c49a"
                 color: "transparent"
                 flat: true
                 width: termsTextMetrucs.textWidth
@@ -135,5 +136,21 @@ LoginBackdrop {
 
     DebugPopup {
         id: debugPopup
+    }
+
+    TabBar {
+        width: parent.width
+        anchors.top: parent.top
+        anchors.horizontalCenter: parent.horizontalCenter
+
+        TabButton {
+            text: qsTr("Home")
+        }
+        TabButton {
+            text: qsTr("Discover")
+        }
+        TabButton {
+            text: qsTr("Activity")
+        }
     }
 }
