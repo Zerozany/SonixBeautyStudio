@@ -20,7 +20,7 @@ ZeroWindow {
         // flat: true
 
         onClicked: {
-            mainWindow.Material.theme = Material.Dark;
+            // mainWindow.Material.theme = Material.Dark;
         }
 
         // MaterialToolTip {
