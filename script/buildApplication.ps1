@@ -3,11 +3,12 @@
 param(
     [string]$d,
     [string]$t,
-    [switch]$h
+    [switch]$h,
+    [switch]$clean   # ✅ 新增参数
 )
 
 if ($h) {
-    Write-Host "Usage: .\buildApplication.ps1 -d <device: p/a> -t <build type: d/r>"
+    Write-Host "Usage: .\buildApplication.ps1 -d <device: p/a> -t <build type: d/r> [-clean]"
     exit 0
 }
 
@@ -17,25 +18,29 @@ $buildType = if ($t -eq "r") { "Release" } else { "Debug" }
 
 # 获取当前脚本所在的目录
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
-# 切换到脚本所在目录的上一级目录
 Set-Location "$scriptDir\.."
 
-# 清理 build 目录
+# 清理 build 目录（可选）
 Clear-Host
 if (Test-Path "build") {
-    Write-Host "🗑️ Removing old build folder..."
-    # Remove-Item -Recurse -Force build
+    Write-Host "🗑️ Found build folder..."
+    
+    if ($clean) {
+        Write-Host "🔥 Removing build folder..."
+        Remove-Item -Recurse -Force build
+    }
+    else {
+        Write-Host "⏭️ Skip removing build folder (use -clean to enable)"
+    }
 }
 
 # 根据 device 构建
 switch ($d) {
     "a" {
-        # Android 构建
         $configurePreset = if ($buildType -eq "Debug") { "AndroidDebug" } else { "AndroidRelease" }
         $buildPreset = if ($buildType -eq "Debug") { "AndroidDebugBuild" } else { "AndroidReleaseBuild" }
     }
     "p" {
-        # PC 构建
         $configurePreset = if ($buildType -eq "Debug") { "PcDebug" } else { "PcRelease" }
         $buildPreset = if ($buildType -eq "Debug") { "PcDebugBuild" } else { "PcReleaseBuild" }
     }
@@ -45,7 +50,7 @@ switch ($d) {
     }
 }
 
-# 执行 CMake 配置
+# CMake Configure
 Write-Host "=== 🔧 CMake Configure ==="
 $proc = Start-Process cmake -ArgumentList "--preset $configurePreset" -NoNewWindow -Wait -PassThru
 if ($proc.ExitCode -ne 0) {
@@ -53,7 +58,7 @@ if ($proc.ExitCode -ne 0) {
     exit 1
 }
 
-# 执行 CMake 构建
+# CMake Build
 Write-Host "=== 🏗️ CMake Build ==="
 $proc = Start-Process cmake -ArgumentList "--build --preset $buildPreset" -NoNewWindow -Wait -PassThru
 if ($proc.ExitCode -ne 0) {
@@ -61,7 +66,7 @@ if ($proc.ExitCode -ne 0) {
     exit 1
 }
 
-# 执行安装
+# Install
 Write-Host "=== 📦 CMake Install ==="
 $proc = Start-Process cmake -ArgumentList "--install $scriptDir\..\build\$configurePreset --config $buildType" -NoNewWindow -Wait -PassThru
 if ($proc.ExitCode -ne 0) {
