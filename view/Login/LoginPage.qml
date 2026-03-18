@@ -44,7 +44,7 @@ LoginBackdrop {
             Layout.preferredHeight: root.loginOptionsSize.height
             Layout.alignment: Qt.AlignHCenter
 
-            NormalCheckBox {
+            MaterialCheckBox {
                 text: qsTr("记住密码")
                 checked: false
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
@@ -55,7 +55,7 @@ LoginBackdrop {
                 }
             }
 
-            NormalButton {
+            MaterialButton {
                 text: qsTr("登录遇到问题")
                 textColor: '#48c49a'
                 color: "transparent"
@@ -78,7 +78,7 @@ LoginBackdrop {
             Layout.preferredHeight: root.loginOptionsSize.height
             Layout.alignment: Qt.AlignHCenter
 
-            NormalCheckBox {
+            MaterialCheckBox {
                 text: qsTr("我已阅读并同意")
                 checked: false
                 radius: 18
@@ -89,7 +89,7 @@ LoginBackdrop {
                 }
             }
 
-            NormalButton {
+            MaterialButton {
                 text: qsTr("《服务条款》《隐私政策》")
                 textColor: "#48c49a"
                 color: "transparent"
@@ -106,7 +106,7 @@ LoginBackdrop {
             }
         }
 
-        NormalButton {
+        MaterialButton {
             text: qsTr("登录")
             color: "#7FFFD4"
             radius: root.elementRadius * 3
@@ -119,7 +119,7 @@ LoginBackdrop {
             }
         }
 
-        NormalButton {
+        MaterialButton {
             text: qsTr("离线模式")
             color: "#7FFFD4"
             textColor: "#CFCFCF"
