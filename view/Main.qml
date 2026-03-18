@@ -1,22 +1,22 @@
 import QtQuick
 import QZeroSystem
 import QZeroMaterialUI
-import QtQuick.Controls.Material
 
+// import QtQuick.Controls.Material
 // import SonixBeautyStudio
 // import QtQuick.Controls
 // import QtQuick.Controls.impl
 
 ZeroWindow {
     id: mainWindow
-    Material.foreground: '#15e248'
+    // Material.foreground: '#15e248'
 
     MaterialButton {
         anchors.horizontalCenter: parent.horizontalCenter
         y: 70
         text: "XXXX"
         icon.source: "qrc:/qt/qml/SonixBeautyStudio/view/resource/setting.png"
-        scale: 1
+        // scale: 1
         // flat: true
 
         onClicked: {
