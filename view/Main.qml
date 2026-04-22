@@ -2,10 +2,12 @@ import QtQuick
 import QZeroSystem
 import QZeroMaterialUI
 
-// import QtQuick.Controls.Material
+import QtQuick.Controls.Material
+
 // import SonixBeautyStudio
 // import QtQuick.Controls
-// import QtQuick.Controls.impl
+
+import QtQuick.Controls.impl
 
 ZeroWindow {
     id: mainWindow
@@ -16,8 +18,12 @@ ZeroWindow {
         y: 70
         text: "XXXX"
         icon.source: "qrc:/qt/qml/SonixBeautyStudio/view/resource/setting.png"
+        // display: AbstractButton.TextUnderIcon
         // scale: 1
         // flat: true
+        // icon.width: 40
+        // icon.height: 40
+        // font.pixelSize: 22
 
         onClicked: {
             // mainWindow.Material.theme = Material.Dark;
@@ -31,19 +37,19 @@ ZeroWindow {
         // }
     }
 
-    MaterialComboBox {
-        x: 200
-        y: 300
-        displayText: "🥙选项:" + currentText
-        model: ["模式1", "模式2", "模式3"]
-        currentIndex: 2
+    // MaterialComboBox {
+    //     x: 200
+    //     y: 300
+    //     displayText: "🥙选项:" + currentText
+    //     model: ["模式1", "模式2", "模式3"]
+    //     currentIndex: 2
 
-        onActivated: {
-            console.log(currentIndex);
-            console.log(currentText);
-            console.log(currentValue);
-        }
-    }
+    //     onActivated: {
+    //         console.log(currentIndex);
+    //         console.log(currentText);
+    //         console.log(currentValue);
+    //     }
+    // }
 
     // property url cursorSource: "qrc:/qt/qml/QZeroMaterialUI/view/resource/normalComboBox/cursor.png"
 
@@ -55,29 +61,29 @@ ZeroWindow {
     // readonly property string fontFamily: ThemeFont.fontFamily
     // readonly property size cursorSize: Qt.size(12, 12)
 
-    // Item {
-    //     anchors.fill: parent
+    Item {
+        anchors.fill: parent
 
-    //     TapHandler {
-    //         onTapped: {
-    //             parent.forceActiveFocus();
-    //         }
-    //     }
+        TapHandler {
+            onTapped: {
+                parent.forceActiveFocus();
+            }
+        }
 
-    //     MaterialTextField {
-    //         id: normalTextField
-    //         x: 200
-    //         y: 300
-    //         placeholderText: qsTr("用户账号/手机号")
-    //         option: ColorImage {
-    //             source: "qrc:/qt/qml/SonixBeautyStudio/view/resource/setting.png"
-    //             fillMode: Image.PreserveAspectFit
-    //             color: Material.foreground
-    //         }
-    //         echoMode: TextInput.Password
-    //         passwordSource: "qrc:/qt/qml/SonixBeautyStudio/view/resource/setting.png"
-    //     }
-    // }
+        MaterialTextField {
+            id: normalTextField
+            x: 200
+            y: 300
+            placeholderText: qsTr("用户账号/手机号")
+            option: ColorImage {
+                source: "qrc:/qt/qml/SonixBeautyStudio/view/resource/setting.png"
+                fillMode: Image.PreserveAspectFit
+                color: Material.foreground
+            }
+            echoMode: TextInput.Password
+            passwordSource: "qrc:/qt/qml/SonixBeautyStudio/view/resource/setting.png"
+        }
+    }
 
     // StackView {
     //     id: stackView
