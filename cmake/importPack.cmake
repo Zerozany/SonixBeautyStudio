@@ -27,7 +27,7 @@ elseif(ANDROID)
     set(PACKAGE_NAME "org.qtproject.SonixBeauty")
     set(VERSION_CODE 1)
     set(VERSION_NAME "1.0.0.0")
-    set(APP_NAME "SonixBeauty Studio")
+    set(APP_NAME ${PROJECT_NAME})
     set(APP_ICON "@drawable/ic_launcher")
 
     set_target_properties(${PROJECT_NAME} PROPERTIES

@@ -1,4 +1,5 @@
 # Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+# D:\AndroidEnv\SDK\platform-tools\adb.exe pair 192.168.0.16:43119
 
 param(
     [ValidateSet("d", "r")]

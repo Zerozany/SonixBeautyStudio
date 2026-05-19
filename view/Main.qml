@@ -146,5 +146,6 @@ ZeroWindow {
 
     Component.onCompleted: {
         // AppConstants.mainStackView = stackView;
+        // console.log("XXXXXXXXX");
     }
 }
