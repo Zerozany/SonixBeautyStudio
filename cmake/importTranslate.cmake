@@ -6,8 +6,7 @@ add_dependencies(${PROJECT_NAME}
     update_translations
 )
 
-qt_add_translations(
-    ${PROJECT_NAME}
+qt_add_translations(${PROJECT_NAME}
     TS_FILE_DIR "${CMAKE_SOURCE_DIR}/i18n"
     QM_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/i18n"
     QM_FILES_OUTPUT_VARIABLE QM_FILES

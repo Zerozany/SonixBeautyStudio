@@ -11,7 +11,8 @@
 #if defined(Q_OS_ANDROID)
     #include <QJniObject>
     #include <QJniEnvironment>
-// #include "AndroidWifiManager.h"
+    #include "AndroidWifiManager.h"
+    #include "AndroidJNIManager.h"
 #elif defined(Q_OS_WINDOWS)
 // #include "WinWifiManager.h"
 #endif
@@ -51,8 +52,10 @@ int main(int argc, char* argv[])
     // androidWifiManager.connectToWifi("connectToWifi", "ChinaNet-zero821", "18583943303");
     // for (const auto& [k, v] : androidWifiManager.getWifiList("getWifiList").toStdMap())
     // {
-    //     qDebug() << k << ":" << v;
+    //     qInfo() << k << ":" << v;
     // }
+    AndroidJNIManager::instance()->setActivityName("com/sonixbeauty/system/SystemControl");
+    AndroidJNIManager::instance()->callJNIMethod<void>("setSystemBrightness", "(I)V", 400);
     QNativeInterface::QAndroidApplication::hideSplashScreen(0);
 #endif
     return QGuiApplication::exec();
