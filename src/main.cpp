@@ -11,7 +11,10 @@
 #if defined(Q_OS_ANDROID)
     #include <QJniObject>
     #include <QJniEnvironment>
-    #include "AndroidWifiManager.h"
+    #include <QJsonDocument>
+    #include <QJsonValue>
+    #include <QJsonArray>
+    #include <QJsonObject>
     #include "AndroidJNIManager.h"
 #elif defined(Q_OS_WINDOWS)
 // #include "WinWifiManager.h"
@@ -47,15 +50,28 @@ int main(int argc, char* argv[])
     // ZeroLogger::init(QDir{QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)}.filePath("log/SonixLog_1.txt").toStdString());
     // ZeroLogger::setLevel(spdlog::level::warn);
 #if defined(Q_OS_ANDROID)
-    // AndroidWifiManager androidWifiManager{"com/sonixbeauty/module/JWifiManager"};
-    // qDebug() << "currentWifiName:" << androidWifiManager.currentWifiName("currentWifiName");
-    // androidWifiManager.connectToWifi("connectToWifi", "ChinaNet-zero821", "18583943303");
-    // for (const auto& [k, v] : androidWifiManager.getWifiList("getWifiList").toStdMap())
-    // {
-    //     qInfo() << k << ":" << v;
-    // }
-    AndroidJNIManager::instance()->setActivityName("com/sonixbeauty/system/SystemControl");
-    AndroidJNIManager::instance()->callJNIMethod<void>("setSystemBrightness", "(I)V", 400);
+    AndroidJNIManager::instance()->setActivityUrl("com/sonixbeauty/module/JWifiManager");
+    QJniObject            result{AndroidJNIManager::instance()->callJNIMethod<QJniObject>("getWifiList", "()Ljava/lang/String;")};
+    QMap<QString, quint8> wifiViewMap{};
+    QJsonDocument         doc{QJsonDocument::fromJson(result.toString().toUtf8())};
+    for (const QJsonValue& value : doc.array())
+    {
+        wifiViewMap[value.toObject()["ssid"].toString()] = static_cast<quint8>(value.toObject()["level"].toInt());
+    }
+    for (const auto& [k, v] : wifiViewMap.toStdMap())
+    {
+        qInfo() << k << ":" << v;
+    }
+
+    #if false
+    AndroidJNIManager::instance()->callJNIMethod<void>("connectToWifi", "(Ljava/lang/String;Ljava/lang/String;)V", QJniObject::fromString("ChinaNet-zero821").object<jstring>(), QJniObject::fromString("18583943303").object<jstring>());
+    qInfo() << AndroidJNIManager::instance()->callJNIMethod<QJniObject>("currentWifiName", "()Ljava/lang/String;").toString();
+    #endif
+
+    #if false
+    AndroidJNIManager::instance()->setActivityUrl("com/sonixbeauty/system/SystemControl");
+    AndroidJNIManager::instance()->callJNIMethod<void>("setSystemBrightness", "(I)V", jint(200);
+    #endif
     QNativeInterface::QAndroidApplication::hideSplashScreen(0);
 #endif
     return QGuiApplication::exec();
