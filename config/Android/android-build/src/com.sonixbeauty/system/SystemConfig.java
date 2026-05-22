@@ -10,7 +10,7 @@ import android.view.WindowInsetsController;
 public class SystemConfig {
 
     @SuppressWarnings("deprecation")
-    public void systemColumnHandle(Activity _activity)
+    public static void systemColumnHandle(Activity _activity)
     {
         Window window = _activity.getWindow();
         View decorView = window.getDecorView();

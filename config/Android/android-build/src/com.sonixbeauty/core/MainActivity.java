@@ -9,16 +9,13 @@ import com.sonixbeauty.utiles.MessageUtile;
 
 public class MainActivity extends org.qtproject.qt.android.bindings.QtActivity {
 
-    private SystemConfig m_systemConfig = null;
-
     private static native void QActivityVisibileChanged(boolean _activitySwitch);
 
     @Override
     public void onCreate(Bundle _savedInstanceState)
     {
         super.onCreate(_savedInstanceState);
-        m_systemConfig = new SystemConfig();
-        m_systemConfig.systemColumnHandle(this);
+        SystemConfig.systemColumnHandle(this);
     }
 
     @Override
@@ -30,6 +27,6 @@ public class MainActivity extends org.qtproject.qt.android.bindings.QtActivity {
         } else {
             QActivityVisibileChanged(false);
         }
-        Log.d(MessageUtile.HandleDebug, "QActivityVisibileChanged: " + _hasFocus);
+        // Log.d(MessageUtile.HandleDebug, "QActivityVisibileChanged: " + _hasFocus);
     }
 }

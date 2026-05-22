@@ -1,6 +1,7 @@
 import QtQuick
 import QZeroSystem
 import QZeroMaterialUI
+// import QZeroAssistKit
 
 import QtQuick.Controls.Material
 
@@ -12,30 +13,6 @@ import QtQuick.Controls.impl
 ZeroWindow {
     id: mainWindow
     // Material.foreground: '#15e248'
-
-    MaterialButton {
-        anchors.horizontalCenter: parent.horizontalCenter
-        y: 70
-        text: "XXXX"
-        icon.source: "qrc:/qt/qml/SonixBeautyStudio/view/resource/setting.png"
-        // display: AbstractButton.TextUnderIcon
-        // scale: 1
-        // flat: true
-        // icon.width: 40
-        // icon.height: 40
-        // font.pixelSize: 22
-
-        onClicked: {
-            // mainWindow.Material.theme = Material.Dark;
-        }
-
-        // MaterialToolTip {
-        //     text: "qrc:/qt/qml/SonixBeautyStudio/view/resource/setting.png"
-        //     visible: (parent as MaterialButton).down
-        //     opacity: 0.2
-        //     color: "blue"
-        // }
-    }
 
     // MaterialComboBox {
     //     x: 200
@@ -144,8 +121,33 @@ ZeroWindow {
     //     }
     // }
 
+    MaterialButton {
+        anchors.horizontalCenter: parent.horizontalCenter
+        y: 70
+        text: "XXXX"
+        icon.source: "qrc:/qt/qml/SonixBeautyStudio/view/resource/setting.png"
+        display: AbstractButton.TextUnderIcon
+        // scale: 1
+        // flat: true
+        // icon.width: 40
+        // icon.height: 40
+        // font.pixelSize: 22
+
+        onClicked: {
+            // mainWindow.Material.theme = Material.Dark;
+        }
+
+        // MaterialToolTip {
+        //     text: "qrc:/qt/qml/SonixBeautyStudio/view/resource/setting.png"
+        //     visible: (parent as MaterialButton).down
+        //     opacity: 0.2
+        //     color: "blue"
+        // }
+    }
+
     Component.onCompleted: {
         // AppConstants.mainStackView = stackView;
         // console.log("XXXXXXXXX");
+        // console.log("-----: " + ClassesManager.classesList.length);
     }
 }

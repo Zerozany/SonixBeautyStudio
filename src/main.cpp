@@ -47,9 +47,14 @@ int main(int argc, char* argv[])
     QQmlApplicationEngine engine{};
     // Translator::create(&engine, nullptr)->setLanguage(":/i18n/qml_zh_CN.qm");
     ViewEngine::instance(engine)->init();
-    // ZeroLogger::init(QDir{QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)}.filePath("log/SonixLog_1.txt").toStdString());
-    // ZeroLogger::setLevel(spdlog::level::warn);
+// ZeroLogger::init(QDir{QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)}.filePath("log/SonixLog_1.txt").toStdString());
+// ZeroLogger::setLevel(spdlog::level::warn);
+#if true
+    // ClassMate classMate{};
+    // qInfo() << classMate.classID();
+#endif
 #if defined(Q_OS_ANDROID)
+    #if false
     AndroidJNIManager::instance()->setActivityUrl("com/sonixbeauty/module/JWifiManager");
     QJniObject            result{AndroidJNIManager::instance()->callJNIMethod<QJniObject>("getWifiList", "()Ljava/lang/String;")};
     QMap<QString, quint8> wifiViewMap{};
@@ -63,14 +68,13 @@ int main(int argc, char* argv[])
         qInfo() << k << ":" << v;
     }
 
-    #if false
     AndroidJNIManager::instance()->callJNIMethod<void>("connectToWifi", "(Ljava/lang/String;Ljava/lang/String;)V", QJniObject::fromString("ChinaNet-zero821").object<jstring>(), QJniObject::fromString("18583943303").object<jstring>());
     qInfo() << AndroidJNIManager::instance()->callJNIMethod<QJniObject>("currentWifiName", "()Ljava/lang/String;").toString();
     #endif
 
     #if false
     AndroidJNIManager::instance()->setActivityUrl("com/sonixbeauty/system/SystemControl");
-    AndroidJNIManager::instance()->callJNIMethod<void>("setSystemBrightness", "(I)V", jint(200);
+    AndroidJNIManager::instance()->callJNIMethod<void>("setSystemBrightness", "(I)V", jint(200));
     #endif
     QNativeInterface::QAndroidApplication::hideSplashScreen(0);
 #endif
