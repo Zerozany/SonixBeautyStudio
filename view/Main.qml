@@ -38,29 +38,29 @@ ZeroWindow {
     // readonly property string fontFamily: ThemeFont.fontFamily
     // readonly property size cursorSize: Qt.size(12, 12)
 
-    Item {
-        anchors.fill: parent
+    // Item {
+    //     anchors.fill: parent
 
-        TapHandler {
-            onTapped: {
-                parent.forceActiveFocus();
-            }
-        }
+    //     TapHandler {
+    //         onTapped: {
+    //             parent.forceActiveFocus();
+    //         }
+    //     }
 
-        MaterialTextField {
-            id: normalTextField
-            x: 200
-            y: 300
-            placeholderText: qsTr("用户账号/手机号")
-            option: ColorImage {
-                source: "qrc:/qt/qml/SonixBeautyStudio/view/resource/setting.png"
-                fillMode: Image.PreserveAspectFit
-                color: Material.foreground
-            }
-            echoMode: TextInput.Password
-            passwordSource: "qrc:/qt/qml/SonixBeautyStudio/view/resource/setting.png"
-        }
-    }
+    //     MaterialTextField {
+    //         id: normalTextField
+    //         x: 200
+    //         y: 300
+    //         placeholderText: qsTr("用户账号/手机号")
+    //         option: ColorImage {
+    //             source: "qrc:/qt/qml/SonixBeautyStudio/view/resource/setting.png"
+    //             fillMode: Image.PreserveAspectFit
+    //             color: Material.foreground
+    //         }
+    //         echoMode: TextInput.Password
+    //         passwordSource: "qrc:/qt/qml/SonixBeautyStudio/view/resource/setting.png"
+    //     }
+    // }
 
     // StackView {
     //     id: stackView
@@ -79,12 +79,15 @@ ZeroWindow {
 
     //     TabButton {
     //         text: qsTr("Home")
+    //         icon.source: "qrc:/qt/qml/SonixBeautyStudio/view/resource/setting.png"
     //     }
     //     TabButton {
     //         text: qsTr("Discover")
+    //         icon.source: "qrc:/qt/qml/SonixBeautyStudio/view/resource/setting.png"
     //     }
     //     TabButton {
     //         text: qsTr("Activity")
+    //         icon.source: "qrc:/qt/qml/SonixBeautyStudio/view/resource/setting.png"
     //     }
     // }
 
@@ -107,19 +110,17 @@ ZeroWindow {
     //     }
     // }
 
-    // NormalSwitch {
-    //     anchors.centerIn: parent
+    MaterialSwitch {
+        anchors.centerIn: parent
 
-    //     onToggled: {
-    //         if (checked) {
-    //             drawer.open();
-    //             console.log(checked);
-    //         } else {
-    //             console.log(checked);
-    //             drawer.close();
-    //         }
-    //     }
-    // }
+        onToggled: {
+            if (checked) {
+                console.log(checked);
+            } else {
+                console.log(checked);
+            }
+        }
+    }
 
     MaterialButton {
         anchors.horizontalCenter: parent.horizontalCenter

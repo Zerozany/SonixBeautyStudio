@@ -47,12 +47,8 @@ int main(int argc, char* argv[])
     QQmlApplicationEngine engine{};
     // Translator::create(&engine, nullptr)->setLanguage(":/i18n/qml_zh_CN.qm");
     ViewEngine::instance(engine)->init();
-// ZeroLogger::init(QDir{QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)}.filePath("log/SonixLog_1.txt").toStdString());
-// ZeroLogger::setLevel(spdlog::level::warn);
-#if true
-    // ClassMate classMate{};
-    // qInfo() << classMate.classID();
-#endif
+    // ZeroLogger::init(QDir{QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)}.filePath("log/SonixLog_1.txt").toStdString());
+    // ZeroLogger::setLevel(spdlog::level::warn);
 #if defined(Q_OS_ANDROID)
     #if false
     AndroidJNIManager::instance()->setActivityUrl("com/sonixbeauty/module/JWifiManager");
