@@ -145,6 +145,25 @@ ZeroWindow {
         // }
     }
 
+    PageBrightness {
+        id: pageBrightness
+    }
+
+    Slider {
+        width: 300
+        anchors.bottom: parent.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
+
+        from: 0
+        to: 1
+
+        value: pageBrightness.brightness
+
+        onValueChanged: {
+            pageBrightness.brightness = value;
+        }
+    }
+
     Component.onCompleted: {
         // AppConstants.mainStackView = stackView;
         // console.log("XXXXXXXXX");
