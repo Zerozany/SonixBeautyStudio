@@ -67,6 +67,8 @@ int main(int argc, char* argv[])
     AndroidJNIManager::instance()->callJNIMethod<void>("connectToWifi", "(Ljava/lang/String;Ljava/lang/String;)V", QJniObject::fromString("ChinaNet-zero821").object<jstring>(), QJniObject::fromString("18583943303").object<jstring>());
     qInfo() << AndroidJNIManager::instance()->callJNIMethod<QJniObject>("currentWifiName", "()Ljava/lang/String;").toString();
     #endif
+    AndroidJNIManager::instance()->setActivityUrl("com/sonixbeauty/module/JWifiManager");
+    AndroidJNIManager::instance()->callJNIMethod<void>("disconnectToWifi", "()V");
     QNativeInterface::QAndroidApplication::hideSplashScreen(0);
 #endif
     return QGuiApplication::exec();

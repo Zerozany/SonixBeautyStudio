@@ -110,4 +110,8 @@ public final class JWifiManager {
         };
         cm.requestNetwork(request, networkCallback);
     }
+
+    public void disconnectToWifi()
+    {
+    }
 }
