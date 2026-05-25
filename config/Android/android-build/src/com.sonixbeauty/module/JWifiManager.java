@@ -24,6 +24,7 @@ public final class JWifiManager {
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1001;
     private Activity m_activity;
     private WifiManager m_wifiManager;
+    private ConnectivityManager m_connectivityManager;
 
     public JWifiManager(Activity _activity)
     {
@@ -37,6 +38,8 @@ public final class JWifiManager {
         if (m_wifiManager == null) {
             return;
         }
+        ConnectivityManager m_connectivityManager = (ConnectivityManager)m_activity.getSystemService(Context.CONNECTIVITY_SERVICE);
+
         if (ContextCompat.checkSelfPermission(m_activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(m_activity, new String[] { Manifest.permission.ACCESS_FINE_LOCATION }, LOCATION_PERMISSION_REQUEST_CODE);
         }
@@ -94,13 +97,12 @@ public final class JWifiManager {
     {
         WifiNetworkSpecifier specifier = new WifiNetworkSpecifier.Builder().setSsid(ssid).setWpa2Passphrase(password).build();
         NetworkRequest request = new NetworkRequest.Builder().addTransportType(android.net.NetworkCapabilities.TRANSPORT_WIFI).setNetworkSpecifier(specifier).build();
-        ConnectivityManager cm = (ConnectivityManager)m_activity.getSystemService(Context.CONNECTIVITY_SERVICE);
         ConnectivityManager.NetworkCallback networkCallback = new ConnectivityManager.NetworkCallback() {
             @Override
             public void onAvailable(Network network)
             {
                 Log.d(MessageUtile.HandleDebug, "Connected to " + ssid);
-                cm.bindProcessToNetwork(network);
+                m_connectivityManager.bindProcessToNetwork(network);
             }
             @Override
             public void onUnavailable()
@@ -108,7 +110,7 @@ public final class JWifiManager {
                 Log.d(MessageUtile.HandleDebug, "Failed to connect to " + ssid);
             }
         };
-        cm.requestNetwork(request, networkCallback);
+        m_connectivityManager.requestNetwork(request, networkCallback);
     }
 
     public void disconnectToWifi()

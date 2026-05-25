@@ -8,7 +8,7 @@ import QtQuick.Controls.Material
 // import SonixBeautyStudio
 // import QtQuick.Controls
 
-import QtQuick.Controls.impl
+// import QtQuick.Controls.impl
 
 ZeroWindow {
     id: mainWindow
