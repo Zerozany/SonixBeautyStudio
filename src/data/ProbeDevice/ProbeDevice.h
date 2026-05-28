@@ -16,6 +16,7 @@ public:
     };
     Q_ENUM(DeviceType)
 
+    QUICK_PROPERTY(QString, m_systemName, systemName, systemName, setSystemName, systemNameChanged)
     QUICK_PROPERTY(QString, m_vid, vid, vid, setVid, vidChanged)
     QUICK_PROPERTY(QString, m_pid, pid, pid, setPid, pidChanged)
     QUICK_PROPERTY(QString, m_ssid, ssid, ssid, setSsid, ssidChanged)
@@ -30,6 +31,7 @@ public:
     ~ProbeDevice() noexcept = default;
 
 Q_SIGNALS:
+    void systemNameChanged();
     void vidChanged();
     void pidChanged();
     void ssidChanged();
@@ -39,6 +41,7 @@ Q_SIGNALS:
     void signaleQualityChanged();
 
 private:
+    QString    m_systemName{};
     QString    m_vid{};
     QString    m_pid{};
     QString    m_ssid{};
