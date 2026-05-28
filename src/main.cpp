@@ -21,6 +21,7 @@
 #endif
 // #include "ThemeManager.h"
 // #include "UsbManager.h"
+#include "DevicesManager.h"
 
 int main(int argc, char* argv[])
 {
@@ -49,6 +50,7 @@ int main(int argc, char* argv[])
     ViewEngine::instance(engine)->init();
     // ZeroLogger::init(QDir{QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)}.filePath("log/SonixLog_1.txt").toStdString());
     // ZeroLogger::setLevel(spdlog::level::trace);
+    DevicesManager::create(nullptr, nullptr)->refreshDevicesList();
 #if defined(Q_OS_ANDROID)
     #if false
     AndroidJNIManager::instance()->setActivityUrl("com/sonixbeauty/module/JWifiManager");
