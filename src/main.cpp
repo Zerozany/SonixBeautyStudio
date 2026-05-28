@@ -48,7 +48,7 @@ int main(int argc, char* argv[])
     // Translator::create(&engine, nullptr)->setLanguage(":/i18n/qml_zh_CN.qm");
     ViewEngine::instance(engine)->init();
     // ZeroLogger::init(QDir{QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)}.filePath("log/SonixLog_1.txt").toStdString());
-    // ZeroLogger::setLevel(spdlog::level::warn);
+    // ZeroLogger::setLevel(spdlog::level::trace);
 #if defined(Q_OS_ANDROID)
     #if false
     AndroidJNIManager::instance()->setActivityUrl("com/sonixbeauty/module/JWifiManager");
@@ -63,7 +63,6 @@ int main(int argc, char* argv[])
     {
         qInfo() << k << ":" << v;
     }
-    AndroidJNIManager::instance()->setActivityUrl("com/sonixbeauty/module/JWifiManager");
     AndroidJNIManager::instance()->callJNIMethod<void>("connectToWifi", "(Ljava/lang/String;Ljava/lang/String;)V", QJniObject::fromString("US06-9C50D101E1B2").object<jstring>(), QJniObject::fromString("12345678").object<jstring>());
     qInfo() << AndroidJNIManager::instance()->callJNIMethod<QJniObject>("currentWifiName", "()Ljava/lang/String;").toString();
     #endif

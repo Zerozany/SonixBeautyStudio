@@ -2,6 +2,9 @@ file(GLOB SOURCEFILES RELATIVE ${CMAKE_SOURCE_DIR}
     "${CMAKE_SOURCE_DIR}/src/**/*.h"
     "${CMAKE_SOURCE_DIR}/src/**/*.cpp"
     "${CMAKE_SOURCE_DIR}/src/**/*.hpp"
+    "${CMAKE_SOURCE_DIR}/src/**/**/*.h"
+    "${CMAKE_SOURCE_DIR}/src/**/**/*.cpp"
+    "${CMAKE_SOURCE_DIR}/src/**/**/*.hpp"
 )
 
 file(GLOB RESOURCESLIST RELATIVE ${CMAKE_SOURCE_DIR}

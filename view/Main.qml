@@ -6,7 +6,7 @@ import QZeroMaterialUI
 import QtQuick.Controls.Material
 
 // import SonixBeautyStudio
-// import QtQuick.Controls
+import QtQuick.Controls
 
 // import QtQuick.Controls.impl
 
