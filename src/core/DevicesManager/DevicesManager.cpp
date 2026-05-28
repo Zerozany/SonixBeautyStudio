@@ -93,7 +93,7 @@ void DevicesManager::refreshDevicesList()
     }
     this->setDevicesList(devicesList);
 
-#if true
+#if false
     for (int i = 0; i < m_devicesList.size(); ++i)
     {
         QVariant     variant = m_devicesList[i];
