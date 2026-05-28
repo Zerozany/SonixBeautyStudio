@@ -4,7 +4,9 @@
 #include <QQmlApplicationEngine>
 #include "ProbeDevice.h"
 
-#if defined(Q_OS_ANDROID)
+#if defined(Q_OS_WINDOWS)
+    #include "WinWifiManager.h"
+#elif defined(Q_OS_ANDROID)
     #include "AndroidJNIManager.h"
     #include <QJniObject>
     #include <QJsonDocument>
@@ -26,17 +28,19 @@ DevicesManager::DevicesManager(QObject* _parent) : QObject{_parent}
 
 void DevicesManager::refreshDevicesList()
 {
-#if defined(Q_OS_ANDROID)
+    QVariantList          devicesList{};
+    QMap<QString, quint8> wifiList{};
+#if defined(Q_OS_WINDOWS)
+    wifiList = WinWifiManager::instance()->getWifiList();
+#elif defined(Q_OS_ANDROID)
     AndroidJNIManager::instance()->setActivityUrl("com/sonixbeauty/module/JWifiManager");
-    QJniObject            result{AndroidJNIManager::instance()->callJNIMethod<QJniObject>("getWifiList", "()Ljava/lang/String;")};
-    QMap<QString, quint8> wifiViewMap{};
-    QJsonDocument         doc{QJsonDocument::fromJson(result.toString().toUtf8())};
-    for (const QJsonValue& value : doc.array())
+    QJniObject result{AndroidJNIManager::instance()->callJNIMethod<QJniObject>("getWifiList", "()Ljava/lang/String;")};
+    for (QJsonDocument doc{QJsonDocument::fromJson(result.toString().toUtf8())}; const QJsonValue& value : doc.array())
     {
-        wifiViewMap[value.toObject()["ssid"].toString()] = static_cast<quint8>(value.toObject()["level"].toInt());
+        wifiList.insert(value.toObject()["ssid"].toString(), static_cast<quint8>(value.toObject()["level"].toInt()));
     }
-    QVariantList devicesList{};
-    for (const auto& [_wifiName, _level] : wifiViewMap.toStdMap())
+#endif
+    for (const auto& [_wifiName, _level] : wifiList.toStdMap())
     {
         if (!_wifiName.startsWith("US"))
         {
@@ -88,7 +92,6 @@ void DevicesManager::refreshDevicesList()
         devicesList.append(QVariant::fromValue(probeDevice));
     }
     this->setDevicesList(devicesList);
-#endif
 
 #if true
     for (int i = 0; i < m_devicesList.size(); ++i)
