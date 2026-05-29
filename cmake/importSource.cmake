@@ -52,6 +52,7 @@ file(GLOB INCLUDEDIR
     "${CMAKE_SOURCE_DIR}/src"
     "${CMAKE_SOURCE_DIR}/src/*/"
     "${CMAKE_SOURCE_DIR}/src/**/*/"
+    "${CMAKE_SOURCE_DIR}/src/**/**/"
 )
 
 target_include_directories(${PROJECT_NAME}

@@ -21,7 +21,9 @@
 #endif
 // #include "ThemeManager.h"
 // #include "UsbManager.h"
-#include "DevicesManager.h"
+// #include "DevicesManager.h"
+#include "SqlManager.h"
+#include <QSqlRecord>
 
 int main(int argc, char* argv[])
 {
@@ -50,7 +52,19 @@ int main(int argc, char* argv[])
     ViewEngine::instance(engine)->init();
     // ZeroLogger::init(QDir{QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)}.filePath("log/SonixLog_1.txt").toStdString());
     // ZeroLogger::setLevel(spdlog::level::trace);
-    DevicesManager::create(nullptr, nullptr)->refreshDevicesList();
+    // DevicesManager::create(nullptr, nullptr)->refreshDevicesList();
+#if true
+    SqlManager::instance()->setDatabaseName("F:/DevelopFiles/SonixBeautyStudio/config/dataBase/UAS.db");
+    QSqlQuery query = SqlManager::instance()->executeSql<QSqlQuery>("F:/DevelopFiles/SonixBeautyStudio/config/dataBase/UAS", "select * from tPartName");
+    while (query.next())
+    {
+        for (int i = 0; i < query.record().count(); ++i)
+        {
+            qDebug() << query.record().fieldName(i) << ":" << query.value(i).toString();
+        }
+    }
+#endif
+
 #if defined(Q_OS_ANDROID)
     #if false
     AndroidJNIManager::instance()->setActivityUrl("com/sonixbeauty/module/JWifiManager");
