@@ -25,6 +25,7 @@ file(GLOB QMLSINGLETONS RELATIVE ${CMAKE_SOURCE_DIR}
 
 file(GLOB CONFIGFILES RELATIVE ${CMAKE_SOURCE_DIR}
     "${CMAKE_SOURCE_DIR}/qtquickcontrols2.conf"
+    "${CMAKE_SOURCE_DIR}/config/dataBase/*.db"
 )
 
 set_source_files_properties(
