@@ -54,8 +54,8 @@ int main(int argc, char* argv[])
     // ZeroLogger::setLevel(spdlog::level::trace);
     // DevicesManager::create(nullptr, nullptr)->refreshDevicesList();
 #if true
-    SqlManager::instance()->setDatabaseName("F:/DevelopFiles/SonixBeautyStudio/config/dataBase/UAS.db");
-    QSqlQuery query = SqlManager::instance()->executeSql<QSqlQuery>("F:/DevelopFiles/SonixBeautyStudio/config/dataBase/UAS", "select * from tPartName");
+    SqlManager::instance()->setDatabaseName("../config/dataBase/UAS.db");
+    QSqlQuery query = SqlManager::instance()->executeSql<QSqlQuery>("../config/dataBase/UAS", "select * from tPartName");
     while (query.next())
     {
         for (int i = 0; i < query.record().count(); ++i)
