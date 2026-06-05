@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import com.sonixbeauty.system.SystemConfig;
-import com.sonixbeauty.system.UsbPermissionManager;
 
 public class MainActivity extends org.qtproject.qt.android.bindings.QtActivity {
 
@@ -16,7 +15,6 @@ public class MainActivity extends org.qtproject.qt.android.bindings.QtActivity {
     {
         super.onCreate(_savedInstanceState);
         SystemConfig.systemColumnHandle(this);
-        UsbPermissionManager.getInstance().init(this);
     }
 
     @Override
