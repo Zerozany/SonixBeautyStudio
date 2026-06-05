@@ -38,7 +38,7 @@ public final class JWifiManager {
         if (m_wifiManager == null) {
             return;
         }
-        ConnectivityManager m_connectivityManager = (ConnectivityManager)m_activity.getSystemService(Context.CONNECTIVITY_SERVICE);
+        m_connectivityManager = (ConnectivityManager)m_activity.getSystemService(Context.CONNECTIVITY_SERVICE);
 
         if (ContextCompat.checkSelfPermission(m_activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(m_activity, new String[] { Manifest.permission.ACCESS_FINE_LOCATION }, LOCATION_PERMISSION_REQUEST_CODE);
@@ -102,6 +102,7 @@ public final class JWifiManager {
             public void onAvailable(Network network)
             {
                 Log.d(MessageUtile.HandleDebug, "Connected to " + ssid);
+
                 m_connectivityManager.bindProcessToNetwork(network);
             }
             @Override
@@ -111,9 +112,5 @@ public final class JWifiManager {
             }
         };
         m_connectivityManager.requestNetwork(request, networkCallback);
-    }
-
-    public void disconnectToWifi()
-    {
     }
 }

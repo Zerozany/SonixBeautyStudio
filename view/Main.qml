@@ -110,20 +110,23 @@ ZeroWindow {
     //     }
     // }
 
-    MaterialSwitch {
-        anchors.centerIn: parent
+    // MaterialSwitch {
+    //     anchors.centerIn: parent
 
-        onToggled: {
-            if (checked) {
-                console.log(checked);
-            } else {
-                console.log(checked);
-            }
-        }
-    }
+    //     onToggled: {
+    //         if (checked) {
+    //             console.log(checked);
+    //         } else {
+    //             console.log(checked);
+    //         }
+    //     }
+    // }
 
     MaterialButton {
+        id: btn
         anchors.horizontalCenter: parent.horizontalCenter
+        width: 200
+        height: 200
         y: 70
         text: "XXXX"
         icon.source: "qrc:/qt/qml/SonixBeautyStudio/view/resource/setting.png"
@@ -136,6 +139,13 @@ ZeroWindow {
 
         onClicked: {
             // mainWindow.Material.theme = Material.Dark;
+            let rect = Qt.rect(50, 50, 100, 100);
+            ScreenShotUtils.imageFormat = ScreenShotUtils.JPG;
+            ScreenShotUtils.burstshotCount = 3;
+            // ScreenShotUtils.screenshotItem(btn, "SonixBeautyStudio/Screenshoot");
+            // ScreenShotUtils.screenshotItem(btn, 50, 50, 100, 100, "F:/DevelopFiles/SonixBeautyStudio/Screenshoot");
+            // ScreenShotUtils.screenshotItem(btn, rect, "F:/DevelopFiles/SonixBeautyStudio/Screenshoot");
+            // RecordUtils.record();
         }
 
         // MaterialToolTip {
@@ -146,24 +156,24 @@ ZeroWindow {
         // }
     }
 
-    PageBrightness {
-        id: pageBrightness
-    }
+    // PageBrightness {
+    //     id: pageBrightness
+    // }
 
-    Slider {
-        width: 300
-        anchors.bottom: parent.bottom
-        anchors.horizontalCenter: parent.horizontalCenter
+    // Slider {
+    //     width: 300
+    //     anchors.bottom: parent.bottom
+    //     anchors.horizontalCenter: parent.horizontalCenter
 
-        from: 0
-        to: 1
+    //     from: 0
+    //     to: 1
 
-        value: pageBrightness.brightness
+    //     value: pageBrightness.brightness
 
-        onValueChanged: {
-            pageBrightness.brightness = value;
-        }
-    }
+    //     onValueChanged: {
+    //         pageBrightness.brightness = value;
+    //     }
+    // }
 
     Component.onCompleted: {
         // AppConstants.mainStackView = stackView;
