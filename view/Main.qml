@@ -141,7 +141,7 @@ ZeroWindow {
             // mainWindow.Material.theme = Material.Dark;
             let rect = Qt.rect(50, 50, 100, 100);
             ScreenShotUtils.imageFormat = ScreenShotUtils.JPG;
-            ScreenShotUtils.burstshotCount = 3;
+            ScreenShotUtils.burstshot = 3;
             // ScreenShotUtils.screenshotItem(btn, "SonixBeautyStudio/Screenshoot");
             // ScreenShotUtils.screenshotItem(btn, 50, 50, 100, 100, "F:/DevelopFiles/SonixBeautyStudio/Screenshoot");
             // ScreenShotUtils.screenshotItem(btn, rect, "F:/DevelopFiles/SonixBeautyStudio/Screenshoot");
