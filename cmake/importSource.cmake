@@ -8,8 +8,9 @@ file(GLOB SOURCEFILES RELATIVE ${CMAKE_SOURCE_DIR}
 )
 
 file(GLOB RESOURCESLIST RELATIVE ${CMAKE_SOURCE_DIR}
-    "${CMAKE_SOURCE_DIR}/view/resource/*.png"
-    "${CMAKE_SOURCE_DIR}/view/resource/**/*.png"
+    "${CMAKE_SOURCE_DIR}/view/**/*.png"
+    "${CMAKE_SOURCE_DIR}/view/**/**/*.png"
+    "${CMAKE_SOURCE_DIR}/view/**/**/**/*.png"
 )
 
 file(GLOB QFILES RELATIVE ${CMAKE_SOURCE_DIR}

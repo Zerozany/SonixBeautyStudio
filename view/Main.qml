@@ -40,7 +40,7 @@ ZeroWindow {
         anchors.horizontalCenter: parent.horizontalCenter
         y: 70
         text: qsTr("点击按钮")
-        icon.source: "qrc:/qt/qml/SonixBeautyStudio/view/resource/setting.png"
+        icon.source: "qrc:/qt/qml/SonixBeautyStudio/view/SonixBeauty/resource/setting.png"
         display: AbstractButton.TextUnderIcon
 
         onClicked: {
