@@ -22,43 +22,59 @@
 <context>
     <name>LoginPage</name>
     <message>
-        <location filename="../view/Login/LoginPage.qml" line="22"/>
-        <source>用户账号</source>
+        <location filename="../view/login/LoginPage.qml" line="24"/>
+        <source>用户账号/手机号</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../view/Login/LoginPage.qml" line="31"/>
+        <location filename="../view/login/LoginPage.qml" line="33"/>
         <source>用户密码</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../view/Login/LoginPage.qml" line="46"/>
+        <location filename="../view/login/LoginPage.qml" line="48"/>
         <source>记住密码</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../view/Login/LoginPage.qml" line="57"/>
+        <location filename="../view/login/LoginPage.qml" line="59"/>
         <source>登录遇到问题</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../view/Login/LoginPage.qml" line="80"/>
+        <location filename="../view/login/LoginPage.qml" line="82"/>
         <source>我已阅读并同意</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../view/Login/LoginPage.qml" line="91"/>
+        <location filename="../view/login/LoginPage.qml" line="93"/>
         <source>《服务条款》《隐私政策》</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../view/Login/LoginPage.qml" line="108"/>
+        <location filename="../view/login/LoginPage.qml" line="110"/>
         <source>登录</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../view/Login/LoginPage.qml" line="121"/>
+        <location filename="../view/login/LoginPage.qml" line="123"/>
         <source>离线模式</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>Main</name>
+    <message>
+        <location filename="../view/Main.qml" line="131"/>
+        <source>点击按钮</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SingletonApplication</name>
+    <message>
+        <location filename="../thirdparty/QZeroAssistKit/src/SingletonApplication/SingletonApplication.cpp" line="18"/>
+        <source>当前应用已在系统中运行</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

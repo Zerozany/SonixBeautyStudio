@@ -2,7 +2,6 @@
 #include <QQmlApplicationEngine>
 #include "ViewEngine.h"
 // #include "Translator.h"
-// #include "ZeroLogger.h"
 #include "ApplicationConfig.h"
 #include "SingletonApplication.h"
 
@@ -20,9 +19,13 @@
 // #include "ThemeManager.h"
 // #include "UsbManager.h"
 // #include "DevicesManager.h"
+// #include "Translator.h"
 #include "SqlManager.h"
 #include <QStandardPaths>
 #include <QDir>
+#include "ZeroLogger.h"
+// #include <spdlog/spdlog.h>              // spdlog 核心库
+// #include <spdlog/sinks/android_sink.h>  // Android sink 实现
 
 int main(int argc, char* argv[])
 {
@@ -38,10 +41,16 @@ int main(int argc, char* argv[])
     QGuiApplication app{argc, argv};
     // qDebug() << ThemeManager::create(nullptr, nullptr)->currentTheme();
     QQmlApplicationEngine engine{};
-    // Translator::create(&engine, nullptr)->setLanguage(":/i18n/qml_zh_CN.qm");
+    // Translator::create(&engine, nullptr)->setLanguage(":/i18n/qml_en.qm");
     ViewEngine::instance(engine)->init();
+    // auto android_logger = spdlog::android_logger_mt("android", "spdlog");
+    // android_logger->critical("Use \"adb shell logcat\" to view this message.");
+    // android_logger->set_level(spdlog::level::trace);
+    // spdlog::set_default_logger(android_logger);
+    // spdlog::debug("XXXXXXX=======");
     // ZeroLogger::init(QDir{QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)}.filePath("log/SonixLog_1.txt").toStdString());
     // ZeroLogger::setLevel(spdlog::level::trace);
+    // ZeroLogger::trace("---=======");
     // DevicesManager::create(nullptr, nullptr)->refreshDevicesList();
 
 #if false
@@ -71,7 +80,7 @@ int main(int argc, char* argv[])
         qInfo() << k << ":" << v;
     }
     #elif false
-    // AndroidJNIManager::instance()->callJNIMethod<void>("connectToWifi", "(Ljava/lang/String;Ljava/lang/String;)V", QJniObject::fromString("US06-9C50D101E1B2").object<jstring>(), QJniObject::fromString("12345678").object<jstring>());
+    AndroidJNIManager::instance()->callJNIMethod<void>("connectToWifi", "(Ljava/lang/String;Ljava/lang/String;)V", QJniObject::fromString("US06-9C50D101E1B2").object<jstring>(), QJniObject::fromString("12345678").object<jstring>());
     qInfo() << AndroidJNIManager::instance()->callJNIMethod<QJniObject>("currentWifiName", "()Ljava/lang/String;").toString();
     #endif
     QNativeInterface::QAndroidApplication::hideSplashScreen(0);

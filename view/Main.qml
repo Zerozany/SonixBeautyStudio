@@ -1,10 +1,8 @@
 import QtQuick
 import QZeroSystem
 import QZeroMaterialUI
-// import QZeroAssistKit
-
+import QZeroAssistKit
 import QtQuick.Controls.Material
-
 // import SonixBeautyStudio
 import QtQuick.Controls
 
@@ -65,30 +63,53 @@ ZeroWindow {
     // StackView {
     //     id: stackView
     //     anchors.fill: parent
-    //     initialItem: LoginPage {}
+    //     initialItem: rect2
     // }
+
+    // Connections {
+    //     target: AppConstants
+    //     function onPushStack(_stackPage) {
+    //         stackView.push(_stackPage);
+    //     }
+    // }
+
+    MaterialButton {
+        id: btn
+        anchors.horizontalCenter: parent.horizontalCenter
+        // width: implicitWidth
+        // height: implicitHeight
+        y: 70
+        text: qsTr("点击按钮")
+        icon.source: "qrc:/qt/qml/SonixBeautyStudio/view/resource/setting.png"
+        display: AbstractButton.TextUnderIcon
+        // scale: 1
+        // flat: true
+        // icon.width: 40
+        // icon.height: 40
+        // font.pixelSize: 22
+
+        onClicked: {
+            // mainWindow.Material.theme = Material.Dark;
+            let rect = Qt.rect(50, 50, 100, 100);
+            ScreenShotUtils.imageFormat = ScreenShotUtils.JPG;
+            ScreenShotUtils.burstshot = 3;
+            // ScreenShotUtils.screenshotItem(btn, "SonixBeautyStudio/Screenshoot");
+            // ScreenShotUtils.screenshotItem(btn, 50, 50, 100, 100, "F:/DevelopFiles/SonixBeautyStudio/Screenshoot");
+            // ScreenShotUtils.screenshotItem(btn, rect, "F:/DevelopFiles/SonixBeautyStudio/Screenshoot");
+            // RecordUtils.record();
+            Translator.language = ":/i18n/qml_en.qm";
+        }
+
+        // MaterialToolTip {
+        //     text: "qrc:/qt/qml/SonixBeautyStudio/view/resource/setting.png"
+        //     visible: (parent as MaterialButton).down
+        //     opacity: 0.2
+        //     color: "blue"
+        // }
+    }
 
     // DynamicIsland {
     //     visible: !stackView.currentItem instanceof LoginPage
-    // }
-
-    // TabBar {
-    //     width: parent.width
-    //     anchors.top: parent.top
-    //     anchors.horizontalCenter: parent.horizontalCenter
-
-    //     TabButton {
-    //         text: qsTr("Home")
-    //         icon.source: "qrc:/qt/qml/SonixBeautyStudio/view/resource/setting.png"
-    //     }
-    //     TabButton {
-    //         text: qsTr("Discover")
-    //         icon.source: "qrc:/qt/qml/SonixBeautyStudio/view/resource/setting.png"
-    //     }
-    //     TabButton {
-    //         text: qsTr("Activity")
-    //         icon.source: "qrc:/qt/qml/SonixBeautyStudio/view/resource/setting.png"
-    //     }
     // }
 
     ShortcutControl {
@@ -121,40 +142,6 @@ ZeroWindow {
     //         }
     //     }
     // }
-
-    MaterialButton {
-        id: btn
-        anchors.horizontalCenter: parent.horizontalCenter
-        width: 200
-        height: 200
-        y: 70
-        text: "XXXX"
-        icon.source: "qrc:/qt/qml/SonixBeautyStudio/view/resource/setting.png"
-        display: AbstractButton.TextUnderIcon
-        // scale: 1
-        // flat: true
-        // icon.width: 40
-        // icon.height: 40
-        // font.pixelSize: 22
-
-        onClicked: {
-            // mainWindow.Material.theme = Material.Dark;
-            let rect = Qt.rect(50, 50, 100, 100);
-            ScreenShotUtils.imageFormat = ScreenShotUtils.JPG;
-            ScreenShotUtils.burstshot = 3;
-            // ScreenShotUtils.screenshotItem(btn, "SonixBeautyStudio/Screenshoot");
-            // ScreenShotUtils.screenshotItem(btn, 50, 50, 100, 100, "F:/DevelopFiles/SonixBeautyStudio/Screenshoot");
-            // ScreenShotUtils.screenshotItem(btn, rect, "F:/DevelopFiles/SonixBeautyStudio/Screenshoot");
-            // RecordUtils.record();
-        }
-
-        // MaterialToolTip {
-        //     text: "qrc:/qt/qml/SonixBeautyStudio/view/resource/setting.png"
-        //     visible: (parent as MaterialButton).down
-        //     opacity: 0.2
-        //     color: "blue"
-        // }
-    }
 
     // PageBrightness {
     //     id: pageBrightness

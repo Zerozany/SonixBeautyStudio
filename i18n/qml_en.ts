@@ -1,68 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="en_US" sourcelanguage="en_US">
+<TS version="2.1" language="en" sourcelanguage="en">
 <context>
     <name>DatePopup</name>
     <message>
         <location filename="../thirdparty/QZeroMaterialUI/view/content/DatePopup.qml" line="78"/>
         <source>年</source>
-        <translation>year</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../thirdparty/QZeroMaterialUI/view/content/DatePopup.qml" line="113"/>
         <source>月</source>
-        <translation>month</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../thirdparty/QZeroMaterialUI/view/content/DatePopup.qml" line="148"/>
         <source>日</source>
-        <translation>day</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>LoginPage</name>
     <message>
-        <location filename="../view/Login/LoginPage.qml" line="22"/>
-        <source>用户账号</source>
-        <translation>ID</translation>
+        <location filename="../view/login/LoginPage.qml" line="24"/>
+        <source>用户账号/手机号</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../view/Login/LoginPage.qml" line="31"/>
+        <location filename="../view/login/LoginPage.qml" line="33"/>
         <source>用户密码</source>
-        <translation>Password</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../view/Login/LoginPage.qml" line="46"/>
+        <location filename="../view/login/LoginPage.qml" line="48"/>
         <source>记住密码</source>
-        <translation>remember</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../view/Login/LoginPage.qml" line="57"/>
+        <location filename="../view/login/LoginPage.qml" line="59"/>
         <source>登录遇到问题</source>
-        <translation>question</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../view/Login/LoginPage.qml" line="80"/>
+        <location filename="../view/login/LoginPage.qml" line="82"/>
         <source>我已阅读并同意</source>
-        <translation>Agree</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../view/Login/LoginPage.qml" line="91"/>
+        <location filename="../view/login/LoginPage.qml" line="93"/>
         <source>《服务条款》《隐私政策》</source>
-        <translation>Terms of Service Privacy Policy</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../view/Login/LoginPage.qml" line="108"/>
+        <location filename="../view/login/LoginPage.qml" line="110"/>
         <source>登录</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>登 录</source>
-        <translation type="vanished">Login</translation>
-    </message>
-    <message>
-        <location filename="../view/Login/LoginPage.qml" line="121"/>
+        <location filename="../view/login/LoginPage.qml" line="123"/>
         <source>离线模式</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>Main</name>
+    <message>
+        <location filename="../view/Main.qml" line="131"/>
+        <source>点击按钮</source>
+        <translation>Clicked</translation>
+    </message>
+</context>
+<context>
+    <name>SingletonApplication</name>
+    <message>
+        <location filename="../thirdparty/QZeroAssistKit/src/SingletonApplication/SingletonApplication.cpp" line="18"/>
+        <source>当前应用已在系统中运行</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

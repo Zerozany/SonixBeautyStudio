@@ -19,7 +19,7 @@ private:
 private:
     auto connectSignal2Slot() noexcept -> void override;
 
-    auto engineLoad() noexcept -> void override;
+    auto moduleLoad() noexcept -> void override;
 
 Q_SIGNALS:
 

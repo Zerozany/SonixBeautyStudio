@@ -4,7 +4,7 @@ Gradient {
     id: root
 
     readonly property string colorTop: "#7FFFD4"
-    readonly property string colorBottom: "#FFFFFF"
+    readonly property string colorBottom: "#00000000"
 
     orientation: Gradient.Vertical
     GradientStop {

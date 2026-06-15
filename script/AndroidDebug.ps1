@@ -85,6 +85,6 @@ Write-Host "App PID = $appPID"
 
 # 5. print logs
 Write-Host "Start printing logs..."
-& $adb -s $device logcat -v time --pid=$appPID "*:V"
+# & $adb -s $device logcat -v time --pid=$appPID "*:V"
 # 或你原来的过滤
-# & $adb -s $device logcat -v time -s "qml:*" "System.out:D" "default:D" "HandleDebug" 
+& $adb -s $device logcat -v time -s "qml:*" "System.out:D" "default:D" "HandleDebug" "spdlog"

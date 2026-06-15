@@ -2,5 +2,5 @@ pragma Singleton
 import QtQuick
 
 QtObject {
-    property var mainStackView: null
+    signal pushStack(var _stackPage)
 }
