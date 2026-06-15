@@ -1,7 +1,6 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include "ViewEngine.h"
-// #include "Translator.h"
 #include "ApplicationConfig.h"
 #include "SingletonApplication.h"
 
@@ -20,6 +19,7 @@
 // #include "UsbManager.h"
 // #include "DevicesManager.h"
 // #include "Translator.h"
+
 #include "SqlManager.h"
 #include <QStandardPaths>
 #include <QDir>
