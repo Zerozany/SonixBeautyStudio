@@ -1,21 +1,22 @@
 import QtQuick
+import QtQuick.Controls
 import QZeroSystem
 import QZeroMaterialUI
 
 ZeroWindow {
     id: mainWindow
 
-    MainStackLayout {
+    StackView {
         anchors.fill: parent
         initialItem: App {}
     }
 
     ShortcutControl {
         sequences: [StandardKey.Back]
-        onAndroidEvent: {
-            MainSignals.popStack();
-        }
+        onAndroidEvent: {}
     }
 
-    Component.onCompleted: {}
+    Component.onCompleted: {
+        // MainAlias
+    }
 }
