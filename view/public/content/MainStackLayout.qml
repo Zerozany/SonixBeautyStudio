@@ -11,6 +11,10 @@ StackView {
             root.push(_stackPage);
         }
 
+        function onReplaceStack(_stackPage) {
+            root.replace(_stackPage);
+        }
+
         function onPopStack() {
             root.pop();
         }
