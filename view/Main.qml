@@ -3,7 +3,7 @@ import QZeroSystem
 import QZeroMaterialUI
 import QZeroAssistKit
 import QtQuick.Controls.Material
-// import SonixBeautyStudio
+import SonixBeautyStudio
 import QtQuick.Controls
 
 // import QtQuick.Controls.impl
@@ -60,18 +60,10 @@ ZeroWindow {
     //     }
     // }
 
-    // StackView {
-    //     id: stackView
-    //     anchors.fill: parent
-    //     initialItem: rect2
-    // }
-
-    // Connections {
-    //     target: AppConstants
-    //     function onPushStack(_stackPage) {
-    //         stackView.push(_stackPage);
-    //     }
-    // }
+    MainStackLayout {
+        anchors.fill: parent
+        // initialItem: rect2
+    }
 
     MaterialButton {
         id: btn
@@ -89,15 +81,16 @@ ZeroWindow {
         // font.pixelSize: 22
 
         onClicked: {
+            // MainSignals.pushStack(rect1);
             // mainWindow.Material.theme = Material.Dark;
-            let rect = Qt.rect(50, 50, 100, 100);
-            ScreenShotUtils.imageFormat = ScreenShotUtils.JPG;
-            ScreenShotUtils.burstshot = 3;
-            // ScreenShotUtils.screenshotItem(btn, "SonixBeautyStudio/Screenshoot");
+            // let rect = Qt.rect(50, 50, 100, 100);
+            // ScreenShotUtils.imageFormat = ScreenShotUtils.JPG;
+            // ScreenShotUtils.burstshot = 3;
+            // ScreenShotUtils.screenshotItem(btn, "F:/DevelopFiles/SonixBeautyStudio/Screenshoot");
             // ScreenShotUtils.screenshotItem(btn, 50, 50, 100, 100, "F:/DevelopFiles/SonixBeautyStudio/Screenshoot");
             // ScreenShotUtils.screenshotItem(btn, rect, "F:/DevelopFiles/SonixBeautyStudio/Screenshoot");
             // RecordUtils.record();
-            Translator.language = ":/i18n/qml_en.qm";
+            // Translator.language = ":/i18n/qml_en.qm";
         }
 
         // MaterialToolTip {
@@ -115,7 +108,7 @@ ZeroWindow {
     ShortcutControl {
         sequences: [StandardKey.Back]
         onAndroidEvent: {
-            // stackView.pop();
+            // MainSignals.pop();
         }
     }
 
