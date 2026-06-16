@@ -36,6 +36,8 @@
     <uses-permission android:name="android.permission.HARDWARE_TEST" />
     <uses-permission android:name="android.permission.MANAGE_USB" />
     <!-- USB权限 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!-- 相册访问权限 -->
 
 
     <supports-screens

@@ -2,6 +2,8 @@ import QtQuick
 import QZeroMaterialUI
 import QtQuick.Controls
 
+// import SonixBeautyStudio
+
 Item {
 
     // Item {

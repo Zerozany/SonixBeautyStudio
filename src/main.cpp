@@ -2,7 +2,6 @@
 #include <QQmlApplicationEngine>
 #include "ViewEngine.h"
 #include "ApplicationConfig.h"
-#include "SingletonApplication.h"
 
 #if defined(Q_OS_ANDROID)
     #include <QJniObject>
@@ -13,7 +12,8 @@
     #include <QJsonObject>
     #include "AndroidJNIManager.h"
 #elif defined(Q_OS_WINDOWS)
-// #include "WinWifiManager.h"
+    // #include "WinWifiManager.h"
+    #include "SingletonApplication.h"
 #endif
 // #include "ThemeManager.h"
 // #include "UsbManager.h"
@@ -26,16 +26,19 @@
 #include "ZeroLogger.h"
 // #include <spdlog/spdlog.h>              // spdlog 核心库
 // #include <spdlog/sinks/android_sink.h>  // Android sink 实现
+#include "PermissionManager.h"
 
 int main(int argc, char* argv[])
 {
 #if defined(Q_OS_WINDOWS)
-    SingletonApplication::instance()->init();
     // UsbManager usbManager{};
     // for (const auto& [_k, _v] : usbManager.devicesList())
     // {
     //     qInfo() << _k << ":" << _v;
     // }
+    SingletonApplication::instance()->init();
+#elif defined(Q_OS_ANDROID)
+
 #endif
     ApplicationConfig::instance()->init();
     QGuiApplication app{argc, argv};
@@ -53,6 +56,9 @@ int main(int argc, char* argv[])
     // ZeroLogger::trace("---=======");
     // DevicesManager::create(nullptr, nullptr)->refreshDevicesList();
 
+    QLocationPermission locationPermission{};
+    locationPermission.setAccuracy(QLocationPermission::Precise);
+    PermissionManager::instance()->requestLocationPermission(locationPermission);
 #if false
     SqlManager::instance()->setDatabaseName(QPair<QString, DataBasePathType>("qrc:/config/dataBase/UAS.db", DataBasePathType::ResourcePath));
     QSqlQuery query = SqlManager::instance()->executeSql<QSqlQuery>("qrc:/config/dataBase/UAS.db", "select * from tPartName");
@@ -66,6 +72,7 @@ int main(int argc, char* argv[])
 #endif
 
 #if defined(Q_OS_ANDROID)
+
     // AndroidJNIManager::instance()->setActivityUrl("com/sonixbeauty/module/JWifiManager");
     #if false
     QJniObject            result{AndroidJNIManager::instance()->callJNIMethod<QJniObject>("getWifiList", "()Ljava/lang/String;")};
