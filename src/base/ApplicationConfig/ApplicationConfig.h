@@ -17,7 +17,7 @@ private:
 
 private:
     ApplicationStyle m_applicationStyle{
-        .WindowStyle{"Material"},
+        .WindowsStyle{"Material"},
         .AndroidStyle{"Material"},
     };
 };

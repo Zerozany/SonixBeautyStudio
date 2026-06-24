@@ -26,7 +26,6 @@
 #include "ZeroLogger.h"
 // #include <spdlog/spdlog.h>              // spdlog 核心库
 // #include <spdlog/sinks/android_sink.h>  // Android sink 实现
-#include "PermissionManager.h"
 
 int main(int argc, char* argv[])
 {
@@ -56,9 +55,6 @@ int main(int argc, char* argv[])
     // ZeroLogger::trace("---=======");
     // DevicesManager::create(nullptr, nullptr)->refreshDevicesList();
 
-    QLocationPermission locationPermission{};
-    locationPermission.setAccuracy(QLocationPermission::Precise);
-    PermissionManager::instance()->requestLocationPermission(locationPermission);
 #if false
     SqlManager::instance()->setDatabaseName(QPair<QString, DataBasePathType>("qrc:/config/dataBase/UAS.db", DataBasePathType::ResourcePath));
     QSqlQuery query = SqlManager::instance()->executeSql<QSqlQuery>("qrc:/config/dataBase/UAS.db", "select * from tPartName");
