@@ -12,6 +12,7 @@ qt_add_translations(${PROJECT_NAME}
     QM_FILES_OUTPUT_VARIABLE QM_FILES
     TS_FILE_BASE "qml"
     IMMEDIATE_CALL
+    LUPDATE_OPTIONS -no-obsolete
 )
 
 qt_add_resources(${PROJECT_NAME} "i18n"

@@ -9,8 +9,7 @@
 #if defined(Q_OS_ANDROID)
 extern "C" {
 
-    JNIEXPORT void JNICALL
-    Java_com_sonixbeauty_core_MainActivity_QActivityVisibileChanged(JNIEnv*, jclass, jboolean _activityVisibile)
+    JNIEXPORT void JNICALL Java_com_sonixbeauty_core_MainActivity_QActivityVisibileChanged(JNIEnv*, jclass, jboolean _activityVisibile)
     {
         if (auto window{AndroidWindow::instance()}; window)
         {
