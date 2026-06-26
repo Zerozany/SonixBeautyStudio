@@ -3,8 +3,7 @@ package com.sonixbeauty.core;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import com.sonixbeauty.system.SystemConfig;
+// import android.util.Log;
 
 public class MainActivity extends org.qtproject.qt.android.bindings.QtActivity {
 
@@ -14,7 +13,6 @@ public class MainActivity extends org.qtproject.qt.android.bindings.QtActivity {
     public void onCreate(Bundle _savedInstanceState)
     {
         super.onCreate(_savedInstanceState);
-        SystemConfig.systemColumnHandle(this);
     }
 
     @Override

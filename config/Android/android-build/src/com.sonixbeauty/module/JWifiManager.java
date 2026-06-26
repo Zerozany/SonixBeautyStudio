@@ -14,7 +14,6 @@ import android.net.wifi.WifiNetworkSpecifier;
 import android.util.Log;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import com.sonixbeauty.utiles.MessageUtile;
 import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -52,12 +51,12 @@ public final class JWifiManager {
         try {
             boolean success = m_wifiManager.startScan();
             if (!success) {
-                Log.d(MessageUtile.HandleDebug, "startScan failed");
+                Log.d("HandleDebug", "startScan failed");
                 return "[]";
             }
             List<ScanResult> scanResults = m_wifiManager.getScanResults();
             if (scanResults == null || scanResults.isEmpty()) {
-                Log.d(MessageUtile.HandleDebug, "No scan results");
+                Log.d("HandleDebug", "No scan results");
                 return "[]";
             }
             JSONArray array = new JSONArray();
@@ -69,7 +68,7 @@ public final class JWifiManager {
             }
             return array.toString();
         } catch (Exception e) {
-            Log.e(MessageUtile.HandleDebug, "getWifiList error: " + e.getMessage());
+            Log.e("HandleDebug", "getWifiList error: " + e.getMessage());
             return "[]";
         }
     }
@@ -101,14 +100,14 @@ public final class JWifiManager {
             @Override
             public void onAvailable(Network network)
             {
-                Log.d(MessageUtile.HandleDebug, "Connected to " + ssid);
+                Log.d("HandleDebug", "Connected to " + ssid);
 
                 m_connectivityManager.bindProcessToNetwork(network);
             }
             @Override
             public void onUnavailable()
             {
-                Log.d(MessageUtile.HandleDebug, "Failed to connect to " + ssid);
+                Log.d("HandleDebug", "Failed to connect to " + ssid);
             }
         };
         m_connectivityManager.requestNetwork(request, networkCallback);

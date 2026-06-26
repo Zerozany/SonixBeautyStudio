@@ -4,8 +4,10 @@ import QtQuick.Controls
 
 // import SonixBeautyStudio
 
-Item {
+Rectangle {
+    id: root
 
+    color: "grey"
     // Item {
     //     anchors.fill: parent
 
@@ -39,7 +41,6 @@ Item {
         display: AbstractButton.TextUnderIcon
 
         onClicked: {
-            // MainSignals.pushStack(rect1);
             // mainWindow.Material.theme = Material.Dark;
             // let rect = Qt.rect(50, 50, 100, 100);
             // ScreenShotUtils.imageFormat = ScreenShotUtils.JPG;
@@ -47,8 +48,8 @@ Item {
             // ScreenShotUtils.screenshotItem(btn, "F:/DevelopFiles/SonixBeautyStudio/Screenshoot");
             // ScreenShotUtils.screenshotItem(btn, 50, 50, 100, 100, "F:/DevelopFiles/SonixBeautyStudio/Screenshoot");
             // ScreenShotUtils.screenshotItem(btn, rect, "F:/DevelopFiles/SonixBeautyStudio/Screenshoot");
-            // RecordUtils.record();
             // Translator.language = ":/i18n/qml_en.qm";
+            ContentMethod.showPromptBanner(btn, "This is a Chinese、中国");
         }
 
         // MaterialToolTip {
