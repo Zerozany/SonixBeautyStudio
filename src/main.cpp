@@ -82,15 +82,22 @@ int main(int argc, char* argv[])
     }
     for (const auto& [k, v] : wifiViewMap.toStdMap())
     {
-        qInfo() << k << ":" << v;
+        // qInfo() << k << ":" << v;
     }
-    androidJNIManager->callJNIMethod<void>("connectToWifi", "(Ljava/lang/String;Ljava/lang/String;)V", QJniObject::fromString("US06-9C50D101E3B4").object<jstring>(), QJniObject::fromString("12345678").object<jstring>());
-    // qInfo() << androidJNIManager->callJNIMethod<QJniObject>("currentWifiName", "()Ljava/lang/String;").toString();
 
-    // QTimer::singleShot(3000, [&androidJNIManager]() {
-    //     androidJNIManager->callJNIMethod<void>("disconnectWifi", "()V");
-    //     QNativeInterface::QAndroidApplication::hideSplashScreen(0);
-    // });
+    // qInfo() << "currentWifiName ->" << androidJNIManager->callJNIMethod<QJniObject>("currentWifiName", "()Ljava/lang/String;").toString();
+
+    QTimer::singleShot(5000, [&androidJNIManager]() {
+        androidJNIManager->callJNIMethod<void>("connectToWifi", "(Ljava/lang/String;Ljava/lang/String;)V", QJniObject::fromString("US06-9C50D101E27E").object<jstring>(), QJniObject::fromString("12345678").object<jstring>());
+    });
+
+    QTimer::singleShot(10000, [&androidJNIManager]() {
+        androidJNIManager->callJNIMethod<void>("connectToWifi", "(Ljava/lang/String;Ljava/lang/String;)V", QJniObject::fromString("US06-9C50D101E3B4").object<jstring>(), QJniObject::fromString("12345678").object<jstring>());
+    });
+
+    QTimer::singleShot(20000, [&androidJNIManager]() {
+        androidJNIManager->callJNIMethod<void>("disconnectWifi", "()V");
+    });
     #endif
     QNativeInterface::QAndroidApplication::hideSplashScreen(0);
 #endif

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.net.NetworkRequest;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
@@ -24,7 +25,7 @@ public final class JWifiManager {
     private Activity m_activity;
     private WifiManager m_wifiManager;
     private ConnectivityManager m_connectivityManager;
-    private ConnectivityManager.NetworkCallback m_networkCallback;
+    private java.util.List<ConnectivityManager.NetworkCallback> m_callbacks = new java.util.ArrayList<>();
 
     public JWifiManager(Activity _activity)
     {
@@ -75,17 +76,35 @@ public final class JWifiManager {
     }
 
     // 获取当前 Wi-Fi SSID
-    @SuppressWarnings({ "deprecation" })
     public String currentWifiName()
     {
         try {
+            if (m_connectivityManager == null) {
+                return "";
+            }
+            Network network = m_connectivityManager.getActiveNetwork();
+            if (network == null) {
+                return "";
+            }
+            NetworkCapabilities caps = m_connectivityManager.getNetworkCapabilities(network);
+            if (caps == null || !caps.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                return ""; // 当前不是 Wi-Fi，直接返回空
+            }
             WifiInfo wifiInfo = m_wifiManager.getConnectionInfo();
             if (wifiInfo == null) {
                 return "";
             }
             String ssid = wifiInfo.getSSID();
-            if (ssid != null && ssid.startsWith("\"") && ssid.endsWith("\"")) {
+            if (ssid == null) {
+                return "";
+            }
+            // 去掉引号
+            if (ssid.startsWith("\"") && ssid.endsWith("\"") && ssid.length() >= 2) {
                 ssid = ssid.substring(1, ssid.length() - 1);
+            }
+            // 过滤掉无效值
+            if (ssid.equals("<unknown ssid>") || ssid.equals("0x")) {
+                return "";
             }
             return ssid;
         } catch (Exception e) {
@@ -97,7 +116,7 @@ public final class JWifiManager {
     {
         WifiNetworkSpecifier specifier = new WifiNetworkSpecifier.Builder().setSsid(ssid).setWpa2Passphrase(password).build();
         NetworkRequest request = new NetworkRequest.Builder().addTransportType(android.net.NetworkCapabilities.TRANSPORT_WIFI).setNetworkSpecifier(specifier).build();
-        m_networkCallback = new ConnectivityManager.NetworkCallback() {
+        ConnectivityManager.NetworkCallback cb = new ConnectivityManager.NetworkCallback() {
             @Override
             public void onAvailable(Network network)
             {
@@ -107,37 +126,32 @@ public final class JWifiManager {
             @Override
             public void onUnavailable()
             {
-                m_networkCallback = null;
                 Log.d("HandleDebug", "Failed to connect to " + ssid);
             }
             @Override
             public void onLost(Network network)
             {
-                m_networkCallback = null;
                 Log.d("HandleDebug", "Lost connection to " + ssid);
             }
         };
-        m_connectivityManager.requestNetwork(request, m_networkCallback);
+        m_callbacks.add(cb);
+        m_connectivityManager.requestNetwork(request, cb);
     }
 
     // 新增：断开 Wi-Fi 连接的方法
     public void disconnectWifi()
     {
-        if (m_connectivityManager != null && m_networkCallback != null) {
+        for (ConnectivityManager.NetworkCallback cb : m_callbacks) {
             try {
-                m_connectivityManager.unregisterNetworkCallback(m_networkCallback);
-                Log.d("HandleDebug", "Network callback unregistered");
+                m_connectivityManager.unregisterNetworkCallback(cb);
             } catch (Exception e) {
-                Log.e("HandleDebug", "Error unregistering callback: " + e.getMessage());
-            } finally {
-                m_networkCallback = null;
-                // 可选：解绑进程网络，恢复默认路由
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-                    m_connectivityManager.bindProcessToNetwork(null);
-                }
+                Log.e("HandleDebug", "unregister error: " + e.getMessage());
             }
-        } else {
-            Log.d("HandleDebug", "No active callback to disconnect");
         }
+        m_callbacks.clear();
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            m_connectivityManager.bindProcessToNetwork(null);
+        }
+        Log.d("HandleDebug", "All callbacks unregistered");
     }
 }
