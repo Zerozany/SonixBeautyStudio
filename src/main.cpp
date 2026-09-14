@@ -71,8 +71,9 @@ int main(int argc, char* argv[])
     // spdlog::debug("XXXXXXX=======");
 
     #if true
-    AndroidJNIManager::instance()->setActivityUrl("com/sonixbeauty/module/JWifiManager");
-    QJniObject            result{AndroidJNIManager::instance()->callJNIMethod<QJniObject>("getWifiList", "()Ljava/lang/String;")};
+    AndroidJNIManager* androidJNIManager{new AndroidJNIManager{}};
+    androidJNIManager->setActivityUrl("com/sonixbeauty/module/JWifiManager");
+    QJniObject            result{androidJNIManager->callJNIMethod<QJniObject>("getWifiList", "()Ljava/lang/String;")};
     QMap<QString, quint8> wifiViewMap{};
     QJsonDocument         doc{QJsonDocument::fromJson(result.toString().toUtf8())};
     for (const QJsonValue& value : doc.array())
@@ -83,13 +84,13 @@ int main(int argc, char* argv[])
     {
         qInfo() << k << ":" << v;
     }
-    AndroidJNIManager::instance()->callJNIMethod<void>("connectToWifi", "(Ljava/lang/String;Ljava/lang/String;)V", QJniObject::fromString("US06-9C50D101E3B4").object<jstring>(), QJniObject::fromString("12345678").object<jstring>());
-    qInfo() << AndroidJNIManager::instance()->callJNIMethod<QJniObject>("currentWifiName", "()Ljava/lang/String;").toString();
+    androidJNIManager->callJNIMethod<void>("connectToWifi", "(Ljava/lang/String;Ljava/lang/String;)V", QJniObject::fromString("US06-9C50D101E3B4").object<jstring>(), QJniObject::fromString("12345678").object<jstring>());
+    // qInfo() << androidJNIManager->callJNIMethod<QJniObject>("currentWifiName", "()Ljava/lang/String;").toString();
 
-    QTimer::singleShot(3000, []() {
-        AndroidJNIManager::instance()->callJNIMethod<void>("disconnectWifi", "()V");
-        QNativeInterface::QAndroidApplication::hideSplashScreen(0);
-    });
+    // QTimer::singleShot(3000, [&androidJNIManager]() {
+    //     androidJNIManager->callJNIMethod<void>("disconnectWifi", "()V");
+    //     QNativeInterface::QAndroidApplication::hideSplashScreen(0);
+    // });
     #endif
     QNativeInterface::QAndroidApplication::hideSplashScreen(0);
 #endif

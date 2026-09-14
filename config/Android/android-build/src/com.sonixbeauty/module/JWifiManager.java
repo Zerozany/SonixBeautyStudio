@@ -53,12 +53,12 @@ public final class JWifiManager {
             boolean success = m_wifiManager.startScan();
             if (!success) {
                 Log.d("HandleDebug", "startScan failed");
-                return "[]";
+                return "";
             }
             List<ScanResult> scanResults = m_wifiManager.getScanResults();
             if (scanResults == null || scanResults.isEmpty()) {
                 Log.d("HandleDebug", "No scan results");
-                return "[]";
+                return "";
             }
             JSONArray array = new JSONArray();
             for (ScanResult result : scanResults) {
@@ -70,7 +70,7 @@ public final class JWifiManager {
             return array.toString();
         } catch (Exception e) {
             Log.e("HandleDebug", "getWifiList error: " + e.getMessage());
-            return "[]";
+            return "";
         }
     }
 
@@ -81,7 +81,7 @@ public final class JWifiManager {
         try {
             WifiInfo wifiInfo = m_wifiManager.getConnectionInfo();
             if (wifiInfo == null) {
-                return "NULL";
+                return "";
             }
             String ssid = wifiInfo.getSSID();
             if (ssid != null && ssid.startsWith("\"") && ssid.endsWith("\"")) {
@@ -89,7 +89,7 @@ public final class JWifiManager {
             }
             return ssid;
         } catch (Exception e) {
-            return "NULL";
+            return "";
         }
     }
 
@@ -101,21 +101,20 @@ public final class JWifiManager {
             @Override
             public void onAvailable(Network network)
             {
-                Log.d("HandleDebug", "Connected to " + ssid);
-
                 m_connectivityManager.bindProcessToNetwork(network);
+                Log.d("HandleDebug", "Connected to " + ssid);
             }
             @Override
             public void onUnavailable()
             {
-                Log.d("HandleDebug", "Failed to connect to " + ssid);
                 m_networkCallback = null;
+                Log.d("HandleDebug", "Failed to connect to " + ssid);
             }
             @Override
             public void onLost(Network network)
             {
-                Log.d("HandleDebug", "Lost connection to " + ssid);
                 m_networkCallback = null;
+                Log.d("HandleDebug", "Lost connection to " + ssid);
             }
         };
         m_connectivityManager.requestNetwork(request, m_networkCallback);
