@@ -152,6 +152,5 @@ public final class JWifiManager {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
             m_connectivityManager.bindProcessToNetwork(null);
         }
-        Log.d("HandleDebug", "All callbacks unregistered");
     }
 }

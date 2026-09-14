@@ -2,7 +2,7 @@ _Pragma("once");
 #include <QObject>
 #include <QtQml/qqmlregistration.h>
 #include <QVariantList>
-#include "PublicDefine.hpp"
+#include "QuickMacro.hpp"
 
 class QJSEngine;
 class QQmlEngine;

@@ -1,7 +1,7 @@
 _Pragma("once");
 #include <QObject>
 #include <QtQml/qqmlregistration.h>
-#include "PublicDefine.hpp"
+#include "QuickMacro.hpp"
 
 class ProbeDevice : public QObject
 {
