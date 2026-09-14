@@ -24,6 +24,7 @@ public final class JWifiManager {
     private Activity m_activity;
     private WifiManager m_wifiManager;
     private ConnectivityManager m_connectivityManager;
+    private ConnectivityManager.NetworkCallback m_networkCallback;
 
     public JWifiManager(Activity _activity)
     {
@@ -96,7 +97,7 @@ public final class JWifiManager {
     {
         WifiNetworkSpecifier specifier = new WifiNetworkSpecifier.Builder().setSsid(ssid).setWpa2Passphrase(password).build();
         NetworkRequest request = new NetworkRequest.Builder().addTransportType(android.net.NetworkCapabilities.TRANSPORT_WIFI).setNetworkSpecifier(specifier).build();
-        ConnectivityManager.NetworkCallback networkCallback = new ConnectivityManager.NetworkCallback() {
+        m_networkCallback = new ConnectivityManager.NetworkCallback() {
             @Override
             public void onAvailable(Network network)
             {
@@ -108,8 +109,36 @@ public final class JWifiManager {
             public void onUnavailable()
             {
                 Log.d("HandleDebug", "Failed to connect to " + ssid);
+                m_networkCallback = null;
+            }
+            @Override
+            public void onLost(Network network)
+            {
+                Log.d("HandleDebug", "Lost connection to " + ssid);
+                m_networkCallback = null;
             }
         };
-        m_connectivityManager.requestNetwork(request, networkCallback);
+        m_connectivityManager.requestNetwork(request, m_networkCallback);
+    }
+
+    // 新增：断开 Wi-Fi 连接的方法
+    public void disconnectWifi()
+    {
+        if (m_connectivityManager != null && m_networkCallback != null) {
+            try {
+                m_connectivityManager.unregisterNetworkCallback(m_networkCallback);
+                Log.d("HandleDebug", "Network callback unregistered");
+            } catch (Exception e) {
+                Log.e("HandleDebug", "Error unregistering callback: " + e.getMessage());
+            } finally {
+                m_networkCallback = null;
+                // 可选：解绑进程网络，恢复默认路由
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+                    m_connectivityManager.bindProcessToNetwork(null);
+                }
+            }
+        } else {
+            Log.d("HandleDebug", "No active callback to disconnect");
+        }
     }
 }

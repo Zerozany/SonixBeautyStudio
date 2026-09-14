@@ -24,8 +24,9 @@
 #include <QStandardPaths>
 #include <QDir>
 #include "ZeroLogger.h"
-#include <spdlog/spdlog.h>              // spdlog 核心库
-#include <spdlog/sinks/android_sink.h>  // Android sink 实现
+#include <QTimer>
+// #include <spdlog/spdlog.h>              // spdlog 核心库
+// #include <spdlog/sinks/android_sink.h>  // Android sink 实现
 
 int main(int argc, char* argv[])
 {
@@ -49,7 +50,7 @@ int main(int argc, char* argv[])
     // ZeroLogger::setLevel(spdlog::level::trace);
     // ZeroLogger::trace("---=======");
     // DevicesManager::create(nullptr, nullptr)->refreshDevicesList();
-    // qWarning() << QStandardPaths::writableLocation(QStandardPaths::PicturesLocation);
+    // qWarning() << QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
 #if false
     SqlManager::instance()->setDatabaseName(QPair<QString, DataBasePathType>("qrc:/config/dataBase/UAS.db", DataBasePathType::ResourcePath));
     QSqlQuery query = SqlManager::instance()->executeSql<QSqlQuery>("qrc:/config/dataBase/UAS.db", "select * from tPartName");
@@ -69,8 +70,8 @@ int main(int argc, char* argv[])
     // spdlog::set_default_logger(android_logger);
     // spdlog::debug("XXXXXXX=======");
 
-    // AndroidJNIManager::instance()->setActivityUrl("com/sonixbeauty/module/JWifiManager");
-    #if false
+    #if true
+    AndroidJNIManager::instance()->setActivityUrl("com/sonixbeauty/module/JWifiManager");
     QJniObject            result{AndroidJNIManager::instance()->callJNIMethod<QJniObject>("getWifiList", "()Ljava/lang/String;")};
     QMap<QString, quint8> wifiViewMap{};
     QJsonDocument         doc{QJsonDocument::fromJson(result.toString().toUtf8())};
@@ -82,9 +83,13 @@ int main(int argc, char* argv[])
     {
         qInfo() << k << ":" << v;
     }
-    #elif false
-    AndroidJNIManager::instance()->callJNIMethod<void>("connectToWifi", "(Ljava/lang/String;Ljava/lang/String;)V", QJniObject::fromString("US06-9C50D101E1B2").object<jstring>(), QJniObject::fromString("12345678").object<jstring>());
+    AndroidJNIManager::instance()->callJNIMethod<void>("connectToWifi", "(Ljava/lang/String;Ljava/lang/String;)V", QJniObject::fromString("US06-9C50D101E3B4").object<jstring>(), QJniObject::fromString("12345678").object<jstring>());
     qInfo() << AndroidJNIManager::instance()->callJNIMethod<QJniObject>("currentWifiName", "()Ljava/lang/String;").toString();
+
+    QTimer::singleShot(3000, []() {
+        AndroidJNIManager::instance()->callJNIMethod<void>("disconnectWifi", "()V");
+        QNativeInterface::QAndroidApplication::hideSplashScreen(0);
+    });
     #endif
     QNativeInterface::QAndroidApplication::hideSplashScreen(0);
 #endif
