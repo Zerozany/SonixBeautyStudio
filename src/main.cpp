@@ -28,7 +28,6 @@
 
 #define CPPHTTPLIB_OPENSSL_SUPPORT
 #include <httplib.h>
-#include <QThread>
 #include <QtConcurrent>
 #include <openssl/ssl.h>
 
@@ -60,7 +59,7 @@ void fetchPhoneCode()
         {"User-Agent", "Mozilla/5.0"},
         {"Accept", "application/json"}};
 
-    auto res = cli.Get("/app/V0/phoneCode?phone=18294821095&type=1", headers);
+    auto res = cli.Get("/app/V0/phoneCode?phone=18583943303&type=1", headers);
 
     if (res && res->status == 200)
     {
@@ -74,8 +73,6 @@ void fetchPhoneCode()
 
 int main(int argc, char* argv[])
 {
-    SSL_library_init();
-    SSL_load_error_strings();
 #if defined(Q_OS_WINDOWS)
     // UsbManager usbManager{};
     // for (const auto& [_k, _v] : usbManager.devicesList())
