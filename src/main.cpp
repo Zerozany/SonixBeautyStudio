@@ -25,8 +25,6 @@
 #include <QDir>
 #include "ZeroLogger.h"
 #include <QTimer>
-// #include <spdlog/spdlog.h>              // spdlog 核心库
-// #include <spdlog/sinks/android_sink.h>  // Android sink 实现
 
 int main(int argc, char* argv[])
 {
@@ -46,11 +44,14 @@ int main(int argc, char* argv[])
     QQmlApplicationEngine engine{};
     // Translator::create(&engine, nullptr)->setLanguage(":/i18n/qml_en.qm");
     ViewEngine::instance(engine)->init();
-    // ZeroLogger::init(QDir{QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)}.filePath("log/SonixLog_1.txt").toStdString());
-    // ZeroLogger::setLevel(spdlog::level::trace);
-    // ZeroLogger::trace("---=======");
+    // ZeroLogger::instance()->init(QDir{QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation)}.filePath("log/SonixLog_1.txt").toStdString());
+    // spdlog::set_level(spdlog::level::trace);
+    // spdlog::trace("---=======1");
+    // SPDLOG_WARN("---=======2:{}", "String");
+    // SPDLOG_ERROR("---=======3");
     // DevicesManager::create(nullptr, nullptr)->refreshDevicesList();
     // qWarning() << QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
+
 #if false
     SqlManager::instance()->setDatabaseName(QPair<QString, DataBasePathType>("qrc:/config/dataBase/UAS.db", DataBasePathType::ResourcePath));
     QSqlQuery query = SqlManager::instance()->executeSql<QSqlQuery>("qrc:/config/dataBase/UAS.db", "select * from tPartName");
@@ -64,11 +65,6 @@ int main(int argc, char* argv[])
 #endif
 
 #if defined(Q_OS_ANDROID)
-    // auto android_logger = spdlog::android_logger_mt("android", "spdlog");
-    // android_logger->critical("Use \"adb shell logcat\" to view this message.");
-    // android_logger->set_level(spdlog::level::trace);
-    // spdlog::set_default_logger(android_logger);
-    // spdlog::debug("XXXXXXX=======");
 
     #if true
     AndroidJNIManager* androidJNIManager{new AndroidJNIManager{}};
@@ -85,19 +81,19 @@ int main(int argc, char* argv[])
         // qInfo() << k << ":" << v;
     }
 
-    // qInfo() << "currentWifiName ->" << androidJNIManager->callJNIMethod<QJniObject>("currentWifiName", "()Ljava/lang/String;").toString();
+    qInfo() << "currentWifiName ->" << androidJNIManager->callJNIMethod<QJniObject>("currentWifiName", "()Ljava/lang/String;").toString();
 
-    QTimer::singleShot(5000, [&androidJNIManager]() {
-        androidJNIManager->callJNIMethod<void>("connectToWifi", "(Ljava/lang/String;Ljava/lang/String;)V", QJniObject::fromString("US06-9C50D101E27E").object<jstring>(), QJniObject::fromString("12345678").object<jstring>());
-    });
+    // QTimer::singleShot(5000, [&androidJNIManager]() {
+    //     androidJNIManager->callJNIMethod<void>("connectToWifi", "(Ljava/lang/String;Ljava/lang/String;)V", QJniObject::fromString("US06-9C50D101E27E").object<jstring>(), QJniObject::fromString("12345678").object<jstring>());
+    // });
 
-    QTimer::singleShot(10000, [&androidJNIManager]() {
-        androidJNIManager->callJNIMethod<void>("connectToWifi", "(Ljava/lang/String;Ljava/lang/String;)V", QJniObject::fromString("US06-9C50D101E3B4").object<jstring>(), QJniObject::fromString("12345678").object<jstring>());
-    });
+    // QTimer::singleShot(10000, [&androidJNIManager]() {
+    //     androidJNIManager->callJNIMethod<void>("connectToWifi", "(Ljava/lang/String;Ljava/lang/String;)V", QJniObject::fromString("US06-9C50D101E3B4").object<jstring>(), QJniObject::fromString("12345678").object<jstring>());
+    // });
 
-    QTimer::singleShot(20000, [&androidJNIManager]() {
-        androidJNIManager->callJNIMethod<void>("disconnectWifi", "()V");
-    });
+    // QTimer::singleShot(20000, [&androidJNIManager]() {
+    //     androidJNIManager->callJNIMethod<void>("disconnectWifi", "()V");
+    // });
     #endif
     QNativeInterface::QAndroidApplication::hideSplashScreen(0);
 #endif
