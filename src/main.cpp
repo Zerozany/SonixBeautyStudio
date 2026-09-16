@@ -73,77 +73,174 @@ static QByteArray buildReadUdmFrame()
     return f;
 }
 
+// void connectProbe()
+// {
+//     static QTcpSocket* tcp_con = nullptr;
+//     static QByteArray  g_rxBuf;
+
+//     if (!tcp_con)
+//     {
+//         tcp_con = new QTcpSocket();
+
+//         QObject::connect(tcp_con, &QTcpSocket::readyRead, []() {
+//             g_rxBuf += tcp_con->readAll();
+//             qDebug() << "readyRead, buf size =" << g_rxBuf.size();
+
+//             while (g_rxBuf.size() >= 16)
+//             {
+//                 // packetSIZE 表示整包占多少个 32bit word
+//                 quint16 sizeRaw = (quint8)g_rxBuf[2] | ((quint8)g_rxBuf[3] << 8);
+//                 int     total   = sizeRaw * 4;
+//                 if (total < 20)
+//                 {
+//                     qDebug() << "包长度异常:" << total;
+//                     break;
+//                 }
+//                 if (g_rxBuf.size() < total)
+//                     break;  // 整帧没到齐，等下次
+
+//                 QByteArray frame = g_rxBuf.left(total);
+//                 g_rxBuf.remove(0, total);
+
+//                 // CRC 校验（覆盖 [0..11] + [14..15]）
+//                 QByteArray crcArea = frame.left(12) + frame.mid(14, 2);
+//                 quint16    calc    = crc16_xmodem(crcArea);
+//                 quint16    recv    = (quint8)frame[12] | ((quint8)frame[13] << 8);
+//                 if (calc != recv)
+//                 {
+//                     qDebug() << "CRC 错误，丢弃整包";
+//                     continue;
+//                 }
+
+//                 quint16 classBl   = (quint8)frame[14] | ((quint8)frame[15] << 8);
+//                 quint16 burst     = classBl >> 4;
+//                 quint8  classCode = classBl & 0x0F;
+//                 quint16 rw        = (quint8)frame[10] | ((quint8)frame[11] << 8);
+
+//                 qDebug() << "RX: RW=" << rw << " Class=" << classCode << " Burst=" << burst;
+
+//                 quint32    addr = (quint8)frame[16] | ((quint8)frame[17] << 8) | ((quint8)frame[18] << 16) | ((quint8)frame[19] << 24);
+//                 QByteArray udm  = frame.mid(20, burst * 4);  // 头部固定 20 字节
+
+//                 qDebug() << "Addr =" << QString::number(addr, 16);
+//                 qDebug() << "UDM  =" << udm.toHex(' ');
+
+//                 auto field = [&](int off, int len) -> QString {
+//                     QByteArray raw = udm.mid(off, len);
+//                     int        end = raw.indexOf('\0');
+//                     if (end >= 0) raw.truncate(end);
+//                     return QString::fromLatin1(raw);
+//                 };
+//                 qDebug() << "ProductMFR  =" << field(10, 8);
+//                 qDebug() << "ProductName =" << field(18, 8);
+//                 qDebug() << "ProductSN   =" << field(26, 16);
+//                 qDebug() << "DeviceID    =" << field(42, 16);
+//                 qDebug() << "DeviceSN    =" << field(58, 32);
+//                 qDebug() << "DeviceVer   =" << field(90, 40);
+//             }
+//         });
+//     }
+
+//     tcp_con->connectToHost("192.168.0.10", 5061);
+
+//     if (tcp_con->waitForConnected(3000))
+//     {
+//         qDebug() << "Connected!";
+//         QByteArray frame = buildReadUdmFrame();
+//         qDebug() << "TX:" << frame.toHex(' ');
+//         tcp_con->write(frame);
+//         tcp_con->flush();
+//     }
+//     else
+//     {
+//         qDebug() << "Connect failed:" << tcp_con->errorString();
+//     }
+// }
+
 void connectProbe()
 {
-    static QTcpSocket* tcp_con = new QTcpSocket();
+    static QTcpSocket* tcp_con = nullptr;
+    static QByteArray  g_rxBuf;
 
-    // 先注册收包回调，再连接，避免回包比回调先到
-    static QByteArray g_rxBuf;  // 累积缓冲
+    if (!tcp_con)
+    {
+        tcp_con = new QTcpSocket();
 
-    QObject::connect(tcp_con, &QTcpSocket::readyRead, [&]() {
-        g_rxBuf += tcp_con->readAll();
-        qDebug() << "readyRead, buf size =" << g_rxBuf.size();
+        QObject::connect(tcp_con, &QTcpSocket::readyRead, []() {
+            g_rxBuf += tcp_con->readAll();
+            qDebug() << "readyRead, buf size =" << g_rxBuf.size();
 
-        while (g_rxBuf.size() >= 16)
-        {
-            quint16 sizeRaw = (quint8)g_rxBuf[2] | ((quint8)g_rxBuf[3] << 8);
-            int     total   = sizeRaw * 4;
-            if (g_rxBuf.size() < total) break;  // 没到齐，继续等
-
-            QByteArray frame = g_rxBuf.left(total);
-            g_rxBuf.remove(0, total);
-
-            // CRC 校验（覆盖 [0..11]+[14..15]）
-            QByteArray crcArea = frame.left(12) + frame.mid(14, 2);
-            quint16    calc    = crc16_xmodem(crcArea);
-            quint16    recv    = (quint8)frame[12] | ((quint8)frame[13] << 8);
-            if (calc != recv)
+            while (g_rxBuf.size() >= 16)
             {
-                qDebug() << "CRC 错误，丢弃整包";
-                continue;
+                quint16 sizeRaw = (quint8)g_rxBuf[2] | ((quint8)g_rxBuf[3] << 8);
+                int     total   = sizeRaw * 4;
+                if (total < 20)
+                {
+                    qDebug() << "包长度异常:" << total;
+                    break;
+                }
+                if (g_rxBuf.size() < total)
+                    break;  // 整帧没到齐，等下次
+
+                QByteArray frame = g_rxBuf.left(total);
+                g_rxBuf.remove(0, total);
+
+                QByteArray crcArea = frame.left(12) + frame.mid(14, 2);
+                quint16    calc    = crc16_xmodem(crcArea);
+                quint16    recv    = (quint8)frame[12] | ((quint8)frame[13] << 8);
+                if (calc != recv)
+                {
+                    qDebug() << "CRC 错误，丢弃整包";
+                    continue;
+                }
+
+                quint16 classBl   = (quint8)frame[14] | ((quint8)frame[15] << 8);
+                quint16 burst     = classBl >> 4;
+                quint8  classCode = classBl & 0x0F;
+                quint16 rw        = (quint8)frame[10] | ((quint8)frame[11] << 8);
+
+                qDebug() << "RX: RW=" << rw << " Class=" << classCode << " Burst=" << burst;
+
+                quint32    addr = (quint8)frame[16] | ((quint8)frame[17] << 8) | ((quint8)frame[18] << 16) | ((quint8)frame[19] << 24);
+                QByteArray udm  = frame.mid(20, burst * 4);
+
+                qDebug() << "Addr =" << QString::number(addr, 16);
+                qDebug() << "UDM  =" << udm.toHex(' ');
+
+                auto field = [&](int off, int len) -> QString {
+                    QByteArray raw = udm.mid(off, len);
+                    int        end = raw.indexOf('\0');
+                    if (end >= 0) raw.truncate(end);
+                    return QString::fromLatin1(raw);
+                };
+                qDebug() << "ProductMFR  =" << field(10, 8);
+                qDebug() << "ProductName =" << field(18, 8);
+                qDebug() << "ProductSN   =" << field(26, 16);
+                qDebug() << "DeviceID    =" << field(42, 16);
+                qDebug() << "DeviceSN    =" << field(58, 32);
+                qDebug() << "DeviceVer   =" << field(90, 40);
             }
+        });
 
-            quint16 rw        = (quint8)frame[10] | ((quint8)frame[11] << 8);
-            quint16 classBl   = (quint8)frame[14] | ((quint8)frame[15] << 8);
-            quint8  classCode = classBl & 0x0F;
-            quint16 burst     = classBl >> 4;
+        // ---- 定时轮询：每 1 秒发一次读请求 ----
+        QTimer* pollTimer = new QTimer(tcp_con);
+        QObject::connect(pollTimer, &QTimer::timeout, []() {
+            if (tcp_con->state() == QAbstractSocket::ConnectedState)
+            {
+                QByteArray frame = buildReadUdmFrame();
+                tcp_con->write(frame);
+                tcp_con->flush();
+                qDebug() << "TX:" << frame.toHex(' ');
+            }
+        });
+        pollTimer->start(1000);  // 1000 ms，想快就改小
+    }
 
-            qDebug() << "RX: RW=" << rw << " Class=" << classCode << " Burst=" << burst;
-
-            quint32    addr = (quint8)frame[16] | ((quint8)frame[17] << 8) | ((quint8)frame[18] << 16) | ((quint8)frame[19] << 24);
-            QByteArray udm  = frame.mid(20, burst * 4);  // 256 字节
-
-            qDebug() << "Addr =" << QString::number(addr, 16);
-            qDebug() << "UDM  =" << udm.toHex(' ');
-
-            // 顺便解析字段（按文档 3.2 偏移）
-            auto field = [&](int off, int len) -> QString {
-                QByteArray raw = udm.mid(off, len);
-                int        end = raw.indexOf('\0');
-                if (end >= 0) raw.truncate(end);  // 遇到第一个 \0 就截断
-                return QString::fromLatin1(raw);
-            };
-            qDebug() << "ProductMFR  =" << field(10, 8);
-            qDebug() << "ProductName =" << field(18, 8);
-            qDebug() << "ProductSN   =" << field(26, 16);
-            qDebug() << "DeviceID    =" << field(42, 16);
-            qDebug() << "DeviceSN    =" << field(58, 32);
-            qDebug() << "DeviceVer   =" << field(90, 40);
-        }
-    });
-
-    // 连接
     tcp_con->connectToHost("192.168.0.10", 5061);
 
     if (tcp_con->waitForConnected(3000))
     {
         qDebug() << "Connected!";
-
-        // ★★★ 关键：发送读 UDM 请求 ★★★
-        QByteArray frame = buildReadUdmFrame();
-        qDebug() << "TX:" << frame.toHex(' ');
-        tcp_con->write(frame);
-        tcp_con->flush();
     }
     else
     {
@@ -184,6 +281,7 @@ void fetchPhoneCode()
     if (res && res->status == 200)
     {
         qDebug() << "响应:" << QString::fromStdString(res->body);
+        qDebug() << "状态码:" << res->status;
     }
     else
     {
@@ -201,9 +299,7 @@ int main(int argc, char* argv[])
     // }
     SingletonApplication::instance()->init();
 #elif defined(Q_OS_ANDROID)
-    QtConcurrent::run([]() {
-        // fetchPhoneCode();
-    });
+
 #endif
     ApplicationConfig::instance()->init();
     QGuiApplication app{argc, argv};
@@ -230,7 +326,9 @@ int main(int argc, char* argv[])
         }
     }
 #endif
-
+    QtConcurrent::run([]() {
+        // fetchPhoneCode();
+    });
 #if defined(Q_OS_ANDROID)
 
     #if true
@@ -254,11 +352,11 @@ int main(int argc, char* argv[])
     //     androidJNIManager->callJNIMethod<void>("connectToWifi", "(Ljava/lang/String;Ljava/lang/String;)V", QJniObject::fromString("US06-9C50D101E27E").object<jstring>(), QJniObject::fromString("12345678").object<jstring>());
     // });
 
-    QTimer::singleShot(10000, [&androidJNIManager]() {
+    QTimer::singleShot(3000, [&androidJNIManager]() {
         androidJNIManager->callJNIMethod<void>("connectToWifi", "(Ljava/lang/String;Ljava/lang/String;)V", QJniObject::fromString("US06-9C50D101E3B4").object<jstring>(), QJniObject::fromString("12345678").object<jstring>());
     });
 
-    QTimer::singleShot(15000, [&androidJNIManager]() {
+    QTimer::singleShot(7000, [&androidJNIManager]() {
         connectProbe();
     });
 
