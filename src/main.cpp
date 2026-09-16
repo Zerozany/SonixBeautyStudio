@@ -31,6 +31,26 @@
 #include <QtConcurrent>
 #include <openssl/ssl.h>
 
+#include <QTcpSocket>
+
+void connectProbe()
+{
+    static QTcpSocket* tcp_con = new QTcpSocket();
+
+    // 关键：必须先 connectToHost，连接是异步的
+    tcp_con->connectToHost("192.168.0.10", 5061);
+
+    // 方式一：阻塞等待（简单，但会卡 UI 线程，不推荐在主线程用）
+    if (tcp_con->waitForConnected(3000))
+    {
+        qDebug() << "Connected!";
+    }
+    else
+    {
+        qDebug() << "Connect failed:" << tcp_con->errorString();
+    }
+}
+
 void fetchPhoneCode()
 {
     const QString caPath = QDir(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation))
@@ -81,7 +101,9 @@ int main(int argc, char* argv[])
     // }
     SingletonApplication::instance()->init();
 #elif defined(Q_OS_ANDROID)
-
+    QtConcurrent::run([]() {
+        // fetchPhoneCode();
+    });
 #endif
     ApplicationConfig::instance()->init();
     QGuiApplication app{argc, argv};
@@ -108,9 +130,7 @@ int main(int argc, char* argv[])
         }
     }
 #endif
-    QtConcurrent::run([]() {
-        fetchPhoneCode();
-    });
+
 #if defined(Q_OS_ANDROID)
 
     #if true
@@ -134,9 +154,14 @@ int main(int argc, char* argv[])
     //     androidJNIManager->callJNIMethod<void>("connectToWifi", "(Ljava/lang/String;Ljava/lang/String;)V", QJniObject::fromString("US06-9C50D101E27E").object<jstring>(), QJniObject::fromString("12345678").object<jstring>());
     // });
 
-    // QTimer::singleShot(10000, [&androidJNIManager]() {
-    //     androidJNIManager->callJNIMethod<void>("connectToWifi", "(Ljava/lang/String;Ljava/lang/String;)V", QJniObject::fromString("US06-9C50D101E3B4").object<jstring>(), QJniObject::fromString("12345678").object<jstring>());
-    // });
+    QTimer::singleShot(10000, [&androidJNIManager]() {
+        androidJNIManager->callJNIMethod<void>("connectToWifi", "(Ljava/lang/String;Ljava/lang/String;)V", QJniObject::fromString("US06-9C50D101E3B4").object<jstring>(), QJniObject::fromString("12345678").object<jstring>());
+    });
+
+    QTimer::singleShot(15000, [&androidJNIManager]() {
+        // androidJNIManager->callJNIMethod<void>("connectToWifi", "(Ljava/lang/String;Ljava/lang/String;)V", QJniObject::fromString("US06-9C50D101E3B4").object<jstring>(), QJniObject::fromString("12345678").object<jstring>());
+        connectProbe();
+    });
 
     // QTimer::singleShot(20000, [&androidJNIManager]() {
     //     androidJNIManager->callJNIMethod<void>("disconnectWifi", "()V");
