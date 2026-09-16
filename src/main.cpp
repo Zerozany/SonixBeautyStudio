@@ -23,7 +23,7 @@
 #include "SqlManager.h"
 #include <QStandardPaths>
 #include <QDir>
-#include "ZeroLogger.h"
+#include "SpdLogger.h"
 #include <QTimer>
 
 #define CPPHTTPLIB_OPENSSL_SUPPORT
@@ -466,9 +466,8 @@ int main(int argc, char* argv[])
     QQmlApplicationEngine engine{};
     // Translator::create(&engine, nullptr)->setLanguage(":/i18n/qml_en.qm");
     ViewEngine::instance(engine)->init();
-    // ZeroLogger::instance()->init(QDir{QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation)}.filePath("log/SonixLog_1.txt").toStdString());
+    // SpdLogger::instance()->init(QDir{QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation)}.filePath("log/SonixLog_1.txt").toStdString());
     // spdlog::set_level(spdlog::level::trace);
-    // spdlog::trace("---=======1");
     // SPDLOG_WARN("---=======2:{}", "String");
     // SPDLOG_ERROR("---=======3");
     // DevicesManager::create(nullptr, nullptr)->refreshDevicesList();
@@ -508,7 +507,7 @@ int main(int argc, char* argv[])
     // qInfo() << "currentWifiName ->" << androidJNIManager->callJNIMethod<QJniObject>("currentWifiName", "()Ljava/lang/String;").toString();
 
     QTimer::singleShot(3000, [&androidJNIManager]() {
-        androidJNIManager->callJNIMethod<void>("connectToWifi", "(Ljava/lang/String;Ljava/lang/String;)V", QJniObject::fromString("US06-9C50D101E27E").object<jstring>(), QJniObject::fromString("12345678").object<jstring>());
+        // androidJNIManager->callJNIMethod<void>("connectToWifi", "(Ljava/lang/String;Ljava/lang/String;)V", QJniObject::fromString("US06-9C50D101E27E").object<jstring>(), QJniObject::fromString("12345678").object<jstring>());
     });
 
     // QTimer::singleShot(3000, [&androidJNIManager]() {
@@ -516,7 +515,7 @@ int main(int argc, char* argv[])
     // });
 
     QTimer::singleShot(7000, [&androidJNIManager]() {
-        connectProbe();
+        // connectProbe();
     });
 
     // QTimer::singleShot(20000, [&androidJNIManager]() {

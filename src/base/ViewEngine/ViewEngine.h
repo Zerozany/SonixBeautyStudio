@@ -21,5 +21,5 @@ private:
 private:
     auto connectSignal2Slot() noexcept -> void override;
 
-    auto moduleLoad() noexcept -> void override;
+    auto loadModule() noexcept -> void override;
 };
