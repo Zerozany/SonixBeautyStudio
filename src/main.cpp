@@ -407,6 +407,8 @@ void connectProbe()
 }
 #endif
 
+#include "LoginManager.h"
+
 void fetchPhoneCode()
 {
     const QString caPath = QDir(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation))
@@ -484,8 +486,10 @@ int main(int argc, char* argv[])
         }
     }
 #endif
-    QtConcurrent::run([]() {
+    LoginManager loginManager{"zscs.imeik.com"};
+    QtConcurrent::run([&loginManager]() {
         // fetchPhoneCode();
+        loginManager.getCaptcha();
     });
 #if defined(Q_OS_ANDROID)
 
