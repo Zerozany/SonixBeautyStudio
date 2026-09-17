@@ -6,7 +6,6 @@ _Pragma("once");
 
 class QJSEngine;
 class QQmlEngine;
-class QQmlApplicationEngine;
 
 class DevicesManager : public QObject
 {

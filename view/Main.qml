@@ -3,6 +3,8 @@ import QtQuick
 import QZeroSystem
 import QZeroMaterialUI
 
+// import SonixBeautyStudio
+
 // import QtMultimedia
 
 ZeroWindow {
@@ -30,6 +32,15 @@ ZeroWindow {
     //         }
     //     }
     // }
+
+    MaterialButton {
+        anchors.centerIn: parent
+        onClicked: {
+            LoginManager.getCaptcha();
+            console.log(LoginManager.host);
+            console.log(LoginManager.port);
+        }
+    }
 
     ShortcutControl {
         sequences: [StandardKey.Back]

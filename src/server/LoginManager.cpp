@@ -1,10 +1,26 @@
 #include "LoginManager.h"
 #include <QDir>
 #include <QStandardPaths>
+#include <QJSEngine>
+#include <QQmlEngine>
+#include <QQmlApplicationEngine>
 
-LoginManager::LoginManager(const std::string& _host, int _port, QObject* _parent) : QObject{_parent}, HttpsManager<const std::string&, int>{_host, std::move(_port)}
+namespace Private
+{
+    static constexpr const char* Host{"zscs.imeik.com"};
+    static constexpr int         Port{443};
+}  // namespace Private
+
+LoginManager::LoginManager(const std::string& _host, int _port, QObject* _parent) : QObject{_parent}, HttpsManager<const std::string&, int>{_host, std::move(_port)}, m_host{QString::fromStdString(_host)}, m_port{_port}
 {
     std::invoke(&LoginManager::init, this, _host, std::move(_port));
+}
+
+LoginManager* LoginManager::create(QQmlEngine* _qmlEngine, QJSEngine* _qJSEngine)
+{
+    Q_UNUSED(_qJSEngine);
+    static LoginManager* loginManager{new LoginManager{Private::Host, Private::Port, qobject_cast<QQmlApplicationEngine*>(_qmlEngine)}};
+    return loginManager;
 }
 
 void LoginManager::getCaptcha()
@@ -26,10 +42,8 @@ void LoginManager::getCaptcha()
     }
 }
 
-void LoginManager::init(const std::string& _host, int&& _port) noexcept
+void LoginManager::init(const std::string&, int&&) noexcept
 {
-    Q_UNUSED(_host)
-    Q_UNUSED(_port)
     const QString cacertPath{QDir{QStandardPaths::writableLocation(QStandardPaths::AppDataLocation)}.filePath("cacert.pem")};
     if (!QFile::exists(cacertPath))
     {

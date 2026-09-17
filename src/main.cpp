@@ -25,12 +25,8 @@
 #include <QDir>
 #include "SpdLogger.h"
 #include <QTimer>
-
-#define CPPHTTPLIB_OPENSSL_SUPPORT
-#include <httplib.h>
+#include "LoginManager.h"
 #include <QtConcurrent>
-#include <openssl/ssl.h>
-
 #include <QTcpSocket>
 
 static quint16 crc16_xmodem(const QByteArray& data)
@@ -407,49 +403,6 @@ void connectProbe()
 }
 #endif
 
-#include "LoginManager.h"
-
-void fetchPhoneCode()
-{
-    const QString caPath = QDir(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation))
-                               .filePath("cacert.pem");
-    if (!QFile::exists(caPath))
-    {
-        if (!QFile::copy(":/config/Android/cacert.pem", caPath))
-        {
-            qDebug() << "CA 复制失败";
-            return;
-        }
-        QFile::setPermissions(caPath, QFile::ReadOwner | QFile::WriteOwner);
-    }
-    qDebug() << "CA exists:" << QFile::exists(caPath) << caPath;
-
-    httplib::SSLClient cli("zscs.imeik.com");
-    cli.set_connection_timeout(10, 0);
-    cli.set_read_timeout(10, 0);
-    cli.set_ca_cert_path(caPath.toStdString().c_str());
-
-    cli.set_error_logger([](const httplib::Error& err, const httplib::Request*) {
-        qDebug() << "httplib error:" << httplib::to_string(err).c_str();
-    });
-
-    httplib::Headers headers = {
-        {"User-Agent", "Mozilla/5.0"},
-        {"Accept", "application/json"}};
-
-    auto res = cli.Get("/app/V0/phoneCode?phone=18294821095&type=1", headers);
-
-    if (res && res->status == 200)
-    {
-        qDebug() << "响应:" << QString::fromStdString(res->body);
-        qDebug() << "状态码:" << res->status;
-    }
-    else
-    {
-        qDebug() << "失败，状态码:" << (res ? res->status : -1);
-    }
-}
-
 int main(int argc, char* argv[])
 {
 #if defined(Q_OS_WINDOWS)
@@ -486,11 +439,8 @@ int main(int argc, char* argv[])
         }
     }
 #endif
-    LoginManager loginManager{"zscs.imeik.com"};
-    QtConcurrent::run([&loginManager]() {
-        // fetchPhoneCode();
-        loginManager.getCaptcha();
-    });
+    // QtConcurrent::run([]() {
+    // });
 #if defined(Q_OS_ANDROID)
 
     #if true
