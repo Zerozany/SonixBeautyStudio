@@ -28,6 +28,7 @@ file(GLOB CONFIGFILES RELATIVE ${CMAKE_SOURCE_DIR}
     "${CMAKE_SOURCE_DIR}/qtquickcontrols2.conf"
     "${CMAKE_SOURCE_DIR}/config/dataBase/*.db"
     "${CMAKE_SOURCE_DIR}/config/Android/*.pem"
+    "${CMAKE_SOURCE_DIR}/config/settings/*.ini"
 )
 
 set_source_files_properties(

@@ -3,7 +3,7 @@ _Pragma("once");
 #include <QtQml/qqmlregistration.h>
 #include <string>
 #include "HttpsManager.hpp"
-#include "QuickMacro.hpp"
+// #include "QuickMacro.hpp"
 
 class QJSEngine;
 class QQmlEngine;
@@ -13,14 +13,18 @@ class LoginManager final : public QObject, HttpsManager<const std::string&, int>
     Q_OBJECT
     QML_SINGLETON
     QML_ELEMENT
-    QUICK_PROPERTY(QString, m_host, host, host, setHost, hostChanged)
-    QUICK_PROPERTY(int, m_port, port, port, setPort, portChanged)
+    Q_PROPERTY(QString host READ host CONSTANT)
+    Q_PROPERTY(int port READ port CONSTANT)
 public:
     static LoginManager* create(QQmlEngine* _qmlEngine = nullptr, QJSEngine* _qJSEngine = nullptr);
 
     ~LoginManager() noexcept override = default;
 
     Q_DISABLE_COPY_MOVE(LoginManager)
+
+public:
+    QString host() { return m_host; }
+    int     port() { return m_port; }
 
 public:
     Q_INVOKABLE void getCaptcha();
@@ -31,8 +35,6 @@ private:
     void init(const std::string&, int&&) noexcept override;
 
 Q_SIGNALS:
-    void hostChanged();
-    void portChanged();
 
 private:
     QString m_host{};

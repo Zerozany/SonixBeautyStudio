@@ -403,6 +403,8 @@ void connectProbe()
 }
 #endif
 
+#include "LoginConfig.h"
+
 int main(int argc, char* argv[])
 {
 #if defined(Q_OS_WINDOWS)
@@ -439,6 +441,11 @@ int main(int argc, char* argv[])
         }
     }
 #endif
+    LoginConfig loginConfig{":/config/settings/loginServer.ini", QSettings::IniFormat};
+    // LoginConfig loginConfig{QDir{QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation)}.filePath("settings/loginServerTest.ini"), QSettings::IniFormat};
+    qDebug() << loginConfig.host();
+    qDebug() << loginConfig.port();
+    qDebug() << loginConfig.captcha();
     // QtConcurrent::run([]() {
     // });
 #if defined(Q_OS_ANDROID)
