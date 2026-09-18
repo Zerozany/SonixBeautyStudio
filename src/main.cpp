@@ -106,7 +106,7 @@ static QByteArray buildWriteResetDeviceFrame(quint32 value)
     return f;
 }
 
-#if false  // 单次数发送
+#if true  // 单次数发送
 void connectProbe()
 {
     static QTcpSocket* tcp_con = nullptr;
@@ -165,6 +165,10 @@ void connectProbe()
                     if (end >= 0) raw.truncate(end);
                     return QString::fromLatin1(raw);
                 };
+                QByteArray rawId = udm.mid(42, 16);
+                qDebug() << "DeviceID raw hex:" << rawId.toHex(' ');
+                qDebug() << "DeviceID raw ascii:" << QString::fromLatin1(rawId);
+                qDebug() << "DeviceID field():" << field(42, 16);
                 qDebug() << "ProductMFR  =" << field(10, 8);
                 qDebug() << "ProductName =" << field(18, 8);
                 qDebug() << "ProductSN   =" << field(26, 16);
@@ -192,7 +196,7 @@ void connectProbe()
 }
 #endif
 
-#if true  // 持续发送
+#if false  // 持续发送
 void connectProbe()
 {
     static QTcpSocket* tcp_con = nullptr;
@@ -441,11 +445,11 @@ int main(int argc, char* argv[])
         }
     }
 #endif
-    LoginConfig loginConfig{":/config/settings/loginServer.ini", QSettings::IniFormat};
+    // LoginConfig loginConfig{":/config/settings/loginServer.ini", QSettings::IniFormat};
     // LoginConfig loginConfig{QDir{QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation)}.filePath("settings/loginServerTest.ini"), QSettings::IniFormat};
-    qDebug() << loginConfig.host();
-    qDebug() << loginConfig.port();
-    qDebug() << loginConfig.captcha();
+    // qDebug() << loginConfig.host();
+    // qDebug() << loginConfig.port();
+    // qDebug() << loginConfig.captcha();
     // QtConcurrent::run([]() {
     // });
 #if defined(Q_OS_ANDROID)
@@ -458,26 +462,36 @@ int main(int argc, char* argv[])
     QJsonDocument         doc{QJsonDocument::fromJson(result.toString().toUtf8())};
     for (const QJsonValue& value : doc.array())
     {
-        wifiViewMap[value.toObject()["ssid"].toString()] = static_cast<quint8>(value.toObject()["level"].toInt());
+        const QJsonArray pair{value.toArray()};
+        if (pair.size() < 2)
+        {
+            continue;
+        }
+        const QString ssid{pair.at(0).toString()};
+        if (ssid.isEmpty())  // 跳过隐藏热点 {
+        {
+            continue;
+        }
+        wifiViewMap[pair.at(0).toString()] = static_cast<quint8>(pair.at(1).toInt());
     }
     for (const auto& [k, v] : wifiViewMap.toStdMap())
     {
-        // qInfo() << k << ":" << v;
+        qInfo() << k << ":" << v;
     }
 
     // qInfo() << "currentWifiName ->" << androidJNIManager->callJNIMethod<QJniObject>("currentWifiName", "()Ljava/lang/String;").toString();
 
-    QTimer::singleShot(3000, [&androidJNIManager]() {
-        // androidJNIManager->callJNIMethod<void>("connectToWifi", "(Ljava/lang/String;Ljava/lang/String;)V", QJniObject::fromString("US06-9C50D101E27E").object<jstring>(), QJniObject::fromString("12345678").object<jstring>());
-    });
+    // QTimer::singleShot(3000, [&androidJNIManager]() {
+    //     androidJNIManager->callJNIMethod<void>("connectToWifi", "(Ljava/lang/String;Ljava/lang/String;)V", QJniObject::fromString("US06-9C50D101E27E").object<jstring>(), QJniObject::fromString("12345678").object<jstring>());
+    // });
 
     // QTimer::singleShot(3000, [&androidJNIManager]() {
     //     androidJNIManager->callJNIMethod<void>("connectToWifi", "(Ljava/lang/String;Ljava/lang/String;)V", QJniObject::fromString("US06-9C50D101E3B4").object<jstring>(), QJniObject::fromString("12345678").object<jstring>());
     // });
 
-    QTimer::singleShot(7000, [&androidJNIManager]() {
-        // connectProbe();
-    });
+    // QTimer::singleShot(7000, [&androidJNIManager]() {
+    //     connectProbe();
+    // });
 
     // QTimer::singleShot(20000, [&androidJNIManager]() {
     //     androidJNIManager->callJNIMethod<void>("disconnectWifi", "()V");

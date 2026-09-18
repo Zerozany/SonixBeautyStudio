@@ -36,9 +36,9 @@ ZeroWindow {
     MaterialButton {
         anchors.centerIn: parent
         onClicked: {
-            LoginManager.getCaptcha();
-            console.log(LoginManager.host);
-            console.log(LoginManager.port);
+            // LoginManager.getCaptcha();
+            // console.log(LoginManager.host);
+            // console.log(LoginManager.port);
         }
     }
 

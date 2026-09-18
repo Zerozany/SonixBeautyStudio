@@ -53,20 +53,20 @@ public final class JWifiManager {
         try {
             boolean success = m_wifiManager.startScan();
             if (!success) {
-                Log.d("HandleDebug", "startScan failed");
+                Log.e("HandleDebug", "startScan failed");
                 return "";
             }
             List<ScanResult> scanResults = m_wifiManager.getScanResults();
             if (scanResults == null || scanResults.isEmpty()) {
-                Log.d("HandleDebug", "No scan results");
+                Log.e("HandleDebug", "No scan results");
                 return "";
             }
             JSONArray array = new JSONArray();
             for (ScanResult result : scanResults) {
-                JSONObject obj = new JSONObject();
-                obj.put("ssid", result.SSID);
-                obj.put("level", WifiManager.calculateSignalLevel(result.level, 101));
-                array.put(obj);
+                JSONArray pair = new JSONArray();
+                pair.put(result.SSID);
+                pair.put(WifiManager.calculateSignalLevel(result.level, 101));
+                array.put(pair);
             }
             return array.toString();
         } catch (Exception e) {
