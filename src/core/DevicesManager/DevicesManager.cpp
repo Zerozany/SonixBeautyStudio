@@ -11,7 +11,7 @@
     #include <QJniObject>
     #include <QJsonDocument>
     #include <QJsonValue>
-    #include <QJsonObject>
+    // #include <QJsonObject>
     #include <QJsonArray>
 #endif
 
@@ -57,11 +57,14 @@ void DevicesManager::refreshDevicesList()
     {
         const QJsonArray pair{_value.toArray()};
         if (pair.size() < 2)
+        {
             continue;
+        }
 
         if (pair.at(0).toString().isEmpty())
+        {
             continue;
-
+        }
         wifiListTmp.append(QVariantMap{{QStringLiteral("ssid"), pair.at(0).toString()}, {QStringLiteral("level"), pair.at(1).toInt()}});
     }
 #elif defined(Q_OS_WINDOWS)

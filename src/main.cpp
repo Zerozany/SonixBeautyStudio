@@ -359,7 +359,7 @@ void connectProbe()
 
         // ---- 定时轮询：每 1 秒一次 ----
         QTimer* pollTimer = new QTimer(tcp_con);
-        QObject::connect(pollTimer, &QTimer::timeout, []() {
+        QObject::connec=t(pollTimer, &QTimer::timeout, []() {
             if (tcp_con->state() != QAbstractSocket::ConnectedState)
                 return;
 
@@ -431,8 +431,6 @@ int main(int argc, char* argv[])
     // spdlog::set_level(spdlog::level::trace);
     // SPDLOG_WARN("---=======2:{}", "String");
     // SPDLOG_ERROR("---=======3");
-    // DevicesManager::create(nullptr, nullptr)->refreshDevicesList();
-    // qWarning() << QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
 
 #if false
     SqlManager::instance()->setDatabaseName(QPair<QString, DataBasePathType>("qrc:/config/dataBase/UAS.db", DataBasePathType::ResourcePath));

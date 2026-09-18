@@ -12,9 +12,12 @@ class LoginConfig final : public ConfigSetting
     Q_CLASSINFO("port", "Server")
     Q_CLASSINFO("captcha", "Path")
 public:
-    explicit(true) LoginConfig(const QString& _fileName, Format _format, QObject* _parent = nullptr);
+    static LoginConfig* instance(const QString& _fileName, QSettings::Format _format = QSettings::Format::IniFormat, QObject* _parent = nullptr) noexcept;
 
     ~LoginConfig() noexcept override = default;
+
+private:
+    explicit(true) LoginConfig(const QString& _fileName, QSettings::Format _format, QObject* _parent = nullptr);
 
 Q_SIGNALS:
     void hostChanged();
