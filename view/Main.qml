@@ -33,12 +33,23 @@ ZeroWindow {
     //     }
     // }
 
+    Connections {
+        target: DevicesManager
+        function onDevicesListChanged() {
+            for (var i = 0; i < DevicesManager.devicesList.length; ++i) {
+                var item = DevicesManager.devicesList[i];
+                console.log(item.ssid, item.level);
+            }
+        }
+    }
+
     MaterialButton {
         anchors.centerIn: parent
         onClicked: {
             // LoginManager.getCaptcha();
             // console.log(LoginManager.host);
             // console.log(LoginManager.port);
+            DevicesManager.refreshDevicesList();
         }
     }
 

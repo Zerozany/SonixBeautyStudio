@@ -12,12 +12,12 @@
     #include <QJsonObject>
     #include "AndroidJNIManager.h"
 #elif defined(Q_OS_WINDOWS)
-    // #include "WinWifiManager.h"
+    // #include "WinWlanManager.h"
     #include "SingletonApplication.h"
 #endif
 // #include "ThemeManager.h"
 // #include "UsbManager.h"
-// #include "DevicesManager.h"
+#include "DevicesManager.h"
 // #include "Translator.h"
 
 #include "SqlManager.h"
@@ -452,32 +452,33 @@ int main(int argc, char* argv[])
     // qDebug() << loginConfig.captcha();
     // QtConcurrent::run([]() {
     // });
+    DevicesManager::create()->refreshDevicesList();
 #if defined(Q_OS_ANDROID)
 
     #if true
-    AndroidJNIManager* androidJNIManager{new AndroidJNIManager{}};
-    androidJNIManager->setActivityUrl("com/sonixbeauty/module/JWifiManager");
-    QJniObject            result{androidJNIManager->callJNIMethod<QJniObject>("getWifiList", "()Ljava/lang/String;")};
-    QMap<QString, quint8> wifiViewMap{};
-    QJsonDocument         doc{QJsonDocument::fromJson(result.toString().toUtf8())};
-    for (const QJsonValue& value : doc.array())
-    {
-        const QJsonArray pair{value.toArray()};
-        if (pair.size() < 2)
-        {
-            continue;
-        }
-        const QString ssid{pair.at(0).toString()};
-        if (ssid.isEmpty())  // 跳过隐藏热点 {
-        {
-            continue;
-        }
-        wifiViewMap[pair.at(0).toString()] = static_cast<quint8>(pair.at(1).toInt());
-    }
-    for (const auto& [k, v] : wifiViewMap.toStdMap())
-    {
-        qInfo() << k << ":" << v;
-    }
+    // AndroidJNIManager* androidJNIManager{new AndroidJNIManager{}};
+    // androidJNIManager->setActivityUrl("com/sonixbeauty/module/JWifiManager");
+    // QJniObject            result{androidJNIManager->callJNIMethod<QJniObject>("getWifiList", "()Ljava/lang/String;")};
+    // QMap<QString, quint8> wifiViewMap{};
+    // QJsonDocument         doc{QJsonDocument::fromJson(result.toString().toUtf8())};
+    // for (const QJsonValue& value : doc.array())
+    // {
+    //     const QJsonArray pair{value.toArray()};
+    //     if (pair.size() < 2)
+    //     {
+    //         continue;
+    //     }
+    //     const QString ssid{pair.at(0).toString()};
+    //     if (ssid.isEmpty())  // 跳过隐藏热点 {
+    //     {
+    //         continue;
+    //     }
+    //     wifiViewMap[pair.at(0).toString()] = static_cast<quint8>(pair.at(1).toInt());
+    // }
+    // for (const auto& [k, v] : wifiViewMap.toStdMap())
+    // {
+    //     qInfo() << k << ":" << v;
+    // }
 
     // qInfo() << "currentWifiName ->" << androidJNIManager->callJNIMethod<QJniObject>("currentWifiName", "()Ljava/lang/String;").toString();
 

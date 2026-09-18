@@ -4,8 +4,18 @@ _Pragma("once");
 #include <QVariantList>
 #include "QuickMacro.hpp"
 
+#if defined(Q_OS_ANDROID)
+    #include "AndroidJNIManager.h"
+#elif defined(Q_OS_WINDOWS)
+    #include "WinWlanManager.h"
+#endif
+
 class QJSEngine;
 class QQmlEngine;
+
+#if defined(Q_OS_ANDROID)
+class AndroidJNIManager;
+#endif
 
 class DevicesManager : public QObject
 {
@@ -22,12 +32,18 @@ public:
 public:
     Q_INVOKABLE void refreshDevicesList();
 
-protected:
+private:
     explicit(true) DevicesManager(QObject* _parent = nullptr);
+
+    void init() noexcept;
 
 Q_SIGNALS:
     void devicesListChanged();
 
 private:
     QVariantList m_devicesList{};
+
+#if defined(Q_OS_ANDROID)
+    AndroidJNIManager* AndroidWifiManager{nullptr};
+#endif
 };
