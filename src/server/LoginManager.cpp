@@ -4,14 +4,9 @@
 #include <QJSEngine>
 #include <QQmlEngine>
 #include <QQmlApplicationEngine>
+#include "LoginConfig.h"
 
-namespace Private
-{
-    static constexpr const char* Host{"zscs.imeik.com"};
-    static constexpr int         Port{443};
-}  // namespace Private
-
-LoginManager::LoginManager(const std::string& _host, int _port, QObject* _parent) : QObject{_parent}, HttpsManager<const std::string&, int>{_host, std::move(_port)}, m_host{QString::fromStdString(_host)}, m_port{_port}
+LoginManager::LoginManager(const std::string& _host, int _port, QObject* _parent) : QObject{_parent}, HttpsManager<const std::string&, int>{_host, std::move(_port)}
 {
     std::invoke(&LoginManager::init, this, _host, std::move(_port));
 }
@@ -19,27 +14,21 @@ LoginManager::LoginManager(const std::string& _host, int _port, QObject* _parent
 LoginManager* LoginManager::create(QQmlEngine* _qmlEngine, QJSEngine* _qJSEngine)
 {
     Q_UNUSED(_qJSEngine);
-    static LoginManager* loginManager{new LoginManager{Private::Host, Private::Port, qobject_cast<QQmlApplicationEngine*>(_qmlEngine)}};
+    static LoginManager* loginManager{new LoginManager{LoginConfig::instance()->host().toStdString(), LoginConfig::instance()->port(), qobject_cast<QQmlApplicationEngine*>(_qmlEngine)}};
     return loginManager;
 }
 
-void LoginManager::getCaptcha()
+void LoginManager::getCaptcha(const QString& _phoneNumbers)
 {
-    httplib::Headers headers = {
-        {"User-Agent", "Mozilla/5.0"},
-        {"Accept", "application/json"}};
-
-    auto res = m_sslClient->Get("/app/V0/phoneCode?phone=18294821095&type=1", headers);
-
+    httplib::Params captchaParams{{"phone", _phoneNumbers.toStdString()}, {"type", "1"}};
+    auto            res = m_sslClient->Get(LoginConfig::instance()->captcha().toStdString(), captchaParams, this->m_heads);
     if (res && res->status == 200)
     {
         qDebug() << "响应:" << QString::fromStdString(res->body);
         qDebug() << "状态码:" << res->status;
+        return;
     }
-    else
-    {
-        qDebug() << "失败，状态码:" << (res ? res->status : -1);
-    }
+    qDebug() << "失败，状态码:" << (res ? res->status : -1);
 }
 
 void LoginManager::init(const std::string&, int&&) noexcept

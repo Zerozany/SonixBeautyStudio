@@ -13,8 +13,6 @@ class LoginManager final : public QObject, HttpsManager<const std::string&, int>
     Q_OBJECT
     QML_SINGLETON
     QML_ELEMENT
-    Q_PROPERTY(QString host READ host CONSTANT)
-    Q_PROPERTY(int port READ port CONSTANT)
 public:
     static LoginManager* create(QQmlEngine* _qmlEngine = nullptr, QJSEngine* _qJSEngine = nullptr);
 
@@ -23,11 +21,7 @@ public:
     Q_DISABLE_COPY_MOVE(LoginManager)
 
 public:
-    QString host() { return m_host; }
-    int     port() { return m_port; }
-
-public:
-    Q_INVOKABLE void getCaptcha();
+    Q_INVOKABLE void getCaptcha(const QString& _phoneNumbers);
 
 private:
     explicit(true) LoginManager(const std::string& _host, int _port = 443, QObject* _parent = nullptr);
@@ -37,6 +31,5 @@ private:
 Q_SIGNALS:
 
 private:
-    QString m_host{};
-    int     m_port{};
+    httplib::Headers m_heads{{"User-Agent", "Mozilla/5.0"}, {"Accept", "application/json"}};
 };

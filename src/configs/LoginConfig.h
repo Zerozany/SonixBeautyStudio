@@ -12,9 +12,11 @@ class LoginConfig final : public ConfigSetting
     Q_CLASSINFO("port", "Server")
     Q_CLASSINFO("captcha", "Path")
 public:
-    static LoginConfig* instance(const QString& _fileName, QSettings::Format _format = QSettings::Format::IniFormat, QObject* _parent = nullptr) noexcept;
+    static LoginConfig* instance(QObject* _parent = nullptr) noexcept;
 
     ~LoginConfig() noexcept override = default;
+
+    Q_DISABLE_COPY_MOVE(LoginConfig)
 
 private:
     explicit(true) LoginConfig(const QString& _fileName, QSettings::Format _format, QObject* _parent = nullptr);

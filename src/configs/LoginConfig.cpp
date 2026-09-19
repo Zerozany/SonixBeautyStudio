@@ -1,13 +1,19 @@
 #include "LoginConfig.h"
 #include <QFile>
 
-LoginConfig* LoginConfig::instance(const QString& _fileName, QSettings::Format _format, QObject* _parent) noexcept
+namespace Private
 {
-    static LoginConfig* loginConfig{new LoginConfig{_fileName, _format, _parent}};
+    static constexpr const char*       LoginSeverPath{":/config/settings/loginServer.ini"};
+    static constexpr QSettings::Format LoginSeverFormat{QSettings::IniFormat};
+}  // namespace Private
+
+LoginConfig* LoginConfig::instance(QObject* _parent) noexcept
+{
+    static LoginConfig* loginConfig{new LoginConfig{Private::LoginSeverPath, Private::LoginSeverFormat, _parent}};
     return loginConfig;
 }
 
 LoginConfig::LoginConfig(const QString& _fileName, QSettings::Format _format, QObject* _parent) : ConfigSetting{_fileName, _format, _parent}
 {
-    ConfigSetting::loadProperties();
+    ConfigSetting::init();
 }
