@@ -448,8 +448,8 @@ int main(int argc, char* argv[])
 #if defined(Q_OS_ANDROID)
 
     #if true
-    AndroidJNIManager* androidJNIManager{new AndroidJNIManager{}};
-    androidJNIManager->setActivityUrl("com/sonixbeauty/module/JWifiManager");
+    // AndroidJNIManager* androidJNIManager{new AndroidJNIManager{}};
+    // androidJNIManager->setActivityUrl("com/sonixbeauty/module/JWifiManager");
     // QJniObject            result{androidJNIManager->callJNIMethod<QJniObject>("getWifiList", "()Ljava/lang/String;")};
     // QMap<QString, quint8> wifiViewMap{};
     // QJsonDocument         doc{QJsonDocument::fromJson(result.toString().toUtf8())};
@@ -472,7 +472,7 @@ int main(int argc, char* argv[])
     //     qInfo() << k << ":" << v;
     // }
 
-    qInfo() << "currentWifiName ->" << androidJNIManager->callJNIMethod<QJniObject>("currentWifiName", "()Ljava/lang/String;").toString();
+    // qInfo() << "currentWifiName ->" << androidJNIManager->callJNIMethod<QJniObject>("currentWifiName", "()Ljava/lang/String;").toString();
 
     // QTimer::singleShot(3000, [&androidJNIManager]() {
     //     androidJNIManager->callJNIMethod<void>("connectToWifi", "(Ljava/lang/String;Ljava/lang/String;)V", QJniObject::fromString("US06-9C50D101E27E").object<jstring>(), QJniObject::fromString("12345678").object<jstring>());
@@ -490,17 +490,17 @@ int main(int argc, char* argv[])
     //     androidJNIManager->callJNIMethod<void>("disconnectWifi", "()V");
     // });
 
-    QTimer* timer = new QTimer{};
-    QObject::connect(timer, &QTimer::timeout, [androidJNIManager]() {
-        const jint signalLevel =
-            androidJNIManager->callJNIMethod<jint>(
-                "currentWifiSignalLevel",
-                "()I");
+    // QTimer* timer = new QTimer{};
+    // QObject::connect(timer, &QTimer::timeout, [androidJNIManager]() {
+    //     const jint signalLevel =
+    //         androidJNIManager->callJNIMethod<jint>(
+    //             "currentWifiSignalLevel",
+    //             "()I");
 
-        qDebug() << "Wi-Fi Signal Level:" << signalLevel;
-    });
+    //     qDebug() << "Wi-Fi Signal Level:" << signalLevel;
+    // });
 
-    timer->start(1000);
+    // timer->start(1000);
     #endif
     QNativeInterface::QAndroidApplication::hideSplashScreen(0);
 #endif

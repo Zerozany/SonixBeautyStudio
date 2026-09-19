@@ -9,6 +9,7 @@
 LoginManager::LoginManager(const std::string& _host, int _port, QObject* _parent) : QObject{_parent}, HttpsManager<const std::string&, int>{_host, std::move(_port)}
 {
     std::invoke(&LoginManager::init, this, _host, std::move(_port));
+    std::invoke(&LoginManager::connectSignal2Slot, this);
 }
 
 LoginManager* LoginManager::create(QQmlEngine* _qmlEngine, QJSEngine* _qJSEngine)
@@ -45,4 +46,8 @@ void LoginManager::init(const std::string&, int&&) noexcept
     }
     qDebug() << "CA exists:" << QFile::exists(cacertPath) << cacertPath;
     m_sslClient->set_ca_cert_path(cacertPath.toStdString().c_str());
+}
+
+void LoginManager::connectSignal2Slot() noexcept
+{
 }
