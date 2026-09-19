@@ -112,6 +112,51 @@ public final class JWifiManager {
         }
     }
 
+    // 获取当前 Wi-Fi 信号强度，返回 0~100
+    public int currentWifiSignalLevel()
+    {
+        try {
+            if (m_connectivityManager == null) {
+                return 0;
+            }
+
+            Network network = m_connectivityManager.getActiveNetwork();
+
+            if (network == null) {
+                return 0;
+            }
+
+            NetworkCapabilities caps = m_connectivityManager.getNetworkCapabilities(network);
+
+            if (caps == null || !caps.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
+                return 0;
+            }
+
+            WifiInfo wifiInfo = (WifiInfo)caps.getTransportInfo();
+
+            if (wifiInfo == null) {
+                return 0;
+            }
+
+            int rssi = wifiInfo.getRssi();
+
+            if (rssi == -127) {
+                return 0;
+            }
+
+            int signalLevel = (rssi + 90) * 100 / 60;
+
+            return Math.max(0, Math.min(100, signalLevel));
+
+        } catch (Exception e) {
+            Log.e(
+                "HandleDebug",
+                "currentWifiSignalLevel error: " + e.getMessage());
+
+            return 0;
+        }
+    }
+
     public void connectToWifi(String ssid, String password)
     {
         WifiNetworkSpecifier specifier = new WifiNetworkSpecifier.Builder().setSsid(ssid).setWpa2Passphrase(password).build();
