@@ -17,7 +17,7 @@
 #endif
 // #include "ThemeManager.h"
 // #include "UsbManager.h"
-#include "DevicesManager.h"
+// #include "DevicesManager.h"
 // #include "Translator.h"
 
 #include "SqlManager.h"
@@ -406,7 +406,7 @@ void connectProbe()
     }
 }
 #endif
-
+#include "WinWlanManager.h"
 int main(int argc, char* argv[])
 {
 #if defined(Q_OS_WINDOWS)
@@ -416,6 +416,7 @@ int main(int argc, char* argv[])
     //     qInfo() << _k << ":" << _v;
     // }
     SingletonApplication::instance()->init();
+    qDebug() << "currentWifiSignalQuality: " << WinWlanManager::instance()->currentWifiSignalQuality();
 #elif defined(Q_OS_ANDROID)
 
 #endif
@@ -448,43 +449,43 @@ int main(int argc, char* argv[])
 #if defined(Q_OS_ANDROID)
 
     #if true
-    // AndroidJNIManager* androidJNIManager{new AndroidJNIManager{}};
-    // androidJNIManager->setActivityUrl("com/sonixbeauty/module/JWifiManager");
-    // QJniObject            result{androidJNIManager->callJNIMethod<QJniObject>("getWifiList", "()Ljava/lang/String;")};
-    // QMap<QString, quint8> wifiViewMap{};
-    // QJsonDocument         doc{QJsonDocument::fromJson(result.toString().toUtf8())};
-    // for (const QJsonValue& value : doc.array())
-    // {
-    //     const QJsonArray pair{value.toArray()};
-    //     if (pair.size() < 2)
-    //     {
-    //         continue;
-    //     }
-    //     const QString ssid{pair.at(0).toString()};
-    //     if (ssid.isEmpty())  // 跳过隐藏热点 {
-    //     {
-    //         continue;
-    //     }
-    //     wifiViewMap[pair.at(0).toString()] = static_cast<quint8>(pair.at(1).toInt());
-    // }
-    // for (const auto& [k, v] : wifiViewMap.toStdMap())
-    // {
-    //     qInfo() << k << ":" << v;
-    // }
+    AndroidJNIManager* androidJNIManager{new AndroidJNIManager{}};
+    androidJNIManager->setActivityUrl("com/sonixbeauty/module/JWifiManager");
+    QJniObject            result{androidJNIManager->callJNIMethod<QJniObject>("getWifiList", "()Ljava/lang/String;")};
+    QMap<QString, quint8> wifiViewMap{};
+    QJsonDocument         doc{QJsonDocument::fromJson(result.toString().toUtf8())};
+    for (const QJsonValue& value : doc.array())
+    {
+        const QJsonArray pair{value.toArray()};
+        if (pair.size() < 2)
+        {
+            continue;
+        }
+        const QString ssid{pair.at(0).toString()};
+        if (ssid.isEmpty())  // 跳过隐藏热点 {
+        {
+            continue;
+        }
+        wifiViewMap[pair.at(0).toString()] = static_cast<quint8>(pair.at(1).toInt());
+    }
+    for (const auto& [k, v] : wifiViewMap.toStdMap())
+    {
+        qInfo() << k << ":" << v;
+    }
 
-    // qInfo() << "currentWifiName ->" << androidJNIManager->callJNIMethod<QJniObject>("currentWifiName", "()Ljava/lang/String;").toString();
+    qInfo() << "currentWifiName ->" << androidJNIManager->callJNIMethod<QJniObject>("currentWifiName", "()Ljava/lang/String;").toString();
 
     // QTimer::singleShot(3000, [&androidJNIManager]() {
     //     androidJNIManager->callJNIMethod<void>("connectToWifi", "(Ljava/lang/String;Ljava/lang/String;)V", QJniObject::fromString("US06-9C50D101E27E").object<jstring>(), QJniObject::fromString("12345678").object<jstring>());
     // });
 
-    // QTimer::singleShot(3000, [&androidJNIManager]() {
-    //     androidJNIManager->callJNIMethod<void>("connectToWifi", "(Ljava/lang/String;Ljava/lang/String;)V", QJniObject::fromString("US06-9C50D101E3B4").object<jstring>(), QJniObject::fromString("12345678").object<jstring>());
-    // });
+    QTimer::singleShot(3000, [&androidJNIManager]() {
+        androidJNIManager->callJNIMethod<void>("connectToWifi", "(Ljava/lang/String;Ljava/lang/String;)V", QJniObject::fromString("US06-9C50D101E3B4").object<jstring>(), QJniObject::fromString("12345678").object<jstring>());
+    });
 
-    // QTimer::singleShot(7000, [&androidJNIManager]() {
-    //     connectProbe();
-    // });
+    QTimer::singleShot(7000, []() {
+        connectProbe();
+    });
 
     // QTimer::singleShot(20000, [&androidJNIManager]() {
     //     androidJNIManager->callJNIMethod<void>("disconnectWifi", "()V");
@@ -494,7 +495,7 @@ int main(int argc, char* argv[])
     // QObject::connect(timer, &QTimer::timeout, [androidJNIManager]() {
     //     const jint signalLevel =
     //         androidJNIManager->callJNIMethod<jint>(
-    //             "currentWifiSignalLevel",
+    //             "currentWifiSignalQuality",
     //             "()I");
 
     //     qDebug() << "Wi-Fi Signal Level:" << signalLevel;

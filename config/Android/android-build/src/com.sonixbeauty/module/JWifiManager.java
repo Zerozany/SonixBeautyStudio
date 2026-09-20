@@ -113,7 +113,7 @@ public final class JWifiManager {
     }
 
     // 获取当前 Wi-Fi 信号强度，返回 0~100
-    public int currentWifiSignalLevel()
+    public int currentWifiSignalQuality()
     {
         try {
             if (m_connectivityManager == null) {
@@ -151,7 +151,7 @@ public final class JWifiManager {
         } catch (Exception e) {
             Log.e(
                 "HandleDebug",
-                "currentWifiSignalLevel error: " + e.getMessage());
+                "currentWifiSignalQuality error: " + e.getMessage());
 
             return 0;
         }
