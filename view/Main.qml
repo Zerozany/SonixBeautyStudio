@@ -33,45 +33,10 @@ ZeroWindow {
     //     }
     // }
 
-    Connections {
-        target: DevicesManager
-        function onDevicesListChanged() {
-            if (DevicesManager.devicesList.length === 0) {
-                updateBtn.text = "刷新频率过高";
-            } else {
-                updateBtn.text = "刷新";
-            }
-        // for (var i = 0; i < DevicesManager.devicesList.length; ++i) {
-        //     var item = DevicesManager.devicesList[i];
-        //     console.log(item.ssid, item.level);
-        // }
-        }
-    }
-
-    MaterialButton {
-        id: updateBtn
-        anchors.top: parent.top
-        anchors.topMargin: 50
-        anchors.horizontalCenter: parent.horizontalCenter
-        text: "刷新"
-        onClicked: {
-            // LoginManager.getCaptcha();
-            // console.log(LoginManager.host);
-            // console.log(LoginManager.port);
-            DevicesManager.refreshDevicesList();
-        }
-    }
-
-    ListView {
+    TestDemo {
+        width: parent.width * 0.9
+        height: parent.height * 0.9
         anchors.centerIn: parent
-        width: parent.width * 0.5
-        height: parent.height * 0.7
-        model: DevicesManager.devicesList
-        delegate: Text {
-            required property var modelData
-            text: modelData.ssid + ":" + modelData.level
-            anchors.horizontalCenter: parent.horizontalCenter
-        }
     }
 
     ShortcutControl {

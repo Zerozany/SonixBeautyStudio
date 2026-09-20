@@ -32,6 +32,10 @@ public:
 public:
     Q_INVOKABLE void refreshDevicesList();
 
+    Q_INVOKABLE QString currentWifiName();
+
+    Q_INVOKABLE int currentWifiSignalQuality();
+
 private:
     explicit(true) DevicesManager(QObject* _parent = nullptr);
 
@@ -44,6 +48,6 @@ private:
     QVariantList m_devicesList{};
 
 #if defined(Q_OS_ANDROID)
-    AndroidJNIManager* AndroidWifiManager{nullptr};
+    AndroidJNIManager* m_androidWifiManager{nullptr};
 #endif
 };

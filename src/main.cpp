@@ -12,7 +12,7 @@
     #include <QJsonObject>
     #include "AndroidJNIManager.h"
 #elif defined(Q_OS_WINDOWS)
-    // #include "WinWlanManager.h"
+    #include "WinWlanManager.h"
     #include "SingletonApplication.h"
 #endif
 // #include "ThemeManager.h"
@@ -406,7 +406,6 @@ void connectProbe()
     }
 }
 #endif
-#include "WinWlanManager.h"
 int main(int argc, char* argv[])
 {
 #if defined(Q_OS_WINDOWS)
@@ -416,7 +415,7 @@ int main(int argc, char* argv[])
     //     qInfo() << _k << ":" << _v;
     // }
     SingletonApplication::instance()->init();
-    qDebug() << "currentWifiSignalQuality: " << WinWlanManager::instance()->currentWifiSignalQuality();
+    // qDebug() << "currentWifiSignalQuality: " << WinWlanManager::instance()->currentWifiSignalQuality();
 #elif defined(Q_OS_ANDROID)
 
 #endif
@@ -448,7 +447,7 @@ int main(int argc, char* argv[])
     // DevicesManager::create()->refreshDevicesList();
 #if defined(Q_OS_ANDROID)
 
-    #if true
+    #if false
     AndroidJNIManager* androidJNIManager{new AndroidJNIManager{}};
     androidJNIManager->setActivityUrl("com/sonixbeauty/module/JWifiManager");
     QJniObject            result{androidJNIManager->callJNIMethod<QJniObject>("getWifiList", "()Ljava/lang/String;")};

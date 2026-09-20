@@ -42,8 +42,8 @@ DevicesManager::DevicesManager(QObject* _parent) : QObject{_parent}
 void DevicesManager::init() noexcept
 {
 #if defined(Q_OS_ANDROID)
-    AndroidWifiManager = new AndroidJNIManager{this};
-    AndroidWifiManager->setActivityUrl(Private::JNIConstTable::JNIWifiUrl);
+    m_androidWifiManager = new AndroidJNIManager{this};
+    m_androidWifiManager->setActivityUrl(Private::JNIConstTable::JNIWifiUrl);
 #endif
 }
 
@@ -51,7 +51,7 @@ void DevicesManager::refreshDevicesList()
 {
     QVariantList wifiListTmp{};
 #if defined(Q_OS_ANDROID)
-    QJniObject    result{AndroidWifiManager->callJNIMethod<QJniObject>(Private::JNIConstTable::JNIGetWifiList, "()Ljava/lang/String;")};
+    QJniObject    result{m_androidWifiManager->callJNIMethod<QJniObject>(Private::JNIConstTable::JNIGetWifiList, "()Ljava/lang/String;")};
     QJsonDocument doc{QJsonDocument::fromJson(result.toString().toUtf8())};
     for (const QJsonValue& _value : doc.array())
     {
@@ -158,4 +158,22 @@ void DevicesManager::refreshDevicesList()
     //         }
     //     }
     // #endif
+}
+
+QString DevicesManager::currentWifiName()
+{
+#if defined(Q_OS_ANDROID)
+    return m_androidWifiManager->callJNIMethod<QJniObject>("currentWifiName", "()Ljava/lang/String;").toString();
+#elif defined(Q_OS_WINDOWS)
+    return WinWlanManager::instance()->currentWifiName();
+#endif
+}
+
+int DevicesManager::currentWifiSignalQuality()
+{
+#if defined(Q_OS_ANDROID)
+    return m_androidWifiManager->callJNIMethod<jint>("currentWifiSignalQuality", "()I");
+#elif defined(Q_OS_WINDOWS)
+    return WinWlanManager::instance()->currentWifiSignalQuality();
+#endif
 }
