@@ -60,6 +60,7 @@ QString AndroidWifiManager::currentWifiName()
 #if defined(Q_OS_ANDROID)
     return this->callJNIMethod<QJniObject>(Private::JNIConstTable::JNICurrentWifiName, "()Ljava/lang/String;").toString();
 #endif
+    return QString{};
 }
 
 int AndroidWifiManager::currentWifiSignalQuality()
@@ -67,6 +68,7 @@ int AndroidWifiManager::currentWifiSignalQuality()
 #if defined(Q_OS_ANDROID)
     return this->callJNIMethod<jint>(Private::JNIConstTable::JNICurrentWifiSignalQuality, "()I");
 #endif
+    return int{};
 }
 
 QMap<QString, quint8> AndroidWifiManager::getWifiList()

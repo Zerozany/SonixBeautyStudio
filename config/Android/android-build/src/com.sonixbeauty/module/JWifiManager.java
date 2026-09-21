@@ -79,35 +79,32 @@ public final class JWifiManager {
     public String currentWifiName()
     {
         try {
-            if (m_connectivityManager == null) {
+            if (m_wifiManager == null) {
+                Log.e("HandleDebug", "WifiManager is null");
                 return "";
-            }
-            Network network = m_connectivityManager.getActiveNetwork();
-            if (network == null) {
-                return "";
-            }
-            NetworkCapabilities caps = m_connectivityManager.getNetworkCapabilities(network);
-            if (caps == null || !caps.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
-                return ""; // 当前不是 Wi-Fi，直接返回空
             }
             WifiInfo wifiInfo = m_wifiManager.getConnectionInfo();
             if (wifiInfo == null) {
+                Log.e("HandleDebug", "WifiInfo is null");
                 return "";
             }
             String ssid = wifiInfo.getSSID();
-            if (ssid == null) {
+            if (ssid == null || ssid.isEmpty()) {
+                Log.e("HandleDebug", "SSID is null or empty");
                 return "";
             }
-            // 去掉引号
+            // Android 未连接 Wi-Fi
+            if ("<unknown ssid>".equals(ssid) || "0x".equals(ssid)) {
+                Log.e("HandleDebug", "Unknown SSID");
+                return "";
+            }
+            // 去掉 Android 返回的双引号
             if (ssid.startsWith("\"") && ssid.endsWith("\"") && ssid.length() >= 2) {
                 ssid = ssid.substring(1, ssid.length() - 1);
             }
-            // 过滤掉无效值
-            if (ssid.equals("<unknown ssid>") || ssid.equals("0x")) {
-                return "";
-            }
             return ssid;
         } catch (Exception e) {
+            Log.e("HandleDebug", "currentWifiName exception", e);
             return "";
         }
     }
@@ -116,43 +113,23 @@ public final class JWifiManager {
     public int currentWifiSignalQuality()
     {
         try {
-            if (m_connectivityManager == null) {
+            if (m_wifiManager == null) {
+                Log.e("HandleDebug", "WifiManager is null");
                 return 0;
             }
-
-            Network network = m_connectivityManager.getActiveNetwork();
-
-            if (network == null) {
-                return 0;
-            }
-
-            NetworkCapabilities caps = m_connectivityManager.getNetworkCapabilities(network);
-
-            if (caps == null || !caps.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
-                return 0;
-            }
-
-            WifiInfo wifiInfo = (WifiInfo)caps.getTransportInfo();
-
+            WifiInfo wifiInfo = m_wifiManager.getConnectionInfo();
             if (wifiInfo == null) {
+                Log.e("HandleDebug", "WifiInfo is null");
                 return 0;
             }
-
             int rssi = wifiInfo.getRssi();
-
             if (rssi == -127) {
+                Log.e("HandleDebug", "Invalid RSSI: " + rssi);
                 return 0;
             }
-
-            int signalLevel = (rssi + 90) * 100 / 60;
-
-            return Math.max(0, Math.min(100, signalLevel));
-
+            return WifiManager.calculateSignalLevel(rssi, 101);
         } catch (Exception e) {
-            Log.e(
-                "HandleDebug",
-                "currentWifiSignalQuality error: " + e.getMessage());
-
+            Log.e("HandleDebug", "currentWifiSignalQuality error: " + e.getMessage(), e);
             return 0;
         }
     }

@@ -59,20 +59,17 @@ int DevicesManager::currentWifiSignalQuality()
 
 void DevicesManager::refreshDevicesList()
 {
-    QVariantList wifiListTmp{};
+    QVariantList          wifiListTmp{};
+    QMap<QString, quint8> result{};
 #if defined(Q_OS_ANDROID)
-    const QMap<QString, quint8> result{AndroidWifiManager::instance()->getWifiList()};
-    for (const auto& [_ssid, _level] : result.toStdMap())
-    {
-        wifiListTmp.append(QVariantMap{{QStringLiteral("ssid"), _ssid}, {QStringLiteral("level"), _level}});
-    }
+    result = AndroidWifiManager::instance()->getWifiList();
 #elif defined(Q_OS_WINDOWS)
-    const QMap<QString, quint8> result{WinWlanManager::instance()->getWifiList()};
+    result = WinWlanManager::instance()->getWifiList();
+#endif
     for (const auto& [_ssid, _level] : result.toStdMap())
     {
         wifiListTmp.append(QVariantMap{{QStringLiteral("ssid"), _ssid}, {QStringLiteral("level"), _level}});
     }
-#endif
     if (wifiListTmp.isEmpty())
     {
         return;

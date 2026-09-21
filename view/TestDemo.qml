@@ -63,14 +63,14 @@ Item {
                     id: currentWifiLabel
                     width: parent.width
                     height: parent.height * 0.4
-                    text: "当前wifi:" + DevicesManager.currentWifiName()
+                    // text: "当前wifi:" + DevicesManager.currentWifiName()
                 }
 
                 Label {
                     id: currentWifiSignalQualityLabel
                     width: parent.width
                     height: parent.height * 0.4
-                    text: "当前信号强度:" + DevicesManager.currentWifiSignalQuality()
+                    // text: "当前信号强度:" + DevicesManager.currentWifiSignalQuality()
                 }
             }
 
@@ -126,6 +126,46 @@ Item {
         Item {
             width: (root.width - 30) / 4      // 减去 spacing
             height: root.height / 2
+
+            TapHandler {
+                onTapped: {
+                    parent.forceActiveFocus();
+                }
+            }
+
+            Column {
+                width: parent.width * 0.9
+                height: parent.height * 0.9
+                anchors.centerIn: parent
+                spacing: 20
+
+                MaterialTextField {
+                    id: wifiField
+                    width: parent.width
+                    placeholderText: "Wifi名称"
+                }
+                MaterialTextField {
+                    id: passwordField
+                    width: parent.width
+                    placeholderText: "Wifi密码"
+                }
+
+                MaterialButton {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    text: "连接"
+                    onClicked: {
+                        DevicesManager.connectToWifi(wifiField.text, passwordField.text);
+                    }
+                }
+
+                MaterialButton {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    text: "断开"
+                    onClicked: {
+                        DevicesManager.disconnectWifi();
+                    }
+                }
+            }
         }
     }
 }
