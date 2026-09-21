@@ -34,11 +34,11 @@ public:
 
     Q_INVOKABLE void disconnectWifi();
 
-    Q_INVOKABLE void refreshDevicesList();
-
     Q_INVOKABLE QString currentWifiName();
 
     Q_INVOKABLE int currentWifiSignalQuality();
+
+    Q_INVOKABLE void refreshDevicesList();
 
 private:
     explicit(true) DevicesManager(QObject* _parent = nullptr);

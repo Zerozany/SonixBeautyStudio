@@ -11,7 +11,6 @@
     #include <QJniObject>
     #include <QJsonDocument>
     #include <QJsonValue>
-    // #include <QJsonObject>
     #include <QJsonArray>
 #endif
 
@@ -22,6 +21,10 @@ namespace Private
     {
         static constexpr const char* JNIWifiUrl{"com/sonixbeauty/module/JWifiManager"};
         static constexpr const char* JNIGetWifiList{"getWifiList"};
+        static constexpr const char* JNIConnectTiWifi{"connectToWifi"};
+        static constexpr const char* JNIDisconnectWifi{"disconnectWifi"};
+        static constexpr const char* JNICurrentWifiName{"currentWifiName"};
+        static constexpr const char* JNICurrentWifiSignalQuality{"currentWifiSignalQuality"};
     };
 #endif
 
@@ -50,7 +53,7 @@ void DevicesManager::init() noexcept
 void DevicesManager::connectToWifi(const QString& _ssid, const QString& _password)
 {
 #if defined(Q_OS_ANDROID)
-    m_androidWifiManager->callJNIMethod<void>("connectToWifi", "(Ljava/lang/String;Ljava/lang/String;)V", QJniObject::fromString(_ssid).object<jstring>(), QJniObject::fromString(_password).object<jstring>());
+    m_androidWifiManager->callJNIMethod<void>(Private::JNIConstTable::JNIConnectTiWifi, "(Ljava/lang/String;Ljava/lang/String;)V", QJniObject::fromString(_ssid).object<jstring>(), QJniObject::fromString(_password).object<jstring>());
 #elif defined(Q_OS_WINDOWS)
     WinWlanManager::instance()->connectToWifi(_ssid.toStdString(), _password.toStdString());
 #endif
@@ -59,7 +62,7 @@ void DevicesManager::connectToWifi(const QString& _ssid, const QString& _passwor
 void DevicesManager::disconnectWifi()
 {
 #if defined(Q_OS_ANDROID)
-    m_androidWifiManager->callJNIMethod<void>("disconnectWifi", "()V");
+    m_androidWifiManager->callJNIMethod<void>(Private::JNIConstTable::JNIDisconnectWifi, "()V");
 #elif defined(Q_OS_WINDOWS)
     WinWlanManager::instance()->disconnectWifi();
 #endif
@@ -68,7 +71,7 @@ void DevicesManager::disconnectWifi()
 QString DevicesManager::currentWifiName()
 {
 #if defined(Q_OS_ANDROID)
-    return m_androidWifiManager->callJNIMethod<QJniObject>("currentWifiName", "()Ljava/lang/String;").toString();
+    return m_androidWifiManager->callJNIMethod<QJniObject>(Private::JNIConstTable::JNICurrentWifiName, "()Ljava/lang/String;").toString();
 #elif defined(Q_OS_WINDOWS)
     return WinWlanManager::instance()->currentWifiName();
 #endif
@@ -77,7 +80,7 @@ QString DevicesManager::currentWifiName()
 int DevicesManager::currentWifiSignalQuality()
 {
 #if defined(Q_OS_ANDROID)
-    return m_androidWifiManager->callJNIMethod<jint>("currentWifiSignalQuality", "()I");
+    return m_androidWifiManager->callJNIMethod<jint>(Private::JNIConstTable::JNICurrentWifiSignalQuality, "()I");
 #elif defined(Q_OS_WINDOWS)
     return WinWlanManager::instance()->currentWifiSignalQuality();
 #endif
@@ -110,88 +113,9 @@ void DevicesManager::refreshDevicesList()
         wifiListTmp.append(QVariantMap{{QStringLiteral("ssid"), _ssid}, {QStringLiteral("level"), _level}});
     }
 #endif
+    if (wifiListTmp.isEmpty())
+    {
+        return;
+    }
     this->setDevicesList(wifiListTmp);
-
-    //     QVariantList          devicesList{};
-    //     QMap<QString, quint8> wifiList{};
-    // #if defined(Q_OS_WINDOWS)
-    //     wifiList = WinWlanManager::instance()->getWifiList();
-    // #elif defined(Q_OS_ANDROID)
-    //     AndroidJNIManager::instance()->setActivityUrl("com/sonixbeauty/module/JWifiManager");
-    //     for (QJsonDocument doc{QJsonDocument::fromJson(result.toString().toUtf8())}; const QJsonValue& value : doc.array())
-    //     {
-    //         wifiList.insert(value.toObject()["ssid"].toString(), static_cast<quint8>(value.toObject()["level"].toInt()));
-    //     }
-    // #endif
-    //     for (const auto& [_wifiName, _level] : wifiList.toStdMap())
-    //     {
-    //         if (!_wifiName.startsWith("US"))
-    //         {
-    //             continue;
-    //         }
-    //         ProbeDevice* probeDevice{new ProbeDevice{this}};
-    //         probeDevice->setSystemName(_wifiName);
-    //         probeDevice->setDeviceType(ProbeDevice::DeviceType::Wifi);
-    //         probeDevice->setSignaleQuality(_level);
-    //         QString typeNumber{_wifiName.mid(2, 2)};
-    //         if (typeNumber == "12")
-    //         {
-    //             probeDevice->setSsid(QString{_wifiName}.replace(2, 2, "01"));
-    //             probeDevice->setProbeType("linear");
-    //             probeDevice->setTransducerName("linear");
-    //             /* 需复制一个对象类 */
-    //         }
-    //         else if (typeNumber == "00")
-    //         {
-    //             probeDevice->setSsid(_wifiName);
-    //             probeDevice->setProbeType("linear");
-    //             probeDevice->setTransducerName("L12-18N");
-    //         }
-    //         else if (typeNumber == "01")
-    //         {
-    //             probeDevice->setSsid(_wifiName);
-    //             probeDevice->setProbeType("linear");
-    //             probeDevice->setTransducerName("rhinitis");
-    //         }
-    //         else if (typeNumber == "02")
-    //         {
-    //             probeDevice->setSsid(_wifiName);
-    //             probeDevice->setProbeType("convex");
-    //             probeDevice->setTransducerName("convex");
-    //         }
-    //         else if (typeNumber == "03")
-    //         {
-    //             probeDevice->setSsid(_wifiName);
-    //             probeDevice->setProbeType("phased");
-    //             probeDevice->setTransducerName("phased");
-    //         }
-    //         else if (typeNumber == "06")
-    //         {
-    //             /* 新设备可读写出厂设置 */
-    //             probeDevice->setSsid(_wifiName);
-    //             probeDevice->setProbeType("device");
-    //             probeDevice->setTransducerName("device");
-    //         }
-    //         devicesList.append(QVariant::fromValue(probeDevice));
-    //     }
-    //     this->setDevicesList(devicesList);
-
-    // #if false
-    //     for (int i = 0; i < m_devicesList.size(); ++i)
-    //     {
-    //         QVariant     variant = m_devicesList[i];
-    //         ProbeDevice* device  = variant.value<ProbeDevice*>();
-    //         if (device)
-    //         {
-    //             qInfo() << "  systemName:" << device->systemName();
-    //             qInfo() << "  SSID:" << device->ssid();
-    //             qInfo() << "  DeviceType:" << static_cast<ProbeDevice::DeviceType>(device->deviceType());
-    //             qInfo() << "  SignalQuality:" << device->signaleQuality();
-    //             qInfo() << "  VID:" << device->vid();
-    //             qInfo() << "  PID:" << device->pid();
-    //             qInfo() << "  probeType:" << device->probeType();
-    //             qInfo() << "  transducerName:" << device->transducerName();
-    //         }
-    //     }
-    // #endif
 }
