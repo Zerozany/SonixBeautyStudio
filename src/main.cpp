@@ -10,22 +10,20 @@
     #include <QJsonValue>
     #include <QJsonArray>
     #include <QJsonObject>
-    #include "AndroidJNIManager.h"
 #elif defined(Q_OS_WINDOWS)
-    #include "WinWlanManager.h"
     #include "SingletonApplication.h"
 #endif
 // #include "ThemeManager.h"
 // #include "UsbManager.h"
-// #include "DevicesManager.h"
+#include "DevicesManager.h"
 // #include "Translator.h"
 
 #include "SqlManager.h"
 #include <QStandardPaths>
 #include <QDir>
-#include "SpdLogger.h"
+// #include "SpdLogger.h"
 #include <QTimer>
-#include "LoginManager.h"
+// #include "LoginManager.h"
 #include <QtConcurrent>
 #include <QTcpSocket>
 
@@ -415,7 +413,6 @@ int main(int argc, char* argv[])
     //     qInfo() << _k << ":" << _v;
     // }
     SingletonApplication::instance()->init();
-    // qDebug() << "currentWifiSignalQuality: " << WinWlanManager::instance()->currentWifiSignalQuality();
 #elif defined(Q_OS_ANDROID)
 
 #endif
@@ -441,10 +438,11 @@ int main(int argc, char* argv[])
         }
     }
 #endif
-    // LoginManager::create()->getCaptcha("17609438839");
-    // QtConcurrent::run([]() {
+    // DevicesManager::create()->connectToWifi("ChinaNet-zero821", "18583943303");
+
+    // QTimer::singleShot(3000, [] {
+    //     DevicesManager::create()->disconnectWifi();
     // });
-    // DevicesManager::create()->refreshDevicesList();
 #if defined(Q_OS_ANDROID)
 
     #if false

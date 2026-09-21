@@ -30,6 +30,10 @@ public:
 
     Q_DISABLE_COPY_MOVE(DevicesManager)
 public:
+    Q_INVOKABLE void connectToWifi(const QString& _ssid, const QString& _password);
+
+    Q_INVOKABLE void disconnectWifi();
+
     Q_INVOKABLE void refreshDevicesList();
 
     Q_INVOKABLE QString currentWifiName();

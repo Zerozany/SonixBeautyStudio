@@ -47,6 +47,42 @@ void DevicesManager::init() noexcept
 #endif
 }
 
+void DevicesManager::connectToWifi(const QString& _ssid, const QString& _password)
+{
+#if defined(Q_OS_ANDROID)
+    m_androidWifiManager->callJNIMethod<void>("connectToWifi", "(Ljava/lang/String;Ljava/lang/String;)V", QJniObject::fromString(_ssid).object<jstring>(), QJniObject::fromString(_password).object<jstring>());
+#elif defined(Q_OS_WINDOWS)
+    WinWlanManager::instance()->connectToWifi(_ssid.toStdString(), _password.toStdString());
+#endif
+}
+
+void DevicesManager::disconnectWifi()
+{
+#if defined(Q_OS_ANDROID)
+    m_androidWifiManager->callJNIMethod<void>("disconnectWifi", "()V");
+#elif defined(Q_OS_WINDOWS)
+    WinWlanManager::instance()->disconnectWifi();
+#endif
+}
+
+QString DevicesManager::currentWifiName()
+{
+#if defined(Q_OS_ANDROID)
+    return m_androidWifiManager->callJNIMethod<QJniObject>("currentWifiName", "()Ljava/lang/String;").toString();
+#elif defined(Q_OS_WINDOWS)
+    return WinWlanManager::instance()->currentWifiName();
+#endif
+}
+
+int DevicesManager::currentWifiSignalQuality()
+{
+#if defined(Q_OS_ANDROID)
+    return m_androidWifiManager->callJNIMethod<jint>("currentWifiSignalQuality", "()I");
+#elif defined(Q_OS_WINDOWS)
+    return WinWlanManager::instance()->currentWifiSignalQuality();
+#endif
+}
+
 void DevicesManager::refreshDevicesList()
 {
     QVariantList wifiListTmp{};
@@ -158,22 +194,4 @@ void DevicesManager::refreshDevicesList()
     //         }
     //     }
     // #endif
-}
-
-QString DevicesManager::currentWifiName()
-{
-#if defined(Q_OS_ANDROID)
-    return m_androidWifiManager->callJNIMethod<QJniObject>("currentWifiName", "()Ljava/lang/String;").toString();
-#elif defined(Q_OS_WINDOWS)
-    return WinWlanManager::instance()->currentWifiName();
-#endif
-}
-
-int DevicesManager::currentWifiSignalQuality()
-{
-#if defined(Q_OS_ANDROID)
-    return m_androidWifiManager->callJNIMethod<jint>("currentWifiSignalQuality", "()I");
-#elif defined(Q_OS_WINDOWS)
-    return WinWlanManager::instance()->currentWifiSignalQuality();
-#endif
 }
