@@ -1,5 +1,6 @@
 #include "AndroidWifiManager.h"
 #include <QMap>
+
 #if defined(Q_OS_ANDROID)
     #include <QJniObject>
     #include <QJsonDocument>
@@ -20,7 +21,6 @@ namespace Private
         static constexpr const char* JNICurrentWifiSignalQuality{"currentWifiSignalQuality"};
     };
 #endif
-
 }  // namespace Private
 
 auto AndroidWifiManager::instance(QObject* _parent) noexcept -> AndroidWifiManager*

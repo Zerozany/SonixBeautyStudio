@@ -15,7 +15,6 @@
 #endif
 // #include "ThemeManager.h"
 // #include "UsbManager.h"
-#include "DevicesManager.h"
 // #include "Translator.h"
 
 #include "SqlManager.h"
@@ -438,11 +437,7 @@ int main(int argc, char* argv[])
         }
     }
 #endif
-    // DevicesManager::create()->connectToWifi("ChinaNet-zero821", "18583943303");
 
-    // QTimer::singleShot(3000, [] {
-    //     DevicesManager::create()->disconnectWifi();
-    // });
 #if defined(Q_OS_ANDROID)
 
     #if false
