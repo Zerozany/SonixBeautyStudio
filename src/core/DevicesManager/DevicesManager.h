@@ -7,10 +7,6 @@ _Pragma("once");
 class QJSEngine;
 class QQmlEngine;
 
-#if defined(Q_OS_ANDROID)
-class AndroidJNIManager;
-#endif
-
 class DevicesManager : public QObject
 {
     Q_OBJECT
@@ -37,15 +33,9 @@ public:
 private:
     explicit(true) DevicesManager(QObject* _parent = nullptr);
 
-    void init() noexcept;
-
 Q_SIGNALS:
     void devicesListChanged();
 
 private:
     QVariantList m_devicesList{};
-
-#if defined(Q_OS_ANDROID)
-    AndroidJNIManager* m_androidWifiManager{nullptr};
-#endif
 };

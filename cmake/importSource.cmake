@@ -5,6 +5,9 @@ file(GLOB SOURCEFILES RELATIVE ${CMAKE_SOURCE_DIR}
     "${CMAKE_SOURCE_DIR}/src/**/**/*.h"
     "${CMAKE_SOURCE_DIR}/src/**/**/*.cpp"
     "${CMAKE_SOURCE_DIR}/src/**/**/*.hpp"
+    "${CMAKE_SOURCE_DIR}/src/**/**/**/*.h"
+    "${CMAKE_SOURCE_DIR}/src/**/**/**/*.cpp"
+    "${CMAKE_SOURCE_DIR}/src/**/**/**/*.hpp"
 )
 
 file(GLOB RESOURCESLIST RELATIVE ${CMAKE_SOURCE_DIR}
@@ -57,6 +60,7 @@ file(GLOB INCLUDEDIR
     "${CMAKE_SOURCE_DIR}/src/*/"
     "${CMAKE_SOURCE_DIR}/src/**/*/"
     "${CMAKE_SOURCE_DIR}/src/**/**/"
+    "${CMAKE_SOURCE_DIR}/src/**/**/**/"
 )
 
 target_include_directories(${PROJECT_NAME}
