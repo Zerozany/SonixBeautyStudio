@@ -4,12 +4,6 @@ _Pragma("once");
 #include <QVariantList>
 #include "QuickMacro.hpp"
 
-#if defined(Q_OS_ANDROID)
-    #include "AndroidJNIManager.h"
-#elif defined(Q_OS_WINDOWS)
-    #include "WinWlanManager.h"
-#endif
-
 class QJSEngine;
 class QQmlEngine;
 
