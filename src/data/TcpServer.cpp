@@ -8,20 +8,30 @@ auto TcpServer::instance(QObject* _parent) noexcept -> TcpServer*
 
 TcpServer::TcpServer(QObject* _parent) : TcpSocket{_parent}
 {
+    std::invoke(&TcpServer::connectSignal2Slot, this);
 }
 
-auto TcpServer::onReadyRead() -> void
+auto TcpServer::connectSignal2Slot() noexcept -> void
+{
+    connect(this, &TcpServer::errorOccurred, this, &TcpServer::onErrorOccurred);
+}
+
+void TcpServer::onReadyRead()
 {
 }
 
-auto TcpServer::onBytesWritten(quint64 _bytes) -> void
+void TcpServer::onBytesWritten(quint64 _bytes)
 {
 }
 
-auto TcpServer::onConnected() -> void
+void TcpServer::onConnected()
 {
 }
 
-auto TcpServer::onDisconnected() -> void
+void TcpServer::onDisconnected()
+{
+}
+
+void TcpServer::onErrorOccurred(const TcpServer::SocketError& _error)
 {
 }

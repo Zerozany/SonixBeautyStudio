@@ -14,12 +14,16 @@ public:
 private:
     explicit(true) TcpServer(QObject* _parent = nullptr);
 
-    // private Q_SLOTS:
-    auto onReadyRead() -> void override;
+    auto connectSignal2Slot() noexcept -> void override;
 
-    auto onBytesWritten(quint64 _bytes) -> void override;
+private Q_SLOTS:
+    void onReadyRead() override;
 
-    auto onConnected() -> void override;
+    void onBytesWritten(quint64 _bytes) override;
 
-    auto onDisconnected() -> void override;
+    void onConnected() override;
+
+    void onDisconnected() override;
+
+    void onErrorOccurred(const TcpServer::SocketError& _error);
 };
