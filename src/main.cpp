@@ -452,7 +452,7 @@ int main(int argc, char* argv[])
 
 #if defined(Q_OS_ANDROID)
 
-    #if true
+    #if false
     AndroidJNIManager* androidJNIManager{new AndroidJNIManager{}};
     androidJNIManager->setActivityUrl("com/sonixbeauty/module/JWifiManager");
     QJniObject            result{androidJNIManager->callJNIMethod<QJniObject>("getWifiList", "()Ljava/lang/String;")};
