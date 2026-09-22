@@ -76,6 +76,7 @@ public final class JWifiManager {
     }
 
     // 获取当前 Wi-Fi SSID
+    @SuppressWarnings({ "deprecation" })
     public String currentWifiName()
     {
         try {
@@ -110,6 +111,7 @@ public final class JWifiManager {
     }
 
     // 获取当前 Wi-Fi 信号强度，返回 0~100
+    @SuppressWarnings({ "deprecation" })
     public int currentWifiSignalQuality()
     {
         try {

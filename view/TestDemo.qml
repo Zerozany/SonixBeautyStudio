@@ -63,14 +63,12 @@ Item {
                     id: currentWifiLabel
                     width: parent.width
                     height: parent.height * 0.4
-                    // text: "当前wifi:" + DevicesManager.currentWifiName()
                 }
 
                 Label {
                     id: currentWifiSignalQualityLabel
                     width: parent.width
                     height: parent.height * 0.4
-                    // text: "当前信号强度:" + DevicesManager.currentWifiSignalQuality()
                 }
             }
 
