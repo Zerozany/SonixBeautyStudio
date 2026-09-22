@@ -10,6 +10,7 @@
     #include <QJsonValue>
     #include <QJsonArray>
     #include <QJsonObject>
+    #include "AndroidJNIManager.h"
 #elif defined(Q_OS_WINDOWS)
     #include "SingletonApplication.h"
 #endif
@@ -25,6 +26,8 @@
 // #include "LoginManager.h"
 #include <QtConcurrent>
 #include <QTcpSocket>
+#include <QDataStream>
+#include <QIODevice>
 
 static quint16 crc16_xmodem(const QByteArray& data)
 {
@@ -40,30 +43,51 @@ static quint16 crc16_xmodem(const QByteArray& data)
 
 static QByteArray buildReadUdmFrame()
 {
-    QByteArray f;
-    f.resize(20);
-    auto put16 = [&](int off, quint16 v) {
-        f[off]     = v & 0xFF;
-        f[off + 1] = (v >> 8) & 0xFF;
-    };
+    // ---- 1. 先构建除 CRC 字段外的头部区域（前 12 字节） ----
+    QByteArray header;
+    {
+        QDataStream ds(&header, QIODevice::WriteOnly);
+        ds.setByteOrder(QDataStream::LittleEndian);  // 全部小端
 
-    put16(0, 0x0004);   // packetType=4, packetC/T=0, packetCNT=0
-    put16(2, 0x0005);   // packetSIZE=5 -> 20 字节
-    put16(4, 0x0000);   // StreamID
-    put16(6, 0x0001);   // FrameEOF=1, CmdNUM=0
-    put16(8, 0x0000);   // PAD/OUI
-    put16(10, 0x0001);  // RW=1 读
-    // 12-13 留空，最后填 CRC
-    put16(14, 0x0406);  // PacketClassCode=6, BurstLength=64
-    f[16] = 0x80;
-    f[17] = 0xFF;
-    f[18] = 0xFF;
-    f[19] = 0xFF;  // 地址 0xFFFFFF80
+        ds << quint16(0x0004);  // packetType=4, packetC/T=0, packetCNT=0
+        ds << quint16(0x0005);  // packetSIZE=5 -> 20 字节
+        ds << quint16(0x0000);  // StreamID
+        ds << quint16(0x0001);  // FrameEOF=1, CmdNUM=0
+        ds << quint16(0x0000);  // PAD/OUI
+        ds << quint16(0x0001);  // RW=1 读
+    }
 
-    QByteArray crcArea = f.left(12) + f.mid(14, 2);
-    put16(12, crc16_xmodem(crcArea));  // 小端写入
+    // ---- 2. 尾部数据（14 字节之后） ----
+    QByteArray tail;
+    {
+        QDataStream ds(&tail, QIODevice::WriteOnly);
+        ds.setByteOrder(QDataStream::LittleEndian);
 
-    return f;
+        ds << quint16(0x0406);  // PacketClassCode=6, BurstLength=64
+        ds << quint8(0x80);     // 地址 0xFFFFFF80 (小端)
+        ds << quint8(0xFF);
+        ds << quint8(0xFF);
+        ds << quint8(0xFF);
+    }
+
+    // ---- 3. 计算 CRC（覆盖 header + tail 中的 2 字节） ----
+    // 原逻辑: crcArea = f.left(12) + f.mid(14, 2)
+    // f.mid(14,2) 就是 tail 的前 2 字节 (0x0406)
+    QByteArray crcArea = header + tail.left(2);
+    quint16    crc     = crc16_xmodem(crcArea);
+
+    // ---- 4. 组装最终帧 ----
+    QByteArray frame;
+    {
+        QDataStream ds(&frame, QIODevice::WriteOnly);
+        ds.setByteOrder(QDataStream::LittleEndian);
+
+        ds.writeRawData(header.constData(), header.size());  // 0..11
+        ds << crc;                                           // 12..13 (小端)
+        ds.writeRawData(tail.constData(), tail.size());      // 14..19
+    }
+
+    return frame;  // 20 字节
 }
 
 // 写 ResetDevice 寄存器 0xFFFFFFC0：0=冻结，1=取消冻结
@@ -426,21 +450,9 @@ int main(int argc, char* argv[])
     // SPDLOG_WARN("---=======2:{}", "String");
     // SPDLOG_ERROR("---=======3");
 
-#if false
-    SqlManager::instance()->setDatabaseName(QPair<QString, DataBasePathType>("qrc:/config/dataBase/UAS.db", DataBasePathType::ResourcePath));
-    QSqlQuery query = SqlManager::instance()->executeSql<QSqlQuery>("qrc:/config/dataBase/UAS.db", "select * from tPartName");
-    while (query.next())
-    {
-        for (int i = 0; i < query.record().count(); ++i)
-        {
-            qInfo() << query.record().fieldName(i) << ":" << query.value(i).toString();
-        }
-    }
-#endif
-
 #if defined(Q_OS_ANDROID)
 
-    #if false
+    #if true
     AndroidJNIManager* androidJNIManager{new AndroidJNIManager{}};
     androidJNIManager->setActivityUrl("com/sonixbeauty/module/JWifiManager");
     QJniObject            result{androidJNIManager->callJNIMethod<QJniObject>("getWifiList", "()Ljava/lang/String;")};

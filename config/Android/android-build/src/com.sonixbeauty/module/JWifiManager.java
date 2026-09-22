@@ -52,8 +52,8 @@ public final class JWifiManager {
         try {
             boolean success = m_wifiManager.startScan();
             if (!success) {
-                Log.e("HandleDebug", "startScan failed");
-                return "";
+                Log.e("HandleDebug", "startScan frequency too high");
+                // return "";
             }
             List<ScanResult> scanResults = m_wifiManager.getScanResults();
             if (scanResults == null || scanResults.isEmpty()) {

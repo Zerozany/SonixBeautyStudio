@@ -70,9 +70,9 @@ void DevicesManager::refreshDevicesList()
     {
         wifiListTmp.append(QVariantMap{{QStringLiteral("ssid"), _ssid}, {QStringLiteral("level"), _level}});
     }
-    if (wifiListTmp.isEmpty())
-    {
-        return;
-    }
+    // if (wifiListTmp.isEmpty())
+    // {
+    //     return;
+    // }
     this->setDevicesList(wifiListTmp);
 }
