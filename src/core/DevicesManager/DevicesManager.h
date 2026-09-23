@@ -33,6 +33,8 @@ public:
 private:
     explicit(true) DevicesManager(QObject* _parent = nullptr);
 
+    void connectSignal2Slot() noexcept;
+
 Q_SIGNALS:
     void devicesListChanged();
 

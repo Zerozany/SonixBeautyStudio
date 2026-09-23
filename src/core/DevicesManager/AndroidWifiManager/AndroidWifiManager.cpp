@@ -23,6 +23,26 @@ namespace Private
 #endif
 }  // namespace Private
 
+#if defined(Q_OS_ANDROID)
+extern "C" {
+    JNIEXPORT void JNICALL Java_com_sonixbeauty_module_JWifiManager_QWifiConnectedSuccessful(JNIEnv*, jclass)
+    {
+        QMetaObject::invokeMethod(AndroidWifiManager::instance(), "wifiConnectedSuccessful", Qt::QueuedConnection);
+    }
+
+    JNIEXPORT void JNICALL Java_com_sonixbeauty_module_JWifiManager_QWifiConnectedFailed(JNIEnv*, jclass)
+    {
+        QMetaObject::invokeMethod(AndroidWifiManager::instance(), "wifiConnectedFailed", Qt::QueuedConnection);
+    }
+
+    JNIEXPORT void JNICALL Java_com_sonixbeauty_module_JWifiManager_QWifiLost(JNIEnv*, jclass)
+    {
+        QMetaObject::invokeMethod(AndroidWifiManager::instance(), "wifiLost", Qt::QueuedConnection);
+    }
+}
+
+#endif
+
 auto AndroidWifiManager::instance(QObject* _parent) noexcept -> AndroidWifiManager*
 {
     static AndroidWifiManager* androidWifiManager{new AndroidWifiManager{_parent}};
@@ -36,8 +56,25 @@ AndroidWifiManager::AndroidWifiManager(QObject* _parent) : AndroidJNIManager{_pa
 
 auto AndroidWifiManager::init() noexcept -> void
 {
+    std::invoke(&AndroidWifiManager::connectSignal2Slot, this);
 #if defined(Q_OS_ANDROID)
     this->setActivityUrl(Private::JNIConstTable::JNIWifiUrl);
+#endif
+}
+
+void AndroidWifiManager::connectSignal2Slot() noexcept
+{
+#if defined(Q_OS_ANDROID)
+    connect(this, &AndroidWifiManager::wifiConnectedSuccessful, [] {
+        qDebug() << "wifiConnectedSuccessful";
+    });
+    connect(this, &AndroidWifiManager::wifiConnectedFailed, [] {
+        qDebug() << "wifiConnectedFailed";
+    });
+    connect(this, &AndroidWifiManager::wifiLost, [] {
+        qDebug() << "wifiLost";
+    });
+#elif defined(Q_OS_WINDOWS)
 #endif
 }
 

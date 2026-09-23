@@ -26,6 +26,10 @@ public final class JWifiManager {
     private ConnectivityManager m_connectivityManager;
     private java.util.List<ConnectivityManager.NetworkCallback> m_callbacks = new java.util.ArrayList<>();
 
+    private static native void QWifiConnectedSuccessful();
+    private static native void QWifiConnectedFailed();
+    private static native void QWifiLost();
+
     public JWifiManager(Activity _activity)
     {
         init(_activity);
@@ -144,16 +148,19 @@ public final class JWifiManager {
             public void onAvailable(Network network)
             {
                 m_connectivityManager.bindProcessToNetwork(network);
+                JWifiManager.QWifiConnectedSuccessful();
                 Log.d("HandleDebug", "Connected to " + ssid);
             }
             @Override
             public void onUnavailable()
             {
+                JWifiManager.QWifiConnectedFailed();
                 Log.d("HandleDebug", "Failed to connect to " + ssid);
             }
             @Override
             public void onLost(Network network)
             {
+                JWifiManager.QWifiLost();
                 Log.d("HandleDebug", "Lost connection to " + ssid);
             }
         };
@@ -175,5 +182,6 @@ public final class JWifiManager {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
             m_connectivityManager.bindProcessToNetwork(null);
         }
+        Log.d("HandleDebug", "disconnectWifi ok");
     }
 }

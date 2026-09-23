@@ -20,9 +20,9 @@ public class MainActivity extends org.qtproject.qt.android.bindings.QtActivity {
     {
         super.onWindowFocusChanged(_hasFocus);
         if (_hasFocus) {
-            QActivityVisibileChanged(true);
+            MainActivity.QActivityVisibileChanged(true);
         } else {
-            QActivityVisibileChanged(false);
+            MainActivity.QActivityVisibileChanged(false);
         }
     }
 }

@@ -19,6 +19,11 @@ DevicesManager* DevicesManager::create(QQmlEngine* _qmlEngine, QJSEngine* _qJSEn
 
 DevicesManager::DevicesManager(QObject* _parent) : QObject{_parent}
 {
+    std::invoke(&DevicesManager::connectSignal2Slot, this);
+}
+
+void DevicesManager::connectSignal2Slot() noexcept
+{
 }
 
 void DevicesManager::connectToWifi(const QString& _ssid, const QString& _password)
