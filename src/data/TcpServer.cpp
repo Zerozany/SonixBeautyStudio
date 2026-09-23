@@ -21,6 +21,7 @@ void TcpServer::onReadyRead()
 
 void TcpServer::onBytesWritten(quint64 _bytes)
 {
+    Q_UNUSED(_bytes)
 }
 
 void TcpServer::onConnected()
@@ -38,10 +39,8 @@ void TcpServer::onErrorOccurred(const TcpServer::SocketError& _error)
     switch (_error)
     {
         case TcpServer::SocketError::ConnectionRefusedError:
-            /* code */
             break;
         case TcpServer::SocketError::HostNotFoundError:
-            /* code */
             break;
         default:
             break;

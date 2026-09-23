@@ -167,5 +167,42 @@ Item {
                 }
             }
         }
+
+        //
+        Item {
+            width: (root.width - 30) / 4      // 减去 spacing
+            height: root.height / 2
+
+            Column {
+                width: parent.width
+                height: parent.height * 0.9
+                anchors.centerIn: parent
+                spacing: 20
+
+                Connections {
+                    target: QmlDebug
+                    function onSendDataChanged() {
+                        cmdArea.append(QmlDebug.sendData);
+                    }
+                }
+
+                MaterialButton {
+                    width: parent.width / 2
+                    text: "发送数据"
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    onClicked: {
+                        QmlDebug.sendDatas();
+                    }
+                }
+
+                TextArea {
+                    id: cmdArea
+                    readOnly: true
+                    width: parent.width
+                    height: parent.height * 0.8
+                    font.pixelSize: 8
+                }
+            }
+        }
     }
 }
