@@ -37,8 +37,6 @@ private:
 
     auto init() noexcept -> void;
 
-    void connectSignal2Slot() noexcept;
-
 Q_SIGNALS:
     void wifiConnectedSuccessful();
 

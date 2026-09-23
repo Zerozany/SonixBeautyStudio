@@ -56,25 +56,8 @@ AndroidWifiManager::AndroidWifiManager(QObject* _parent) : AndroidJNIManager{_pa
 
 auto AndroidWifiManager::init() noexcept -> void
 {
-    std::invoke(&AndroidWifiManager::connectSignal2Slot, this);
 #if defined(Q_OS_ANDROID)
     this->setActivityUrl(Private::JNIConstTable::JNIWifiUrl);
-#endif
-}
-
-void AndroidWifiManager::connectSignal2Slot() noexcept
-{
-#if defined(Q_OS_ANDROID)
-    connect(this, &AndroidWifiManager::wifiConnectedSuccessful, [] {
-        qDebug() << "wifiConnectedSuccessful";
-    });
-    connect(this, &AndroidWifiManager::wifiConnectedFailed, [] {
-        qDebug() << "wifiConnectedFailed";
-    });
-    connect(this, &AndroidWifiManager::wifiLost, [] {
-        qDebug() << "wifiLost";
-    });
-#elif defined(Q_OS_WINDOWS)
 #endif
 }
 

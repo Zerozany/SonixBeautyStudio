@@ -25,5 +25,5 @@ private Q_SLOTS:
 
     void onDisconnected() override;
 
-    void onErrorOccurred(const TcpServer::SocketError& _error);
+    void onErrorOccurred(const TcpServer::SocketError& _error) override;
 };

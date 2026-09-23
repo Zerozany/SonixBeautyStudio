@@ -13,7 +13,6 @@ TcpServer::TcpServer(QObject* _parent) : TcpSocket{_parent}
 
 auto TcpServer::connectSignal2Slot() noexcept -> void
 {
-    connect(this, &TcpServer::errorOccurred, this, &TcpServer::onErrorOccurred);
 }
 
 void TcpServer::onReadyRead()
