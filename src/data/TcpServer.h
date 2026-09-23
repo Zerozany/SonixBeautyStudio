@@ -26,4 +26,7 @@ private Q_SLOTS:
     void onDisconnected() override;
 
     void onErrorOccurred(const TcpServer::SocketError& _error) override;
+
+public Q_SLOTS:
+    void onWifiConnectedSuccessful();
 };

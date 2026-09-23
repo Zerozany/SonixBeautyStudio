@@ -3,13 +3,13 @@
 #include <QQmlEngine>
 #include <QQmlApplicationEngine>
 #include "ProbeDevice.h"
+#include "TcpServer.h"
 
 #if defined(Q_OS_WINDOWS)
     #include "WinWlanManager.h"
 #elif defined(Q_OS_ANDROID)
     #include "AndroidWifiManager.h"
 #endif
-#include "TcpServer.h"
 
 DevicesManager* DevicesManager::create(QQmlEngine* _qmlEngine, QJSEngine* _qJSEngine)
 {
@@ -26,19 +26,10 @@ DevicesManager::DevicesManager(QObject* _parent) : QObject{_parent}
 void DevicesManager::connectSignal2Slot() noexcept
 {
 #if defined(Q_OS_ANDROID)
-    connect(AndroidWifiManager::instance(), &AndroidWifiManager::wifiConnectedSuccessful, [] {
-        qDebug() << "wifiConnectedSuccessful";
-        TcpServer::instance()->connectToHost("192.168.0.10", 5061);
-        if (!TcpServer::instance()->waitForConnected(3000))
-        {
-            qDebug() << "Tcp Connect failed:" << TcpServer::instance()->errorString();
-        }
-    });
+    connect(AndroidWifiManager::instance(), &AndroidWifiManager::wifiConnectedSuccessful, TcpServer::instance(), &TcpServer::onWifiConnectedSuccessful);
+    connect(AndroidWifiManager::instance(), &AndroidWifiManager::wifiLost, TcpServer::instance(), &TcpServer::abort);
     connect(AndroidWifiManager::instance(), &AndroidWifiManager::wifiConnectedFailed, [] {
         qDebug() << "wifiConnectedFailed";
-    });
-    connect(AndroidWifiManager::instance(), &AndroidWifiManager::wifiLost, [] {
-        qDebug() << "wifiLost";
     });
 #elif defined(Q_OS_WINDOWS)
 

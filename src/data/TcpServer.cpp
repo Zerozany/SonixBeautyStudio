@@ -47,3 +47,12 @@ void TcpServer::onErrorOccurred(const TcpServer::SocketError& _error)
             break;
     }
 }
+
+void TcpServer::onWifiConnectedSuccessful()
+{
+    this->connectToHost("192.168.0.10", 5061);
+    if (!this->waitForConnected(3000))
+    {
+        qDebug() << "Tcp Connect failed:" << this->errorString();
+    }
+}
