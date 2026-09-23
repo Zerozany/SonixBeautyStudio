@@ -1,5 +1,11 @@
 #include "TcpServer.h"
 
+namespace Private
+{
+    static constexpr const char* DataHost{"192.168.0.10"};
+    static constexpr quint16     DataPort{5061};
+}  // namespace Private
+
 auto TcpServer::instance(QObject* _parent) noexcept -> TcpServer*
 {
     static TcpServer* tcpServer{new TcpServer{_parent}};
@@ -49,7 +55,7 @@ void TcpServer::onErrorOccurred(const TcpServer::SocketError& _error)
 
 void TcpServer::onWifiConnectedSuccessful()
 {
-    this->connectToHost("192.168.0.10", 5061);
+    this->connectToHost(Private::DataHost, Private::DataPort);
     if (!this->waitForConnected(3000))
     {
         qDebug() << "Tcp Connect failed:" << this->errorString();

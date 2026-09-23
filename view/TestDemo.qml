@@ -186,6 +186,14 @@ Item {
                     }
                 }
 
+                TextArea {
+                    id: cmdArea
+                    readOnly: true
+                    width: parent.width
+                    height: parent.height * 0.9
+                    font.pixelSize: 8
+                }
+
                 MaterialButton {
                     width: parent.width / 2
                     text: "发送数据"
@@ -193,14 +201,6 @@ Item {
                     onClicked: {
                         QmlDebug.sendDatas();
                     }
-                }
-
-                TextArea {
-                    id: cmdArea
-                    readOnly: true
-                    width: parent.width
-                    height: parent.height * 0.8
-                    font.pixelSize: 8
                 }
             }
         }
@@ -222,11 +222,6 @@ Item {
                     }
                 }
 
-                Label {
-                    width: parent.width / 2
-                    text: "接收数据"
-                    anchors.horizontalCenter: parent.horizontalCenter
-                }
                 TextArea {
                     id: recvAream
                     readOnly: true
@@ -235,6 +230,12 @@ Item {
                     width: parent.width            // 明确宽度
                     height: parent.height * 0.9
                     clip: true                     // 裁剪溢出
+                }
+
+                Label {
+                    width: parent.width / 2
+                    text: "接收数据"
+                    anchors.horizontalCenter: parent.horizontalCenter
                 }
             }
         }

@@ -147,5 +147,4 @@ void QmlDebug::sendDatas()
     QByteArray frame{buildReadUdmFrame()};
     this->setSendData(QDateTime::currentDateTime().toString("hh:mm:ss ").toUtf8() + frame.toHex());
     TcpServer::instance()->write(frame);
-    TcpServer::instance()->flush();
 }
