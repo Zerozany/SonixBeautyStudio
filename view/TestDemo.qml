@@ -204,5 +204,39 @@ Item {
                 }
             }
         }
+
+        Item {
+            width: (root.width - 30) / 4    // 减去 spacing
+            height: root.height / 2
+
+            Column {
+                width: parent.width
+                height: parent.height * 0.9
+                anchors.centerIn: parent
+                spacing: 20
+
+                Connections {
+                    target: QmlDebug
+                    function onRecvDataChanged() {
+                        recvAream.text = QmlDebug.recvData;
+                    }
+                }
+
+                Label {
+                    width: parent.width / 2
+                    text: "接收数据"
+                    anchors.horizontalCenter: parent.horizontalCenter
+                }
+                TextArea {
+                    id: recvAream
+                    readOnly: true
+                    wrapMode: TextArea.WrapAnywhere
+                    font.pixelSize: 10
+                    width: parent.width            // 明确宽度
+                    height: parent.height * 0.9
+                    clip: true                     // 裁剪溢出
+                }
+            }
+        }
     }
 }

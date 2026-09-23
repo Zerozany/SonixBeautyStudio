@@ -120,6 +120,7 @@ QmlDebug::QmlDebug(QObject* _parent) : QObject{_parent}
 
             qDebug() << "Addr =" << QString::number(addr, 16);
             qDebug() << "UDM  =" << udm.toHex(' ');
+            this->setRecvData(QDateTime::currentDateTime().toString("hh:mm:ss ").toUtf8() + udm.toHex(' '));
 
             auto field = [&](int off, int len) -> QString {
                 QByteArray raw = udm.mid(off, len);
