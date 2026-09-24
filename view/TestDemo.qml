@@ -142,12 +142,14 @@ Item {
                     width: parent.width
                     placeholderText: "Wifi名称"
                     text: "US06-9C50D101E180"
+                    // text: "ChinaNet-zero821"
                 }
                 MaterialTextField {
                     id: passwordField
                     width: parent.width
                     placeholderText: "Wifi密码"
                     text: "12345678"
+                    // text: "18583943303"
                 }
 
                 MaterialButton {
