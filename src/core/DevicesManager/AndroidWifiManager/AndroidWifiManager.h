@@ -38,9 +38,9 @@ private:
     auto init() noexcept -> void;
 
 Q_SIGNALS:
-    void wifiConnectedSuccessful();
+    void wifiConnectSuccessful();
 
-    void wifiConnectedFailed();
+    void wifiConnectFailed();
 
     void wifiLost();
 };

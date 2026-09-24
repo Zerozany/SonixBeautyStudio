@@ -53,7 +53,7 @@ void TcpServer::onErrorOccurred(const TcpServer::SocketError& _error)
     }
 }
 
-void TcpServer::onWifiConnectedSuccessful()
+void TcpServer::onWifiConnectSuccessful()
 {
     this->connectToHost(Private::DataHost, Private::DataPort);
     if (!this->waitForConnected(3000))

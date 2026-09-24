@@ -25,15 +25,16 @@ DevicesManager::DevicesManager(QObject* _parent) : QObject{_parent}
 
 void DevicesManager::connectSignal2Slot() noexcept
 {
-#if defined(Q_OS_ANDROID)
-    connect(AndroidWifiManager::instance(), &AndroidWifiManager::wifiConnectedSuccessful, TcpServer::instance(), &TcpServer::onWifiConnectedSuccessful);
-    connect(AndroidWifiManager::instance(), &AndroidWifiManager::wifiLost, TcpServer::instance(), &TcpServer::abort);
-    connect(AndroidWifiManager::instance(), &AndroidWifiManager::wifiConnectedFailed, [] {
+#if defined(Q_OS_WINDOWS)
+    using WifiManager = WinWlanManager;
+#elif defined(Q_OS_ANDROID)
+    using WifiManager = AndroidWifiManager;
+#endif
+    connect(WifiManager::instance(), &WifiManager::wifiConnectSuccessful, TcpServer::instance(), &TcpServer::onWifiConnectSuccessful);
+    connect(WifiManager::instance(), &WifiManager::wifiLost, TcpServer::instance(), &TcpServer::abort);
+    connect(WifiManager::instance(), &WifiManager::wifiConnectFailed, [] {
         qDebug() << "wifiConnectedFailed";
     });
-#elif defined(Q_OS_WINDOWS)
-
-#endif
 }
 
 void DevicesManager::connectToWifi(const QString& _ssid, const QString& _password)
