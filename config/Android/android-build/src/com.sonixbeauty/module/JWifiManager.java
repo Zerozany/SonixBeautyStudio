@@ -26,8 +26,8 @@ public final class JWifiManager {
     private ConnectivityManager m_connectivityManager;
     private java.util.List<ConnectivityManager.NetworkCallback> m_callbacks = new java.util.ArrayList<>();
 
-    private static native void QWifiConnectedSuccessful();
-    private static native void QWifiConnectedFailed();
+    private static native void QWifiConnectSuccessful();
+    private static native void QWifiConnectFailed();
     private static native void QWifiLost();
 
     public JWifiManager(Activity _activity)
@@ -148,12 +148,12 @@ public final class JWifiManager {
             public void onAvailable(Network network)
             {
                 m_connectivityManager.bindProcessToNetwork(network);
-                JWifiManager.QWifiConnectedSuccessful();
+                JWifiManager.QWifiConnectSuccessful();
             }
             @Override
             public void onUnavailable()
             {
-                JWifiManager.QWifiConnectedFailed();
+                JWifiManager.QWifiConnectFailed();
             }
             @Override
             public void onLost(Network network)

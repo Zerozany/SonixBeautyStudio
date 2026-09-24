@@ -141,7 +141,7 @@ Item {
                     id: wifiField
                     width: parent.width
                     placeholderText: "Wifi名称"
-                    text: "US06-9C50D101E3B4"
+                    text: "US06-9C50D101E180"
                 }
                 MaterialTextField {
                     id: passwordField

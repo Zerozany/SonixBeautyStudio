@@ -25,14 +25,14 @@ namespace Private
 
 #if defined(Q_OS_ANDROID)
 extern "C" {
-    JNIEXPORT void JNICALL Java_com_sonixbeauty_module_JWifiManager_QWifiConnectedSuccessful(JNIEnv*, jclass)
+    JNIEXPORT void JNICALL Java_com_sonixbeauty_module_JWifiManager_QWifiConnectSuccessful(JNIEnv*, jclass)
     {
-        QMetaObject::invokeMethod(AndroidWifiManager::instance(), "wifiConnectedSuccessful", Qt::QueuedConnection);
+        QMetaObject::invokeMethod(AndroidWifiManager::instance(), "wifiConnectSuccessful", Qt::QueuedConnection);
     }
 
-    JNIEXPORT void JNICALL Java_com_sonixbeauty_module_JWifiManager_QWifiConnectedFailed(JNIEnv*, jclass)
+    JNIEXPORT void JNICALL Java_com_sonixbeauty_module_JWifiManager_QWifiConnectFailed(JNIEnv*, jclass)
     {
-        QMetaObject::invokeMethod(AndroidWifiManager::instance(), "wifiConnectedFailed", Qt::QueuedConnection);
+        QMetaObject::invokeMethod(AndroidWifiManager::instance(), "wifiConnectFailed", Qt::QueuedConnection);
     }
 
     JNIEXPORT void JNICALL Java_com_sonixbeauty_module_JWifiManager_QWifiLost(JNIEnv*, jclass)
