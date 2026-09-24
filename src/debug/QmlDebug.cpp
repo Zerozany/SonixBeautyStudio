@@ -144,6 +144,10 @@ QmlDebug::QmlDebug(QObject* _parent) : QObject{_parent}
 
 void QmlDebug::sendDatas()
 {
+    if (TcpServer::instance()->state() != QAbstractSocket::ConnectedState)
+    {
+        return;
+    }
     QByteArray frame{buildReadUdmFrame()};
     this->setSendData(QDateTime::currentDateTime().toString("hh:mm:ss ").toUtf8() + frame.toHex());
     TcpServer::instance()->write(frame);
