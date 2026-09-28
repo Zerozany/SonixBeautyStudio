@@ -8,17 +8,12 @@
 #elif defined(Q_OS_WINDOWS)
     #include "SingletonApplication.h"
 #endif
-// #include "ThemeManager.h"
 // #include "UsbManager.h"
-// #include "Translator.h"
-
-#include "SqlManager.h"
 #include <QStandardPaths>
 #include <QDir>
 // #include "SpdLogger.h"
-// #include "LoginManager.h"
 
-int main(int argc, char* argv[])
+auto main(int argc, char* argv[]) -> int
 {
 #if defined(Q_OS_WINDOWS)
     // UsbManager usbManager{};
@@ -31,16 +26,13 @@ int main(int argc, char* argv[])
 
 #endif
     ApplicationConfig::instance()->init();
-    QGuiApplication app{argc, argv};
-    // qDebug() << ThemeManager::create(nullptr, nullptr)->currentTheme();
+    QGuiApplication       app{argc, argv};
     QQmlApplicationEngine engine{};
-    // Translator::create(&engine, nullptr)->setLanguage(":/i18n/qml_en.qm");
     ViewEngine::instance(engine)->init();
     // SpdLogger::instance()->init(QDir{QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation)}.filePath("log/SonixLog_1.txt").toStdString());
     // spdlog::set_level(spdlog::level::trace);
     // SPDLOG_WARN("---=======2:{}", "String");
     // SPDLOG_ERROR("---=======3");
-
 #if defined(Q_OS_ANDROID)
     QNativeInterface::QAndroidApplication::hideSplashScreen(0);
 #endif
