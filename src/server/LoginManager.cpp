@@ -4,6 +4,9 @@
 #include <QJSEngine>
 #include <QQmlEngine>
 #include <QQmlApplicationEngine>
+#include <QCryptographicHash>
+#include <QJsonDocument>
+#include <QJsonObject>
 #include "LoginConfig.h"
 
 LoginManager::LoginManager(const std::string& _host, int _port, QObject* _parent) : QObject{_parent}, HttpsManager<const std::string&, int>{_host, std::move(_port)}
@@ -19,7 +22,7 @@ LoginManager* LoginManager::create(QQmlEngine* _qmlEngine, QJSEngine* _qJSEngine
     return loginManager;
 }
 
-void LoginManager::getCaptcha(const QString& _phoneNumbers)
+bool LoginManager::getCaptcha(const QString& _phoneNumbers)
 {
     httplib::Params captchaParams{{"phone", _phoneNumbers.toStdString()}, {"type", "1"}};
     auto            res = m_sslClient->Get(LoginConfig::instance()->captcha().toStdString(), captchaParams, this->m_heads);
@@ -27,9 +30,29 @@ void LoginManager::getCaptcha(const QString& _phoneNumbers)
     {
         qDebug() << "响应:" << QString::fromStdString(res->body);
         qDebug() << "状态码:" << res->status;
-        return;
+        return true;
     }
     qDebug() << "失败，状态码:" << (res ? res->status : -1);
+    return false;
+}
+
+bool LoginManager::login(const QString& _phoneNumbers, const QString& _password)
+{
+    QCryptographicHash hash{QCryptographicHash::Md5};
+    hash.addData(_password.toStdString().c_str(), _password.length());
+    QJsonObject obj{};
+    obj.insert("phone", _phoneNumbers);
+    obj.insert("password", QString::fromStdString(hash.result().toHex().toLower().toStdString()));
+    std::string body{QJsonDocument(obj).toJson(QJsonDocument::Compact).toStdString()};
+    auto        res = m_sslClient->Post(LoginConfig::instance()->login().toStdString(), this->m_heads, body, "application/json");
+    if (res && res->status == 200)
+    {
+        qDebug() << "响应:" << QString::fromStdString(res->body);
+        qDebug() << "状态码:" << res->status;
+        return true;
+    }
+    qDebug() << "失败，状态码:" << (res ? res->status : -1);
+    return false;
 }
 
 void LoginManager::init(const std::string&, int&&) noexcept

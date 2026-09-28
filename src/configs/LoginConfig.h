@@ -8,9 +8,11 @@ class LoginConfig final : public ConfigSetting
     QUICK_PROPERTY(QString, m_host, host, host, setHost, hostChanged)
     QUICK_PROPERTY(int, m_port, port, port, setPort, portChanged)
     QUICK_PROPERTY(QString, m_captcha, captcha, captcha, setCaptcha, captchaChanged)
+    QUICK_PROPERTY(QString, m_login, login, login, setLogin, loginChanged)
     Q_CLASSINFO("host", "Server")
     Q_CLASSINFO("port", "Server")
     Q_CLASSINFO("captcha", "Path")
+    Q_CLASSINFO("login", "Path")
 public:
     static LoginConfig* instance(QObject* _parent = nullptr) noexcept;
 
@@ -25,9 +27,11 @@ Q_SIGNALS:
     void hostChanged();
     void portChanged();
     void captchaChanged();
+    void loginChanged();
 
 private:
     QString m_host{};
     int     m_port{};
     QString m_captcha{};
+    QString m_login{};
 };

@@ -104,6 +104,14 @@ Item {
                 }
             }
 
+            Rectangle {
+                id: waitingRec
+                width: 50
+                height: 50
+                radius: 25
+                color: "gray"
+            }
+
             MaterialButton {
                 anchors.bottom: parent.bottom
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -116,7 +124,11 @@ Item {
                         phoneTextField.text = "手机格式错误";
                         return;
                     }
-                    LoginManager.getCaptcha(phoneTextField.text);
+                    if (LoginManager.login(phoneTextField.text)) {
+                        waitingRec.color = "green";
+                    } else {
+                        waitingRec.color = "red";
+                    }
                 }
             }
         }

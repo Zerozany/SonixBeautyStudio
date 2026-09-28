@@ -22,7 +22,9 @@ public:
     Q_DISABLE_COPY_MOVE(LoginManager)
 
 public:
-    Q_INVOKABLE void getCaptcha(const QString& _phoneNumbers);
+    Q_INVOKABLE bool getCaptcha(const QString& _phoneNumbers);
+
+    Q_INVOKABLE bool login(const QString& _phoneNumbers, const QString& _password);
 
 private:
     explicit(true) LoginManager(const std::string& _host, int _port = 443, QObject* _parent = nullptr);
