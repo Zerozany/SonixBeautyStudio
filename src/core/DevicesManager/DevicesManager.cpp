@@ -11,6 +11,15 @@
     #include "AndroidWifiManager.h"
 #endif
 
+namespace Private
+{
+#if defined(Q_OS_WINDOWS)
+    using WifiManager = WinWlanManager;
+#elif defined(Q_OS_ANDROID)
+    using WifiManager = AndroidWifiManager;
+#endif
+}  // namespace Private
+
 DevicesManager* DevicesManager::create(QQmlEngine* _qmlEngine, QJSEngine* _qJSEngine)
 {
     Q_UNUSED(_qJSEngine);
@@ -25,63 +34,37 @@ DevicesManager::DevicesManager(QObject* _parent) : QObject{_parent}
 
 void DevicesManager::connectSignal2Slot() noexcept
 {
-#if defined(Q_OS_WINDOWS)
-    using WifiManager = WinWlanManager;
-#elif defined(Q_OS_ANDROID)
-    using WifiManager = AndroidWifiManager;
-#endif
-    connect(WifiManager::instance(), &WifiManager::wifiConnectSuccessful, TcpServer::instance(), &TcpServer::onWifiConnectSuccessful);
-    connect(WifiManager::instance(), &WifiManager::wifiLost, TcpServer::instance(), &TcpServer::abort);
-    connect(WifiManager::instance(), &WifiManager::wifiConnectFailed, [] {
+    connect(Private::WifiManager::instance(), &Private::WifiManager::wifiConnectSuccessful, TcpServer::instance(), &TcpServer::onWifiConnectSuccessful);
+    connect(Private::WifiManager::instance(), &Private::WifiManager::wifiLost, TcpServer::instance(), &TcpServer::abort);
+    connect(Private::WifiManager::instance(), &Private::WifiManager::wifiConnectFailed, [] {
         qDebug() << "wifiConnectedFailed";
     });
 }
 
 void DevicesManager::connectToWifi(const QString& _ssid, const QString& _password)
 {
-#if defined(Q_OS_ANDROID)
-    AndroidWifiManager::instance()->connectToWifi(_ssid, _password);
-#elif defined(Q_OS_WINDOWS)
-    WinWlanManager::instance()->connectToWifi(_ssid.toStdString(), _password.toStdString());
-#endif
+    Private::WifiManager::instance()->connectToWifi(_ssid, _password);
 }
 
 void DevicesManager::disconnectWifi()
 {
-#if defined(Q_OS_ANDROID)
-    AndroidWifiManager::instance()->disconnectWifi();
-#elif defined(Q_OS_WINDOWS)
-    WinWlanManager::instance()->disconnectWifi();
-#endif
+    Private::WifiManager::instance()->disconnectWifi();
 }
 
 QString DevicesManager::currentWifiName()
 {
-#if defined(Q_OS_ANDROID)
-    return AndroidWifiManager::instance()->currentWifiName();
-#elif defined(Q_OS_WINDOWS)
-    return WinWlanManager::instance()->currentWifiName();
-#endif
+    return Private::WifiManager::instance()->currentWifiName();
 }
 
 int DevicesManager::currentWifiSignalQuality()
 {
-#if defined(Q_OS_ANDROID)
-    return AndroidWifiManager::instance()->currentWifiSignalQuality();
-#elif defined(Q_OS_WINDOWS)
-    return WinWlanManager::instance()->currentWifiSignalQuality();
-#endif
+    return Private::WifiManager::instance()->currentWifiSignalQuality();
 }
 
 void DevicesManager::refreshDevicesList()
 {
     QVariantList          wifiListTmp{};
-    QMap<QString, quint8> result{};
-#if defined(Q_OS_ANDROID)
-    result = AndroidWifiManager::instance()->getWifiList();
-#elif defined(Q_OS_WINDOWS)
-    result = WinWlanManager::instance()->getWifiList();
-#endif
+    QMap<QString, quint8> result{Private::WifiManager::instance()->getWifiList()};
     for (const auto& [_ssid, _level] : result.toStdMap())
     {
         wifiListTmp.append(QVariantMap{{QStringLiteral("ssid"), _ssid}, {QStringLiteral("level"), _level}});
