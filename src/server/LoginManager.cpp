@@ -39,12 +39,31 @@ bool LoginManager::getCaptcha(const QString& _phoneNumbers)
 bool LoginManager::login(const QString& _phoneNumbers, const QString& _password)
 {
     QCryptographicHash hash{QCryptographicHash::Md5};
-    hash.addData(_password.toStdString().c_str(), _password.length());
+    hash.addData(_password.toUtf8());
     QJsonObject obj{};
     obj.insert("phone", _phoneNumbers);
     obj.insert("password", QString::fromStdString(hash.result().toHex().toLower().toStdString()));
     std::string body{QJsonDocument(obj).toJson(QJsonDocument::Compact).toStdString()};
     auto        res = m_sslClient->Post(LoginConfig::instance()->login().toStdString(), this->m_heads, body, "application/json");
+    if (res && res->status == 200)
+    {
+        qDebug() << "响应:" << QString::fromStdString(res->body);
+        qDebug() << "状态码:" << res->status;
+        return true;
+    }
+    qDebug() << "失败，状态码:" << (res ? res->status : -1);
+    return false;
+}
+
+bool LoginManager::revisePassword(const QString& _phoneNumbers, const QString& _password)
+{
+    QCryptographicHash hash{QCryptographicHash::Md5};
+    hash.addData(_password.toUtf8());
+    QJsonObject obj{};
+    obj.insert("phone", _phoneNumbers);
+    obj.insert("password", QString::fromStdString(hash.result().toHex().toLower().toStdString()));
+    std::string body{QJsonDocument(obj).toJson(QJsonDocument::Compact).toStdString()};
+    auto        res = m_sslClient->Post(LoginConfig::instance()->revise().toStdString(), this->m_heads, body, "application/json");
     if (res && res->status == 200)
     {
         qDebug() << "响应:" << QString::fromStdString(res->body);

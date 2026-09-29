@@ -5,14 +5,18 @@ _Pragma("once");
 class LoginConfig final : public ConfigSetting
 {
     Q_OBJECT
-    QUICK_PROPERTY(QString, m_host, host, host, setHost, hostChanged)
     QUICK_PROPERTY(int, m_port, port, port, setPort, portChanged)
+    QUICK_PROPERTY(QString, m_host, host, host, setHost, hostChanged)
     QUICK_PROPERTY(QString, m_captcha, captcha, captcha, setCaptcha, captchaChanged)
     QUICK_PROPERTY(QString, m_login, login, login, setLogin, loginChanged)
-    Q_CLASSINFO("host", "Server")
+    QUICK_PROPERTY(QString, m_revise, revise, revise, setRevise, reviseChanged)
+    QUICK_PROPERTY(QString, m_registration, registration, registration, setRgistration, registrationChanged)
     Q_CLASSINFO("port", "Server")
+    Q_CLASSINFO("host", "Server")
     Q_CLASSINFO("captcha", "Path")
     Q_CLASSINFO("login", "Path")
+    Q_CLASSINFO("revise", "Path")
+    Q_CLASSINFO("registration", "Path")
 public:
     static LoginConfig* instance(QObject* _parent = nullptr) noexcept;
 
@@ -28,10 +32,14 @@ Q_SIGNALS:
     void portChanged();
     void captchaChanged();
     void loginChanged();
+    void reviseChanged();
+    void registrationChanged();
 
 private:
-    QString m_host{};
     int     m_port{};
+    QString m_host{};
     QString m_captcha{};
     QString m_login{};
+    QString m_revise{};
+    QString m_registration{};
 };

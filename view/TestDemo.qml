@@ -124,7 +124,7 @@ Item {
                         phoneTextField.text = "手机格式错误";
                         return;
                     }
-                    if (LoginManager.login(phoneTextField.text)) {
+                    if (LoginManager.revisePassword(phoneTextField.text, "1234")) {
                         waitingRec.color = "green";
                     } else {
                         waitingRec.color = "red";

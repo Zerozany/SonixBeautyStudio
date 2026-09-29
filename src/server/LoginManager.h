@@ -26,6 +26,8 @@ public:
 
     Q_INVOKABLE bool login(const QString& _phoneNumbers, const QString& _password);
 
+    Q_INVOKABLE bool revisePassword(const QString& _phoneNumbers, const QString& _password);
+
 private:
     explicit(true) LoginManager(const std::string& _host, int _port = 443, QObject* _parent = nullptr);
 
@@ -34,8 +36,7 @@ private:
     void connectSignal2Slot() noexcept;
 
 Q_SIGNALS:
-    void
-    statusChanged();
+    void statusChanged();
 
 private:
     httplib::Headers m_heads{{"User-Agent", "Mozilla/5.0"}, {"Accept", "application/json"}};
