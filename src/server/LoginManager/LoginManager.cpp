@@ -8,6 +8,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include "LoginConfig.h"
+#include "LoginUser.h"
 
 LoginManager::LoginManager(const std::string& _host, int _port, QObject* _parent) : QObject{_parent}, HttpsManager<const std::string&, int>{_host, std::move(_port)}
 {
@@ -29,7 +30,6 @@ bool LoginManager::getCaptcha(const QString& _phoneNumbers)
     if (res && res->status == 200)
     {
         qDebug() << "响应:" << QString::fromStdString(res->body);
-        qDebug() << "状态码:" << res->status;
         return true;
     }
     qDebug() << "失败，状态码:" << (res ? res->status : -1);
@@ -48,7 +48,6 @@ bool LoginManager::login(const QString& _phoneNumbers, const QString& _password)
     if (res && res->status == 200)
     {
         qDebug() << "响应:" << QString::fromStdString(res->body);
-        qDebug() << "状态码:" << res->status;
         return true;
     }
     qDebug() << "失败，状态码:" << (res ? res->status : -1);
@@ -67,7 +66,6 @@ bool LoginManager::revisePassword(const QString& _phoneNumbers, const QString& _
     if (res && res->status == 200)
     {
         qDebug() << "响应:" << QString::fromStdString(res->body);
-        qDebug() << "状态码:" << res->status;
         return true;
     }
     qDebug() << "失败，状态码:" << (res ? res->status : -1);

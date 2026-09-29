@@ -7,6 +7,7 @@ _Pragma("once");
 
 class QJSEngine;
 class QQmlEngine;
+class LoginUser;
 
 class LoginManager final : public QObject, HttpsManager<const std::string&, int>
 {
@@ -41,4 +42,5 @@ Q_SIGNALS:
 private:
     httplib::Headers m_heads{{"User-Agent", "Mozilla/5.0"}, {"Accept", "application/json"}};
     int              m_status{};
+    LoginUser*       m_loginUser{nullptr};
 };

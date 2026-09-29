@@ -87,6 +87,8 @@ Item {
             width: (root.width - 30) / 4      // 减去 spacing
             height: root.height / 2
 
+            property LoginUser loginUser
+
             TapHandler {
                 onTapped: {
                     parent.forceActiveFocus();
