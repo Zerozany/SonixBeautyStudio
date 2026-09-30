@@ -4,10 +4,10 @@ _Pragma("once");
 #include <string>
 #include "HttpsManager.hpp"
 #include "QuickMacro.hpp"
+#include "LoginUser.h"
 
 class QJSEngine;
 class QQmlEngine;
-class LoginUser;
 
 class LoginManager final : public QObject, HttpsManager<const std::string&, int>
 {
@@ -29,6 +29,8 @@ public:
 
     Q_INVOKABLE bool revisePassword(const QString& _phoneNumbers, const QString& _password);
 
+    Q_INVOKABLE bool registration(const LoginUser* _loginUser);
+
 private:
     explicit(true) LoginManager(const std::string& _host, int _port = 443, QObject* _parent = nullptr);
 
@@ -42,5 +44,4 @@ Q_SIGNALS:
 private:
     httplib::Headers m_heads{{"User-Agent", "Mozilla/5.0"}, {"Accept", "application/json"}};
     int              m_status{};
-    LoginUser*       m_loginUser{nullptr};
 };

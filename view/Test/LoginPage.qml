@@ -203,7 +203,9 @@ Item {
                 anchors.bottom: parent.bottom
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: "注册"
-                onClicked: {}
+                onClicked: {
+                    LoginManager.registration(root.loginUser);
+                }
 
                 Rectangle {
                     anchors.left: parent.right

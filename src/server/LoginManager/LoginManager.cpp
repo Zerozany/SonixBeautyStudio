@@ -8,7 +8,6 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include "LoginConfig.h"
-#include "LoginUser.h"
 
 LoginManager::LoginManager(const std::string& _host, int _port, QObject* _parent) : QObject{_parent}, HttpsManager<const std::string&, int>{_host, std::move(_port)}
 {
@@ -63,6 +62,27 @@ bool LoginManager::revisePassword(const QString& _phoneNumbers, const QString& _
     obj.insert("password", QString::fromStdString(hash.result().toHex().toLower().toStdString()));
     std::string body{QJsonDocument(obj).toJson(QJsonDocument::Compact).toStdString()};
     auto        res = m_sslClient->Post(LoginConfig::instance()->revise().toStdString(), this->m_heads, body, "application/json");
+    if (res && res->status == 200)
+    {
+        qDebug() << "响应:" << QString::fromStdString(res->body);
+        return true;
+    }
+    qDebug() << "失败，状态码:" << (res ? res->status : -1);
+    return false;
+}
+
+bool LoginManager::registration(const LoginUser* _loginUser)
+{
+    QCryptographicHash hash{QCryptographicHash::Md5};
+    hash.addData(_loginUser->userPassword().toUtf8());
+    QJsonObject obj{};
+    obj.insert("phone", _loginUser->userPhone());
+    obj.insert("password", QString::fromStdString(hash.result().toHex().toLower().toStdString()));
+    obj.insert("department", _loginUser->userDepartment());
+    obj.insert("hospital", _loginUser->userHospital());
+    obj.insert("nickName", _loginUser->userNickname());
+    std::string body{QJsonDocument(obj).toJson(QJsonDocument::Compact).toStdString()};
+    auto        res = m_sslClient->Post(LoginConfig::instance()->registration().toStdString(), this->m_heads, body, "application/json");
     if (res && res->status == 200)
     {
         qDebug() << "响应:" << QString::fromStdString(res->body);
