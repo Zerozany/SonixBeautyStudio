@@ -22,39 +22,75 @@ static quint16 crc16_xmodem(const QByteArray& data)
     return crc;
 }
 
-static QByteArray buildReadUdmFrame()
+static QByteArray buildWriteUdmFrame()
 {
-    // ---- 1. 先构建除 CRC 字段外的头部区域（前 12 字节） ----
-    QByteArray                header{};
-    DataStructure::DataHeader dataHeader{};
+    // ---- 1. 填充 DataUDM ----
+    DataStructure::DataUDM udmData{};
+
+    // Product Area 头：0x02 0x0F
+    udmData.productAreaHeader[0] = 0x02;
+    udmData.productAreaHeader[1] = 0x0F;
+
+    // ProductMFR = "hifu"
+    std::memcpy(udmData.productMFR, "hifu", 4);
+
+    // ProductName = "NERCUM"
+    std::memcpy(udmData.productName, "NERCUM", 6);
+
+    // ProductSN = "USL1H00000001"
+    std::memcpy(udmData.productSN, "USL1H00000001", 13);
+
+    // DeviceID 留空，固件自动补 MAC
+    // DeviceSN、DeviceVersion 按需填
+
+    // ---- 2. 把 DataUDM 序列化成 256 字节 ----
+    QByteArray udm(256, '\0');
+    std::memcpy(udm.data(), &udmData, sizeof(udmData));  // 前 130 字节
+    // 130~255 保留，保持 0
+
+    // ---- 3. 帧头 ----
+    DataStructure::DataHeader hdr{};
+    hdr.packetSIZE = 0x0045;  // 69 → 276 字节
+    hdr.RW         = 0x0001;  // 写，不回包
+
+    QByteArray header;
     {
         QDataStream ds(&header, QIODevice::WriteOnly);
-        ds.setByteOrder(QDataStream::LittleEndian);  // 全部小端
-        ds.writeRawData(reinterpret_cast<const char*>(&dataHeader), sizeof(dataHeader));
-    }
-    // ---- 2. 尾部数据（14 字节之后） ----
-    QByteArray              tail{};
-    DataStructure::DataTail dataTail{};
-    {
-        QDataStream ds(&tail, QIODevice::WriteOnly);
         ds.setByteOrder(QDataStream::LittleEndian);
-        ds.writeRawData(reinterpret_cast<const char*>(&dataTail), sizeof(dataTail));
+        ds.writeRawData(reinterpret_cast<const char*>(&hdr), sizeof(hdr));
     }
-    // ---- 3. 计算 CRC（覆盖 header + tail 中的 2 字节） ----
-    // 原逻辑: crcArea = f.left(12) + f.mid(14, 2)
-    // f.mid(14,2) 就是 tail 的前 2 字节 (0x0406)
-    QByteArray crcArea = header + tail.left(2);
+
+    // ---- 4. 帧尾 ----
+    DataStructure::DataTail tail{};
+    tail.packetClassCode = 0x06;
+    tail.burstLength     = 0x40;  // 64 → 256 字节
+    tail.addrByte0       = 0x80;  // 0xFFFFFF80
+    tail.addrByte1       = 0xFF;
+    tail.addrByte2       = 0xFF;
+    tail.addrByte3       = 0xFF;
+
+    QByteArray tailBytes;
+    {
+        QDataStream ds(&tailBytes, QIODevice::WriteOnly);
+        ds.setByteOrder(QDataStream::LittleEndian);
+        ds.writeRawData(reinterpret_cast<const char*>(&tail), sizeof(tail));
+    }
+
+    // ---- 5. CRC（覆盖 [0..11] + [14..15]） ----
+    QByteArray crcArea = header + tailBytes.left(2);
     quint16    crc     = crc16_xmodem(crcArea);
-    // ---- 4. 组装最终帧 ----
-    QByteArray frame{};
+
+    // ---- 6. 组装：12 头 + 2 CRC + 6 tail + 256 数据 = 276 字节 ----
+    QByteArray frame;
     {
         QDataStream ds(&frame, QIODevice::WriteOnly);
         ds.setByteOrder(QDataStream::LittleEndian);
-        ds.writeRawData(header.constData(), header.size());  // 0..11
-        ds << crc;                                           // 12..13 (小端)
-        ds.writeRawData(tail.constData(), tail.size());      // 14..19
+        ds.writeRawData(header.constData(), header.size());        // 12
+        ds << crc;                                                 // 2
+        ds.writeRawData(tailBytes.constData(), tailBytes.size());  // 6
+        ds.writeRawData(udm.constData(), udm.size());              // 256
     }
-    return frame;  // 20 字节
+    return frame;  // 276 字节
 }
 
 QmlDebug* QmlDebug::create(QQmlEngine* _qmlEngine, QJSEngine* _qJSEngine)
@@ -101,48 +137,47 @@ QmlDebug::QmlDebug(QObject* _parent) : QObject{_parent}
             // ---- 偏移 14-19 → DataTail ----
             DataStructure::DataTail tail{};
             std::memcpy(&tail, frame.constData() + 14, sizeof(tail));
-            qDebug() << "RX: RW=" << hdr.RW;
-            qDebug() << "Class=" << tail.packetClassCode;
-            qDebug() << "Burst=" << tail.burstLength;
-            qDebug() << "hdr.packetType =" << hdr.packetType;
-            qDebug() << "hdr.packetC =" << hdr.packetC;
-            qDebug() << "hdr.packetT =" << hdr.packetT;
-            qDebug() << "hdr.packetCNT =" << hdr.packetCNT;
-            qDebug() << "hdr.packetSIZE =" << hdr.packetSIZE;
-            qDebug() << "hdr.streamID =" << hdr.streamID;
-            qDebug() << "hdr.frameEOF =" << hdr.frameEOF;
-            qDebug() << "hdr.lineEOF =" << hdr.lineEOF;
-            qDebug() << "hdr.cmdNUM =" << hdr.cmdNUM;
-            qDebug() << "hdr.PAD =" << hdr.PAD;
-            qDebug() << "hdr.OUI =" << hdr.OUI;
-            qDebug() << "hdr.RW =" << hdr.RW;
-            qDebug() << "tail.packetClassCode =" << tail.packetClassCode;
-            qDebug() << "tail.burstLength =" << tail.burstLength;
-            qDebug() << "tail.addrByte0 =" << tail.addrByte0;
-            qDebug() << "tail.addrByte1 =" << tail.addrByte1;
-            qDebug() << "tail.addrByte2 =" << tail.addrByte2;
-            qDebug() << "tail.addrByte3 =" << tail.addrByte3;
-            quint32    addr = (quint8)frame[16] | ((quint8)frame[17] << 8) | ((quint8)frame[18] << 16) | ((quint8)frame[19] << 24);
+            // qDebug() << "RX: RW=" << hdr.RW;
+            // qDebug() << "Class=" << tail.packetClassCode;
+            // qDebug() << "Burst=" << tail.burstLength;
+            // qDebug() << "hdr.packetType =" << hdr.packetType;
+            // qDebug() << "hdr.packetC =" << hdr.packetC;
+            // qDebug() << "hdr.packetT =" << hdr.packetT;
+            // qDebug() << "hdr.packetCNT =" << hdr.packetCNT;
+            // qDebug() << "hdr.packetSIZE =" << hdr.packetSIZE;
+            // qDebug() << "hdr.streamID =" << hdr.streamID;
+            // qDebug() << "hdr.frameEOF =" << hdr.frameEOF;
+            // qDebug() << "hdr.lineEOF =" << hdr.lineEOF;
+            // qDebug() << "hdr.cmdNUM =" << hdr.cmdNUM;
+            // qDebug() << "hdr.PAD =" << hdr.PAD;
+            // qDebug() << "hdr.OUI =" << hdr.OUI;
+            // qDebug() << "hdr.RW =" << hdr.RW;
+            // qDebug() << "tail.packetClassCode =" << tail.packetClassCode;
+            // qDebug() << "tail.burstLength =" << tail.burstLength;
+            // qDebug() << "tail.addrByte0 =" << tail.addrByte0;
+            // qDebug() << "tail.addrByte1 =" << tail.addrByte1;
+            // qDebug() << "tail.addrByte2 =" << tail.addrByte2;
+            // qDebug() << "tail.addrByte3 =" << tail.addrByte3;
+            quint32    addr = tail.addrByte0 | (tail.addrByte1 << 8) | (tail.addrByte2 << 16) | (tail.addrByte3 << 24);
             QByteArray udm  = frame.mid(20, tail.burstLength * 4);
             qDebug() << "Addr =" << QString::number(addr, 16);
             qDebug() << "UDM  =" << udm.toHex(' ');
             this->setRecvData(QDateTime::currentDateTime().toString("hh:mm:ss ").toUtf8() + udm.toHex(' '));
-            auto field = [&](int off, int len) -> QString {
-                QByteArray raw = udm.mid(off, len);
-                int        end = raw.indexOf('\0');
-                if (end >= 0) raw.truncate(end);
-                return QString::fromLatin1(raw);
+
+            DataStructure::DataUDM udmData{};
+            std::memcpy(&udmData, udm.constData(), sizeof(udmData));  // 只拷前 130 字节
+            auto bytesToQString = [](const std::uint8_t* data, int len) -> QString {
+                int end = 0;
+                while (end < len && data[end] != '\0') ++end;
+                return QString::fromLatin1(reinterpret_cast<const char*>(data), end);
             };
-            QByteArray rawId = udm.mid(42, 16);
-            qDebug() << "DeviceID raw hex:" << rawId.toHex(' ');
-            qDebug() << "DeviceID raw ascii:" << QString::fromLatin1(rawId);
-            qDebug() << "DeviceID field():" << field(42, 16);
-            qDebug() << "ProductMFR  =" << field(10, 8);
-            qDebug() << "ProductName =" << field(18, 8);
-            qDebug() << "ProductSN   =" << field(26, 16);
-            qDebug() << "DeviceID    =" << field(42, 16);
-            qDebug() << "DeviceSN    =" << field(58, 32);
-            qDebug() << "DeviceVer   =" << field(90, 40);
+
+            qDebug() << "ProductMFR  =" << bytesToQString(udmData.productMFR, 8);
+            qDebug() << "ProductName =" << bytesToQString(udmData.productName, 8);
+            qDebug() << "ProductSN   =" << bytesToQString(udmData.productSN, 16);
+            qDebug() << "DeviceID    =" << bytesToQString(udmData.deviceID, 16);
+            qDebug() << "DeviceSN    =" << bytesToQString(udmData.deviceSN, 32);
+            qDebug() << "DeviceVer   =" << bytesToQString(udmData.deviceVersion, 40);
         }
     });
 }
@@ -153,7 +188,7 @@ void QmlDebug::sendDatas()
     {
         return;
     }
-    QByteArray frame{buildReadUdmFrame()};
+    QByteArray frame{buildWriteUdmFrame()};
     this->setSendData(QDateTime::currentDateTime().toString("hh:mm:ss ").toUtf8() + frame.toHex());
     TcpServer::instance()->write(frame);
 }

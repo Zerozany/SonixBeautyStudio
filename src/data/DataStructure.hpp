@@ -28,4 +28,16 @@ namespace DataStructure
         std::uint8_t  addrByte2{0xFF};
         std::uint8_t  addrByte3{0xFF};
     };
+
+    struct DataUDM
+    {
+        std::uint8_t commonHeader[8]{};       // 偏移 0，8 字节
+        std::uint8_t productAreaHeader[2]{};  // 偏移 8，2 字节
+        std::uint8_t productMFR[8]{};         // 偏移 10，8 字节
+        std::uint8_t productName[8]{};        // 偏移 18，8 字节
+        std::uint8_t productSN[16]{};         // 偏移 26，16 字节
+        std::uint8_t deviceID[16]{};          // 偏移 42，16 字节
+        std::uint8_t deviceSN[32]{};          // 偏移 58，32 字节
+        std::uint8_t deviceVersion[40]{};     // 偏移 90，40 字节
+    };
 }  // namespace DataStructure
