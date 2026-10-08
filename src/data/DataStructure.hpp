@@ -23,9 +23,9 @@ namespace DataStructure
     {
         std::uint16_t packetClassCode : 4 {0x06};  // 低 4 位
         std::uint16_t burstLength : 12 {0x40};     // 高 12 位
-        std::uint8_t  placeHolder_1{0x80};
-        std::uint8_t  placeHolder_2{0xFF};
-        std::uint8_t  placeHolder_3{0xFF};
-        std::uint8_t  placeHolder_4{0xFF};
+        std::uint8_t  addrByte0{0x80};
+        std::uint8_t  addrByte1{0xFF};
+        std::uint8_t  addrByte2{0xFF};
+        std::uint8_t  addrByte3{0xFF};
     };
 }  // namespace DataStructure
