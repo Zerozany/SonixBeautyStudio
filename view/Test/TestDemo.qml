@@ -1,5 +1,4 @@
 import QtQuick
-// import QtQuick.Controls
 import QtQuick.Layouts
 import QZeroMaterialUI
 
@@ -19,11 +18,18 @@ Item {
         LoginPage {}
     }
 
+    MaterialSeparator {
+        id: sparator
+        width: parent.width
+        orientation: Qt.Horizontal
+        anchors.top: stackLayout.bottom
+    }
+
     Row {
         width: parent.width * 0.2
-        height: parent.height * 0.05
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 10
+        height: parent.height * 0.03
+        anchors.top: sparator.bottom
+        anchors.topMargin: 10
         anchors.horizontalCenter: parent.horizontalCenter
         spacing: 20
 

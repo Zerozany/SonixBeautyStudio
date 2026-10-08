@@ -6,6 +6,7 @@
 #include <QDataStream>
 #include <QIODevice>
 #include "TcpServer.h"
+#include "DataStructure.hpp"
 
 static quint16 crc16_xmodem(const QByteArray& data)
 {
@@ -24,27 +25,20 @@ static quint16 crc16_xmodem(const QByteArray& data)
 static QByteArray buildReadUdmFrame()
 {
     // ---- 1. 先构建除 CRC 字段外的头部区域（前 12 字节） ----
-    QByteArray header{};
+    QByteArray                header{};
+    DataStructure::DataHeader dataHeader{};
     {
         QDataStream ds(&header, QIODevice::WriteOnly);
         ds.setByteOrder(QDataStream::LittleEndian);  // 全部小端
-        ds << quint16(0x0004);                       // packetType=4, packetC/T=0, packetCNT=0
-        ds << quint16(0x0005);                       // packetSIZE=5 -> 20 字节
-        ds << quint16(0x0000);                       // StreamID
-        ds << quint16(0x0001);                       // FrameEOF=1, CmdNUM=0
-        ds << quint16(0x0000);                       // PAD/OUI
-        ds << quint16(0x0001);                       // RW=1 读
+        ds.writeRawData(reinterpret_cast<const char*>(&dataHeader), sizeof(dataHeader));
     }
     // ---- 2. 尾部数据（14 字节之后） ----
-    QByteArray tail{};
+    QByteArray              tail{};
+    DataStructure::DataTail dataTail{};
     {
         QDataStream ds(&tail, QIODevice::WriteOnly);
         ds.setByteOrder(QDataStream::LittleEndian);
-        ds << quint16(0x0406);  // PacketClassCode=6, BurstLength=64
-        ds << quint8(0x80);     // 地址 0xFFFFFF80 (小端)
-        ds << quint8(0xFF);
-        ds << quint8(0xFF);
-        ds << quint8(0xFF);
+        ds.writeRawData(reinterpret_cast<const char*>(&dataTail), sizeof(dataTail));
     }
     // ---- 3. 计算 CRC（覆盖 header + tail 中的 2 字节） ----
     // 原逻辑: crcArea = f.left(12) + f.mid(14, 2)
@@ -75,7 +69,7 @@ QmlDebug::QmlDebug(QObject* _parent) : QObject{_parent}
     static QByteArray g_rxBuf{};
     QObject::connect(TcpServer::instance(), &QTcpSocket::readyRead, [&]() {
         g_rxBuf += TcpServer::instance()->readAll();
-        qDebug() << "readyRead, buf size =" << g_rxBuf.size();
+        // qDebug() << "readyRead, buf size =" << g_rxBuf.size();
         while (g_rxBuf.size() >= 16)
         {
             // packetSIZE 表示整包占多少个 32bit word
@@ -101,13 +95,35 @@ QmlDebug::QmlDebug(QObject* _parent) : QObject{_parent}
                 qDebug() << "CRC 错误，丢弃整包";
                 continue;
             }
-            quint16 classBl   = (quint8)frame[14] | ((quint8)frame[15] << 8);
-            quint16 burst     = classBl >> 4;
-            quint8  classCode = classBl & 0x0F;
-            quint16 rw        = (quint8)frame[10] | ((quint8)frame[11] << 8);
-            qDebug() << "RX: RW=" << rw << " Class=" << classCode << " Burst=" << burst;
+            // ---- 帧头 12 字节 → DataHeader ----
+            DataStructure::DataHeader hdr{};
+            std::memcpy(&hdr, frame.constData(), sizeof(hdr));
+            // ---- 偏移 14-19 → DataTail ----
+            DataStructure::DataTail tail{};
+            std::memcpy(&tail, frame.constData() + 14, sizeof(tail));
+            qDebug() << "RX: RW=" << hdr.RW;
+            qDebug() << " Class=" << tail.packetClassCode;
+            qDebug() << " Burst=" << tail.burstLength;
+            qDebug() << "hdr.packetType =" << hdr.packetType;
+            qDebug() << " hdr.packetC =" << hdr.packetC;
+            qDebug() << " hdr.packetT =" << hdr.packetT;
+            qDebug() << " hdr.packetCNT =" << hdr.packetCNT;
+            qDebug() << "hdr.packetSIZE =" << hdr.packetSIZE;
+            qDebug() << " hdr.streamID =" << hdr.streamID;
+            qDebug() << "hdr.frameEOF =" << hdr.frameEOF;
+            qDebug() << " hdr.lineEOF =" << hdr.lineEOF;
+            qDebug() << " hdr.cmdNUM =" << hdr.cmdNUM;
+            qDebug() << "hdr.PAD =" << hdr.PAD;
+            qDebug() << " hdr.OUI =" << hdr.OUI;
+            qDebug() << "hdr.RW =" << hdr.RW;
+            qDebug() << "tail.packetClassCode =" << tail.packetClassCode;
+            qDebug() << " tail.burstLength =" << tail.burstLength;
+            qDebug() << " tail.placeHolder_1 =" << tail.placeHolder_1;
+            qDebug() << " tail.placeHolder_2 =" << tail.placeHolder_2;
+            qDebug() << " tail.placeHolder_3 =" << tail.placeHolder_3;
+            qDebug() << " tail.placeHolder_4 =" << tail.placeHolder_4;
             quint32    addr = (quint8)frame[16] | ((quint8)frame[17] << 8) | ((quint8)frame[18] << 16) | ((quint8)frame[19] << 24);
-            QByteArray udm  = frame.mid(20, burst * 4);  // 头部固定 20 字节
+            QByteArray udm  = frame.mid(20, tail.burstLength * 4);
             qDebug() << "Addr =" << QString::number(addr, 16);
             qDebug() << "UDM  =" << udm.toHex(' ');
             this->setRecvData(QDateTime::currentDateTime().toString("hh:mm:ss ").toUtf8() + udm.toHex(' '));

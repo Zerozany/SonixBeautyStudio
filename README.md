@@ -1,8 +1,6 @@
 # Qt SonixBeauty
 - `git submodule update --init --recursive`
 
-## TODO
-
 - [x] [Windows、Android下Wifi设备连接](#Wifi设备连接)  
 
 ## Wifi以及Tcp连接
@@ -46,3 +44,21 @@ Q_INVOKABLE void connectToWifi(const QString& _ssid, const QString& _password);
 ```cpp
 Q_INVOKABLE void disconnectWifi();
 ```
+
+### Wifi相关触发Qt信号
+
+- Wifi(`WLAN`)连接成功
+```cpp
+void wifiConnectSuccessful();
+```
+
+- Wifi(`WLAN`)连接失败
+```cpp
+void wifiConnectFailed();
+```  
+
+- Wifi(`WLAN`)连接断开
+```cpp
+void wifiLost();
+```
+
