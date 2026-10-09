@@ -68,7 +68,7 @@ auto DataPacket::serializationFrame() const -> QByteArray
 
 auto DataPacket::deserializationFrame(const QByteArray& _frame) -> bool
 {
-    int total{(static_cast<uint8_t>(_frame[2]) | static_cast<uint8_t>(_frame[3] << 8)) * 4};
+    int total{static_cast<uint16_t>(static_cast<uint8_t>(_frame[2]) | (static_cast<uint16_t>(static_cast<uint8_t>(_frame[3])) << 8)) * 4};
     if (total < 20 || _frame.size() < total)
     {
         return false;
