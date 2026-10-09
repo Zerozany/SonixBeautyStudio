@@ -11,7 +11,7 @@ public:
     ~DataPacket() noexcept = default;
 
 public:
-    auto serializationFrame() -> QByteArray;
+    auto serializationFrame() const -> QByteArray;
 
     auto deserializationFrame(const QByteArray& _frame) -> bool;
 
