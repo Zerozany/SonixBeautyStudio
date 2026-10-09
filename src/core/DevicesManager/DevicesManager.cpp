@@ -3,7 +3,7 @@
 #include <QQmlEngine>
 #include <QQmlApplicationEngine>
 #include "ProbeDevice.h"
-#include "TcpServer.h"
+#include "DataServer.h"
 
 #if defined(Q_OS_WINDOWS)
     #include "WinWlanManager.h"
@@ -34,8 +34,8 @@ DevicesManager::DevicesManager(QObject* _parent) : QObject{_parent}
 
 void DevicesManager::connectSignal2Slot() noexcept
 {
-    connect(Private::WifiManager::instance(), &Private::WifiManager::wifiConnectSuccessful, TcpServer::instance(), &TcpServer::onWifiConnectSuccessful);
-    connect(Private::WifiManager::instance(), &Private::WifiManager::wifiLost, TcpServer::instance(), &TcpServer::abort);
+    connect(Private::WifiManager::instance(), &Private::WifiManager::wifiConnectSuccessful, DataServer::instance(), &DataServer::onWifiConnectSuccessful);
+    connect(Private::WifiManager::instance(), &Private::WifiManager::wifiLost, DataServer::instance(), &DataServer::abort);
     connect(Private::WifiManager::instance(), &Private::WifiManager::wifiConnectFailed, [] {
         qDebug() << "wifiConnectedFailed";
     });

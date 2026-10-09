@@ -1,18 +1,19 @@
 _Pragma("once");
 #include "TcpSocket.h"
+#include "DataStructure.hpp"
 
-class TcpServer : public TcpSocket
+class DataServer : public TcpSocket
 {
     Q_OBJECT
 public:
-    static auto instance(QObject* _parent = nullptr) noexcept -> TcpServer*;
+    static auto instance(QObject* _parent = nullptr) noexcept -> DataServer*;
 
-    ~TcpServer() noexcept override = default;
+    ~DataServer() noexcept override = default;
 
-    Q_DISABLE_COPY_MOVE(TcpServer)
+    Q_DISABLE_COPY_MOVE(DataServer)
 
 private:
-    explicit(true) TcpServer(QObject* _parent = nullptr);
+    explicit(true) DataServer(QObject* _parent = nullptr);
 
     auto connectSignal2Slot() noexcept -> void override;
 
@@ -25,7 +26,7 @@ private Q_SLOTS:
 
     void onDisconnected() override;
 
-    void onErrorOccurred(const TcpServer::SocketError& _error) override;
+    void onErrorOccurred(const DataServer::SocketError& _error) override;
 
 public Q_SLOTS:
     void onWifiConnectSuccessful();

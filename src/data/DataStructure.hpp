@@ -39,5 +39,9 @@ namespace DataStructure
         std::uint8_t deviceID[16]{};          // 偏移 42，16 字节
         std::uint8_t deviceSN[32]{};          // 偏移 58，32 字节
         std::uint8_t deviceVersion[40]{};     // 偏移 90，40 字节
+        std::uint8_t reserved[126]{};
     };
+
+    static_assert(sizeof(DataStructure::DataUDM) == 256, "DataUDM must be 256 bytes");
+
 }  // namespace DataStructure
