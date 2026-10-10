@@ -31,15 +31,15 @@ namespace DataStructure
 
     struct DataUDM
     {
-        std::uint8_t commonHeader[8]{};       // 偏移 0，8 字节
-        std::uint8_t productAreaHeader[2]{};  // 偏移 8，2 字节
-        std::uint8_t productMFR[8]{};         // 偏移 10，8 字节
-        std::uint8_t productName[8]{};        // 偏移 18，8 字节
-        std::uint8_t productSN[16]{};         // 偏移 26，16 字节
-        std::uint8_t deviceID[16]{};          // 偏移 42，16 字节
-        std::uint8_t deviceSN[32]{};          // 偏移 58，32 字节
-        std::uint8_t deviceVersion[40]{};     // 偏移 90，40 字节
-        std::uint8_t reserved[126]{};
+        unsigned char commonHeader[8]{};       // 偏移 0，8 字节
+        unsigned char productAreaHeader[2]{};  // 偏移 8，2 字节
+        unsigned char productMFR[8]{};         // 偏移 10，8 字节
+        unsigned char productName[8]{};        // 偏移 18，8 字节
+        unsigned char productSN[16]{};         // 偏移 26，16 字节
+        unsigned char deviceID[16]{};          // 偏移 42，16 字节
+        unsigned char deviceSN[32]{};          // 偏移 58，32 字节
+        unsigned char deviceVersion[40]{};     // 偏移 90，40 字节
+        unsigned char reserved[126]{};
     };
 
     static_assert(sizeof(DataStructure::DataUDM) == 256, "DataUDM must be 256 bytes");
