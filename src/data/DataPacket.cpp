@@ -25,7 +25,7 @@ namespace Private
         while (end < _len && _data[end] != '\0')
         {
             ++end;
-        };
+        }
         return QString::fromLatin1(reinterpret_cast<const char*>(_data), end);
     }
 }  // namespace Private
