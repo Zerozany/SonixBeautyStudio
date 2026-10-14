@@ -16,6 +16,22 @@ Item {
         WifiPage {}
 
         LoginPage {}
+
+        Rectangle {
+            color: "red"
+        }
+
+        Rectangle {
+            color: "blue"
+        }
+
+        Rectangle {
+            color: "pink"
+        }
+
+        Rectangle {
+            color: '#aff023'
+        }
     }
 
     MaterialSeparator {
@@ -26,7 +42,6 @@ Item {
     }
 
     Row {
-        width: parent.width * 0.2
         height: parent.height * 0.03
         anchors.top: sparator.bottom
         anchors.topMargin: 10
@@ -40,11 +55,44 @@ Item {
                 stackLayout.currentIndex = 0;
             }
         }
+
         MaterialButton {
             text: "用户相关"
             anchors.verticalCenter: parent.verticalCenter
             onClicked: {
                 stackLayout.currentIndex = 1;
+            }
+        }
+
+        MaterialButton {
+            text: "Linux"
+            anchors.verticalCenter: parent.verticalCenter
+            onClicked: {
+                stackLayout.currentIndex = 2;
+            }
+        }
+
+        MaterialButton {
+            text: "Config"
+            anchors.verticalCenter: parent.verticalCenter
+            onClicked: {
+                stackLayout.currentIndex = 3;
+            }
+        }
+
+        MaterialButton {
+            text: "Log"
+            anchors.verticalCenter: parent.verticalCenter
+            onClicked: {
+                stackLayout.currentIndex = 4;
+            }
+        }
+
+        MaterialButton {
+            text: "Setting"
+            anchors.verticalCenter: parent.verticalCenter
+            onClicked: {
+                stackLayout.currentIndex = 5;
             }
         }
     }

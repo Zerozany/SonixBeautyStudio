@@ -18,6 +18,7 @@ namespace DataStructure
         std::uint16_t OUI : 14 {0x00};
         std::uint16_t RW{0x0001};
     };
+    static_assert(sizeof(DataStructure::DataHeader) == 12, "DataHeader must be 12 bytes");
 
     struct DataTail
     {
@@ -41,7 +42,6 @@ namespace DataStructure
         unsigned char deviceVersion[40]{};     // 偏移 90，40 字节
         unsigned char reserved[126]{};
     };
-
     static_assert(sizeof(DataStructure::DataUDM) == 256, "DataUDM must be 256 bytes");
 
 }  // namespace DataStructure
