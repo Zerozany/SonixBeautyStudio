@@ -6,7 +6,7 @@
         "patch": 0
     },
     "include": [
-        "presets/CMakePresets-PC.json",
+        "presets/CMakePresets-Windows.json",
         "presets/CMakePresets-Android.json"
     ]
 }
