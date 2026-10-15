@@ -41,15 +41,24 @@ if [ "$device" = "a" ]; then
     fi
 
 elif [ "$device" = "p" ]; then
-    # PC 构建
+    # Windows 构建
     if [ "$buildType" = "Debug" ]; then
-        configurePreset="PcDebug"
-        buildPreset="PcDebugBuild"
+        configurePreset="WindowsDebug"
+        buildPreset="WindowsDebugBuild"
     else
-        configurePreset="PcRelease"
-        buildPreset="PcReleaseBuild"
+        configurePreset="WindowsRelease"
+        buildPreset="WindowsReleaseBuild"
     fi
 
+elif [ "$device" = "u" ]; then
+    # Windows 构建
+    if [ "$buildType" = "Debug" ]; then
+        configurePreset="UnixDebug"
+        buildPreset="UnixDebugBuild"
+    else
+        configurePreset="UnixRelease"
+        buildPreset="UnixReleaseBuild"
+    fi
 else
     echo "❌ Unknown device: $device"
     exit 1

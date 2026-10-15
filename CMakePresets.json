@@ -7,6 +7,7 @@
     },
     "include": [
         "presets/CMakePresets-Windows.json",
-        "presets/CMakePresets-Android.json"
+        "presets/CMakePresets-Android.json",
+        "presets/CMakePresets-Unix.json"
     ]
 }

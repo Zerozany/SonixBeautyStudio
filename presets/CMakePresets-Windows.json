@@ -2,7 +2,7 @@
     "version": 4,
     "configurePresets": [
         {
-            "name": "BasePC",
+            "name": "BaseWindows",
             "hidden": true,
             "environment": {
                 "VCINSTALLDIR": "D:/MSVC/BuildTools/VC",
@@ -16,9 +16,9 @@
             }
         },
         {
-            "name": "PcDebug",
+            "name": "WindowsDebug",
             "inherits": [
-                "BasePC"
+                "BaseWindows"
             ],
             "binaryDir": "${sourceDir}/build/${presetName}",
             "cacheVariables": {
@@ -26,9 +26,9 @@
             }
         },
         {
-            "name": "PcRelease",
+            "name": "WindowsRelease",
             "inherits": [
-                "BasePC"
+                "BaseWindows"
             ],
             "binaryDir": "${sourceDir}/build/${presetName}",
             "cacheVariables": {
@@ -38,14 +38,14 @@
     ],
     "buildPresets": [
         {
-            "name": "PcDebugBuild",
-            "configurePreset": "PcDebug",
+            "name": "WindowsDebugBuild",
+            "configurePreset": "WindowsDebug",
             "jobs": 8,
             "configuration": "Debug"
         },
         {
-            "name": "PcReleaseBuild",
-            "configurePreset": "PcRelease",
+            "name": "WindowsReleaseBuild",
+            "configurePreset": "WindowsRelease",
             "jobs": 8,
             "configuration": "Release"
         }
