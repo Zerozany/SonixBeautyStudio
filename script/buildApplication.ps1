@@ -41,8 +41,8 @@ switch ($d) {
         $buildPreset = if ($buildType -eq "Debug") { "AndroidDebugBuild" } else { "AndroidReleaseBuild" }
     }
     "p" {
-        $configurePreset = if ($buildType -eq "Debug") { "PcDebug" } else { "PcRelease" }
-        $buildPreset = if ($buildType -eq "Debug") { "PcDebugBuild" } else { "PcReleaseBuild" }
+        $configurePreset = if ($buildType -eq "Debug") { "WindowsDebug" } else { "WindowsRelease" }
+        $buildPreset = if ($buildType -eq "Debug") { "WindowsDebugBuild" } else { "WindowsReleaseBuild" }
     }
     Default {
         Write-Host "❌ Unknown device: $d"

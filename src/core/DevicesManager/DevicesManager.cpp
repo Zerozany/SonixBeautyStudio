@@ -34,44 +34,44 @@ DevicesManager::DevicesManager(QObject* _parent) : QObject{_parent}
 
 void DevicesManager::connectSignal2Slot() noexcept
 {
-    // connect(Private::WifiManager::instance(), &Private::WifiManager::wifiConnectSuccessful, DataServer::instance(), &DataServer::onWifiConnectSuccessful);
-    // connect(Private::WifiManager::instance(), &Private::WifiManager::wifiLost, DataServer::instance(), &DataServer::abort);
-    // connect(Private::WifiManager::instance(), &Private::WifiManager::wifiConnectFailed, [] {
-    //     qDebug() << "wifiConnectedFailed";
-    // });
+    connect(Private::WifiManager::instance(), &Private::WifiManager::wifiConnectSuccessful, DataServer::instance(), &DataServer::onWifiConnectSuccessful);
+    connect(Private::WifiManager::instance(), &Private::WifiManager::wifiLost, DataServer::instance(), &DataServer::abort);
+    connect(Private::WifiManager::instance(), &Private::WifiManager::wifiConnectFailed, [] {
+        qDebug() << "wifiConnectedFailed";
+    });
 }
 
 void DevicesManager::connectToWifi(const QString& _ssid, const QString& _password)
 {
-    // Private::WifiManager::instance()->connectToWifi(_ssid, _password);
+    Private::WifiManager::instance()->connectToWifi(_ssid, _password);
 }
 
 void DevicesManager::disconnectWifi()
 {
-    // Private::WifiManager::instance()->disconnectWifi();
+    Private::WifiManager::instance()->disconnectWifi();
 }
 
 QString DevicesManager::currentWifiName()
 {
-    // return Private::WifiManager::instance()->currentWifiName();
+    return Private::WifiManager::instance()->currentWifiName();
 }
 
 int DevicesManager::currentWifiSignalQuality()
 {
-    // return Private::WifiManager::instance()->currentWifiSignalQuality();
+    return Private::WifiManager::instance()->currentWifiSignalQuality();
 }
 
 void DevicesManager::refreshDevicesList()
 {
-    // QVariantList          wifiListTmp{};
-    // QMap<QString, quint8> result{Private::WifiManager::instance()->getWifiList()};
-    // for (const auto& [_ssid, _level] : result.toStdMap())
-    // {
-    //     wifiListTmp.append(QVariantMap{{QStringLiteral("ssid"), _ssid}, {QStringLiteral("level"), _level}});
-    // }
-    // // if (wifiListTmp.isEmpty())
-    // // {
-    // //     return;
-    // // }
-    // this->setDevicesList(wifiListTmp);
+    QVariantList          wifiListTmp{};
+    QMap<QString, quint8> result{Private::WifiManager::instance()->getWifiList()};
+    for (const auto& [_ssid, _level] : result.toStdMap())
+    {
+        wifiListTmp.append(QVariantMap{{QStringLiteral("ssid"), _ssid}, {QStringLiteral("level"), _level}});
+    }
+    if (wifiListTmp.isEmpty())
+    {
+        return;
+    }
+    this->setDevicesList(wifiListTmp);
 }

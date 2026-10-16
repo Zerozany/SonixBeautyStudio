@@ -7,8 +7,9 @@
 
 #elif defined(Q_OS_WINDOWS)
     #include "SingletonApplication.h"
-#endif
 // #include "UsbManager.h"
+#endif
+
 #include <QStandardPaths>
 #include <QDir>
 // #include "SpdLogger.h"
