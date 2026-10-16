@@ -27,4 +27,12 @@
         <translation type="unfinished"></translation>
     </message>
 </context>
+<context>
+    <name>SingletonApplication</name>
+    <message>
+        <location filename="../thirdparty/QZeroSystem/src/WIN/SingletonApplication/SingletonApplication.cpp" line="19"/>
+        <source>The current application is already running in the system</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
 </TS>
