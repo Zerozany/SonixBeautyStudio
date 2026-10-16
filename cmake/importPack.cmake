@@ -22,6 +22,13 @@ if(WIN32)
     else()
         message(STATUS "skip windeployqt: ${PROJECT_NAME} It is not an executable file")
     endif()
+elseif(UNIX)
+    # add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+    #     COMMAND "$ENV{Qt6_BIN_DIR}/linuxdeployqt"
+    #     "$<TARGET_FILE:${PROJECT_NAME}>"          
+    #     -appimage 
+    #     COMMENT "Deploying Qt dependencies for ${PROJECT_NAME}"
+    # )
 elseif(ANDROID)
     # 统一定义应用名和版本号
     set(PACKAGE_NAME "org.qtproject.SonixBeauty")
