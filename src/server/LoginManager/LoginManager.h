@@ -32,7 +32,7 @@ public:
     Q_INVOKABLE bool registration(const LoginUser* _loginUser);
 
 private:
-    explicit(true) LoginManager(const std::string& _host, int _port = 443, QObject* _parent = nullptr);
+    explicit(true) LoginManager(const std::string& _host, int _port, QObject* _parent = nullptr);
 
     void init(const std::string&, int&&) noexcept override;
 

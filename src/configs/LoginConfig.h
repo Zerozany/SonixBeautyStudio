@@ -25,7 +25,7 @@ public:
     Q_DISABLE_COPY_MOVE(LoginConfig)
 
 private:
-    explicit(true) LoginConfig(const QString& _fileName, QSettings::Format _format, QObject* _parent = nullptr);
+    explicit(true) LoginConfig(const QString& _fileName, QObject* _parent = nullptr);
 
 Q_SIGNALS:
     void hostChanged();

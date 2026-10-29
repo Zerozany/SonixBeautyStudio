@@ -3,8 +3,8 @@ target_compile_features(${PROJECT_NAME}
     cxx_std_23
 )
 
-if(UNIX)
-    set_target_properties(${PROJECT_NAME} 
+if(UNIX AND NOT ANDROID)
+    set_target_properties(${PROJECT_NAME}
         PROPERTIES
         RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/$<CONFIG>
     )

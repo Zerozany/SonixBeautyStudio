@@ -7,7 +7,7 @@ import QZeroMaterialUI
 
 // import QtMultimedia
 
-Window {
+ZeroWindow {
     id: mainWindow
 
     // StackView {

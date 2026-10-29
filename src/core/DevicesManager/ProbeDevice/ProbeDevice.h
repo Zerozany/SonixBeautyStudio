@@ -24,6 +24,8 @@ public:
     QUICK_PROPERTY(QString, m_probeType, probeType, probeType, setProbeType, probeTypeChanged)
     QUICK_PROPERTY(QString, m_transducerName, transducerName, transducerName, setTransducerName, transducerNameChanged)
     QUICK_PROPERTY(quint8, m_signaleQuality, signaleQuality, signaleQuality, setSignaleQuality, signaleQualityChanged)
+    QUICK_PROPERTY(quint8, m_batteryLevel, batteryLevel, batteryLevel, setBatteryLevel, batteryLevelChanged)
+    QUICK_PROPERTY(quint8, m_temperature, temperature, temperature, setTemperature, temperatureChanged)
 
 public:
     explicit(true) ProbeDevice(QObject* _parent = nullptr);
@@ -39,6 +41,8 @@ Q_SIGNALS:
     void probeTypeChanged();
     void transducerNameChanged();
     void signaleQualityChanged();
+    void batteryLevelChanged();
+    void temperatureChanged();
 
 private:
     QString    m_systemName{};
@@ -49,4 +53,6 @@ private:
     QString    m_probeType{};
     QString    m_transducerName{};
     quint8     m_signaleQuality{};
+    quint8     m_batteryLevel{};
+    quint8     m_temperature{};
 };

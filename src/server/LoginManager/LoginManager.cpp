@@ -25,14 +25,15 @@ LoginManager* LoginManager::create(QQmlEngine* _qmlEngine, QJSEngine* _qJSEngine
 bool LoginManager::getCaptcha(const QString& _phoneNumbers)
 {
     httplib::Params captchaParams{{"phone", _phoneNumbers.toStdString()}, {"type", "1"}};
-    auto            res = m_sslClient->Get(LoginConfig::instance()->captcha().toStdString(), captchaParams, this->m_heads);
-    if (res && res->status == 200)
+    httplib::Result res{m_sslClient->Get(LoginConfig::instance()->captcha().toStdString(), captchaParams, this->m_heads)};
+    if (!res)
     {
-        qDebug() << "响应:" << QString::fromStdString(res->body);
-        return true;
+        qFatal() << "失败，状态码:" << (res ? res->status : -1);
+        return false;
     }
-    qDebug() << "失败，状态码:" << (res ? res->status : -1);
-    return false;
+    qDebug() << "响应:" << QString::fromStdString(res->body);
+    this->setStatus(res->status);
+    return true;
 }
 
 bool LoginManager::login(const QString& _phoneNumbers, const QString& _password)
@@ -42,15 +43,16 @@ bool LoginManager::login(const QString& _phoneNumbers, const QString& _password)
     QJsonObject obj{};
     obj.insert("phone", _phoneNumbers);
     obj.insert("password", QString::fromStdString(hash.result().toHex().toLower().toStdString()));
-    std::string body{QJsonDocument(obj).toJson(QJsonDocument::Compact).toStdString()};
-    auto        res = m_sslClient->Post(LoginConfig::instance()->login().toStdString(), this->m_heads, body, "application/json");
-    if (res && res->status == 200)
+    std::string     body{QJsonDocument(obj).toJson(QJsonDocument::Compact).toStdString()};
+    httplib::Result res{m_sslClient->Post(LoginConfig::instance()->login().toStdString(), this->m_heads, body, "application/json")};
+    if (!res)
     {
-        qDebug() << "响应:" << QString::fromStdString(res->body);
-        return true;
+        qFatal() << "失败，状态码:" << (res ? res->status : -1);
+        return false;
     }
-    qDebug() << "失败，状态码:" << (res ? res->status : -1);
-    return false;
+    qDebug() << "响应:" << QString::fromStdString(res->body);
+    this->setStatus(res->status);
+    return true;
 }
 
 bool LoginManager::revisePassword(const QString& _phoneNumbers, const QString& _password)
@@ -60,15 +62,16 @@ bool LoginManager::revisePassword(const QString& _phoneNumbers, const QString& _
     QJsonObject obj{};
     obj.insert("phone", _phoneNumbers);
     obj.insert("password", QString::fromStdString(hash.result().toHex().toLower().toStdString()));
-    std::string body{QJsonDocument(obj).toJson(QJsonDocument::Compact).toStdString()};
-    auto        res = m_sslClient->Post(LoginConfig::instance()->revise().toStdString(), this->m_heads, body, "application/json");
-    if (res && res->status == 200)
+    std::string     body{QJsonDocument(obj).toJson(QJsonDocument::Compact).toStdString()};
+    httplib::Result res{m_sslClient->Post(LoginConfig::instance()->revise().toStdString(), this->m_heads, body, "application/json")};
+    if (!res)
     {
-        qDebug() << "响应:" << QString::fromStdString(res->body);
-        return true;
+        qFatal() << "失败，状态码:" << (res ? res->status : -1);
+        return false;
     }
-    qDebug() << "失败，状态码:" << (res ? res->status : -1);
-    return false;
+    qDebug() << "响应:" << QString::fromStdString(res->body);
+    this->setStatus(res->status);
+    return true;
 }
 
 bool LoginManager::registration(const LoginUser* _loginUser)
@@ -81,15 +84,16 @@ bool LoginManager::registration(const LoginUser* _loginUser)
     obj.insert("department", _loginUser->userDepartment());
     obj.insert("hospital", _loginUser->userHospital());
     obj.insert("nickName", _loginUser->userNickname());
-    std::string body{QJsonDocument(obj).toJson(QJsonDocument::Compact).toStdString()};
-    auto        res = m_sslClient->Post(LoginConfig::instance()->registration().toStdString(), this->m_heads, body, "application/json");
-    if (res && res->status == 200)
+    std::string     body{QJsonDocument(obj).toJson(QJsonDocument::Compact).toStdString()};
+    httplib::Result res{m_sslClient->Post(LoginConfig::instance()->registration().toStdString(), this->m_heads, body, "application/json")};
+    if (!res)
     {
-        qDebug() << "响应:" << QString::fromStdString(res->body);
-        return true;
+        qFatal() << "失败，状态码:" << (res ? res->status : -1);
+        return false;
     }
-    qDebug() << "失败，状态码:" << (res ? res->status : -1);
-    return false;
+    qDebug() << "响应:" << QString::fromStdString(res->body);
+    this->setStatus(res->status);
+    return true;
 }
 
 void LoginManager::init(const std::string&, int&&) noexcept
