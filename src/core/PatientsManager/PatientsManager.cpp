@@ -6,6 +6,6 @@ PatientsManager* PatientsManager::create(QQmlEngine* _qmlEngine, QJSEngine* _qJS
     return patientsManager;
 }
 
-PatientsManager::PatientsManager(QObject* _parent) : ClassesManager{_parent}
+PatientsManager::PatientsManager(QObject* _parent) : QObject{_parent}
 {
 }

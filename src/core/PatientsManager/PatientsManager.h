@@ -1,7 +1,9 @@
 _Pragma("once");
-#include "ClassesManager.h"
+#include <QObject>
+#include <QtQml>
+#include "QuickMacro.hpp"
 
-class PatientsManager final : public ClassesManager
+class PatientsManager final : public QObject
 {
     Q_OBJECT
     QML_SINGLETON
