@@ -1,0 +1,16 @@
+@startuml DataPart
+Rectangle [数据管理] {
+
+    component [媒体管理] {
+        [图像导出]
+        [视频导出]
+        [文件备注]
+    }
+
+    component [档案管理] {
+        [报告输出]
+        [报告保存]
+        [报告修改]
+    }
+}
+@enduml

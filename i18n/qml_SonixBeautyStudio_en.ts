@@ -30,9 +30,9 @@
 <context>
     <name>TestDemo</name>
     <message>
-        <location filename="../view/Test/TestDemo.qml" line="61"/>
+        <location filename="../view/Test/TestDemo.qml" line="62"/>
         <source>用户相关</source>
-        <translation type="unfinished">UserAbout</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

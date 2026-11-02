@@ -4,5 +4,6 @@ rectangle [Frontend] {
 !include ./UMLcomp/users.puml
 !include ./UMLcomp/patients.puml
 !include ./UMLcomp/settings.puml
+!include ./UMLcomp/data.puml
 }
 @enduml

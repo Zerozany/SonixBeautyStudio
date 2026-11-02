@@ -1,4 +1,4 @@
-# FrontendDiagram API
+# FrontendDiagram Method
 
 <!-- ```plantuml
 @startuml
@@ -12,7 +12,7 @@
 
   - [设备状态](#设备状态)
 
-  - [WIFI连接模式](#wifi-mode)
+  - [wifi连接模式](#wifi连接模式)
 
 - [用户管理](#用户管理)
 
@@ -25,6 +25,12 @@
   - [功能设置](#功能设置)
 
   - [系统设置](#系统设置)
+
+- [数据管理](#数据管理)
+
+  - [媒体管理](#媒体管理)
+
+  - [档案管理](#档案管理)
 
 ## 前端功能简图
 
@@ -59,7 +65,7 @@ int batteryLevel();
 int temperature();
 ```
 
-### WIFI mode
+### wifi连接模式
 
 - 刷新设备列表
 
@@ -169,3 +175,9 @@ QVariantList queryPatient(const QString& _patientField)
 ### 功能设置
 
 ### 系统设置
+
+## 数据管理
+
+### 媒体管理
+
+### 档案管理

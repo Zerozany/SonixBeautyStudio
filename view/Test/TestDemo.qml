@@ -72,6 +72,7 @@ Item {
             onClicked: {
                 stackLayout.currentIndex = 2;
                 // Translator.language = ":/i18n/qml_SonixBeautyStudio_en.qm";
+                // Qt.uiLanguage = "en";
             }
         }
 
