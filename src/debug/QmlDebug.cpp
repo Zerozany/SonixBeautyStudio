@@ -2,7 +2,7 @@
 #include <QJSEngine>
 #include <QQmlEngine>
 #include <QQmlApplicationEngine>
-#include "DataServer.h"
+#include "DataSocket.h"
 #include "DataPacket.h"
 
 QmlDebug* QmlDebug::create(QQmlEngine* _qmlEngine, QJSEngine* _qJSEngine)
@@ -14,9 +14,9 @@ QmlDebug* QmlDebug::create(QQmlEngine* _qmlEngine, QJSEngine* _qJSEngine)
 
 QmlDebug::QmlDebug(QObject* _parent) : QObject{_parent}
 {
-    QObject::connect(DataServer::instance(), &QTcpSocket::readyRead, [&]() {
+    QObject::connect(DataSocket::instance(), &QTcpSocket::readyRead, [&]() {
         DataPacket dataPacket{};
-        QByteArray recvData{DataServer::instance()->readAll()};
+        QByteArray recvData{DataSocket::instance()->readAll()};
         if (!dataPacket.deserializationFrame(recvData))
         {
             return;
@@ -27,11 +27,11 @@ QmlDebug::QmlDebug(QObject* _parent) : QObject{_parent}
 
 void QmlDebug::sendDatas()
 {
-    if (DataServer::instance()->state() != QAbstractSocket::ConnectedState)
+    if (DataSocket::instance()->state() != QAbstractSocket::ConnectedState)
     {
         return;
     }
     DataPacket dataPacket{};
     this->setSendData(QDateTime::currentDateTime().toString("hh:mm:ss ").toUtf8() + dataPacket.serializationFrame().toHex());
-    DataServer::instance()->write(dataPacket.serializationFrame());
+    DataSocket::instance()->write(dataPacket.serializationFrame());
 }
