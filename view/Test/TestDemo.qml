@@ -2,6 +2,8 @@ import QtQuick
 import QtQuick.Layouts
 import QZeroMaterialUI
 
+// import QZeroAssistKit
+
 Item {
     id: root
 
@@ -57,7 +59,7 @@ Item {
         }
 
         MaterialButton {
-            text: "用户相关"
+            text: qsTr("用户相关")
             anchors.verticalCenter: parent.verticalCenter
             onClicked: {
                 stackLayout.currentIndex = 1;
@@ -69,6 +71,7 @@ Item {
             anchors.verticalCenter: parent.verticalCenter
             onClicked: {
                 stackLayout.currentIndex = 2;
+                // Translator.language = ":/i18n/qml_SonixBeautyStudio_en.qm";
             }
         }
 

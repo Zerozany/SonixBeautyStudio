@@ -28,10 +28,10 @@
     </message>
 </context>
 <context>
-    <name>SingletonApplication</name>
+    <name>TestDemo</name>
     <message>
-        <location filename="../thirdparty/QZeroSystem/src/WIN/SingletonApplication/SingletonApplication.cpp" line="19"/>
-        <source>The current application is already running in the system</source>
+        <location filename="../view/Test/TestDemo.qml" line="61"/>
+        <source>用户相关</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

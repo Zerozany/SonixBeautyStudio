@@ -15,8 +15,9 @@ void PatientsManager::createPatient() noexcept
 {
 }
 
-bool PatientsManager::deletePatient() noexcept
+bool PatientsManager::deletePatient(const QString& _patientField) noexcept
 {
+    Q_UNUSED(_patientField)
     return bool{};
 }
 

@@ -1,0 +1,8 @@
+@startuml patientsPart
+component [病例管理] {
+    [新建病例]
+    [删除病例]
+    [保存病例]
+    [查询病例]
+}
+@enduml

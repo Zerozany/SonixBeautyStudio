@@ -1,0 +1,8 @@
+@startuml FrontendModule
+rectangle [Frontend] {
+!include ./UMLcomp/device.puml
+!include ./UMLcomp/users.puml
+!include ./UMLcomp/patients.puml
+!include ./UMLcomp/settings.puml
+}
+@enduml

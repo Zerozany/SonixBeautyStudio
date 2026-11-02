@@ -22,7 +22,7 @@ private:
 public:
     Q_INVOKABLE virtual void createPatient() noexcept;
 
-    Q_INVOKABLE virtual bool deletePatient() noexcept;
+    Q_INVOKABLE virtual bool deletePatient(const QString& _patientField) noexcept;
 
     Q_INVOKABLE virtual void savePatient(Patient* _patient) noexcept;
 
