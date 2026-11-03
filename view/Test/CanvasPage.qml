@@ -13,15 +13,19 @@ Rectangle {
 
         Line {
             anchors.fill: parent
+            unit: "mm"
+            ratio: 2.0
         }
 
         Line {
             anchors.fill: parent
+            unit: "mm"
+            ratio: 1.5
         }
 
         Line {
             anchors.fill: parent
-            unit: "cm"
+            unit: "mm"
         }
     }
 }
