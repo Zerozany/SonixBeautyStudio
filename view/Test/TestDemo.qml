@@ -19,9 +19,7 @@ Item {
 
         LoginPage {}
 
-        Rectangle {
-            color: "red"
-        }
+        CanvasPage {}
 
         Rectangle {
             color: "blue"
@@ -67,12 +65,10 @@ Item {
         }
 
         MaterialButton {
-            text: "Linux"
+            text: "测距"
             anchors.verticalCenter: parent.verticalCenter
             onClicked: {
                 stackLayout.currentIndex = 2;
-                // Translator.language = ":/i18n/qml_SonixBeautyStudio_en.qm";
-                // Qt.uiLanguage = "en";
             }
         }
 
@@ -81,6 +77,8 @@ Item {
             anchors.verticalCenter: parent.verticalCenter
             onClicked: {
                 stackLayout.currentIndex = 3;
+                // Translator.language = ":/i18n/qml_SonixBeautyStudio_en.qm";
+                // Qt.uiLanguage = "en";
             }
         }
 
