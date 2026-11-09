@@ -11,7 +11,7 @@
                 "CMAKE_PREFIX_PATH": "/home/Zero/Qt/6.12.0/gcc_64",
                 "CMAKE_TOOLCHAIN_FILE": "/home/Zero/Tools/vcpkg/scripts/buildsystems/vcpkg.cmake",
                 "VCPKG_TARGET_TRIPLET": "x64-linux",
-                "VCPKG_MANIFEST_DIR": "${sourceDir}/thirdparty/QZeroPackage"
+                "VCPKG_MANIFEST_DIR": "${sourceDir}"
             }
         },
         {

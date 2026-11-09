@@ -1,0 +1,36 @@
+{
+    "name": "sonixpackages",
+    "version": "1.0.0",
+    "dependencies": [
+        {
+            "name": "spdlog",
+            "version>=": "1.15.3",
+            "platform": "android|windows"
+        },
+        {
+            "name": "libusb",
+            "version>=": "1.0.29",
+            "platform": "android|windows"
+        },
+        {
+            "name": "openssl",
+            "version>=": "3.6.0",
+            "platform": "android|windows"
+        },
+        {
+            "name": "cpp-httplib",
+            "version>=": "0.18.0"
+        },
+        {
+            "name": "tomlplusplus",
+            "version>=": "3.4.0",
+            "platform": "android|windows"
+        },
+        {
+            "name": "exprtk",
+            "version>=": "0.0.3",
+            "platform": "android|windows"
+        }
+    ],
+    "builtin-baseline": "c59b04f668d20c7dd83f478835e8266a3cc51270"
+}

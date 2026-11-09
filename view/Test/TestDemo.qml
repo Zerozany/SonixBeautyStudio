@@ -65,7 +65,7 @@ Item {
         }
 
         MaterialButton {
-            text: "测距"
+            text: "测量"
             anchors.verticalCenter: parent.verticalCenter
             onClicked: {
                 stackLayout.currentIndex = 2;

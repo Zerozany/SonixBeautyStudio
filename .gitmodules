@@ -13,3 +13,7 @@
 [submodule "thirdparty/QZeroMaterialUI"]
     path = thirdparty/QZeroMaterialUI
     url = https://github.com/Zerozany/QZeroMaterialUI.git
+
+[submodule "thirdparty/SonixTools"]
+    path = thirdparty/SonixTools
+    url = https://github.com/Zerozany/SonixTools.git
