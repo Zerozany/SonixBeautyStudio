@@ -10,9 +10,10 @@
 // #include "UsbManager.h"
 #endif
 
-#include <QStandardPaths>
-#include <QDir>
+// #include <QStandardPaths>
+// #include <QDir>
 // #include "SpdLogger.h"
+// #include "MeasureKits.h"
 
 auto main(int argc, char* argv[]) -> int
 {
@@ -26,6 +27,8 @@ auto main(int argc, char* argv[]) -> int
 #elif defined(Q_OS_ANDROID)
 
 #endif
+    // qDebug() << MeasureKits::instance()->measure(Department::Obstetrics::CrownRumpLength, 4.8);
+    // qDebug() << MeasureKits::instance()->measure(Department::Obstetrics::BiparietalDiameter, 2.1);
     ApplicationConfig::instance()->init();
     QGuiApplication       app{argc, argv};
     QQmlApplicationEngine engine{};

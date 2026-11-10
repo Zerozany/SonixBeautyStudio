@@ -30,6 +30,15 @@
             "name": "exprtk",
             "version>=": "0.0.3",
             "platform": "android|windows"
+        },
+        {
+            "name": "magic-enum",
+            "version>=": "0.9.7",
+            "platform": "android|windows"
+        },
+        {
+            "name": "cmakerc",
+            "platform": "android|windows"
         }
     ],
     "builtin-baseline": "c59b04f668d20c7dd83f478835e8266a3cc51270"
