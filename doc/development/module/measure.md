@@ -37,7 +37,7 @@ flowchart TB
 flowchart TD
     Start([开始]) --> Basic[测量]
     
-    Basic --> Condition{选择进阶测量?}
+    Basic --> Condition{进阶测量?}
     
     Condition -->|是| Type[进阶测量类型]
     Type --> first[进行基础测量]
