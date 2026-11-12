@@ -1,7 +1,3 @@
-[submodule "thirdparty/ZeroPackage"]
-	path = thirdparty/ZeroPackage
-	url = https://github.com/Zerozany/ZeroPackage.git
-
 [submodule "thirdparty/QZeroAssistKit"]
     path = thirdparty/QZeroAssistKit
     url = https://github.com/Zerozany/QZeroAssistKit.git
@@ -10,10 +6,15 @@
     path = thirdparty/QZeroMaterialUI
     url = https://github.com/Zerozany/QZeroMaterialUI.git
 
-[submodule "thirdparty/ZeroSystem"]
-    path = thirdparty/ZeroSystem
-    url = https://github.com/Zerozany/ZeroSystem.git
+[submodule "thirdparty/QZeroSystem"]
+	path = thirdparty/QZeroSystem
+	url = https://github.com/Zerozany/ZeroSystem.git
+
+[submodule "thirdparty/ZeroPackage"]
+	path = thirdparty/ZeroPackage
+	url = https://github.com/Zerozany/ZeroPackage.git
 
 [submodule "thirdparty/SonixTools"]
     path = thirdparty/SonixTools
     url = https://github.com/Zerozany/SonixTools.git
+
