@@ -10,7 +10,6 @@ if(WIN32)
             "$<TARGET_FILE:${PROJECT_NAME}>"
             COMMENT "Deploying Qt dependencies for ${PROJECT_NAME}"
         )
-
     else()
         message(STATUS "skip windeployqt: ${PROJECT_NAME} It is not an executable file")
     endif()

@@ -29,9 +29,11 @@ auto main(int argc, char* argv[]) -> int
 
 #endif
     MeasureKits measureKits{};
-    qDebug() << measureKits.measure(Department::Obstetrics::FemurLength, 2.84);
-    qDebug() << measureKits.measure(Department::Obstetrics::FemurLength, 3.57);
-    // qDebug() << measureKits.measure(Department::FetalWeight::Hadlock1, 4.95, 0.87);
+    qDebug() << measureKits.measure(Department::Obstetrics::BiparietalDiameter, 4.71);
+    qDebug() << measureKits.measure(Department::Obstetrics::FemurLength, 4.78);
+    qDebug() << measureKits.measure(Department::Obstetrics::AbdominalCircumference, 15.91);
+    qDebug() << measureKits.measure(Department::Obstetrics::HeadCircumference, 16.26);
+    qDebug() << measureKits.measure(Department::Obstetrics::CrownRumpLength, 5.60);
     ApplicationConfig::instance()->init();
     QGuiApplication       app{argc, argv};
     QQmlApplicationEngine engine{};
