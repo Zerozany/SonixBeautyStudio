@@ -58,6 +58,14 @@ flowchart TD
 
 - 提供包含基础图形与进阶算法的标准化测量能力，确保进阶测量以基础测量为前提，实现高精度、可扩展的测绘流程与算法管理
 
+- 该模块仅包含根据传递参数以及配置公式实现相关计算并输出功能、关于UI测绘、用户应用层需另立实现
+
+- 根据调用方根据相关公式及参数顺序传递相应参数、经读取配置文件文本内容反射后返回相应计算结果
+
+## 模块支持标准
+
+- C++23及以上
+
 ## 模块统类
 
 - 进阶测量类
@@ -71,11 +79,11 @@ class MeasureKits;
 - 测量方法
 
 ```cpp
-@param _measureType 测量类型及选项枚举值
-@param args 测量填补参数 基本单位:cm
-@return 测量值
+@param _measureType: 测量类型及选项(枚举值)
+@param _args: 依照配置文件测量公式按照顺序填补参数(基本单位:cm)
+@return 经配置文件公式计算后返回的计算值(double类型)
 template <typename T, typename... Args>
-auto measure(T&& _measureType, Args&&... args) noexcept -> double;
+auto measure(T&& _measureType, Args&&... _args) noexcept -> double;
 ```
 
 - 测量类型及选项
@@ -140,8 +148,14 @@ measure.toml
 ```
 
 <!-- markdownlint-disable MD029 -->
-2. 文件内容格式
+2. 文件内容格式样例
 <!-- markdownlint-enable MD029 -->
+
+- 分组名称；如`Obstetrics`、`Obstetrics`...
+
+- 公式名称；如`BiparietalDiameter`、`Hadlock1`...
+
+- 配置文件根据可选类型枚举值关联后内容如下:
 
 ```toml
 [Obstetrics]
@@ -152,8 +166,14 @@ CrownRumpLength = "5.8434 + 1.4533 * param_0^0.5 + 0.498508 * param_0"
 FemurLength = "10.35 + 2.46 * param_0 + 0.17 * param_0^2"
 
 [FetalWeight]
-Hadlock1 = "1.304 + 0.05281 * param_0 + 0.1938 * param_1 - 0.004 * param_0 * param_1"
-Hadlock2 = "1.335 - 0.0034 * param_0 * param_1 + 0.0316 * param_2 + 0.0457 * param_0 + 0.1623 * param_1"
-Hadlock3 = "1.326 - 0.00326 * param_0 * param_1 + 0.0107 * param_2 + 0.0438 * param_0 + 0.158 * param_1"
-Hadlock4 = "1.3596 + 0.0064 * param_0 + 0.0424 * param_1 + 0.174 * param_2 + 0.00061 * param_3 * param_1 - 0.00386 * param_1 * param_2"
+Hadlock1 = "pow(10, 1.304 + 0.05281 * param_0 + 0.1938 * param_1 - 0.004 * param_0 * param_1)"
+Hadlock2 = "pow(10, 1.335 - 0.0034 * param_0 * param_1 + 0.0316 * param_2 + 0.0457 * param_0 + 0.1623 * param_1)"
+Hadlock3 = "pow(10, 1.326 - 0.00326 * param_0 * param_1 + 0.0107 * param_2 + 0.0438 * param_0 + 0.158 * param_1)"
+Hadlock4 = "pow(10, 1.3596 + 0.0064 * param_0 + 0.0424 * param_1 + 0.174 * param_2 + 0.00061 * param_3 * param_1 - 0.00386 * param_1 * param_2)"
 ```
+
+<!-- markdownlint-disable MD029 -->
+3. 文本公式所支持语法规则
+<!-- markdownlint-enable MD029 -->
+
+- 参考链接:[https://github.com/ArashPartow/exprtk](https://github.com/ArashPartow/exprtk)  

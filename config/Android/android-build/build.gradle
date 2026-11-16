@@ -42,7 +42,6 @@ android {
 
     namespace = androidPackageName
     compileSdkVersion androidCompileSdkVersion
-    buildToolsVersion androidBuildToolsVersion
     ndkVersion = androidNdkVersion
 
     sourceSets {
@@ -68,12 +67,12 @@ android {
         targetCompatibility JavaVersion.VERSION_17
     }
 
-    lintOptions {
+    lint {
         abortOnError = false
     }
 
     // Do not compress Qt binary resources file
-    aaptOptions {
+    androidResources {
         noCompress 'rcc'
     }
 

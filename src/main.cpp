@@ -34,6 +34,7 @@ auto main(int argc, char* argv[]) -> int
     qDebug() << measureKits.measure(Department::Obstetrics::AbdominalCircumference, 15.91);
     qDebug() << measureKits.measure(Department::Obstetrics::HeadCircumference, 16.26);
     qDebug() << measureKits.measure(Department::Obstetrics::CrownRumpLength, 5.60);
+    // qDebug() << measureKits.measure(Department::FetalWeight::Hadlock1, 5.60, 6.33);
     ApplicationConfig::instance()->init();
     QGuiApplication       app{argc, argv};
     QQmlApplicationEngine engine{};
