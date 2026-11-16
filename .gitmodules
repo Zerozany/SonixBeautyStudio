@@ -8,7 +8,7 @@
 
 [submodule "thirdparty/QZeroSystem"]
 	path = thirdparty/QZeroSystem
-	url = https://github.com/Zerozany/ZeroSystem.git
+	url = https://github.com/Zerozany/QZeroSystem.git
 
 [submodule "thirdparty/ZeroPackage"]
 	path = thirdparty/ZeroPackage
