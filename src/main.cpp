@@ -29,12 +29,13 @@ auto main(int argc, char* argv[]) -> int
 
 #endif
     MeasureKits measureKits{};
-    qDebug() << measureKits.measure(Department::Obstetrics::BiparietalDiameter, 4.71);
-    qDebug() << measureKits.measure(Department::Obstetrics::FemurLength, 4.78);
-    qDebug() << measureKits.measure(Department::Obstetrics::AbdominalCircumference, 15.91);
-    qDebug() << measureKits.measure(Department::Obstetrics::HeadCircumference, 16.26);
-    qDebug() << measureKits.measure(Department::Obstetrics::CrownRumpLength, 5.60);
-    // qDebug() << measureKits.measure(Department::FetalWeight::Hadlock1, 5.60, 6.33);
+    qDebug() << measureKits.measure(Department::Obstetrics::BiparietalDiameter, 7.52);
+    qDebug() << measureKits.measure(Department::Obstetrics::FemurLength, 5.24);
+    qDebug() << measureKits.measure(Department::Obstetrics::AbdominalCircumference, 18.34);
+    // qDebug() << measureKits.measure(Department::Obstetrics::HeadCircumference, 16.26);
+    // qDebug() << measureKits.measure(Department::Obstetrics::CrownRumpLength, 5.60);
+    qDebug() << measureKits.measure(Department::FetalWeight::Hadlock1, 18.34, 5.24);
+    qDebug() << measureKits.measure(Department::FetalWeight::Hadlock2, 18.34, 5.24, 7.52);
     ApplicationConfig::instance()->init();
     QGuiApplication       app{argc, argv};
     QQmlApplicationEngine engine{};

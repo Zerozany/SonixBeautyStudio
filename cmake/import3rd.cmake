@@ -19,5 +19,12 @@ target_link_libraries(${PROJECT_NAME}
     SonixTools
 )
 
+if(ANDROID)
+    target_link_libraries(${PROJECT_NAME}
+        PRIVATE
+        log
+    )
+endif()
+
 # QML Shared Module List
 list(APPEND QMLMODULELIST QZeroSystem QZeroMaterialUI QZeroAssistKit)

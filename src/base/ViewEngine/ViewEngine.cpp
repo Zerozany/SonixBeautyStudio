@@ -19,11 +19,11 @@ extern "C" {
 }
 #endif
 
-ViewEngine::ViewEngine(QQmlApplicationEngine& _qmlApplicationEngine, ViewEngineBase* _parent) : ViewEngineBase{_qmlApplicationEngine, _parent}
+ViewEngine::ViewEngine(QQmlApplicationEngine& _qmlApplicationEngine, ViewEngineManager* _parent) : ViewEngineManager{_qmlApplicationEngine, _parent}
 {
 }
 
-auto ViewEngine::instance(QQmlApplicationEngine& _qmlApplicationEngine, ViewEngineBase* _parent) noexcept -> ViewEngine*
+auto ViewEngine::instance(QQmlApplicationEngine& _qmlApplicationEngine, ViewEngineManager* _parent) noexcept -> ViewEngine*
 {
     static ViewEngine viewEngine{_qmlApplicationEngine, _parent};
     return &viewEngine;

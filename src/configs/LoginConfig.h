@@ -1,8 +1,8 @@
 _Pragma("once");
-#include "ConfigSetting.h"
+#include "SettingsManager.h"
 #include "QuickMacro.hpp"
 
-class LoginConfig final : public ConfigSetting
+class LoginConfig final : public SettingsManager
 {
     Q_OBJECT
     QUICK_PROPERTY(int, m_port, port, port, setPort, portChanged)

@@ -11,7 +11,7 @@ LoginConfig* LoginConfig::instance(QObject* _parent) noexcept
     return loginConfig;
 }
 
-LoginConfig::LoginConfig(const QString& _fileName, QObject* _parent) : ConfigSetting{_fileName, QSettings::IniFormat, _parent}
+LoginConfig::LoginConfig(const QString& _fileName, QObject* _parent) : SettingsManager{_fileName, QSettings::IniFormat, _parent}
 {
-    ConfigSetting::init();
+    SettingsManager::init();
 }

@@ -12,13 +12,18 @@ auto DataSocket::instance(QObject* _parent) noexcept -> DataSocket*
     return tcpServer;
 }
 
-DataSocket::DataSocket(QObject* _parent) : TcpSocket{_parent}
+DataSocket::DataSocket(QObject* _parent) : QTcpSocket{_parent}
 {
     std::invoke(&DataSocket::connectSignal2Slot, this);
 }
 
 auto DataSocket::connectSignal2Slot() noexcept -> void
 {
+    connect(this, &QTcpSocket::readyRead, this, &DataSocket::onReadyRead);
+    connect(this, &QTcpSocket::bytesWritten, this, &DataSocket::onBytesWritten);
+    connect(this, &QTcpSocket::connected, this, &DataSocket::onConnected);
+    connect(this, &QTcpSocket::disconnected, this, &DataSocket::onDisconnected);
+    connect(this, &QTcpSocket::errorOccurred, this, &DataSocket::onErrorOccurred);
 }
 
 void DataSocket::onReadyRead()

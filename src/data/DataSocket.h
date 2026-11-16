@@ -1,8 +1,8 @@
 _Pragma("once");
-#include "TcpSocket.h"
+#include <QTcpSocket>
 #include "DataStructure.hpp"
 
-class DataSocket : public TcpSocket
+class DataSocket : public QTcpSocket
 {
     Q_OBJECT
 public:
@@ -15,18 +15,18 @@ public:
 private:
     explicit(true) DataSocket(QObject* _parent = nullptr);
 
-    auto connectSignal2Slot() noexcept -> void override;
+    auto connectSignal2Slot() noexcept -> void;
 
 private Q_SLOTS:
-    void onReadyRead() override;
+    void onReadyRead();
 
-    void onBytesWritten(quint64 _bytes) override;
+    void onBytesWritten(quint64 _bytes);
 
-    void onConnected() override;
+    void onConnected();
 
-    void onDisconnected() override;
+    void onDisconnected();
 
-    void onErrorOccurred(const DataSocket::SocketError& _error) override;
+    void onErrorOccurred(const DataSocket::SocketError& _error);
 
 public Q_SLOTS:
     void onWifiConnectSuccessful();

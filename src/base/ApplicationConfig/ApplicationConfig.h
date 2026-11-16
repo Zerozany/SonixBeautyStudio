@@ -1,7 +1,7 @@
 _Pragma("once");
-#include "ApplicationConfigBase.h"
+#include "SoftwareManager.h"
 
-class ApplicationConfig : public ApplicationConfigBase
+class ApplicationConfig : public SoftwareManager
 {
     Q_OBJECT
 public:
@@ -15,10 +15,10 @@ public:
     auto init() noexcept -> void;
 
 private:
-    explicit(true) ApplicationConfig(ApplicationConfigBase* _parent = nullptr);
+    explicit(true) ApplicationConfig(SoftwareManager* _parent = nullptr);
 
 private:
-    ApplicationStyle m_applicationStyle{
+    SoftwareStyle m_applicationStyle{
         .WindowsStyle{"Material"},
         .AndroidStyle{"Material"},
     };
