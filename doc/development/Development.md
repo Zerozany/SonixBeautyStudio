@@ -2,6 +2,8 @@
 
 ---
 
+## 目录
+
 - [项目结构](#项目结构)
   - [文本文档目录](#文本文档目录)
   - [构建及编译目录](#构建及编译目录)
@@ -9,6 +11,8 @@
   - [第三方库以及模块目录](#第三方库以及模块目录)
   - [其他](#其他)
 - [应用程序框架](#应用程序框架)
+  - [目录结构示意图](#目录结构示意图)
+  - [应用程序流程图](#应用程序流程图)
 - [构建及编译](#构建及编译)
   - [开发环境搭建](#开发环境搭建)
   - [配置构建变量](#配置构建变量)
@@ -65,9 +69,11 @@
 
 ## 应用程序框架
 
+### 目录结构示意图
+
 ```mermaid
 flowchart TB
-    subgraph Application[应用程序架构]
+    subgraph Application[程序架构]
         direction TB
 
         subgraph AppLayers[应用层]
@@ -119,6 +125,10 @@ flowchart TB
         AppLayers ==> DataLayers
     end
 ```
+
+### 应用程序流程图
+
+- [ ] pending...
 
 ## 构建及编译
 
@@ -199,3 +209,7 @@ buildApplication.sh
 [https://github.com/Zerozany/ZeroPackage.git](https://github.com/Zerozany/ZeroPackage.git)
 
 [https://github.com/Zerozany/SonixTools.git](https://github.com/Zerozany/SonixTools.git)
+
+---
+
+[返回目录](#目录)
