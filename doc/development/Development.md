@@ -17,6 +17,11 @@
   - [开发环境搭建](#开发环境搭建)
   - [配置构建变量](#配置构建变量)
   - [编译输出](#编译输出)
+- [应用功能及接口说明](#应用功能及接口说明)
+  - [全局公共文件](#全局公共文件)
+  - [应用界面功能简要](#应用界面功能概要)
+  - [应用层各功能模块类](#应用层各功能模块类)
+  - [模块库功能概要](#模块库功能概要)
 - [附录](#附录)
 
 ---
@@ -25,7 +30,7 @@
 
 ### 文本文档目录
 
-- 开发文档：`doc\development`
+- 相关文档：`doc`
 
 ### 构建及编译目录
 
@@ -150,6 +155,10 @@ flowchart TB
 - Android API：`35`
 - jdk版本：`17.x`
 
+### IOS
+
+- [ ] pending...
+
 ### 配置构建变量
 
 1. 拉取`Vcpkg`包管理工具
@@ -196,19 +205,49 @@ buildApplication.sh
  .\script\buildApplication.ps1 -d p -t d
 ```
 
+## 应用功能及接口说明
+
+### 全局公共文件
+
+| 头文件名称 | 功能简要 | 完成进度 |
+| :----: | :----: | :----: |
+| `QuickMacro.hpp` | QML属性快捷注册宏 | &#x2705; |
+
+### 应用界面功能概要
+
+- 详见具体应用程序实际操作界面
+
+### 应用层各功能模块类
+
+| 应用初始化类 | 功能简要 | 完成进度 |
+| :----: | :----: | :----: |
+| `ApplicationManager` | 应用程序基础配置、启动、初始化类 | &#x1f504; |
+| `ViewManager` | QML界面显示及UI模块控制类 | &#x2705; |
+| `DebugManager` | 应用程序调试类 | &#x23f3; |
+
+| 核心工作类 | 功能简要 | 完成进度 |
+| :----: | :----: | :----: |
+| `LoginManager` | 用户信息类 | &#x2705; |
+| `DevicesManager` | 设备连接类 | &#x2705; |
+| `PatientsManager` | 会话管理类 | &#x1f504; |
+
+### 模块库功能概要
+
+- [见附录](#附录)
+
 ## 附录
 
 ### 第三方模块地址
 
-[https://github.com/Zerozany/QZeroAssistKit.git](https://github.com/Zerozany/QZeroAssistKit.git)
+- *QZeroAssistKit*：[https://github.com/Zerozany/QZeroAssistKit.git](https://github.com/Zerozany/QZeroAssistKit.git)
 
-[https://github.com/Zerozany/QZeroMaterialUI.git](https://github.com/Zerozany/QZeroMaterialUI.git)
+- *QZeroMaterialUI*：[https://github.com/Zerozany/QZeroMaterialUI.git](https://github.com/Zerozany/QZeroMaterialUI.git)
 
-[https://github.com/Zerozany/QZeroSystem.git](https://github.com/Zerozany/QZeroSystem.git)
+- *QZeroSystem*：[https://github.com/Zerozany/QZeroSystem.git](https://github.com/Zerozany/QZeroSystem.git)
 
-[https://github.com/Zerozany/ZeroPackage.git](https://github.com/Zerozany/ZeroPackage.git)
+- *ZeroPackage*：[https://github.com/Zerozany/ZeroPackage.git](https://github.com/Zerozany/ZeroPackage.git)
 
-[https://github.com/Zerozany/SonixTools.git](https://github.com/Zerozany/SonixTools.git)
+- *SonixTools*：[https://github.com/Zerozany/SonixTools.git](https://github.com/Zerozany/SonixTools.git)
 
 ---
 

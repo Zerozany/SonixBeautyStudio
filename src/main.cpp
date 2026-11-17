@@ -1,7 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#include "ViewEngine.h"
-#include "ApplicationConfig.h"
+#include "ViewManager.h"
+#include "ApplicationManager.h"
 
 #if defined(Q_OS_ANDROID)
 
@@ -36,10 +36,10 @@ auto main(int argc, char* argv[]) -> int
     // qDebug() << measureKits.measure(Department::Obstetrics::CrownRumpLength, 5.60);
     qDebug() << measureKits.measure(Department::FetalWeight::Hadlock1, 18.34, 5.24);
     qDebug() << measureKits.measure(Department::FetalWeight::Hadlock2, 18.34, 5.24, 7.52);
-    ApplicationConfig::instance()->init();
+    ApplicationManager::instance()->init();
     QGuiApplication       app{argc, argv};
     QQmlApplicationEngine engine{};
-    ViewEngine::instance(engine)->init();
+    ViewManager::instance(engine)->init();
     // SpdLogger::instance()->init(QDir{QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation)}.filePath("log/SonixLog_1.txt").toStdString());
     // spdlog::set_level(spdlog::level::trace);
     // SPDLOG_WARN("---=======2:{}", "String");

@@ -1,4 +1,4 @@
-#include "ViewEngine.h"
+#include "ViewManager.h"
 
 #if defined(Q_OS_ANDROID)
     #include "AndroidWindow.h"
@@ -19,27 +19,27 @@ extern "C" {
 }
 #endif
 
-ViewEngine::ViewEngine(QQmlApplicationEngine& _qmlApplicationEngine, ViewEngineManager* _parent) : ViewEngineManager{_qmlApplicationEngine, _parent}
+ViewManager::ViewManager(QQmlApplicationEngine& _qmlApplicationEngine, ViewEngineManager* _parent) : ViewEngineManager{_qmlApplicationEngine, _parent}
 {
 }
 
-auto ViewEngine::instance(QQmlApplicationEngine& _qmlApplicationEngine, ViewEngineManager* _parent) noexcept -> ViewEngine*
+auto ViewManager::instance(QQmlApplicationEngine& _qmlApplicationEngine, ViewEngineManager* _parent) noexcept -> ViewManager*
 {
-    static ViewEngine viewEngine{_qmlApplicationEngine, _parent};
+    static ViewManager viewEngine{_qmlApplicationEngine, _parent};
     return &viewEngine;
 }
 
-auto ViewEngine::init() noexcept -> void
+auto ViewManager::init() noexcept -> void
 {
-    std::invoke(&ViewEngine::connectSignal2Slot, this);
-    std::invoke(&ViewEngine::loadModule, this);
+    std::invoke(&ViewManager::connectSignal2Slot, this);
+    std::invoke(&ViewManager::loadModule, this);
 }
 
-auto ViewEngine::loadModule() noexcept -> void
+auto ViewManager::loadModule() noexcept -> void
 {
     m_qmlApplicationEngine.loadFromModule("SonixBeautyStudio", "Main");
 }
 
-auto ViewEngine::connectSignal2Slot() noexcept -> void
+auto ViewManager::connectSignal2Slot() noexcept -> void
 {
 }
