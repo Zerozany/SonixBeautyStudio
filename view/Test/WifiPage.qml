@@ -128,12 +128,12 @@ Item {
                 anchors.centerIn: parent
                 spacing: 20
 
-                Connections {
-                    target: QmlDebug
-                    function onSendDataChanged() {
-                        cmdArea.append(QmlDebug.sendData);
-                    }
-                }
+                // Connections {
+                //     target: DebugManager
+                //     function onSendDataChanged() {
+                //         cmdArea.append(DebugManager.sendData);
+                //     }
+                // }
 
                 TextArea {
                     id: cmdArea
@@ -148,7 +148,7 @@ Item {
                     text: "发送数据"
                     anchors.horizontalCenter: parent.horizontalCenter
                     onClicked: {
-                        QmlDebug.sendDatas();
+                        // DebugManager.sendDatas();
                     }
                 }
             }
@@ -164,12 +164,12 @@ Item {
                 anchors.centerIn: parent
                 spacing: 20
 
-                Connections {
-                    target: QmlDebug
-                    function onRecvDataChanged() {
-                        recvAream.text = QmlDebug.recvData;
-                    }
-                }
+                // Connections {
+                //     target: DebugManager
+                //     function onRecvDataChanged() {
+                //         recvAream.text = DebugManager.recvData;
+                //     }
+                // }
 
                 TextArea {
                     id: recvAream

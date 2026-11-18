@@ -19,6 +19,7 @@
             },
             "environment": {
                 "JAVA_HOME": "D:/Android Studio/jbr",
+                "PATH": "D:/Android Studio/jbr/bin;$penv{PATH}",
                 "GRADLE_USER_HOME": "F:/GradleCache",
                 "ANDROID_NDK_HOME": "D:/AndroidEnv/SDK/ndk/27.2.12479018"
             }

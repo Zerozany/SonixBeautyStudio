@@ -222,7 +222,7 @@ buildApplication.sh
 | 应用初始化类 | 功能简要 | 完成进度 |
 | :----: | :----: | :----: |
 | `ApplicationManager` | 应用程序基础配置、启动、初始化类 | &#x1f504; |
-| `ViewManager` | QML界面显示及UI模块控制类 | &#x2705; |
+| `QmlEngineManager` | QML界面显示及UI模块控制类 | &#x2705; |
 | `DebugManager` | 应用程序调试类 | &#x23f3; |
 
 | 核心工作类 | 功能简要 | 完成进度 |

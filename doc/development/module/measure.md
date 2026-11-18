@@ -91,7 +91,7 @@ auto measure(T&& _measureType, Args&&... _args) noexcept -> double;
 1. 头文件
 
 ```cpp
-#include "MeasureConfig.hpp"
+#include "MeasureType.hpp"
 ```
 
 <!-- markdownlint-disable MD029 -->

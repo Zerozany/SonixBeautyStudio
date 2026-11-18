@@ -7,7 +7,7 @@ _Pragma("once");
 class QJSEngine;
 class QQmlEngine;
 
-class QmlDebug : public QObject
+class DebugManager : public QObject
 {
     Q_OBJECT
     QML_SINGLETON
@@ -15,16 +15,16 @@ class QmlDebug : public QObject
     QUICK_PROPERTY(QByteArray, m_sendData, sendData, sendData, setSendData, sendDataChanged)
     QUICK_PROPERTY(QByteArray, m_recvData, recvData, recvData, setRecvData, recvDataChanged)
 public:
-    static QmlDebug* create(QQmlEngine* _qmlEngine = nullptr, QJSEngine* _qJSEngine = nullptr);
+    static DebugManager* create(QQmlEngine* _qmlEngine = nullptr, QJSEngine* _qJSEngine = nullptr);
 
-    ~QmlDebug() noexcept = default;
+    ~DebugManager() noexcept = default;
 
-    Q_DISABLE_COPY_MOVE(QmlDebug)
+    Q_DISABLE_COPY_MOVE(DebugManager)
 public:
     Q_INVOKABLE void sendDatas();
 
 private:
-    explicit(true) QmlDebug(QObject* _parent = nullptr);
+    explicit(true) DebugManager(QObject* _parent = nullptr);
 
 Q_SIGNALS:
     void sendDataChanged();

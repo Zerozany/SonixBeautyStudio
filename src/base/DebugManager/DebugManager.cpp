@@ -1,18 +1,18 @@
-#include "QmlDebug.h"
+#include "DebugManager.h"
 #include <QJSEngine>
 #include <QQmlEngine>
 #include <QQmlApplicationEngine>
 #include "DataSocket.h"
 #include "DataPacket.h"
 
-QmlDebug* QmlDebug::create(QQmlEngine* _qmlEngine, QJSEngine* _qJSEngine)
+DebugManager* DebugManager::create(QQmlEngine* _qmlEngine, QJSEngine* _qJSEngine)
 {
     Q_UNUSED(_qJSEngine);
-    static QmlDebug* qmlDebug{new QmlDebug{qobject_cast<QQmlApplicationEngine*>(_qmlEngine)}};
+    static DebugManager* qmlDebug{new DebugManager{qobject_cast<QQmlApplicationEngine*>(_qmlEngine)}};
     return qmlDebug;
 }
 
-QmlDebug::QmlDebug(QObject* _parent) : QObject{_parent}
+DebugManager::DebugManager(QObject* _parent) : QObject{_parent}
 {
     QObject::connect(DataSocket::instance(), &QTcpSocket::readyRead, [&]() {
         DataPacket dataPacket{};
@@ -25,7 +25,7 @@ QmlDebug::QmlDebug(QObject* _parent) : QObject{_parent}
     });
 }
 
-void QmlDebug::sendDatas()
+void DebugManager::sendDatas()
 {
     if (DataSocket::instance()->state() != QAbstractSocket::ConnectedState)
     {

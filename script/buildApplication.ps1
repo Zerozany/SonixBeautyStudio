@@ -4,11 +4,12 @@ param(
     [string]$d,
     [string]$t,
     [switch]$h,
-    [switch]$clean   # ✅ 新增参数
+    [switch]$clean,   # 清理 build 目录
+    [switch]$aab      # 新增：打包 AAB（仅 Android）
 )
 
 if ($h) {
-    Write-Host "Usage: .\buildApplication.ps1 -d <device: p/a> -t <build type: d/r> [-clean]"
+    Write-Host "Usage: .\buildApplication.ps1 -d <device: p/a> -t <build type: d/r> [-clean] [-aab]"
     exit 0
 }
 
@@ -50,6 +51,12 @@ switch ($d) {
     }
 }
 
+# AAB 只对 Android 有意义
+if ($aab -and $d -ne "a") {
+    Write-Host "⚠️ -aab 仅支持 Android (-d a)，已忽略" -ForegroundColor Yellow
+    $aab = $false
+}
+
 # CMake Configure
 Write-Host "=== 🔧 CMake Configure ==="
 $proc = Start-Process cmake -ArgumentList "--preset $configurePreset" -NoNewWindow -Wait -PassThru
@@ -64,6 +71,35 @@ $proc = Start-Process cmake -ArgumentList "--build --preset $buildPreset" -NoNew
 if ($proc.ExitCode -ne 0) {
     Write-Host "❌ CMake build failed!" -ForegroundColor Red
     exit 1
+}
+
+# AAB 打包（仅 Android 且带 -aab 时）
+if ($aab) {
+    Write-Host "=== 📦 CMake Build AAB ==="
+
+    $buildDir = "build\$configurePreset"
+
+    $proc = Start-Process cmake `
+        -ArgumentList "--build --preset $buildPreset --target SonixBeautyStudio_make_aab" `
+        -NoNewWindow -Wait -PassThru
+
+    if ($proc.ExitCode -ne 0) {
+        Write-Host "❌ CMake AAB build failed!" -ForegroundColor Red
+        exit 1
+    }
+
+    $aabPath = Get-ChildItem -Path "$buildDir\android-build" `
+        -Filter *.aab -Recurse -ErrorAction SilentlyContinue
+
+    if ($aabPath) {
+        Write-Host "✅ AAB 已生成：" -ForegroundColor Green
+        $aabPath | ForEach-Object {
+            Write-Host "   $($_.FullName)"
+        }
+    }
+    else {
+        Write-Host "⚠️ 未在 $buildDir\android-build 找到 .aab 文件" -ForegroundColor Yellow
+    }
 }
 
 # Install
