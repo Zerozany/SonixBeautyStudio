@@ -10,9 +10,10 @@
 // #include "UsbManager.h"
 #endif
 
-#include <QStandardPaths>
-#include <QDir>
-#include "SpdLogger.h"
+// #include <QStandardPaths>
+// #include <QDir>
+// #include "LogManager.h"
+
 // #include "MeasureKits.h"
 // #include "MeasureType.hpp"
 
@@ -36,19 +37,20 @@ auto main(int argc, char* argv[]) -> int
     // qDebug() << measureKits.measure(Department::Obstetrics::CrownRumpLength, 5.60);
     // qDebug() << measureKits.measure(Department::FetalWeight::Hadlock1, 18.34, 5.24);
     // qDebug() << measureKits.measure(Department::FetalWeight::Hadlock2, 18.34, 5.24, 7.52);
+
     ApplicationManager::instance()->init();
     QGuiApplication       app{argc, argv};
     QQmlApplicationEngine engine{};
     QmlEngineManager::instance(engine)->init();
-#if defined(Q_OS_WINDOWS)
-    SpdLogger::instance()->init(QDir{QCoreApplication::applicationDirPath()}.filePath("log/SonixLog_1.txt").toStdString());
-#elif defined(Q_OS_ANDROID)
-    SpdLogger::instance()->init(QDir{QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation)}.filePath("log/SonixLog_1.txt").toStdString());
-#endif
-    spdlog::set_level(spdlog::level::trace);
-    spdlog::info("---=======:{}", "xyz");
-    SPDLOG_WARN("---=======2:{}", "String");
-    SPDLOG_ERROR("---=======3");
+
+    // #if defined(Q_OS_WINDOWS)
+    //     LogManager::instance()->init(QDir{QGuiApplication::applicationDirPath()}.filePath("log/SonixLog_1.txt").toStdString());
+    // #elif defined(Q_OS_ANDROID)
+    //     LogManager::instance()->init(QDir{QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation)}.filePath("log/SonixLog_1.txt").toStdString());
+    // #endif
+    //     LogManager::instance()->trace("Trace Test:{}", "No");
+    //     LogManager::instance()->debug("debug Test:{}", "No");
+    //     LogManager::instance()->error("---Test:{}", "Yes");
 
 #if defined(Q_OS_ANDROID)
     QNativeInterface::QAndroidApplication::hideSplashScreen(0);

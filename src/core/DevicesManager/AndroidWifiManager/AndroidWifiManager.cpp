@@ -99,17 +99,16 @@ QMap<QString, quint8> AndroidWifiManager::getWifiList()
     QJsonDocument doc{QJsonDocument::fromJson(result.toString().toUtf8())};
     for (const QJsonValue& _value : doc.array())
     {
-        const QJsonArray pair{_value.toArray()};
-        if (pair.size() < 2)
+        if (_value.toArray().size() < 2)
         {
             continue;
         }
-        const QString ssid{pair.at(0).toString()};
+        const QString ssid{_value.toArray().at(0).toString()};
         if (ssid.isEmpty())
         {
             continue;
         }
-        wifiList.insert(ssid, static_cast<quint8>(pair.at(1).toInt()));
+        wifiList.insert(ssid, static_cast<quint8>(_value.toArray().at(1).toInt()));
     }
 #endif
     return wifiList;

@@ -1,12 +1,11 @@
 _Pragma("once");
-#include "ViewEngineManager.h"
 #include <QQmlApplicationEngine>
 
-class QmlEngineManager : public ViewEngineManager
+class QmlEngineManager : public QObject
 {
     Q_OBJECT
 public:
-    static auto instance(QQmlApplicationEngine& _qmlApplicationEngine, ViewEngineManager* _parent = nullptr) noexcept -> QmlEngineManager*;
+    static auto instance(QQmlApplicationEngine& _qmlApplicationEngine, QObject* _parent = nullptr) noexcept -> QmlEngineManager*;
 
     ~QmlEngineManager() noexcept = default;
 
@@ -16,10 +15,11 @@ public:
     auto init() noexcept -> void;
 
 private:
-    explicit(true) QmlEngineManager(QQmlApplicationEngine& _qmlApplicationEngine, ViewEngineManager* _parent = nullptr);
+    explicit(true) QmlEngineManager(QQmlApplicationEngine& _qmlApplicationEngine, QObject* _parent = nullptr);
 
 private:
-    auto connectSignal2Slot() noexcept -> void override;
+    auto connectSignal2Slot() noexcept -> void;
 
-    auto loadModule() noexcept -> void override;
+private:
+    QQmlApplicationEngine& m_qmlApplicationEngine;
 };

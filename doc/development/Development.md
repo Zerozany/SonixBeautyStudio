@@ -224,12 +224,17 @@ buildApplication.sh
 | `ApplicationManager` | 应用程序基础配置、启动、初始化类 | &#x1f504; |
 | `QmlEngineManager` | QML界面显示及UI模块控制类 | &#x2705; |
 | `DebugManager` | 应用程序调试类 | &#x23f3; |
+| `LogManager` | 日志管理模块 | &#x2705; |
 
 | 核心工作类 | 功能简要 | 完成进度 |
 | :----: | :----: | :----: |
 | `LoginManager` | 用户信息类 | &#x2705; |
 | `DevicesManager` | 设备连接类 | &#x2705; |
 | `PatientsManager` | 会话管理类 | &#x1f504; |
+
+| 相关计算类 | 功能简要 | 完成进度 |
+| :----: | :----: | :----: |
+| `MeasureKits` | 测量计算模块 | &#x23f3; |
 
 ### 模块库功能概要
 

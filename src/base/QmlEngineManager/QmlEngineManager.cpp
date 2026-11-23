@@ -19,11 +19,11 @@ extern "C" {
 }
 #endif
 
-QmlEngineManager::QmlEngineManager(QQmlApplicationEngine& _qmlApplicationEngine, ViewEngineManager* _parent) : ViewEngineManager{_qmlApplicationEngine, _parent}
+QmlEngineManager::QmlEngineManager(QQmlApplicationEngine& _qmlApplicationEngine, QObject* _parent) : QObject{_parent}, m_qmlApplicationEngine{_qmlApplicationEngine}
 {
 }
 
-auto QmlEngineManager::instance(QQmlApplicationEngine& _qmlApplicationEngine, ViewEngineManager* _parent) noexcept -> QmlEngineManager*
+auto QmlEngineManager::instance(QQmlApplicationEngine& _qmlApplicationEngine, QObject* _parent) noexcept -> QmlEngineManager*
 {
     static QmlEngineManager viewEngine{_qmlApplicationEngine, _parent};
     return &viewEngine;
@@ -32,14 +32,14 @@ auto QmlEngineManager::instance(QQmlApplicationEngine& _qmlApplicationEngine, Vi
 auto QmlEngineManager::init() noexcept -> void
 {
     std::invoke(&QmlEngineManager::connectSignal2Slot, this);
-    std::invoke(&QmlEngineManager::loadModule, this);
-}
-
-auto QmlEngineManager::loadModule() noexcept -> void
-{
-    m_qmlApplicationEngine.loadFromModule("SonixBeautyStudio", "Main");
+    std::invoke(&QQmlApplicationEngine::loadFromModule, m_qmlApplicationEngine, "SonixBeautyStudio", "Main");
 }
 
 auto QmlEngineManager::connectSignal2Slot() noexcept -> void
 {
+    connect(&m_qmlApplicationEngine, &QQmlApplicationEngine::objectCreationFailed, qApp, [] { QCoreApplication::exit(-1); }, Qt::QueuedConnection);
+    connect(&m_qmlApplicationEngine, &QQmlApplicationEngine::warnings, qApp, [](const QList<QQmlError>& _warnings) {   
+        for (const auto& _warning : _warnings) {
+            qWarning() <<_warning.toString();
+    } }, Qt::QueuedConnection);
 }
