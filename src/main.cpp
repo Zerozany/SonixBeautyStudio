@@ -10,10 +10,8 @@
 // #include "UsbManager.h"
 #endif
 
-// #include "MeasureKits.h"
-// #include "MeasureType.hpp"
-
 #include "LoggerMacro.hpp"
+#include "LogConfig.h"
 
 auto main(int argc, char* argv[]) -> int
 {
@@ -27,19 +25,14 @@ auto main(int argc, char* argv[]) -> int
 #elif defined(Q_OS_ANDROID)
 
 #endif
-    // MeasureKits measureKits{};
-    // qDebug() << measureKits.measure(Department::Obstetrics::BiparietalDiameter, 7.52);
-    // qDebug() << measureKits.measure(Department::Obstetrics::FemurLength, 5.24);
-    // qDebug() << measureKits.measure(Department::Obstetrics::AbdominalCircumference, 18.34);
-    // qDebug() << measureKits.measure(Department::Obstetrics::HeadCircumference, 16.26);
-    // qDebug() << measureKits.measure(Department::Obstetrics::CrownRumpLength, 5.60);
-    // qDebug() << measureKits.measure(Department::FetalWeight::Hadlock1, 18.34, 5.24);
-    // qDebug() << measureKits.measure(Department::FetalWeight::Hadlock2, 18.34, 5.24, 7.52);
 
     ApplicationManager::instance()->init();
     QGuiApplication       app{argc, argv};
     QQmlApplicationEngine engine{};
     QmlEngineManager::instance(engine)->init();
+
+    LogManager::instance()->init(LogConfig::instance()->logSavePath().toStdString());
+    LogManager::instance()->set_level(spdlog::level::trace);
 
     LOG_TRACE("---{}---", "LOG_TRACE");
     LOG_INFO("---{}---", "LOG_INFO");
