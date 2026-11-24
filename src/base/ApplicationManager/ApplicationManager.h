@@ -17,6 +17,8 @@ public:
 private:
     explicit(true) ApplicationManager(SoftwareManager* _parent = nullptr);
 
+    auto thirdConfig() noexcept -> void;
+
 private:
     SoftwareStyle m_applicationStyle{
         .WindowsStyle{"Material"},

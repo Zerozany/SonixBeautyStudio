@@ -10,12 +10,10 @@
 // #include "UsbManager.h"
 #endif
 
-// #include <QStandardPaths>
-// #include <QDir>
-// #include "LogManager.h"
-
 // #include "MeasureKits.h"
 // #include "MeasureType.hpp"
+
+#include "LoggerMacro.hpp"
 
 auto main(int argc, char* argv[]) -> int
 {
@@ -43,14 +41,12 @@ auto main(int argc, char* argv[]) -> int
     QQmlApplicationEngine engine{};
     QmlEngineManager::instance(engine)->init();
 
-    // #if defined(Q_OS_WINDOWS)
-    //     LogManager::instance()->init(QDir{QGuiApplication::applicationDirPath()}.filePath("log/SonixLog_1.txt").toStdString());
-    // #elif defined(Q_OS_ANDROID)
-    //     LogManager::instance()->init(QDir{QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation)}.filePath("log/SonixLog_1.txt").toStdString());
-    // #endif
-    //     LogManager::instance()->trace("Trace Test:{}", "No");
-    //     LogManager::instance()->debug("debug Test:{}", "No");
-    //     LogManager::instance()->error("---Test:{}", "Yes");
+    LOG_TRACE("---{}---", "LOG_TRACE");
+    LOG_INFO("---{}---", "LOG_INFO");
+    LOG_DEBUG("---{}---", "LOG_DEBUG");
+    LOG_WARN("---{}---", "LOG_WARN");
+    LOG_ERROR("---{}---", "LOG_ERROR");
+    LOG_CRITICAL("---{}---", "LOG_CRITICAL");
 
 #if defined(Q_OS_ANDROID)
     QNativeInterface::QAndroidApplication::hideSplashScreen(0);
