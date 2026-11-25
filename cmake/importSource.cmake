@@ -36,6 +36,7 @@ qt_add_qml_module(${PROJECT_NAME}
     SOURCES ${SOURCEFILES}
     RESOURCES ${RESOURCESLIST}
     DEPENDENCIES TARGET ${QMLMODULELIST}
+    NO_IMPORT_SCAN
 )
 
 qt_add_resources(${PROJECT_NAME} "configuration"
